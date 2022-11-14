@@ -136,6 +136,8 @@ function ReportVal(){
   if (GivenDate > CurrentDate) {
         alert("The Date must be Lesser or Equal to today date")
         return false;
+        
+        
     }
     
      var txtFrmDt1 = txtFrmDt.replace('-', ' ');
