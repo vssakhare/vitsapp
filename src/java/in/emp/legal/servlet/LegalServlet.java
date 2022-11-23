@@ -57,6 +57,8 @@ public class LegalServlet extends HttpServlet {
             populateVendorDetails(request, response);
         } else if (request.getParameter("actionName") != null && request.getParameter("actionName").equalsIgnoreCase("populateCaseRefDetails")) {
             populateCaseRefDetails(request, response);
+        } else if (request.getParameter("actionName") != null && request.getParameter("actionName").equalsIgnoreCase("populateCaseDetailsNew")) {
+            System.out.println("populateCaseDetailsNew");populateCaseDetailsNew(request, response);
         }
 
     }
@@ -132,6 +134,59 @@ public class LegalServlet extends HttpServlet {
         out.flush();
     }
 
+    private void populateCaseDetailsNew(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
+        PrintWriter out = response.getWriter();
+        JSONObject jSONObject = new JSONObject();
+        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        //legalInvoiceBean.setCASENOCOURT(request.getParameter("caseNo"));
+        legalInvoiceBean.setWhereClause("vendor");
+        List<LegalInvoiceBean> legalInvoiceBeanList = null;
+        try {
+            legalInvoiceBeanList = vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);
+        } catch (Exception ex) {
+            Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (legalInvoiceBeanList != null && legalInvoiceBeanList.size() > 0) {
+
+            /*jSONObject.put("CaseRefNo", legalInvoiceBeanList.get(0).getCASEREFNO());
+            jSONObject.put("CourtName", legalInvoiceBeanList.get(0).getCOURTNAME());
+            jSONObject.put("CaseDescription", legalInvoiceBeanList.get(0).getCASEDET());
+            jSONObject.put("PartyNames", legalInvoiceBeanList.get(0).getMsedclPartyName());
+            jSONObject.put("DealingOffice", legalInvoiceBeanList.get(0).getOfficeCode() + "-" + legalInvoiceBeanList.get(0).getOfficeName());
+            jSONObject.put("selectedOffieCode", legalInvoiceBeanList.get(0).getOfficeCode());
+            */FeeTypeBean bean = new FeeTypeBean();
+            bean.setCaseType(Integer.parseInt(legalInvoiceBeanList.get(0).getCASETYPE()));
+            try {
+                List<FeeTypeBean> feeTypeBeanList = vendorMgrObj.getLegalFeeType(bean);
+                String optionList = "";
+                for (FeeTypeBean feeType : feeTypeBeanList) {
+                    optionList += "<option value=" + feeType.getFeeType() + ">" + feeType.getFeeType() + "</option>";
+                }
+                //jSONObject.put("feeTypeList", optionList);
+            } catch (Exception ex) {
+                Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //out.print(jSONObject);
+        System.out.println("populateCaseDetailsNew");
+        out.print("<html><script>\n" +
+"function selectFunction() {"
+                + "//alert(document.querySelector('input[name=\"casenoradio\"]:checked').value);\n" + 
+                " window.opener.document.getElementById(\"txtCourtCaseNo\").value = document.querySelector('input[name=\"casenoradio\"]:checked').value;\n" +
+" window.opener.document.getElementById(\"txtCourtCaseNo\").focus();window.close();}\n" +
+"</script><body><input type='button' value='select' onclick='selectFunction();'><table class='table'><tr style=\"text-align:left\">"
+                + "<th></th><th>case no.</th><th>case ref. no.</th><th>filing date</th><th>office name</th>"
+                + "<th>court name</th><th>case type</th><th>case details</th><th>msedcl party name</th></tr>");
+        for (LegalInvoiceBean lib : legalInvoiceBeanList){
+            out.println("<tr><td><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+"'>"
+                    + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+lib.getDOF_LC()+"</td><td>"+lib.getOfficeName()+"</td><td>"
+                    +lib.getCOURTNAME()+"</td><td>"+lib.getCASETYPEDESC()+"</td><td>"+lib.getCASEDET()+"</td><td>"+lib.getMsedclPartyName()+"</td></tr>");
+        //out.println(lib.getCASEREFNO());
+    }out.print("</table></body></html>");
+        out.flush();
+    }
+    
     private void processVendorAutocompleteRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");

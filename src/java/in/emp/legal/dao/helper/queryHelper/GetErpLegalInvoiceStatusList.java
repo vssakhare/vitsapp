@@ -195,7 +195,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append(" ZLF.zzpark_post_date, ZLF.zzpay_done_erp_doc, ZLF.zzpay_doc_amt, ");
                 sql.append(" ZLF.zzfee_dt_of_payment, ZLF.zzfi_comp_code, ZLF.zzfi_fis_yr, ZLF.zzpost_date, ");
                 sql.append(" ZLF.zzpost_fiscal, ZLF.zzutr_no, ZLH.caseno, ZLH.casenocourt, CORTN.CORT_KEY ");
-                sql.append(" cort_key, CORTN.COURTNAMEDESC courtname, ZLH.cooffice_btrtl, ZLH.cooffice_text, ");
+                sql.append(" cort_key, nvl(CORTN.COURTNAMEDESC,'N.A.') courtname, ZLH.cooffice_btrtl, ZLH.cooffice_text, ");
                 sql.append(" ZLH.region_btrtl, ZLH.region_btrtl_text, ZLH.zzone_btrtl, ZLH.zzone_btrtl_text, ");
                 sql.append(" ZLH.circle_btrtl, ZLH.circle_btrtl_text, ZLH.division_btrtl, ");
                 sql.append(" ZLH.division_btrtl_text, ZLH.subdiv_btrtl, ZLH.subdiv_btrtl_text, ");
@@ -207,7 +207,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append(" ZLCT.casetypedesc, ");
                 sql.append(" ZLH.casedet,");
                 sql.append(" (CASE WHEN ZLH.CASESTAT_LC=0 THEN 10 ELSE  ZLH.CASESTAT_LC END)CASESTAT,");
-                sql.append(" ZLCS.casestatdesc,zmprt.MSEDCL_PARTY_NAME");
+                sql.append(" ZLCS.casestatdesc,nvl(zmprt.MSEDCL_PARTY_NAME,'N.A.') MSEDCL_PARTY_NAME");
                 sql.append(" from ");
                 sql.append(" ZHRT_LEGAL_H  ZLH,");
                 sql.append(" ZHRT_LEGAL_FEE ZLF,");
@@ -335,6 +335,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 
             }
             statement = connection.prepareStatement(sql.toString());
+            //System.out.println(sql.toString());
             if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")) {

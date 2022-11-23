@@ -394,11 +394,10 @@ String rejectReason="";
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
                                     <td  class="text-right h5">
-                                        <input autocomplete="off" type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%;" value="<%= courtCaseNo %>"  class="form-control" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/>  onblur="populateCaeseDetails();" <% if (Status == "") {
-                                            } else {
-                                                out.print("disabled='true'");
-                                            }%> /> 
-                                    </td>
+                                        <input readonly="true" type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%;" class="form-control" onfocus="populateCaeseDetails()" value=""/>
+                                    <input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
+                                           class="btn  btn-primary"/>
+                                            </td>
                                     <td colspan="2" class="text-right h5">Case Reference No.</td>
                                     <td> 
                                         <input name="txtCaseRefNo" id="txtCaseRefNo" type="text"  value ="<%= caseRefNo %>" size="20" class="form-control" maxlength="15" readonly />
@@ -1908,7 +1907,14 @@ String rejectReason="";
     
   } );
   
-  function populateCaeseDetails(){
+  function openSearcher(url){
+  var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew";
+  //alert(url);  
+  //window.open('erp?uiActionName=getSearchCourtCase',null,'height=500,width=400');
+  window.open(url,null,'height=400,width=1200');  
+  }
+
+    function populateCaeseDetails(){
   $.ajax({
                 url: "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetails"
                 +"&caseNo="+document.getElementById("txtCourtCaseNo").value,

@@ -12,7 +12,6 @@ import in.emp.arch.GenericFormHandler;
 import in.emp.common.ApplicationConstants;
 import in.emp.common.FileBean;
 import in.emp.common.UploadVendorFile;
-import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.system.dao.helpers.MultipartRequestParser;
 //import in.emp.vendor.VendorDelegate;
@@ -24,19 +23,11 @@ import in.emp.util.ApplicationUtils;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
-import in.emp.vendor.bean.PoLineStatusBean;
 import in.emp.vendor.bean.ProjBean;
 import in.emp.vendor.bean.VendorBean;
 import in.emp.vendor.bean.VendorInputBean;
 import in.emp.vendor.bean.VendorPrezData;
 import in.emp.vendor.manager.VendorManager;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,7 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 
 /**
  *
@@ -145,7 +135,10 @@ public class VendorHandler implements GenericFormHandler {
                     sReturnPage = viewClearingDetails(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_POST)) {
                     sReturnPage = postLegalInvoiceFile(request);
-                } /* else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_PO_LINE_DETAILS)) {
+                } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)) {
+                    System.out.println("::b4*******getCourtCaseSearch*********b4::");
+                    sReturnPage = getVendorSearchCourtCase(request);
+                }/* else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_PO_LINE_DETAILS)) {
                  sReturnPage = viewPOLineDetails(request);
                  } */ else {
                     sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
@@ -1420,6 +1413,10 @@ public class VendorHandler implements GenericFormHandler {
         }
         return sReturnPage;
     }
-
+    
+    private String getVendorSearchCourtCase(HttpServletRequest request) {
+        //System.out.println("::---------getCourtCaseSearch---------::");
+        return ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE;
+    }
 }//class ends
 

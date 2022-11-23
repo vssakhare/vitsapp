@@ -313,7 +313,11 @@
                 <success-page>/jsp/erp_view_file.jsp</success-page>
                 <error-page>/jsp/erp_view_file.jsp</error-page>
             </uiaction>
-            
+            <uiaction>
+                <action-name>getVendorSearchCourtCase</action-name>
+                <success-page>/jsp/erp_vendor_search_court_case.jsp</success-page>
+                <error-page>/jsp/erp_vendor_search_court_case.jsp</error-page>
+            </uiaction>
         </uiactions>
     </actionhandlerclass>
 
