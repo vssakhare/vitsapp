@@ -394,7 +394,7 @@ String rejectReason="";
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
                                     <td  class="text-right h5">
-                                        <input readonly="true" type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%;" class="form-control" onfocus="populateCaeseDetails()" value=""/>
+                                        <input readonly="true" type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%;" class="form-control" onfocus="populateCaeseDetails()" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
                                     <% if (flag==2) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
                                            class="btn  btn-primary"/><%}%>
                                             </td>
