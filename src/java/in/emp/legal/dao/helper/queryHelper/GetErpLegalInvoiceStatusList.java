@@ -335,7 +335,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 
             }
             statement = connection.prepareStatement(sql.toString());
-            //System.out.println(sql.toString());
+            System.out.println(sql.toString());
             if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")) {
@@ -355,6 +355,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
                 statement.setInt(2, legalInvoiceBean.getCASEREFNO());
             }
+            System.out.println(legalInvoiceBean.getWhereClause()+" "+legalInvoiceBean.getVENDOR().substring(1));
             rs = statement.executeQuery();
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getQueryResults() :: Exception :: " + ex);
