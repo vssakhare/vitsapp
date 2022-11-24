@@ -412,10 +412,10 @@
 <!--                                           <td width="7%"><center><%=PendingSince%></center></td> -->
                                            <% if (Status.equals("Accepted") ) {%>
                                           
-                                       <td><a href="#nogo" onclick="viewLegalEmpAppVerified('<%=ApplId%>','<%=InvoiceNum.toUpperCase().replaceAll("[^a-zA-Z0-9]", "")%>',' <%=UserNumber%>','<%=viewActionVerified%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                       <td><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>','<%=UserNumber%>', '<%=viewAction%>', '<%=Status%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                             
                                        <% } else{ %>
-                                            <td><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>', '<%=UserNumber%>', '<%=viewAction%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                            <td><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>', '<%=UserNumber%>', '<%=viewAction%>', '<%=Status%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                          <% } %>
                                              </tr>
                                            <% } %>

@@ -82,6 +82,14 @@ private String liabilityDocNo ;
     private String sectionText;
     private String subStationCode;
     private String subStationText;
+    
+    private String statusFee;
+    private String parkPostDocNo;
+    private String payDoneErpDoc ;
+    private String startPostDocNo;
+    private String startPayDoneErpDoc;
+
+   
 
     public String getSectionCode() {
         return sectionCode;
@@ -621,6 +629,44 @@ private String liabilityDocNo ;
         this.updatedTimeStamp = updatedTimeStamp;
     }
         
-        
+     public String getStatusFee() {
+        return statusFee;
+    }
+
+    public void setStatusFee(String statusFee) {
+        this.statusFee = statusFee;
+    }    
+    
+    public String getParkPostDocNo() {
+        return parkPostDocNo;
+    }
+
+    public void setParkPostDocNo(String parkPostDocNo) {
+        this.parkPostDocNo = parkPostDocNo;
+    }
+
+    public String getPayDoneErpDoc() {
+        return payDoneErpDoc;
+    }
+
+    public void setPayDoneErpDoc(String payDoneErpDoc) {
+        this.payDoneErpDoc = payDoneErpDoc;
+    }
+
+    public String getStartPostDocNo() {
+        return startPostDocNo;
+    }
+
+    public void setStartPostDocNo(String startPostDocNo) {
+        this.startPostDocNo = startPostDocNo;
+    }
+
+    public String getStartPayDoneErpDoc() {
+        return startPayDoneErpDoc;
+    }
+
+    public void setStartPayDoneErpDoc(String startPayDoneErpDoc) {
+        this.startPayDoneErpDoc = startPayDoneErpDoc;
+    }
 
 }

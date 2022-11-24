@@ -89,6 +89,11 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setSectionText(result.getString("SECTION_NAME"));
             legalInvoiceInputBean.setSubStationCode(result.getString("SUB_STATION_ID"));
             legalInvoiceInputBean.setSubStationText(result.getString("SUB_STATION_NAME"));
+            legalInvoiceInputBean.setStatusFee(result.getString("STATUS_FEE"));
+            legalInvoiceInputBean.setParkPostDocNo(result.getString("ZZPARK_POST_DOC_NO"));
+            legalInvoiceInputBean.setPayDoneErpDoc(result.getString("ZZPAY_DONE_ERP_DOC"));
+            legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
+            legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
             
 
         } catch (Exception ex) {
@@ -104,19 +109,36 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
         ResultSet rs = null;
         int i = 1;
         try {
+           String status= legalInvoiceInputBean.getSaveFlag();
+            System.out.println("status :" + legalInvoiceInputBean.getSaveFlag());
             logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getQueryResults() :: method called ::");
 //            sql.append(" SELECT * FROM ERP_LEGAL_INVOICE_STATUS ");
 //            sql.append("  SELECT * FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS ");
-sql.append(" select * from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
-sql.append(" where LD.dealing_office_code=OM.organization_id ");
-            if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
-                if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
-                    if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
+       
+  
+
+
+
+
+          
+         if (status != null && status.equalsIgnoreCase("Accepted")){
+             sql.append(" select LD.*,OM.*,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ," +
+"  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc"
+                     + " from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM , zhrt_legal_fee zf ");
+            sql.append(" where LD.dealing_office_code=OM.organization_id "
+                    + " and TO_NUMBER(LD.VENDOR_NUMBER)=zf.vendor" +
+                        " and  LD.CASE_REF_NO=zf.caserefno " +
+                        " and  LD.INVOICE_NUMBER=zf.invoice_legal " +
+                        " and  LD.INVOICE_DATE=zf.invoice_date " +
+                        " and  LD.FEE_TYPE=zf.adv_fee_type");
+                        if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
+                           if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
+                              if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
 //                        sql.append(" WHERE VENDOR_NUMBER=? ");
-sql.append(" AND VENDOR_NUMBER=? ");
+                                sql.append(" AND VENDOR_NUMBER=? ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
-sql.append(" AND APPL_ID=?  ");
+                                sql.append(" AND APPL_ID=?  ");
                     }
 //                    else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
 //                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
@@ -126,7 +148,7 @@ sql.append(" AND APPL_ID=?  ");
                 } else if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Emp")) {
                     if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
-sql.append(" AND APPL_ID=?  ");
+                        sql.append(" AND APPL_ID=?  ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
                         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
 //                            sql.append(" WHERE DEALING_OFFICE_CODE  IN (select h.organization_id from hr_all_organization_units h, ");
@@ -134,9 +156,9 @@ sql.append(" AND APPL_ID=?  ");
 //                            sql.append("          where h.organization_id=hr.sub_organization_id and hr.org_structure_version_id='61' ");
 //                            sql.append("          and hr.organization_id =?  and h1.organization_id=hr.organization_id )  ");
 //sql.append(" where dealing_office_code in(select organization_id from xxmis_organization_master m ");
-sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
-sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?)) ");
-                            sql.append(" AND (SAVE_FLAG in ('Submitted','Accepted','Returned') OR  (SAVE_FLAG='Saved' AND CREATED_BY_USERTYPE='Emp'))");
+                        sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
+                        sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?)) ");
+                                                    sql.append(" AND (SAVE_FLAG in ('Submitted','Accepted','Returned') OR  (SAVE_FLAG='Saved' AND CREATED_BY_USERTYPE='Emp'))");
                         }
                     }
                     
@@ -153,6 +175,64 @@ sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or 
 
             }
             sql.append(" ORDER BY APPL_ID DESC ");
+            
+         }
+
+
+
+         else{
+
+
+            sql.append(" select LD.*,OM.*, null as STATUS_FEE , null as ZZPARK_POST_DOC_NO,null as ZZPAY_DONE_ERP_DOC, " +
+" null as start_post_doc_no, null as start_pay_done_erp_doc from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
+            sql.append(" where LD.dealing_office_code=OM.organization_id ");
+                        if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
+                           if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
+                              if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
+//                        sql.append(" WHERE VENDOR_NUMBER=? ");
+                                sql.append(" AND VENDOR_NUMBER=? ");
+                    } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
+//                        sql.append(" WHERE APPL_ID=?  ");
+                                sql.append(" AND APPL_ID=?  ");
+                    }
+//                    else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
+//                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
+//                            sql.append(" WHERE DEALING_OFFICE_CODE=?  ");
+//                        }
+//                    }
+                } else if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Emp")) {
+                    if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
+//                        sql.append(" WHERE APPL_ID=?  ");
+                        sql.append(" AND APPL_ID=?  ");
+                    } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
+                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
+//                            sql.append(" WHERE DEALING_OFFICE_CODE  IN (select h.organization_id from hr_all_organization_units h, ");
+//                            sql.append("          hr_all_organization_units h1, hri_org_hrchy_summary hr ");
+//                            sql.append("          where h.organization_id=hr.sub_organization_id and hr.org_structure_version_id='61' ");
+//                            sql.append("          and hr.organization_id =?  and h1.organization_id=hr.organization_id )  ");
+//sql.append(" where dealing_office_code in(select organization_id from xxmis_organization_master m ");
+                        sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
+                        sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?)) ");
+                                                    sql.append(" AND (SAVE_FLAG in ('Submitted','Accepted','Returned') OR  (SAVE_FLAG='Saved' AND CREATED_BY_USERTYPE='Emp'))");
+                        }
+                    }
+                    
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
+                        sql.append(" AND VENDOR_NUMBER = ?  ");
+                    }
+//          if(!ApplicationUtils.isBlank(vendorBean.getVendorInvoiceNumber())){
+//           sql.append(" AND EVL.INVOICE_NUMBER = ?  ");
+//          }
+                    if (!((ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceFromDate())) && (ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceToDate())))) {
+                        sql.append(" AND INVOICE_DATE BETWEEN ? AND  ? ");
+                    }
+                }
+
+            }
+            sql.append(" ORDER BY APPL_ID DESC ");
+         }
+
+      
             statement = connection.prepareStatement(sql.toString());
             if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
                 if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
@@ -193,6 +273,8 @@ sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or 
                 }
             }
             System.out.println("sql::" + sql);
+            
+          
             rs = statement.executeQuery();
 
         } catch (Exception ex) {
