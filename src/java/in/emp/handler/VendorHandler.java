@@ -147,6 +147,7 @@ public class VendorHandler implements GenericFormHandler {
             logger.log(Level.INFO, "VendorHandler :: execute() :: sReturnPage :: " + sReturnPage);
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: execute() :: Exception :: " + ex);
+            ex.printStackTrace();
         }
 
         return sReturnPage;
@@ -1141,7 +1142,7 @@ public class VendorHandler implements GenericFormHandler {
         }
         legalInvoiceInputBean.setCreatedByUsertype(userType);
         
-        if (legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")){
+        if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")){
         String sapStatus=getLegalInvoiceStatusFromSAP(legalInvoiceInputBean);
         legalInvoiceInputBean.setSaveFlag(sapStatus);
         }

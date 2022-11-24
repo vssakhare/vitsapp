@@ -120,6 +120,7 @@ public class GetVendorInputFormDataQueryHelper implements QueryHelper {
             if(vendorInputBeanObj.getUserType().equals("Vendor")) {
             statement.setString(2, vendorInputBeanObj.getVendorNumber());
             }
+            System.out.println(sql.toString());
             rs = statement.executeQuery();
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetVendorInputFormDataQueryHelper :: getQueryResults() :: Exception :: " + ex);
