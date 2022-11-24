@@ -88,6 +88,9 @@ private String liabilityDocNo ;
     private String payDoneErpDoc ;
     private String startPostDocNo;
     private String startPayDoneErpDoc;
+     private String startPayDoneErpDoc1;
+
+   
 
    
 
@@ -667,6 +670,14 @@ private String liabilityDocNo ;
 
     public void setStartPayDoneErpDoc(String startPayDoneErpDoc) {
         this.startPayDoneErpDoc = startPayDoneErpDoc;
+    }
+    
+     public String getStartPayDoneErpDoc1() {
+        return startPayDoneErpDoc1;
+    }
+
+    public void setStartPayDoneErpDoc1(String startPayDoneErpDoc1) {
+        this.startPayDoneErpDoc1 = startPayDoneErpDoc1;
     }
 
 }

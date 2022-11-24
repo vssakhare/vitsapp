@@ -94,7 +94,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setPayDoneErpDoc(result.getString("ZZPAY_DONE_ERP_DOC"));
             legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
             legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
-            
+            legalInvoiceInputBean.setStartPayDoneErpDoc1(result.getString("start_pay_done_erp_doc1"));
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getDataObject() :: Exception :: " + ex);
@@ -123,7 +123,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
           
          if (status != null && status.equalsIgnoreCase("Accepted")){
              sql.append(" select LD.*,OM.*,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ," +
-"  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc"
+"  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc , substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1"
                      + " from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM , zhrt_legal_fee zf ");
             sql.append(" where LD.dealing_office_code=OM.organization_id "
                     + " and TO_NUMBER(LD.VENDOR_NUMBER)=zf.vendor" +
@@ -184,7 +184,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
 
             sql.append(" select LD.*,OM.*, null as STATUS_FEE , null as ZZPARK_POST_DOC_NO,null as ZZPAY_DONE_ERP_DOC, " +
-" null as start_post_doc_no, null as start_pay_done_erp_doc from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
+" null as start_post_doc_no, null as start_pay_done_erp_doc , null as start_pay_done_erp_doc1 from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
             sql.append(" where LD.dealing_office_code=OM.organization_id ");
                         if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
                            if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {

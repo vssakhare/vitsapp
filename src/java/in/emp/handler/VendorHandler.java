@@ -1175,7 +1175,7 @@ public class VendorHandler implements GenericFormHandler {
              sapStatus="Payment Done";
         }
         
-       else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("020")){
+       else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc1().equals("020")){
              sapStatus="Payment Adjusted";
         }
         
