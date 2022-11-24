@@ -1114,6 +1114,7 @@ public class VendorHandler implements GenericFormHandler {
 //            legalInvoiceInputBean.setVendorNumber(vendorInputForm.getVendorNumber());
 //            
 //        }
+           legalInvoiceInputBean.setSaveFlag(request.getParameter("status"));
         if (request.getParameter("AppId") != null) {
             ApplID = (String) request.getParameter("AppId");
             legalInvoiceInputBean.setApplId(Integer.parseInt(ApplID));
@@ -1146,6 +1147,11 @@ public class VendorHandler implements GenericFormHandler {
             FileList = vendorapplFileMgrObj.getVendorLegalApplFileList(vendorapplFileBeanObj);
         }
         legalInvoiceInputBean.setCreatedByUsertype(userType);
+        
+        if (legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")){
+        String sapStatus=getLegalInvoiceStatusFromSAP(legalInvoiceInputBean);
+        legalInvoiceInputBean.setSaveFlag(sapStatus);
+        }
 //         if (module.equals("PS")) {
 //                vendorInputBeanObj = vendorMgrObj.getVendorPsInputForm(vendorInputBeanObj);
 //                vendorPrezDataObj.setVendorInputBean(vendorInputBeanObj);
@@ -1163,7 +1169,30 @@ public class VendorHandler implements GenericFormHandler {
         request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, FileList);
         return sReturnPage;
     }
-
+    private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){
+        String sapStatus="";
+        if (liBean.getStatusFee().equalsIgnoreCase("Submitted")&& liBean.getParkPostDocNo()== null){
+            sapStatus="Invoice Pending at Accounts";
+        }
+        else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getPayDoneErpDoc() == null){
+             sapStatus="Invoice Pending for Payment";
+        }
+        
+       else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("17")){
+             sapStatus="Payment Done";
+        }
+        
+       else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("020")){
+             sapStatus="Payment Adjusted";
+        }
+        
+      else  if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("12")){
+             sapStatus="Payment Document Reversed";
+        }
+        
+               
+      return  sapStatus;
+    }
     private String getVendorLegalInvoiceInputList(HttpServletRequest request) {
         String sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST;
         System.out.println("getVendorLegalInvoiceInputList");
