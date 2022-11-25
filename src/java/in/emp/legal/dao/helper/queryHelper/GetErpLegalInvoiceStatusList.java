@@ -180,12 +180,13 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
     public ResultSet getQueryResults(Connection connection) throws Exception {
         PreparedStatement statement = null;
         StringBuilder sql = new StringBuilder();
+        //System.out.println("getQueryResults of GetErpLegalInvoiceStatusList");
         ResultSet rs = null;
         int i = 1;
         try {
             logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getQueryResults() :: method called ::");
 //            sql.append(" SELECT * FROM ERP_LEGAL_INVOICE_STATUS ");
-            if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseRefNo")) {
+            if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseRefNo") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
                 sql.append(" select  ZLH.caserefno, ZLH.year_l, ZLH.dof_lc, ZLF.vendor, ZLF.invoice_legal, ");
                 sql.append(" ZLF.adv_fee_type, ZLF.invoice_date, ZLF.advocate_name, ZLF.advocate_type, ");
                 sql.append(" ZLF.invoice_amount, ZLF.reciept_date, ZLF.fee_recommended, ");
@@ -251,6 +252,8 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                     sql.append(" AND VENDOR=? AND CASENOCOURT=?");
                 } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseRefNo")) {
                     sql.append(" AND VENDOR=? AND ZLH.caserefno=?");
+                } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
+                    sql.append(" AND VENDOR=? AND CASENOCOURT LIKE ('%' || ? || '%')");
                 }
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("Emp")) {
 //                sql.append(" select  distinct null caserefno, null year_l, null dof_lc, ZLF.vendor, null  ");
@@ -335,10 +338,10 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 
             }
             statement = connection.prepareStatement(sql.toString());
-            System.out.println(sql.toString());
+            //System.out.println(sql.toString());
             if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
-            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")) {
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")|| legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
                 statement.setString(2, legalInvoiceBean.getCASENOCOURT());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("Emp")) {
@@ -355,7 +358,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
                 statement.setInt(2, legalInvoiceBean.getCASEREFNO());
             }
-            System.out.println(legalInvoiceBean.getWhereClause()+" "+legalInvoiceBean.getVENDOR().substring(1));
+            //System.out.println(legalInvoiceBean.getWhereClause()+" "+legalInvoiceBean.getVENDOR().substring(1)+" "+legalInvoiceBean.getCASEREFNO());
             rs = statement.executeQuery();
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getQueryResults() :: Exception :: " + ex);

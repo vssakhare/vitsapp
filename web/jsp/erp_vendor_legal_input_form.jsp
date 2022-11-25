@@ -394,7 +394,7 @@ String rejectReason="";
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
                                     <td  class="text-right h5">
-                                        <input readonly="true" type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%;" class="form-control" onfocus="populateCaeseDetails()" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type and click Search button" id="txtCourtCaseNo" style="width: 100%;" class="form-control" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
                                     <% if (flag==2) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
                                            class="btn  btn-primary"/><%}%>
                                             </td>
@@ -430,12 +430,25 @@ String rejectReason="";
                                        placeholder="Type and search or use space-bar" onblur="populateDealingOffice();" /> </td>
                                 <%}%>
 
-                                <td class="text-right h5" colspan="2">Party Names</td>
+                                <td class="text-right h5" colspan="2">Case Type</td>
                                 <td > 
-                                    <input name="txtPartyNames" id="txtPartyNames" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= partyNames %>"/> 
+                                    <input name="txtPartyNames" id="txtPartyNames" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= caseDescription %>"/> 
                                 </td>
 
                                 </tr>
+                                
+                                <tr>
+                                <td class="text-right h5" >Party Name</td>
+                                <td>
+                                    <input type="text" class="form-control text-left" name="txtCourtName" id="txtCourtName" style="width: 100%;" readonly value ="<%= courtName %>" /> 
+                                </td>
+
+                                <td class="text-right h5" colspan="2">v/s Party Name</td>
+                                <td > 
+                                    <input name="txtCaseDescription" id="txtCaseDescription" type="text" class="form-control" size="20" style="width: 100%;"   readonly value ="<%= caseDescription %>"/> 
+                                </td>
+                                </tr>
+                                
                                 <tr>
                                     
                                     <td class="text-right h5">Fee type</td>
@@ -480,7 +493,7 @@ String rejectReason="";
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
                                     <td  class="text-right h5">
-                                        <input autocomplete="off" type="text" name="txtCourtCaseNoWithout" id="txtCourtCaseNoWithout" style="width: 100%;" value="<%= courtCaseNo %>"  class="form-control"  placeholder=<fmt:message key='"Type and search or use space-bar"'/>  onblur="populateCaeseDetails();" <% if (Status == "") {
+                                        <input autocomplete="off" type="text" name="txtCourtCaseNoWithout" id="txtCourtCaseNoWithout" style="width: 100%;" value="<%= courtCaseNo %>"  class="form-control"  placeholder=<fmt:message key='"Type and search or use space-bar"'/> " <% if (Status == "") {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /> 
@@ -1908,16 +1921,16 @@ String rejectReason="";
   } );
   
   function openSearcher(url){
-  var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew";
+  var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew"+"&caseNo="+document.getElementById("txtCourtCaseNo").value;
   //alert(url);  
   //window.open('erp?uiActionName=getSearchCourtCase',null,'height=500,width=400');
   window.open(url,null,'height=400,width=1200');  
   }
 
-    function populateCaeseDetails(){
+    function populateCaeseDetails(){//alert(document.getElementById("txtCaseRefNo").value);
   $.ajax({
                 url: "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetails"
-                +"&caseNo="+document.getElementById("txtCourtCaseNo").value,
+                +"&caseRefNo="+document.getElementById("txtCaseRefNo").value,
                 dataType: "json",
                 //data: request,
                 success: function( data, textStatus, jqXHR) {

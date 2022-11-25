@@ -101,8 +101,10 @@ public class LegalServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject jSONObject = new JSONObject();
         legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
-        legalInvoiceBean.setCASENOCOURT(request.getParameter("caseNo"));
-        legalInvoiceBean.setWhereClause("vendorCaseNo");
+        legalInvoiceBean.setCASEREFNO(Integer.valueOf(request.getParameter("caseRefNo")));
+        //System.out.println("populateCaseDetails");
+        System.out.println("caseRefNo"+request.getParameter("caseRefNo"));
+        legalInvoiceBean.setWhereClause("vendorCaseRefNo");
         List<LegalInvoiceBean> legalInvoiceBeanList = null;
         try {
             legalInvoiceBeanList = vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);
@@ -139,8 +141,8 @@ public class LegalServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject jSONObject = new JSONObject();
         legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
-        //legalInvoiceBean.setCASENOCOURT(request.getParameter("caseNo"));
-        legalInvoiceBean.setWhereClause("vendor");
+        legalInvoiceBean.setCASENOCOURT(request.getParameter("caseNo"));
+        legalInvoiceBean.setWhereClause("vendorCaseNoNew");
         List<LegalInvoiceBean> legalInvoiceBeanList = null;
         try {
             legalInvoiceBeanList = vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);
@@ -173,13 +175,15 @@ public class LegalServlet extends HttpServlet {
         out.print("<html><script>\n" +
 "function selectFunction() {"
                 + "//alert(document.querySelector('input[name=\"casenoradio\"]:checked').value);\n" + 
-                " window.opener.document.getElementById(\"txtCourtCaseNo\").value = document.querySelector('input[name=\"casenoradio\"]:checked').value;\n" +
-" window.opener.document.getElementById(\"txtCourtCaseNo\").focus();window.close();}\n" +
-"</script><body><input type='button' value='select' onclick='selectFunction();'><table class='table'><tr style=\"text-align:left\">"
+                " var x = document.querySelector('input[name=\"casenoradio\"]:checked').value.split('|');//alert(x[0]+' '+x[1]);\n"
+                + "window.opener.document.getElementById(\"txtCourtCaseNo\").value = x[0];\n"
+                + "window.opener.document.getElementById(\"txtCaseRefNo\").value = x[1];\n" +
+" window.opener.document.getElementById(\"txtCourtCaseNo\").focus();window.opener.populateCaeseDetails();\n" + " window.close();}\n" +
+"</script><body><input type='button' value='Select' onclick='selectFunction();'><table><thead style=\"background-color: lightblue; position: sticky; top:0\"><tr style=\"text-align:left\">"
                 + "<th></th><th>case no.</th><th>case ref. no.</th><th>filing date</th><th>office name</th>"
-                + "<th>court name</th><th>case type</th><th>case details</th><th>msedcl party name</th></tr>");
+                + "<th>court name</th><th>case type</th><th>case details</th><th>msedcl party name</th></tr></thead>");
         for (LegalInvoiceBean lib : legalInvoiceBeanList){
-            out.println("<tr><td><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+"'>"
+            out.println("<tr><td><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+'|'+lib.getCASEREFNO()+"'>"
                     + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+lib.getDOF_LC()+"</td><td>"+lib.getOfficeName()+"</td><td>"
                     +lib.getCOURTNAME()+"</td><td>"+lib.getCASETYPEDESC()+"</td><td>"+lib.getCASEDET()+"</td><td>"+lib.getMsedclPartyName()+"</td></tr>");
         //out.println(lib.getCASEREFNO());
