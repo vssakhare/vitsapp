@@ -1166,10 +1166,10 @@ public class VendorHandler implements GenericFormHandler {
     private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){
         String sapStatus="";
         if (liBean.getStatusFee().equalsIgnoreCase("Submitted")&& liBean.getParkPostDocNo()== null){
-            sapStatus="Invoice Pending at Accounts";
+            sapStatus="With Accounts";
         }
         else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getPayDoneErpDoc() == null){
-             sapStatus="Invoice Pending for Payment";
+             sapStatus="With Cash";
         }
         
        else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("17")){

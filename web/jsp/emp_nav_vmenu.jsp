@@ -37,7 +37,7 @@
                         </h5>
                     </div>
                     <div id="collapseVendorInfo" class="panel-collapse collapse" style="line-height: 2;">
-                       <div class="panel-menu" id="M1I1">
+                     <!--    <div class="panel-menu" id="M1I1">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDORINPUT_LIST)%>" title=""><fmt:message key='Submit Vendor Invoice'/></a>
                         </div>
                          <div class="panel-menu" id="M1I2">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="panel-menu" id="M1I4">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.REPORT_MSEDCL_VENDOR)%>" title=""><fmt:message key='Vendor Reports'/></a>
-                        </div>
+                        </div> -->
                         <div class="panel-menu" id="M1I5">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST)%>" title=""><fmt:message key='Submit Legal Invoices'/></a>
                         </div>
