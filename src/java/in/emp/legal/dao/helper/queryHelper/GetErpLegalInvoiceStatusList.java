@@ -102,6 +102,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 legalInvoiceBean.setOfficeCode((result.getString("OFFICE_CODE")));
                 legalInvoiceBean.setOfficeName((result.getString("OFFICE_NAME")));
                 legalInvoiceBean.setMsedclPartyName(result.getString("MSEDCL_PARTY_NAME"));
+                legalInvoiceBean.setVsPartyName(result.getString("VS_PARTY_NAME"));
             }
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getDataObject() :: Exception :: " + ex);
@@ -208,7 +209,8 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append(" ZLCT.casetypedesc, ");
                 sql.append(" ZLH.casedet,");
                 sql.append(" (CASE WHEN ZLH.CASESTAT_LC=0 THEN 10 ELSE  ZLH.CASESTAT_LC END)CASESTAT,");
-                sql.append(" ZLCS.casestatdesc,nvl(zmprt.MSEDCL_PARTY_NAME,'N.A.') MSEDCL_PARTY_NAME");
+                sql.append(" ZLCS.casestatdesc,nvl(zmprt.MSEDCL_PARTY_NAME,'N.A.') MSEDCL_PARTY_NAME,");
+                sql.append(" nvl(zmvsprt.VS_PARTY_NAME,'N.A.') VS_PARTY_NAME");
                 sql.append(" from ");
                 sql.append(" ZHRT_LEGAL_H  ZLH,");
                 sql.append(" ZHRT_LEGAL_FEE ZLF,");
@@ -227,14 +229,18 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append(" (SELECT CASEREFNO,LISTAGG(VS,',') WITHIN GROUP (ORDER BY TO_NUMBER(SRNO)) MSEDCL_PARTY_NAME");
                 sql.append(" FROM ZHRT_MSEDCL_PRTY ");
                 sql.append(" GROUP BY CASEREFNO ");
-                sql.append(" )ZMPRT ");
+                sql.append(" )ZMPRT, ");
+                sql.append(" (SELECT CASEREFNO,LISTAGG(VS,',') WITHIN GROUP (ORDER BY TO_NUMBER(SRNO)) VS_PARTY_NAME");
+                sql.append(" FROM ZHRT_LE_PARTY ");
+                sql.append(" GROUP BY CASEREFNO ");
+                sql.append(" )ZMVSPRT ");
                 sql.append(" WHERE ZLH.CASEREFNO=ZLF.CASEREFNO(+) ");
                 sql.append(" AND  ZLH.CASEREFNO=CORTN.CASEREFNO(+) ");
                 sql.append(" AND  (CASE WHEN ZLH.CASETYPE=0 THEN 60 ELSE ZLH.CASETYPE END)=ZLCT.CASETYPE(+) ");
                 sql.append(" AND  (CASE WHEN ZLH.CASESTAT_LC=0 THEN 10 ELSE  ZLH.CASESTAT_LC END)=ZLCS.CASESTAT ");
                 sql.append(" AND ZLH.CASEREFNO=ZLVF.CASEREFNO(+) ");
                 sql.append(" and orgm.organization_id=locm.org_id ");
-                sql.append(" AND ZLH.CASEREFNO=ZMPRT.CASEREFNO(+) ");
+                sql.append(" AND ZLH.CASEREFNO=ZMPRT.CASEREFNO(+) AND ZLH.CASEREFNO = ZMVSPRT.CASEREFNO (+) ");
                 sql.append(" and lOCM.Personal_Area=(case when ZLH.cooffice_btrtl is not null then '0001' ");
                 sql.append("      when ZLH.region_btrtl  is not null  then '0002' ");
                 sql.append("      when ZLH.zzone_btrtl   is not null  then '0003' ");

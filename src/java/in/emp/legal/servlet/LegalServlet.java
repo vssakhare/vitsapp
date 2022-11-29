@@ -13,6 +13,7 @@ import in.emp.vendor.bean.VendorInputBean;
 import in.emp.vendor.manager.VendorManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,7 +59,7 @@ public class LegalServlet extends HttpServlet {
         } else if (request.getParameter("actionName") != null && request.getParameter("actionName").equalsIgnoreCase("populateCaseRefDetails")) {
             populateCaseRefDetails(request, response);
         } else if (request.getParameter("actionName") != null && request.getParameter("actionName").equalsIgnoreCase("populateCaseDetailsNew")) {
-            System.out.println("populateCaseDetailsNew");populateCaseDetailsNew(request, response);
+            populateCaseDetailsNew(request, response);
         }
 
     }
@@ -116,7 +117,9 @@ public class LegalServlet extends HttpServlet {
             jSONObject.put("CaseRefNo", legalInvoiceBeanList.get(0).getCASEREFNO());
             jSONObject.put("CourtName", legalInvoiceBeanList.get(0).getCOURTNAME());
             jSONObject.put("CaseDescription", legalInvoiceBeanList.get(0).getCASEDET());
+            jSONObject.put("CaseTypeDesc", legalInvoiceBeanList.get(0).getCASETYPEDESC());
             jSONObject.put("PartyNames", legalInvoiceBeanList.get(0).getMsedclPartyName());
+            jSONObject.put("VsPartyNames", legalInvoiceBeanList.get(0).getVsPartyName());
             jSONObject.put("DealingOffice", legalInvoiceBeanList.get(0).getOfficeCode() + "-" + legalInvoiceBeanList.get(0).getOfficeName());
             jSONObject.put("selectedOffieCode", legalInvoiceBeanList.get(0).getOfficeCode());
             FeeTypeBean bean = new FeeTypeBean();
@@ -171,7 +174,7 @@ public class LegalServlet extends HttpServlet {
             }
         }
         //out.print(jSONObject);
-        System.out.println("populateCaseDetailsNew");
+        //System.out.println("populateCaseDetailsNew");
         out.print("<html><script>\n" +
 "function selectFunction() {"
                 + "//alert(document.querySelector('input[name=\"casenoradio\"]:checked').value);\n" + 
@@ -184,7 +187,7 @@ public class LegalServlet extends HttpServlet {
                 + "<th>court name</th><th>case type</th><th>case details</th><th>msedcl party name</th></tr></thead>");
         for (LegalInvoiceBean lib : legalInvoiceBeanList){
             out.println("<tr><td><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+'|'+lib.getCASEREFNO()+"'>"
-                    + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+lib.getDOF_LC()+"</td><td>"+lib.getOfficeName()+"</td><td>"
+                    + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+new SimpleDateFormat("dd/MM/yyyy").format(lib.getDOF_LC())+"</td><td>"+lib.getOfficeName()+"</td><td>"
                     +lib.getCOURTNAME()+"</td><td>"+lib.getCASETYPEDESC()+"</td><td>"+lib.getCASEDET()+"</td><td>"+lib.getMsedclPartyName()+"</td></tr>");
         //out.println(lib.getCASEREFNO());
     }out.print("</table></body></html>");

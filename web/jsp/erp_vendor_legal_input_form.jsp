@@ -79,6 +79,7 @@ if (request.getSession().getAttribute("LegalVendorInputForm") != null) {
     String caseRefNo = "";
     String courtName = "";
     String caseDescription = "";
+    String caseTypeDesc = "";
     Date sysdate = new Date();
     String VendorInvoiceDt = "";
     String VendorInwardDate = "";
@@ -98,6 +99,7 @@ if (request.getSession().getAttribute("LegalVendorInputForm") != null) {
     String VendorNum = "";
     String VendorName = "";
     String partyNames = "";
+    String vsPartyNames = "";
     String dealingOffice = "";
     String Office_Code = "";
     String Designation = "";
@@ -150,13 +152,19 @@ String rejectReason="";
             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseDescription())) {
             caseDescription = legalInvoiceInputBean.getCaseDescription()+"";
         }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDealingOfficeCode())) {
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseTypeDesc())) {
+            caseTypeDesc = legalInvoiceInputBean.getCaseTypeDesc()+"";
+        }   
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDealingOfficeCode())) {
             dealingOffice = legalInvoiceInputBean.getDealingOfficeName();
         }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
             partyNames = legalInvoiceInputBean.getPartyNames()+"";
         }
-              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVsPartyNames())) {
+            vsPartyNames = legalInvoiceInputBean.getVsPartyNames()+"";
+        }
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
             feeType = legalInvoiceInputBean.getFeeType()+"";
         }
              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
@@ -394,7 +402,7 @@ String rejectReason="";
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
                                     <td  class="text-right h5">
-                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type and click Search button" id="txtCourtCaseNo" style="width: 100%;" class="form-control" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" class="form-control" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
                                     <% if (flag==2) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
                                            class="btn  btn-primary"/><%}%>
                                             </td>
@@ -432,7 +440,7 @@ String rejectReason="";
 
                                 <td class="text-right h5" colspan="2">Case Type</td>
                                 <td > 
-                                    <input name="txtPartyNames" id="txtPartyNames" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= caseDescription %>"/> 
+                                    <input name="txtCaseType" id="txtCaseType" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= caseTypeDesc %>"/> 
                                 </td>
 
                                 </tr>
@@ -440,12 +448,12 @@ String rejectReason="";
                                 <tr>
                                 <td class="text-right h5" >Party Name</td>
                                 <td>
-                                    <input type="text" class="form-control text-left" name="txtCourtName" id="txtCourtName" style="width: 100%;" readonly value ="<%= courtName %>" /> 
+                                    <input type="text" class="form-control text-left" name="txtPartyNames" id="txtPartyNames" style="width: 100%;" readonly value ="<%= partyNames %>" /> 
                                 </td>
 
                                 <td class="text-right h5" colspan="2">v/s Party Name</td>
                                 <td > 
-                                    <input name="txtCaseDescription" id="txtCaseDescription" type="text" class="form-control" size="20" style="width: 100%;"   readonly value ="<%= caseDescription %>"/> 
+                                    <input name="txtVsPartyNames" id="txtVsPartyNames" type="text" class="form-control" size="20" style="width: 100%;"   readonly value ="<%= vsPartyNames %>"/> 
                                 </td>
                                 </tr>
                                 
@@ -1924,7 +1932,7 @@ String rejectReason="";
   var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew"+"&caseNo="+document.getElementById("txtCourtCaseNo").value;
   //alert(url);  
   //window.open('erp?uiActionName=getSearchCourtCase',null,'height=500,width=400');
-  window.open(url,null,'height=400,width=1200');  
+  window.open(url,null,'height=400,width=1000');  
   }
 
     function populateCaeseDetails(){//alert(document.getElementById("txtCaseRefNo").value);
@@ -1937,7 +1945,9 @@ String rejectReason="";
                      $('#txtCaseRefNo').val(data.CaseRefNo);
                      $('#txtCourtName').val(data.CourtName);
                      $('#txtCaseDescription').val(data.CaseDescription);
+                     $('#txtCaseType').val(data.CaseTypeDesc);
                      $('#txtPartyNames').val(data.PartyNames);
+                     $('#txtVsPartyNames').val(data.VsPartyNames);
                      $('#txtDealingOffice').val(data.DealingOffice);
                      $("#selectedOffieCode").val(data.selectedOffieCode);
                      $("#feeTypeSelect").html(data.feeTypeList);

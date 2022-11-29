@@ -41,7 +41,7 @@
                        <!-- <p><fmt:message key='Office Name'/>: <%=session.getAttribute(ApplicationConstants.OFFICE_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.OFFICE_NAME_SESSION)%></p> -->
                     <% } %>
                    
-                    <p><a href="/lvits/erp?uiActionName=postlogin" class="btn-default"><fmt:message key='Logout'/></a></p>
+                    <p><a href="/legalInvoiceTracking/erp?uiActionName=postlogin" class="btn-default"><fmt:message key='Logout'/></a></p>
                      <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %>
                      <p><fmt:message key='Download Manual'/> <a href="/VendorBillTracking/pdfFiles/Vendorreportmanual.pdf" class="btn-default"><fmt:message key='Click here'/>!!!</a></p>
                     <% } %>

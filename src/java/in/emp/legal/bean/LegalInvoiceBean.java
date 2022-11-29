@@ -76,6 +76,7 @@ public class LegalInvoiceBean implements java.io.Serializable{
         private String officeName;
         private String locationId;
         private String msedclPartyName;
+        private String vsPartyName;
 
     public String getMsedclPartyName() {
         return msedclPartyName;
@@ -85,7 +86,13 @@ public class LegalInvoiceBean implements java.io.Serializable{
         this.msedclPartyName = msedclPartyName;
     }
         
-        
+    public String getVsPartyName() {
+        return vsPartyName;
+    }
+
+    public void setVsPartyName(String vsPartyName) {
+        this.vsPartyName = vsPartyName;
+    }    
 
     public String getLocationId() {
         return locationId;

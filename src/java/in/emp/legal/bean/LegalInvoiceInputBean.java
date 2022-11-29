@@ -18,10 +18,12 @@ public class LegalInvoiceInputBean implements java.io.Serializable{
 	private String courtCaseNo  ; 
 	private String caseRefNo ;  
 	private String courtName   ;
-	private String caseDescription;   
+	private String caseDescription;
+        private String caseTypeDesc;
 	private String dealingOfficeCode   ;
 	private String dealingOfficeName;   
-	private String partyNames  ; 
+	private String partyNames  ;
+        private String vsPartyNames  ;
 	private String invoiceNumber ;  
 	private Date invoiceDate ; 
 	private String invoiceAmount ; 
@@ -496,6 +498,14 @@ private String liabilityDocNo ;
         this.caseDescription = caseDescription;
     }
 
+    public String getCaseTypeDesc() {
+        return caseTypeDesc;
+    }
+
+    public void setCaseTypeDesc(String caseTypeDesc) {
+        this.caseTypeDesc = caseTypeDesc;
+    }
+    
     public String getDealingOfficeCode() {
         return dealingOfficeCode;
     }
@@ -520,6 +530,14 @@ private String liabilityDocNo ;
         this.partyNames = partyNames;
     }
 
+    public String getVsPartyNames() {
+        return vsPartyNames;
+    }
+
+    public void setVsPartyNames(String vsPartyNames) {
+        this.vsPartyNames = vsPartyNames;
+    }
+    
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
