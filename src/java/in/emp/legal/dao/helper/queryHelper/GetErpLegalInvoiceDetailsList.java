@@ -183,9 +183,13 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
          else{
 
 
-            sql.append(" select LD.*,OM.*, null as STATUS_FEE , null as ZZPARK_POST_DOC_NO,null as ZZPAY_DONE_ERP_DOC, " +
-" null as start_post_doc_no, null as start_pay_done_erp_doc , null as start_pay_done_erp_doc1 from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
-            sql.append(" where LD.dealing_office_code=OM.organization_id ");
+            sql.append(" select LD.*,OM.*,  zf.status_fee,zf.zzpark_post_doc_no,   zf.zzpay_done_erp_doc, substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no,    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc, "+
+            "  substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1 "+
+            " from  xxmis_erp_legal_invoice_details ld" +
+            "  left join  xxmis_organization_master om on  ld.dealing_office_code = om.organization_id " +
+            "  left join  zhrt_legal_fee zf on   to_number(ld.vendor_number) = zf.vendor  AND ld.case_ref_no = zf.caserefno" +
+            "   AND ld.invoice_number = zf.invoice_legal AND ld.invoice_date = zf.invoice_date   AND ld.fee_type = zf.adv_fee_type ");
+        
                         if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
                            if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
                               if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
@@ -276,6 +280,9 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             
           
             rs = statement.executeQuery();
+          
+            
+            
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getQueryResults() :: Exception :: " + ex);

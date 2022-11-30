@@ -407,7 +407,7 @@
                                             <% if (Status.equals("Verified")) {%>
                                              <td width="12%"><%=Invoice_Status%></td> 
                                              <% } else{%>
-                                             <td width="12%"></td> 
+                                             <td width="12%"><%=Invoice_Status%></td> 
                                              <% } %>
 <!--                                           <td width="7%"><center><%=PendingSince%></center></td> -->
                                            <% if (Status.equals("Accepted") ) {%>

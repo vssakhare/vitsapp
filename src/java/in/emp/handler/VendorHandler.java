@@ -1165,24 +1165,28 @@ public class VendorHandler implements GenericFormHandler {
     }
     private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){
         String sapStatus="";
-        if (liBean.getStatusFee().equalsIgnoreCase("Submitted")&& liBean.getParkPostDocNo()== null){
+    if (liBean.getStatusFee() != null && liBean.getStatusFee().equalsIgnoreCase("Submitted")&& liBean.getParkPostDocNo()== null){
             sapStatus="With Accounts";
         }
-        else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getPayDoneErpDoc() == null){
+        else if (liBean.getStartPostDocNo() != null &&(liBean.getStartPostDocNo().equals("16" )) && liBean.getPayDoneErpDoc() == null){
              sapStatus="With Cash";
         }
         
-       else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("17")){
+       else if (liBean.getStartPostDocNo() != null && (liBean.getStartPostDocNo().equals("16" ))&& liBean.getStartPayDoneErpDoc() !=null && liBean.getStartPayDoneErpDoc().equals("17")){
              sapStatus="Payment Done";
         }
         
-       else if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc1().equals("020")){
+       else if (liBean.getStartPostDocNo() != null && (liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc() !=null && liBean.getStartPayDoneErpDoc1().equals("020")){
              sapStatus="Payment Adjusted";
         }
         
-      else  if ((liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc().equals("12")){
+      else  if (liBean.getStartPostDocNo() != null && (liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc() !=null && liBean.getStartPayDoneErpDoc().equals("12")){
              sapStatus="Payment Document Reversed";
         }
+      else {
+       sapStatus="With Technical/Legal";
+      }
+        
         
                
       return  sapStatus;

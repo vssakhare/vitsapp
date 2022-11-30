@@ -1051,12 +1051,56 @@ try {
             logger.log(Level.INFO, "OracleVendorDao ::: getCourtCaseDetailsForVendor() :: method called ::    ");
             list=(LinkedList<LegalInvoiceInputBean>)getObjectList(new GetErpLegalInvoiceDetailsList(legalInvoiceInputBean));
             // leaveapplFormBeanObj = (VendorBean) getDataObject(new GetVendorQueryHelper(leaveapplFormBeanObj));
+            
+             for (int i = 0; i < list.size(); i++) {
+                 LegalInvoiceInputBean lBean=list.get(i);
+           String sapStatus=getLegalInvoiceStatusFromSAP(lBean);
+           
+           list.get(i).setStatus(sapStatus);
+   
+           
+        }
         } catch (Exception ex) {
             logger.log(Level.ERROR, "OracleVendorDao ::: getCourtCaseDetailsForVendor() :: Exception :: " + ex);
             throw ex;
         }
         return list;
      }
+     
+     
+     private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){
+    String sapStatus="";
+    if (liBean.getSaveFlag().equalsIgnoreCase("Accepted"))
+    {
+                if (liBean.getStatusFee() != null && liBean.getStatusFee().equalsIgnoreCase("Submitted")&& liBean.getParkPostDocNo()== null){
+                    sapStatus="With Accounts";
+                }
+                else if (liBean.getStartPostDocNo() != null &&(liBean.getStartPostDocNo().equals("16" )) && liBean.getPayDoneErpDoc() == null){
+                     sapStatus="With Cash";
+                }
+
+               else if (liBean.getStartPostDocNo() != null && (liBean.getStartPostDocNo().equals("16" ))&& liBean.getStartPayDoneErpDoc() !=null && liBean.getStartPayDoneErpDoc().equals("17")){
+                     sapStatus="Payment Done";
+                }
+
+               else if (liBean.getStartPostDocNo() != null && (liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc() !=null && liBean.getStartPayDoneErpDoc1().equals("020")){
+                     sapStatus="Payment Adjusted";
+                }
+
+              else  if (liBean.getStartPostDocNo() != null && (liBean.getStartPostDocNo().equals("16" )) && liBean.getStartPayDoneErpDoc() !=null && liBean.getStartPayDoneErpDoc().equals("12")){
+                     sapStatus="Payment Document Reversed";
+                }
+              else {
+               sapStatus="With Technical/Legal";
+              }
+    } else {
+        sapStatus=liBean.getSaveFlag();
+    }
+    
+           
+  return  sapStatus;
+}
+     
      public List getLegalFeeType(FeeTypeBean bean)throws Exception{
          LinkedList<FeeTypeBean> list=null;
          try {
