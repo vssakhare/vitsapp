@@ -202,6 +202,8 @@ function saveLegalInvoice(action) {
     var txtCaseDescription = document.getElementById("txtCaseDescription").value;
     var txtDealingOffice = document.getElementById("txtDealingOffice").value;
     var txtPartyNames = document.getElementById("txtPartyNames").value;
+    var txtVsPartyNames = document.getElementById("txtVsPartyNames").value;
+    var txtCaseType = document.getElementById("txtCaseType").value;
 //    var SubmitAtDesc = SubmitAtPlant.substring(SubmitAtPlant.indexOf("-") + 1);
 //    var SubmitAtPlant = SubmitAtPlant.substring(0, SubmitAtPlant.indexOf("-"));
     var txtInvoiceNum = document.getElementById('txtInvoiceNum').value;
@@ -347,6 +349,8 @@ function saveLegalInvoice(action) {
             + "&txtDealingOffice=" + encodeURIComponent(txtDealingOffice)
             + "&txtPartyNames=" + encodeURIComponent(txtPartyNames)
             + "&txtCaseDescription=" + encodeURIComponent(txtCaseDescription)
+            + "&txtVsPartyNames=" + encodeURIComponent(txtVsPartyNames)
+            + "&txtCaseType=" + encodeURIComponent(txtCaseType)
             + "&selectedOffieCode=" + encodeURIComponent(selectedOffieCode)
             + "&txtFeeType=" + encodeURIComponent(txtFeeType)
             + "&txtReason=" + encodeURIComponent(txtReason)
