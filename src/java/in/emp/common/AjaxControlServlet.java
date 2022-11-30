@@ -2340,6 +2340,10 @@ public class AjaxControlServlet extends HttpServlet {
             legalInvoiceInputBean.setDealingOfficeName(ApplicationUtils.getRequestParameter(request, "txtDealingOffice"));
             legalInvoiceInputBean.setPartyNames(ApplicationUtils.getRequestParameter(request, "txtPartyNames"));
             legalInvoiceInputBean.setCaseDescription(ApplicationUtils.getRequestParameter(request, "txtCaseDescription"));
+            
+            legalInvoiceInputBean.setVsPartyNames(ApplicationUtils.getRequestParameter(request, "txtVsPartyNames"));
+            legalInvoiceInputBean.setCaseTypeDesc(ApplicationUtils.getRequestParameter(request, "txtCaseType"));
+            
             legalInvoiceInputBean.setFeeType(ApplicationUtils.getRequestParameter(request, "txtFeeType"));
             if(ApplicationUtils.getRequestParameter(request, "region")!=null && !ApplicationUtils.getRequestParameter(request, "region").equals("Select")){
                 legalInvoiceInputBean.setRegionText(ApplicationUtils.getRequestParameter(request, "region"));
