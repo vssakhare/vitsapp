@@ -171,7 +171,9 @@
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
             InvoiceNumber = legalInvoiceInputBean.getInvoiceNumber();
         }
-        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
+            invoiceAmount = legalInvoiceInputBean.getInvoiceAmount();
+        }
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCreatedTimeStamp())) {
             CREATION_DATE = ApplicationUtils.dateToString(legalInvoiceInputBean.getCreatedTimeStamp(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);

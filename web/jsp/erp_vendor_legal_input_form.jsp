@@ -187,7 +187,7 @@ String rejectReason="";
                    regionText=legalInvoiceInputBean.getRegionText();
                }
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getZoneText())) {
-                   zoneText=legalInvoiceInputBean.getCircleText();
+                   zoneText=legalInvoiceInputBean.getZoneText();
                }
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCircleText())) {
                    circleText=legalInvoiceInputBean.getCircleText();
@@ -228,6 +228,7 @@ String rejectReason="";
         if (((Status.equals("Forwarded"))) && UserType.equals("Emp")) {
             flag = 5;
         }
+        
         String redirectUrl="";
         if(UserType.equals("Vendor")){
             redirectUrl=ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST;
@@ -329,7 +330,8 @@ String rejectReason="";
                                 </tr>
                             </table>
 <%}else %>
-<% if((UserType.equalsIgnoreCase("Vendor") && Status!="") || (UserType.equalsIgnoreCase("Emp") && Status!="")){%>
+<% //if((UserType.equalsIgnoreCase("Vendor") && Status!="") || (UserType.equalsIgnoreCase("Emp") && Status!="")){%>
+<% if(UserType.equalsIgnoreCase("Vendor") && Status!=""){%>
                             <table class="table" border="0" cellspacing="0" cellpadding="1"  id="withOrWithoutCourtCaseRadio" style="width:100%">
                                 <tr>
                                     <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" <%=checkedValueCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled />&nbsp;With Court Case No
@@ -381,7 +383,7 @@ String rejectReason="";
                                     <td class="text-right h5">Vendor Code.</td>
                                     <td>
 <!--                                        <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%"  readonly value="0100001969" >-->
-                                        <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%"  title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/>  onblur="populateAllVendors();" /> 
+<input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode" onblur="populateAllVendors()" style="width: 100%"  title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> /> 
                                     </td>
                                     <td colspan="2" class="text-right h5">Vendor Name</td>
                                     <td >
@@ -401,11 +403,22 @@ String rejectReason="";
 <!--                                    <td>
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
-                                    <td  class="text-right h5">
-                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" class="form-control" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
-                                    <% if (flag==2) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
-                                           class="btn  btn-primary"/><%}%>
-                                            </td>
+
+
+
+<td  class="text-right h5">
+    <% if (!UserType.equals("Emp")){%>
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
+                                     <%} if (!(UserType.equals("Emp")) && (flag==0 || flag==2)) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
+                                           class="btn btn-primary"/><%}%>
+                                            
+<% if (UserType.equals("Emp")){%>
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" onblur="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"/>
+                                     <% } %>
+
+
+</td>
+                                            
                                     <td colspan="2" class="text-right h5">Case Reference No.</td>
                                     <td> 
                                         <input name="txtCaseRefNo" id="txtCaseRefNo" type="text"  value ="<%= caseRefNo %>" size="20" class="form-control" maxlength="15" readonly />
@@ -494,7 +507,7 @@ String rejectReason="";
                                     
                                  <td class="text-right h5">Case Reference No.</td>
                                     <td> 
-                                        <input name="txtCaseRefNoWithout" id="txtCaseRefNoWithout" type="text"    class="form-control"  title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/>  onblur="populateCaseRefDetails();"/>
+                                        <input name="txtCaseRefNoWithout" id="txtCaseRefNoWithout" type="text"    class="form-control"  title="Type and search or use space-bar" placeholder="Type and search or use space-bar"  onblur="populateCaseRefDetails();"/>
                                     </td> 
                                     <td class="text-right h5" colspan="2" >Court Case No.</td>
 <!--                                    <td>
@@ -1978,7 +1991,7 @@ String rejectReason="";
                 dataType: "json",
                 //data: request,
                 success: function( data, textStatus, jqXHR) {
-                    alert(data.vendorName);
+                    //alert(data.vendorName);
                       $('#txtCourtCaseNoWithout').val(data.CourtCaseNo);
                      $('#txtCourtNameWithout').val(data.CourtName);
                      $('#txtCaseDescriptionWithout').val(data.CaseDescription);
