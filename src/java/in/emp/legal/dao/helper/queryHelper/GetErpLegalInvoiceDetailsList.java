@@ -183,14 +183,22 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
 
          else{
+            sql.append("select x.*, zf.status_fee,    zf.zzpark_post_doc_no,    zf.zzpay_done_erp_doc,    substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no," +
+"    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc,    substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1    from (" +
+"SELECT ld.*, om.ID,om.ORGANIZATION_NAME ,om.ORGANIZATION_ID,om.ORG_ID_SAP,om.OFFICE_TYPE,om.OFFICE_LEVEL,om.ADDRESS_LINE01,om.ADDRESS_LINE02,om.ADDRESS_LINE03,om.CITY," +
+"om.STATE,om.PIN_CODE,om.COUNTRY,om.PERSONAL_AREA,om.PERSONAL_AREA_NAME,om.PERSONAL_SUBAREA ,om.PERSONAL_SUBAREA_NAME ,om.REGION_ID,om.REGION_ID_SAP," +
+"om.REGION_NAME,om.ZONE_ID,om.ZONE_ID_SAP,om.ZONE_NAME,om.CIRCLE_ID,om.CIRCLE_ID_SAP,om.CIRCLE_NAME,om.DIVISION_ID,om.DIVISION_ID_SAP,om.DIVISION_NAME," +
+"om.SUB_DIVISION_ID,om.SUB_DIVISION_ID_SAP,om.SUB_DIVISION_NAME,om.SECTION_ID,om.SECTION_ID_SAP ,om.SECTION_NAME,om.SUB_STATION_ID,om.SUB_STATION_ID_SAP," +
+"om.SUB_STATION_NAME,om.PAYROLL_LOCATION,om.PAYROLL_AREA,om.PAYROLL_AREA_DESC,om.START_DATE,om.END_DATE  from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
+            sql.append(" where LD.dealing_office_code=OM.organization_id ");
+            
 
-
-            sql.append(" select LD.*,OM.*,  zf.status_fee,zf.zzpark_post_doc_no,   zf.zzpay_done_erp_doc, substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no,    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc, "+
+          /*  sql.append(" select LD.*,OM.*,  zf.status_fee,zf.zzpark_post_doc_no,   zf.zzpay_done_erp_doc, substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no,    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc, "+
             "  substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1 "+
             " from  xxmis_erp_legal_invoice_details ld" +
-            "  left join  xxmis_organization_master om on  ld.dealing_office_code = om.organization_id " +
+            "   join  xxmis_organization_master om on  ld.dealing_office_code = om.organization_id " +
             "  left join  zhrt_legal_fee zf on   to_number(ld.vendor_number) = zf.vendor  AND ld.case_ref_no = zf.caserefno" +
-            "   AND ld.invoice_number = zf.invoice_legal AND ld.invoice_date = zf.invoice_date   AND ld.fee_type = zf.adv_fee_type ");
+            "   AND ld.invoice_number = zf.invoice_legal AND ld.invoice_date = zf.invoice_date   AND ld.fee_type = zf.adv_fee_type ");*/
         
                         if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
                            if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
@@ -235,7 +243,8 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                 }
 
             }
-            sql.append(" ORDER BY APPL_ID DESC ");
+            sql.append(" ORDER BY APPL_ID DESC )x LEFT JOIN zhrt_legal_fee zf ON to_number(x.vendor_number) = zf.vendor" +
+" AND x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND x.invoice_date = zf.invoice_date  AND x.fee_type = zf.adv_fee_type ");
          }
 
       
