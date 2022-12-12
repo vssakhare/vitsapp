@@ -1184,7 +1184,7 @@ public class VendorHandler implements GenericFormHandler {
              sapStatus="Payment Document Reversed";
         }
       else {
-       sapStatus="With Technical/Legal";
+       sapStatus="With Technical";
       }
         
         
