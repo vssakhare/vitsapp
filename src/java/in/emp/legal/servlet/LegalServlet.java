@@ -181,7 +181,7 @@ public class LegalServlet extends HttpServlet {
                 " var x = document.querySelector('input[name=\"casenoradio\"]:checked').value.split('|');//alert(x[0]+' '+x[1]);\n"
                 + "window.opener.document.getElementById(\"txtCourtCaseNo\").value = x[0];\n"
                 + "window.opener.document.getElementById(\"txtCaseRefNo\").value = x[1];\n" +
-" window.opener.document.getElementById(\"txtCourtCaseNo\").focus();window.opener.populateCaeseDetails();\n" + " window.close();}\n" +
+" window.opener.document.getElementById(\"txtDealingOffice\").focus();window.opener.populateCaeseDetails();\n" + " window.close();}\n" +
 "</script><body><input type='button' value='Select' onclick='selectFunction();'><table><thead style=\"background-color: lightblue; position: sticky; top:0\"><tr style=\"text-align:left\">"
                 + "<th></th><th>case no.</th><th>case ref. no.</th><th>filing date</th><th>office name</th>"
                 + "<th>court name</th><th>case type</th><th>case details</th><th>msedcl party name</th></tr></thead>");
