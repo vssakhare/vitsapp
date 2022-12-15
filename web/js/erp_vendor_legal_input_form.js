@@ -72,7 +72,10 @@ function LegalApplDtlvalidation() {
         alert("Please enter invoice number.");
         return false;
     }
-    var regEx = /^[0-9a-zA-Z]+$/;
+  //  var regEx = /^[0-9a-zA-Z]+$/;
+   var regEx =/^[0-9a-zA-Z/\s-]+$/;
+   //   /^[0-9a-zA-Z/\s-]+$/;
+ //    /^(?=[a-z\d]*\/)(?=\/*[a-z\d])[a-z\d\/]+$/;
     if (txtInvoiceNum.match(regEx))
     {
         return true;
