@@ -190,7 +190,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 "om.REGION_NAME,om.ZONE_ID,om.ZONE_ID_SAP,om.ZONE_NAME,om.CIRCLE_ID,om.CIRCLE_ID_SAP,om.CIRCLE_NAME,om.DIVISION_ID,om.DIVISION_ID_SAP,om.DIVISION_NAME," +
 "om.SUB_DIVISION_ID,om.SUB_DIVISION_ID_SAP,om.SUB_DIVISION_NAME,om.SECTION_ID,om.SECTION_ID_SAP ,om.SECTION_NAME,om.SUB_STATION_ID,om.SUB_STATION_ID_SAP," +
 "om.SUB_STATION_NAME,om.PAYROLL_LOCATION,om.PAYROLL_AREA,om.PAYROLL_AREA_DESC,om.START_DATE,om.END_DATE  from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
-            sql.append(" where LD.dealing_office_code=OM.organization_id ");
+            sql.append(" where nvl(LD.dealing_office_code,261)=OM.organization_id ");
             
 
           /*  sql.append(" select LD.*,OM.*,  zf.status_fee,zf.zzpark_post_doc_no,   zf.zzpay_done_erp_doc, substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no,    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc, "+
