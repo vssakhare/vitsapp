@@ -182,11 +182,11 @@ public class LegalServlet extends HttpServlet {
                 + "window.opener.document.getElementById(\"txtCourtCaseNo\").value = x[0];\n"
                 + "window.opener.document.getElementById(\"txtCaseRefNo\").value = x[1];\n" +
 " window.opener.document.getElementById(\"txtDealingOffice\").focus();window.opener.populateCaeseDetails();\n" + " window.close();}\n" +
-"</script><body><input type='button' value='Select' onclick='selectFunction();'><table><thead style=\"background-color: lightblue; position: sticky; top:0\"><tr style=\"text-align:left\">"
-                + "<th></th><th>case no.</th><th>case ref. no.</th><th>filing date</th><th>office name</th>"
-                + "<th>court name</th><th>case type</th><th>case details</th><th>msedcl party name</th></tr></thead>");
+"</script><body><table><thead style=\"background-color: lightblue; position: sticky; top:0\"><tr style=\"text-align:left\">"
+                + "<th><input type='button' value='Select' onclick='selectFunction();'></th><th>Case No.</th><th>Case Ref. No.</th><th>Filing Date</th><th>Office Name</th>"
+                + "<th>Court Name</th><th>Case Type</th><th>Case Details</th><th>MSEDCL Party Name</th></tr></thead>");
         for (LegalInvoiceBean lib : legalInvoiceBeanList){
-            out.println("<tr><td><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+'|'+lib.getCASEREFNO()+"'>"
+            out.println("<tr><td align='center'><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+'|'+lib.getCASEREFNO()+"'>"
                     + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+new SimpleDateFormat("dd/MM/yyyy").format(lib.getDOF_LC())+"</td><td>"+lib.getOfficeName()+"</td><td>"
                     +lib.getCOURTNAME()+"</td><td>"+lib.getCASETYPEDESC()+"</td><td>"+lib.getCASEDET()+"</td><td>"+lib.getMsedclPartyName()+"</td></tr>");
         //out.println(lib.getCASEREFNO());
