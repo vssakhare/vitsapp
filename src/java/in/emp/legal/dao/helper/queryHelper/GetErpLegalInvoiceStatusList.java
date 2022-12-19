@@ -7,7 +7,6 @@ package in.emp.legal.dao.helper.queryHelper;
 
 import in.emp.dao.QueryHelper;
 import in.emp.legal.bean.LegalInvoiceBean;
-import in.emp.util.ApplicationUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +37,20 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 legalInvoiceBean.setVENDOR(result.getString("VENDOR"));
             } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNo")) {
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
+            } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
+                
+                logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getDataObject() :: method called ::");
+                legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));                
+                legalInvoiceBean.setDOF_LC(result.getDate("DOF_LC"));
+                legalInvoiceBean.setCASENO(result.getString("CASENO"));
+                legalInvoiceBean.setCASENOCOURT(result.getString("CASENOCOURT"));
+                legalInvoiceBean.setCOURTNAME(result.getString("COURTNAME"));
+                legalInvoiceBean.setCASETYPE(result.getString("CASETYPE"));
+                legalInvoiceBean.setCASETYPEDESC(result.getString("CASETYPEDESC"));
+                legalInvoiceBean.setCASEDET(result.getString("CASEDET"));                
+                legalInvoiceBean.setOfficeName((result.getString("OFFICE_NAME")));
+                legalInvoiceBean.setMsedclPartyName(result.getString("MSEDCL_PARTY_NAME"));
+                legalInvoiceBean.setVsPartyName(result.getString("VS_PARTY_NAME"));
             } else {
                 logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getDataObject() :: method called ::");
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
@@ -181,13 +194,13 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
     public ResultSet getQueryResults(Connection connection) throws Exception {
         PreparedStatement statement = null;
         StringBuilder sql = new StringBuilder();
-        //System.out.println("getQueryResults of GetErpLegalInvoiceStatusList");
+        //System.out.println("legalInvoiceBean.getWhereClause() "+legalInvoiceBean.getWhereClause());
         ResultSet rs = null;
         int i = 1;
         try {
             logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getQueryResults() :: method called ::");
 //            sql.append(" SELECT * FROM ERP_LEGAL_INVOICE_STATUS ");
-            if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseRefNo") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
+            if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo") || legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseRefNo")) {
                 sql.append(" select  ZLH.caserefno, ZLH.year_l, ZLH.dof_lc, ZLF.vendor, ZLF.invoice_legal, ");
                 sql.append(" ZLF.adv_fee_type, ZLF.invoice_date, ZLF.advocate_name, ZLF.advocate_type, ");
                 sql.append(" ZLF.invoice_amount, ZLF.reciept_date, ZLF.fee_recommended, ");
@@ -258,9 +271,60 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                     sql.append(" AND VENDOR=? AND CASENOCOURT=?");
                 } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseRefNo")) {
                     sql.append(" AND VENDOR=? AND ZLH.caserefno=?");
-                } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
+               } } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
+                    
+                    sql.append(" select distinct ZLH.caserefno, ZLH.dof_lc, ");
+                sql.append(" ZLH.caseno, ZLH.casenocourt, ");
+                sql.append(" nvl(CORTN.COURTNAMEDESC,'N.A.') courtname, orgm.organization_name OFFICE_NAME,");
+                sql.append(" orgm.organization_id OFFICE_CODE, ");                
+                sql.append(" (CASE WHEN ZLH.CASETYPE=0 THEN 60 ELSE ZLH.CASETYPE END)casetype,");
+                sql.append(" ZLCT.casetypedesc, ");
+                sql.append(" ZLH.casedet,nvl(zmprt.MSEDCL_PARTY_NAME,'N.A.') MSEDCL_PARTY_NAME,");
+                sql.append(" nvl(zmvsprt.VS_PARTY_NAME,'N.A.') VS_PARTY_NAME");
+                sql.append(" from ");
+                sql.append(" ZHRT_LEGAL_H  ZLH,");
+                sql.append(" ZHRT_LEGAL_FEE ZLF,");
+                sql.append(" (SELECT ");
+                sql.append(" CASEREFNO,ZLCNM.CORT_KEY,ZLCNM.COURTNAMEDESC");
+                sql.append(" FROM ");
+                sql.append(" ZHRT_LE_COURT ZLCO,ZHRT_LE_COURTNAM ZLCNM ");
+                sql.append(" WHERE ZLCNM.CORT_KEY=ZLCO.COURTNAME ");
+                sql.append(" GROUP BY CASEREFNO,ZLCNM.CORT_KEY,ZLCNM.COURTNAMEDESC ");
+                sql.append(" )CORTN, ");
+                sql.append(" ZHRT_LE_CASETYPE ZLCT, ");
+                sql.append(" ZHRT_LE_CASESTAT ZLCS, ");
+                sql.append(" ZHRT_LE_FILED ZLVF, ");
+                sql.append(" xxmis_organization_master ORGM, ");
+                sql.append(" xxmis_location_master lOCM, ");
+                sql.append(" (SELECT CASEREFNO,LISTAGG(VS,',') WITHIN GROUP (ORDER BY TO_NUMBER(SRNO)) MSEDCL_PARTY_NAME");
+                sql.append(" FROM ZHRT_MSEDCL_PRTY ");
+                sql.append(" GROUP BY CASEREFNO ");
+                sql.append(" )ZMPRT, ");
+                sql.append(" (SELECT CASEREFNO,LISTAGG(VS,',') WITHIN GROUP (ORDER BY TO_NUMBER(SRNO)) VS_PARTY_NAME");
+                sql.append(" FROM ZHRT_LE_PARTY ");
+                sql.append(" GROUP BY CASEREFNO ");
+                sql.append(" )ZMVSPRT ");
+                sql.append(" WHERE ZLH.CASEREFNO=ZLF.CASEREFNO(+) ");
+                sql.append(" AND  ZLH.CASEREFNO=CORTN.CASEREFNO(+) ");
+                sql.append(" AND  (CASE WHEN ZLH.CASETYPE=0 THEN 60 ELSE ZLH.CASETYPE END)=ZLCT.CASETYPE(+) ");
+                sql.append(" AND  (CASE WHEN ZLH.CASESTAT_LC=0 THEN 10 ELSE  ZLH.CASESTAT_LC END)=ZLCS.CASESTAT ");
+                sql.append(" AND ZLH.CASEREFNO=ZLVF.CASEREFNO(+) ");
+                sql.append(" and orgm.organization_id=locm.org_id ");
+                sql.append(" AND ZLH.CASEREFNO=ZMPRT.CASEREFNO(+) AND ZLH.CASEREFNO = ZMVSPRT.CASEREFNO (+) ");
+                sql.append(" and lOCM.Personal_Area=(case when ZLH.cooffice_btrtl is not null then '0001' ");
+                sql.append("      when ZLH.region_btrtl  is not null  then '0002' ");
+                sql.append("      when ZLH.zzone_btrtl   is not null  then '0003' ");
+                sql.append("      when ZLH.circle_btrtl  is not null  then '0004' ");
+                sql.append("      when ZLH.division_btrtl is not null then '0005' ");
+                sql.append("      when ZLH.subdiv_btrtl  is not null then  '0006' ");
+                sql.append("      when ZLH.section_btrtl is not null then  '0007'  ");
+                sql.append("      when ZLH.substation is not null then     '0008'  ");
+                sql.append(" end )   ");
+                sql.append(" and lOCM.Personal_Subarea=nvl(COOFFICE_BTRTL,(NVL(REGION_BTRTL,NVL(ZZONE_BTRTL,NVL(CIRCLE_BTRTL,NVL(DIVISION_BTRTL,NVL(SUBDIV_BTRTL,NVL(SECTION_BTRTL,substation))))))))  ");
+                    
+                    
                     sql.append(" AND VENDOR=? AND CASENOCOURT LIKE ('%' || ? || '%')");
-                }
+                
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("Emp")) {
 //                sql.append(" select  distinct null caserefno, null year_l, null dof_lc, ZLF.vendor, null  ");
 //                sql.append(" invoice_legal, null adv_fee_type, null invoice_date, null advocate_name, null  ");
