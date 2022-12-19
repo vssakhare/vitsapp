@@ -150,6 +150,7 @@ function saveLegalInvoice(action) {
     var division = "";
     var subdiv = "";
     var corporateOffice = "";
+    var feeType = "";
     if (WithOrWithoutCourtCase === 'withCourtCase') {
         isWithCourtCaseFlag = "Y";
     } else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
@@ -183,6 +184,11 @@ function saveLegalInvoice(action) {
         corporateOffice = coSelect.options[coSelect.selectedIndex].text;
         if(corporateOffice==='Select'){
             corporateOffice="";
+        }
+        var feeTypeSelect = document.getElementById("feeTypeSelect");
+        feeType = feeTypeSelect.options[feeTypeSelect.selectedIndex].text;
+        if(feeType==='Select'){
+            feeType="";
         }
     }
     var txtVendorName = document.getElementById("txtVendorName").value;
