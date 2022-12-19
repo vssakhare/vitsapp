@@ -82,12 +82,13 @@ if (request.getSession().getAttribute("LegalVendorInputForm") != null) {
     String caseTypeDesc = "";
     Date sysdate = new Date();
     String VendorInvoiceDt = "";
-    String VendorInwardDate = "";
+    String VendorInwardDate = "";String EDCLInwardDate = "";
     String InvoiceResubmissionDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
     String InvoiceAmt = "";
     String InwardNum = "";
     String InwardDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
     String InvoiceSubmitDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+    String InvoiceDate = "";
     String InvoiceFrmDate = "";
     String InvoiceToDate = "";
     String InvoiceRejDate = "";
@@ -170,10 +171,16 @@ String rejectReason="";
              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
             InvoiceAmt = legalInvoiceInputBean.getInvoiceAmount()+"";
         }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceDate())) {
-            InvoiceSubmitDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getInvoiceDate());
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvSubmitDate())) {
+            InvoiceSubmitDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getInvSubmitDate());
         }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSaveFlag())) {
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceDate())) {
+            InvoiceDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getInvoiceDate());
+        }
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMsedclInwardDate())) {
+            EDCLInwardDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getMsedclInwardDate());
+        }
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSaveFlag())) {
             Status = legalInvoiceInputBean.getSaveFlag()+"";
         }
               if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
@@ -713,7 +720,7 @@ String rejectReason="";
                                     </td>
                                     <td colspan ="2" width="10%" class="text-right h5"><fmt:message key='MSEDCL Inward Date'/> </td>
                                     <td> 
-                                        <input name="txtInwardDt" id="txtInwardDt" type="text"  size="20"class="form-control" value="<%=InwardDate%>" maxlength="15"  />
+                                        <input name="txtInwardDt" id="txtInwardDt" type="text"  size="20"class="form-control" value="<%=EDCLInwardDate%>" maxlength="15"  />
                                     </td>
                                 </tr>
                                 <%}%>
@@ -722,12 +729,12 @@ String rejectReason="";
                                      <td  class="text-right h5">Invoice Date </td>
                                     <td width="20%"> 
                                         <% if (flag == 2) {%>
-                                             <input name="" id="txtVendorInvoiceDate" type="text" readonly size="20" class="datefield" value="<%=InvoiceSubmitDate%>" maxlength="15" <% if (Status == "") {
+                                             <input name="" id="txtVendorInvoiceDate" type="text" readonly size="20" class="datefield" value="<%=InvoiceDate%>" maxlength="15" <% if (Status == "") {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /> 
                                             <%  } else {%>
-                                                 <input name="txtVendorInvoiceDate" id="txtVendorInvoiceDate" type="text"  size="20" class="form-control" value="<%=InvoiceSubmitDate%>" maxlength="15" <% if (Status == "") {
+                                                 <input name="txtVendorInvoiceDate" id="txtVendorInvoiceDate" type="text"  size="20" class="form-control" value="<%=InvoiceDate%>" maxlength="15" <% if (Status == "") {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> />
@@ -891,9 +898,9 @@ String rejectReason="";
                                             <th><fmt:message key='File Name'/></th>
                                               <th><fmt:message key='File Type'/></th>
                                             <th><fmt:message key='Remark'/></th>
-                                                <% if (UserType.equals("Vendor")) {%>
+                                                <% //if (UserType.equals("Vendor")) {%>
                                             <th><fmt:message key='Remove'/></th> 
-                                                <% }%>
+                                                <% //}%>
                                                 <% }%>
                                         </tr>
                                         <%   String remark = "";
@@ -1945,7 +1952,7 @@ String rejectReason="";
   var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew"+"&caseNo="+document.getElementById("txtCourtCaseNo").value;
   //alert(url);  
   //window.open('erp?uiActionName=getSearchCourtCase',null,'height=500,width=400');
-  window.open(url,null,'height=400,width=1000');  
+  window.open(url,null,'height=400,width=1060');  
   }
 
     function populateCaeseDetails(){//alert(document.getElementById("txtCaseRefNo").value);
