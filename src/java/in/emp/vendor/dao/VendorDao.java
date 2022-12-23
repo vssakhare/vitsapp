@@ -7,6 +7,8 @@ package in.emp.vendor.dao;
 //-- java imports
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.HOSectionMatrixBean;
+import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
@@ -88,6 +90,7 @@ public interface VendorDao {
       public POBean getForwardedToOfficeCodeDetails(POBean POBeanObj) throws Exception;
            public LinkedList getPlantDetails(POBean POBeanObj) throws Exception;
           public HOBean getHOSmsDetails(HOBean HOBeanObj) throws Exception;
+          public HOSectionMatrixBean getHoLegalSmsDetails(HOSectionMatrixBean HoLegalBean) throws Exception;
 
      
          public VendorInputBean getInvoicedetails(VendorInputBean vendorInputBeanObj) throws Exception;
@@ -133,6 +136,8 @@ public LinkedList<VendorBean> putRetentionInvoiceStatus( VendorBean vendorBeanOb
     public List getLegalFeeType(FeeTypeBean bean)throws Exception;
 
     public List getLegalHierarchyLocation(OrganizationMasterBean organizationMasterBean)throws Exception;
+    
+    public void updateLegalCommunicationLog(LegalCommunicationBean legalCommunicationBean) throws Exception;
     
 }
 

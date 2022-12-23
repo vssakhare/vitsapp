@@ -17,15 +17,19 @@ import in.emp.dao.QueryHelper;
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.hrms.dao.helper.VendorLoginTxnHelper;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.HOSectionMatrixBean;
+import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceDetailsList;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceStatusList;
 import in.emp.legal.dao.helper.queryHelper.GetFeeTypeList;
+import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
+import in.emp.legal.dao.helper.txnhelper.updateLegalCommunicationLog;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
 import in.emp.vendor.bean.PoStatusBean;
@@ -434,6 +438,18 @@ public POBean getPOLocation(POBean poBeanObj) throws Exception {
         }
 
     }
+    
+    
+    public void updateLegalCommunicationLog(LegalCommunicationBean legalCommunicationBean) throws Exception {
+        try {
+            logger.log(Level.INFO, "OracleVendorDao ::: getVendorSmsStatus() :: method called ::");
+            createObject(new updateLegalCommunicationLog(legalCommunicationBean)); //this call updates or inserts according to the output of deleteobject
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorDao ::: getVendorSmsStatus() :: Exception :: " + ex);
+            throw ex;
+        }
+
+    }
 
     public VendorBean getContactNumber(VendorBean vendorBeanObj) throws Exception {
         LinkedList vendorContactList = null;
@@ -503,6 +519,7 @@ LinkedList PlantList = null;
         }
         return PlantList;
     }
+
     public HOBean getHOSmsDetails(HOBean HOBeanObj) throws Exception {
 
         try {
@@ -1127,4 +1144,20 @@ try {
         }
         return list;
      }
+     
+
+    public HOSectionMatrixBean getHoLegalSmsDetails(HOSectionMatrixBean HOSectionMatrixBeanObj) throws Exception {
+
+        try {
+            logger.log(Level.INFO, "OracleVendorDao ::: getHoLegalSmsDetails() :: method called ::");
+
+            HOSectionMatrixBeanObj = (HOSectionMatrixBean) getDataObject(new GetHOLegalSmsEmailQueryHelper(HOSectionMatrixBeanObj));
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorDao ::: getHoLegalSmsDetails() :: Exception :: " + ex);
+            throw ex;
+        }
+        return HOSectionMatrixBeanObj;
+    }
+     
 }

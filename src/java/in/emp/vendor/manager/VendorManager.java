@@ -29,6 +29,8 @@ import in.emp.vendor.bean.HOBean;
 import in.emp.vendor.bean.PoLineStatusBean;
 import in.emp.vendor.bean.ProjBean;
 import in.emp.vendor.bean.SMSResponseBean;
+import in.emp.legal.bean.HOSectionMatrixBean;
+import in.emp.legal.bean.LegalCommunicationBean;
 /**
  *
  * @author Prajakta
@@ -438,6 +440,18 @@ public class VendorManager implements VendorDelegate {
         }
      }
      
+     
+       public void updateLegalCommunicationLog(LegalCommunicationBean legalCommunicationBean)
+               {
+          VendorDao vendorDaoObj = new OracleVendorDao();
+          try {
+            logger.log(Level.INFO, " VendorManager :: getVendorSmsStatus() :: method called");
+            vendorDaoObj.updateLegalCommunicationLog(legalCommunicationBean);
+          } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getContactNumber() :: Exception :: " + ex);
+
+        }
+     }
    
    public VendorBean getContactNumber(VendorBean vendorBeanObj) {
         VendorPrezData vendorPrezDataObj = new VendorPrezData();
@@ -1228,4 +1242,26 @@ public class VendorManager implements VendorDelegate {
         }
    return list;
     }
+    
+
+    public HOSectionMatrixBean  getHOLegalSmsDetails(HOSectionMatrixBean HOSectionMatrixBeanObj) {
+       
+        VendorDao vendorDaoObj = new OracleVendorDao(); 
+        try {
+            logger.log(Level.INFO, " VendorManager :: getHOSmsDetails() :: method called");
+
+             HOSectionMatrixBeanObj = vendorDaoObj.getHoLegalSmsDetails(HOSectionMatrixBeanObj);
+             
+            //vendorContactList = (LinkedList) vendorDaoObj.getContactNumber(vendorBeanObj);
+            //vendorPrezDataObj.setVendorContactList(vendorContactList); 
+             
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getHOLegalSmsDetails() :: Exception :: " + ex);
+
+        }
+        return HOSectionMatrixBeanObj;
+    }
+    
+    
+    
 }

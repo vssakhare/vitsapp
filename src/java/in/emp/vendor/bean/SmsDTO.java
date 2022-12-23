@@ -20,6 +20,15 @@ public class SmsDTO  implements java.io.Serializable{
         String smsTemplateId   =   null;
  
   String MobileNumber = null;
+  String EmailId=null;
+
+    public String getEmailId() {
+        return EmailId;
+    }
+
+    public void setEmailId(String EmailId) {
+        this.EmailId = EmailId;
+    }
       
     public List<String> getLstParams(){
         return LstParams;

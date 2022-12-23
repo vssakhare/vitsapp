@@ -2338,6 +2338,7 @@ public class AjaxControlServlet extends HttpServlet {
             System.out.println("case ref no:::::::::::::::::::"+ApplicationUtils.getRequestParameter(request, "txtCaseRefNo"));
             legalInvoiceInputBean.setCourtName(ApplicationUtils.getRequestParameter(request, "txtCourtName"));
             legalInvoiceInputBean.setDealingOfficeName(ApplicationUtils.getRequestParameter(request, "txtDealingOffice"));
+          //  legalInvoiceInputBean.setDealingOfficeCode(ApplicationUtils.getRequestParameter(request, "txtDealingOfficeCode"));
             legalInvoiceInputBean.setPartyNames(ApplicationUtils.getRequestParameter(request, "txtPartyNames"));
             legalInvoiceInputBean.setCaseDescription(ApplicationUtils.getRequestParameter(request, "txtCaseDescription"));
             
@@ -2347,18 +2348,42 @@ public class AjaxControlServlet extends HttpServlet {
             legalInvoiceInputBean.setFeeType(ApplicationUtils.getRequestParameter(request, "txtFeeType"));
             if(ApplicationUtils.getRequestParameter(request, "region")!=null && !ApplicationUtils.getRequestParameter(request, "region").equals("Select")){
                 legalInvoiceInputBean.setRegionText(ApplicationUtils.getRequestParameter(request, "region"));
+            
+                
+                
             }
              if(ApplicationUtils.getRequestParameter(request, "zone")!=null && !ApplicationUtils.getRequestParameter(request, "zone").equals("Select")){
             legalInvoiceInputBean.setZoneText(ApplicationUtils.getRequestParameter(request, "zone"));
+          
              }
              if(ApplicationUtils.getRequestParameter(request, "circle")!=null && !ApplicationUtils.getRequestParameter(request, "circle").equals("Select")){
             legalInvoiceInputBean.setCircleText(ApplicationUtils.getRequestParameter(request, "circle"));
+         
              }
-             if(ApplicationUtils.getRequestParameter(request, "circle")!=null && !ApplicationUtils.getRequestParameter(request, "division").equals("Select")){
+             if(ApplicationUtils.getRequestParameter(request, "division")!=null && !ApplicationUtils.getRequestParameter(request, "division").equals("Select")){
             legalInvoiceInputBean.setDivisionText(ApplicationUtils.getRequestParameter(request, "division"));
+       
              }
+                     
             legalInvoiceInputBean.setSubDivisionText(ApplicationUtils.getRequestParameter(request, "subDivision"));
             legalInvoiceInputBean.setCorporateOffice(ApplicationUtils.getRequestParameter(request, "corporateOffice"));
+            
+            if (ApplicationUtils.getRequestParameter(request, "corporateOffice").equals("261-Corporate Office")){
+               legalInvoiceInputBean.setDealingOfficeCode("261"); 
+               legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
+                legalInvoiceInputBean.setDeptCode("13077");
+             legalInvoiceInputBean.setDeptName("Testing");
+                
+            }
+            
+            
+            if (ApplicationUtils.getRequestParameter(request, "txtDealingOffice").equals("261-Corporate Office")){
+               legalInvoiceInputBean.setDealingOfficeCode("261"); 
+               //legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
+                legalInvoiceInputBean.setDeptCode("13077");
+             legalInvoiceInputBean.setDeptName("Testing");
+                 legalInvoiceInputBean.setDeptName("Testing");
+            }
             /* if (!ApplicationUtils.isBlank(request.getParameter("txtModule"))) {//used for sms escalation
                    vendorInputBeanObj.setSelectedModule(ApplicationUtils.getRequestParameter(request, "txtModule"));
               

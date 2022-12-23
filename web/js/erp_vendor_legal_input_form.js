@@ -227,7 +227,9 @@ function saveLegalInvoice(action) {
     var sel = document.getElementById("feeTypeSelect");
     var txtFeeType = sel.options[sel.selectedIndex].text;
     if (isWithCourtCaseFlag === 'N') {
-        txtDealingOffice = document.getElementById('txtDealingOfficewithoutCaseNo').value;
+        
+        if (txtDealingOffice === '')
+        { txtDealingOffice = document.getElementById('txtDealingOfficewithoutCaseNo').value;}
         txtInvoiceNum = document.getElementById('txtInvoiceNumWithoutCase').value;
         var usertype = document.getElementById('userType').value;
         if (usertype === 'Emp') {
@@ -339,7 +341,7 @@ function saveLegalInvoice(action) {
 
         }
     };
-    alert(txtCourtCaseNo);
+   
     var url = "ajax";
     var uiactionName = "postLegalApplicationForm";
     var params = "uiaction=" + uiactionName
@@ -408,10 +410,14 @@ function submitLegalInvoiceButton() {
         if (retVal === true) {
             saveLegalInvoice("submit");
             var uiActionName = document.getElementById("redirectUrl").value;
+            // var txtDealingOffice = document.getElementById("txtDealingOffice").value;
+           //    var txtDealingOfficeCode = document.getElementById("txtDealingOfficeCode").value;
             var action = "submit";
             var url = "erp";
 
             var params = "uiActionName=" + encodeURIComponent(uiActionName)
+              //      + "&txtDealingOffice=" + encodeURIComponent(txtDealingOffice)
+              //      + "&txtDealingOfficeCode=" + encodeURIComponent(txtDealingOfficeCode)
                     + "&txtvendorId=" + encodeURIComponent(uiActionName)
                     + "&subAction=" + encodeURIComponent(action)
                     ;

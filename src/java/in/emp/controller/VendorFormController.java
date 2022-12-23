@@ -37,7 +37,8 @@ import javaldapapp.AssignOfficeDTO;
 import in.emp.vendor.bean.AssignOfficeBean;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-
+import in.emp.legal.bean.HOSectionMatrixBean;
+import in.emp.legal.bean.LegalCommunicationBean;
 /**
  *
  * @author Pooja Jadhav
@@ -344,7 +345,7 @@ public class VendorFormController {
             //vendor sms send process
 
             DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
-
+    
             vendorlstcredential.add("607971");
             vendorlstcredential.add("mse12");
             vendorlstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
@@ -480,6 +481,120 @@ public class VendorFormController {
 
     }
 
+    
+    
+    public static void notifyLegalEmpInvSubmit(HttpServletRequest request, SmsDTO objSmsEmp, LegalInvoiceInputBean legalInvoiceInputBean, String mailTo) {
+        VendorDelegate vendorMgrObj = new VendorManager();
+        List<String> lstParam = new ArrayList<String>();
+        List<String> lstcredential = new ArrayList<String>();
+        SmsController sms = new SmsController();
+       
+         Date sysdate = new Date();
+        try {   //employee sms send process
+            
+
+            lstParam.add(legalInvoiceInputBean.getInvoiceNumber());//setting params for sending sms to employee
+
+            lstParam.add(legalInvoiceInputBean.getVendorNumber());
+
+            lstParam.add(legalInvoiceInputBean.getVendorName());
+            DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
+            lstParam.add(df3.format(legalInvoiceInputBean.getInvSubmitDate()));
+            //user id password url link
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+            objSmsEmp.setLstParams(lstParam);
+            //DIABLED FOR SMS 
+           
+            
+            if (objSmsEmp.getMobileNumber() != null) {
+                   LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
+                if (mailTo.equals("EMP")){
+                  sms.sendSMS(objSmsEmp, "476809",lstcredential);//UNCOMMENT FOR CLOUD
+                  legalCommunicationSMSBean.setRECIPIENT_TYPE("EMP");
+                     legalCommunicationSMSBean.setSUBJECT("476809");
+                
+                }
+                
+                else if (mailTo.equals("VENDOR"))
+                {  sms.sendSMS(objSmsEmp, "476830", lstcredential);
+                  legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
+                     legalCommunicationSMSBean.setSUBJECT("476830");
+                }
+                      legalCommunicationSMSBean.setRECIPIENTS_INFO(objSmsEmp.getMobileNumber());
+              
+               
+                    legalCommunicationSMSBean.setCOMMUNICATION_TYPE("SMS");
+                    legalCommunicationSMSBean.setCREATED(sysdate);
+           vendorMgrObj.updateLegalCommunicationLog(legalCommunicationSMSBean);
+            }
+            
+            // Send mail to employee
+                    String invoiceNumber = ApplicationUtils.getRequestParameter(request, "txtInvoiceNum");
+        String Subject = "Legal Invoice Submitted Succesfully at Vendor Invoice Tracking System";
+         LegalCommunicationBean legalCommunicationBean = new LegalCommunicationBean();
+           
+        String MailMessage = "  Invoice no. " + invoiceNumber + " is submitted on " + legalInvoiceInputBean.getInvSubmitDate() + ". It will be processed within 3 working days. To track status , please visit https://vits.mahadiscom.in/VendorBillTracking/erp.";
+//MAIL PROCESS AND SMS PROCESS IS DISABLED FOR TEST SERVER
+        if (objSmsEmp.getEmailId() != null) {
+            int success = SendMail.sendmail(objSmsEmp.getEmailId(), Subject, MailMessage);//testing mail sent or not
+            if (success == 1) {
+                legalCommunicationBean.setRECIPIENTS_INFO(objSmsEmp.getEmailId());
+                
+                 if (mailTo.equals("EMP")){
+                       legalCommunicationBean.setRECIPIENT_TYPE("EMP");
+                     
+                 }
+                 else if (mailTo.equals("VENDOR")){
+                       legalCommunicationBean.setRECIPIENT_TYPE("VENDOR");
+                     
+                 }
+                
+                
+                
+              
+                  legalCommunicationBean.setSUBJECT(Subject);
+                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                    legalCommunicationBean.setCREATED(sysdate);
+            } else {
+                 legalCommunicationBean.setRECIPIENTS_INFO(objSmsEmp.getEmailId());
+                 if (mailTo.equals("EMP")){
+                       legalCommunicationBean.setRECIPIENT_TYPE("EMP");
+                     
+                 }
+                 else if (mailTo.equals("VENDOR")){
+                       legalCommunicationBean.setRECIPIENT_TYPE("VENDOR");
+                     
+                 }
+                  legalCommunicationBean.setSUBJECT(Subject);
+                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                    legalCommunicationBean.setCREATED(sysdate);
+                     legalCommunicationBean.setERROR("Email sending Failed");
+            }
+            
+             vendorMgrObj.updateLegalCommunicationLog(legalCommunicationBean);//insert info regarding vendor sms details in table sms_sent_tracker.
+        } else {
+          
+        }
+       
+            
+            
+            
+        } catch (Exception e) {
+////e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                    conn = null;
+                } catch (Exception ignored) {
+                }
+            }
+        }
+
+    }
+    
     public static void poCreatorSubmitSmsSendProcess(HttpServletRequest request, SmsDTO objSmsEmp) {
         VendorDelegate vendorMgrObj = new VendorManager();
         List<String> lstParam = new ArrayList<String>();
@@ -918,10 +1033,124 @@ public class VendorFormController {
          JSONObject obj = new JSONObject();
          HttpSession vendorSession = request.getSession();
         VendorDelegate vendorMgrObj = new VendorManager();
+        
+        
+        HOSectionMatrixBean hoLegalbeanObj = new HOSectionMatrixBean();
+        AssignOfficeDTO assignOfficeDTO = new AssignOfficeDTO();
+        AssignOfficeBean assignOfficebeanObj = new AssignOfficeBean();
+        SmsEmployee smsemp = new SmsEmployee();//ldap class to retrieve assignofficedto
+        SmsDTO objSmsEmp = new SmsDTO();
+          SmsDTO objSmsVendor = new SmsDTO();
+        SmsDTO objSmsPoCreator = new SmsDTO();
+        String Appl_id;
+        
+        
+        
         try {
+            
+            
+        try {
+                String dealingOffice = legalInvoiceInputBean.getDealingOfficeName().substring(0, legalInvoiceInputBean.getDealingOfficeName().indexOf("-"));
+                String sectionCode = legalInvoiceInputBean.getDeptCode();
+                // if (!ApplicationUtils.isBlank(Purchasing_group)){
+                if (!dealingOffice.equals("null")) {
+                    if (!(dealingOffice.equals("261"))) {
+                     
+                        assignOfficeDTO = smsemp.Ldap(dealingOffice);//office incharge and technical person 
+                    
+                        objSmsEmp.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
+                         objSmsEmp.setEmailId(assignOfficeDTO.getOfficerEmailId());
+                    } else {
+                        hoLegalbeanObj.setSectionCode(sectionCode);
+                        hoLegalbeanObj = vendorMgrObj.getHOLegalSmsDetails(hoLegalbeanObj);//get the details of employee from emp_escalation_matrix
+                        
+                        if (!ApplicationUtils.isBlank(hoLegalbeanObj.getEmpNumber())) {
+                            
+                              objSmsEmp.setMobileNumber(hoLegalbeanObj.getEmpMobile());
+                              objSmsEmp.setEmailId(hoLegalbeanObj.getEmpEmail());
+                            
+                              
+                        }
+  
+                    }
+                } else {
+                 obj.put("Message1", "Please Check dealing office for Invoice!!! ");
+                 return obj;
+                }
+//Process to send sms of invoice submission to po creator also
+            /*    if (!ApplicationUtils.getRequestParameter(request, "module_type").equals(ApplicationConstants.PROJECT_SYSTEM)) {
+                    if (request.getParameter("txtOnloadPurchasing_group").equals("Z00")) {
+                        POBeanObj = vendorMgrObj.getPlantCodeDetails(POBeanObj);
+                        assignOfficeDTO = smsemp.Ldap(POBeanObj.getOfficeode());
+                        objSmsPoCreator.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
+                    } else {
+                        hobeanObj.setPURCHASING_GROUP(ApplicationUtils.getRequestParameter(request, "txtOnloadPurchasing_group"));
+                        hobeanObj = vendorMgrObj.getHOSmsDetails(hobeanObj);//get the details of employee from emp_escalation_matrix
+                        if (!ApplicationUtils.isBlank(hobeanObj.getPLANT())) {
+                            if (hobeanObj.getPLANT().equals(ApplicationConstants.HO_OFFICE_PLANT)) {
+                                assignOfficebeanObj = smsemp.Ldapcpf(hobeanObj.getEMP_CPF());
+                                objSmsPoCreator.setMobileNumber(assignOfficebeanObj.getOfficerContactNo());
+
+                            } else {
+                                POBeanObj.setPlant(hobeanObj.getPLANT());
+                                POBeanObj = vendorMgrObj.getOfficeCodeDetails(POBeanObj);
+                                assignOfficeDTO = smsemp.Ldap(POBeanObj.getOfficeode());//office incharge and technical person 
+                                objSmsPoCreator.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
+
+                            }
+                        }
+                    }
+                }*/
+
+            } catch (Exception e) {
+
+            }
+                       
+            
+            
+            
             legalInvoiceInputBean = vendorMgrObj.saveLegalInvoiceForm(legalInvoiceInputBean);
+            
             obj.put("Message1", "Form Submitted Successfully with Application ID " + legalInvoiceInputBean.getApplId());
              obj.put("status","Submitted");
+             
+          
+              // Notify respective vendor via mail n sms--------------------------------
+            try {
+                  VendorBean vendorBeanObj1 = new VendorBean();
+                try {
+                    
+                vendorBeanObj1.setVendorNumber((String) vendorSession.getAttribute(ApplicationConstants.USER_NAME_SESSION));
+                vendorBeanObj1.setPassword("");// to get the details only on user id and not on password
+                vendorBeanObj1 = vendorMgrObj.getContactNumber(vendorBeanObj1);// get the contact details of vendor
+            } catch (Exception e) {
+
+            }                
+                
+                objSmsVendor.setMobileNumber(vendorBeanObj1.getMailId());
+                objSmsVendor.setEmailId(vendorBeanObj1.getVendorContactNumber());
+                
+                  notifyLegalEmpInvSubmit(request, objSmsVendor,legalInvoiceInputBean,"VENDOR");//uncomment for cloud
+             
+            } catch (Exception e) {
+                //  System.out.println("in if empSubmitSmsSendProcess catch");
+                e.printStackTrace();
+            }
+           //--------------------------
+             
+             
+             // Notify respective employee via mail n sms--------------------------------
+            try {
+                  notifyLegalEmpInvSubmit(request, objSmsEmp,legalInvoiceInputBean,"EMP");//uncomment for cloud
+             
+            } catch (Exception e) {
+                //  System.out.println("in if empSubmitSmsSendProcess catch");
+                e.printStackTrace();
+            }
+           //--------------------------
+             
+             
+             
         } catch (Exception ex) {
              obj.put("Message1", "Something went wrong..Please Check!!! ");
              logger.info("Error in getSubmittedLegalInvoiceFormStatus:"+ex.getMessage());
@@ -938,7 +1167,7 @@ public class VendorFormController {
         VendorDelegate vendorMgrObj = new VendorManager();
         String Appl_id;
         try {
-            
+               
                 legalInvoiceInputBean = vendorMgrObj.saveLegalInvoiceForm(legalInvoiceInputBean);
             if (legalInvoiceInputBean.getApplId()+"" != "" && legalInvoiceInputBean.getApplId().compareTo(0)!=0 ) {
                 obj.put("Message1", "Form Saved Successfully with ID " + legalInvoiceInputBean.getApplId());

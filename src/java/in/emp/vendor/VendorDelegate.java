@@ -6,6 +6,8 @@ package in.emp.vendor;
 
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.HOSectionMatrixBean;
+import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
@@ -82,6 +84,7 @@ public interface VendorDelegate {
         public POBean getForwardedToOfficeCodeDetails(POBean POBeanObj) throws Exception;
         public LinkedList getPlantDetails(POBean POBeanObj) throws Exception;
         public HOBean getHOSmsDetails(HOBean HOBeanObj) throws Exception;
+        public HOSectionMatrixBean  getHOLegalSmsDetails(HOSectionMatrixBean HOSectionMatrixBeanObj)throws Exception;
 
         public VendorInputBean getInvoicedetails(VendorInputBean vendorInputBeanObj) throws Exception;
     
@@ -126,4 +129,6 @@ public interface VendorDelegate {
     public List<FeeTypeBean> getLegalFeeType(FeeTypeBean bean)throws Exception;
 
     public List getLegalHierarchyLocation(OrganizationMasterBean organizationMasterBean)throws Exception;
+    
+     public void updateLegalCommunicationLog(LegalCommunicationBean legalCommunicationBean) throws Exception;
 }
