@@ -50,13 +50,13 @@ private static Logger logger = Logger.getLogger(GetErpLegalInvoiceStatusList.cla
         try {
             logger.log(Level.INFO, "GetFeeTypeList ::: getQueryResults() :: method called ::");
 //            sql.append(" SELECT * FROM ERP_LEGAL_INVOICE_STATUS ");
-            sql.append("  SELECT * FROM ZHRT_ADV_FEE_TYP WHERE ZZCASE_TYPE=? ORDER BY ZZFEE_INDEX ");
-            
+            if ( feeTypeBean.getCaseType()!= null) {sql.append("  SELECT * FROM ZHRT_ADV_FEE_TYP WHERE ZZCASE_TYPE=? ORDER BY ZZFEE_INDEX ");
+            } else sql.append("  SELECT * FROM ZHRT_ADV_FEE_TYP ORDER BY ZZFEE_INDEX ");
             statement = connection.prepareStatement(sql.toString());
             if ( feeTypeBean.getCaseType()!= null) {
                 statement.setInt(i++, feeTypeBean.getCaseType());
             } 
-            System.out.println("sql::" + sql);
+            System.out.println("feetypelist sql::" + sql);
             rs = statement.executeQuery();
 
         } catch (Exception ex) {

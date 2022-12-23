@@ -14,6 +14,7 @@ import in.emp.vendor.manager.VendorManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,8 +103,10 @@ public class LegalServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject jSONObject = new JSONObject();
         legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
-        legalInvoiceBean.setCASEREFNO(Integer.valueOf(request.getParameter("caseRefNo")));
-        //System.out.println("populateCaseDetails");
+        if (request.getParameter("caseRefNo")!=null) {legalInvoiceBean.setCASEREFNO(Integer.valueOf(request.getParameter("caseRefNo")));
+        }
+        
+        System.out.println("populateCaseDetails");
         System.out.println("caseRefNo"+request.getParameter("caseRefNo"));
         legalInvoiceBean.setWhereClause("vendorCaseRefNo");
         List<LegalInvoiceBean> legalInvoiceBeanList = null;
@@ -126,11 +129,15 @@ public class LegalServlet extends HttpServlet {
             bean.setCaseType(Integer.parseInt(legalInvoiceBeanList.get(0).getCASETYPE()));
             try {
                 List<FeeTypeBean> feeTypeBeanList = vendorMgrObj.getLegalFeeType(bean);
-                String optionList = "";
+                String optionList = ""; //String[] optionListArray;
+                JSONArray array = new JSONArray();
                 for (FeeTypeBean feeType : feeTypeBeanList) {
                     optionList += "<option value=" + feeType.getFeeType() + ">" + feeType.getFeeType() + "</option>";
+                    array.add("\"feetype\": "+"\"<option value=" + feeType.getFeeType() + ">" + feeType.getFeeType() + "</option>\"");
                 }
-                jSONObject.put("feeTypeList", optionList);
+                //optionListArray = optionList.split("[\\r\\n]+");
+                System.out.println(array.toString());
+                jSONObject.put("feeTypeList", optionList);jSONObject.put("feeTypeListArray", array);
             } catch (Exception ex) {
                 Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
