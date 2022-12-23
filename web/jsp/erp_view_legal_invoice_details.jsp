@@ -227,6 +227,12 @@
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorName())) {
             VendorName = legalInvoiceInputBean.getVendorName();
         }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMobileNo())) {
+            mobileNo = legalInvoiceInputBean.getMobileNo();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getEmailId())) {
+            emailId = legalInvoiceInputBean.getEmailId();
+        }
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
             VENDOR_NUMBER = legalInvoiceInputBean.getVendorNumber();
         }
@@ -434,7 +440,7 @@
                                                 <thead>
                                                     <tr class="success">                                                                                       
                                                         <td class="text-center"><%= VENDOR_NUMBER %></td> 
-                                                        <td class="text-center"><%= VENDOR_NAME %></td> 
+                                                        <td class="text-center"><%= VendorName %></td> 
                                                         <td class="text-center"><%= InvoiceNumber %></td>  
                                                         <td class="text-center"><%= invoiceDate %></td> 
                                                         <td class="text-center"><%= msedclInwardNo %></td>  
