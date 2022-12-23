@@ -377,12 +377,12 @@ String rejectReason="";
                                     <td class="text-right h5">Vendor Code.</td>
                                     <td>
 <!--                                        <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%"  readonly value="0100001969" >-->
-<input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%"  value="<%= legalInvoiceInputBean.getVendorNumber() %>" readonly /> 
+<input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%" value="<%= legalInvoiceInputBean.getVendorNumber() %>" readonly /> 
                                     </td>
                                     <td colspan="2" class="text-right h5">Vendor Name</td>
                                     <td >
 <!--                                        <input type="text" class="form-control"   size="20" style="width: 100%" id="txtVendorName" name="txtVendorName" value="VISHWANATH PROJECTS LIMITED" readonly>-->
-<input type="text" class="form-control"   size="20" style="width: 100%" id="txtVendorName" name="txtVendorName" value="" value="<%= legalInvoiceInputBean.getVendorName()%>" readonly/>
+<input type="text" class="form-control"   size="20" style="width: 100%" id="txtVendorName" name="txtVendorName" value="<%= legalInvoiceInputBean.getVendorName()%>" readonly/>
                                     </td>
                                 </tr>
                                 <% }else if (UserType.equals("Emp") && Status.equals("")){%>
@@ -415,12 +415,18 @@ String rejectReason="";
 
 <td  class="text-right h5">
     <% if (!UserType.equals("Emp")){%>
-                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>"/>
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" <% if (Status == "" || Status.equals("Saved")) {
+                                            } else {
+                                                out.print("disabled='true'");
+                                            }%>/>
                                      <%} if (!(UserType.equals("Emp")) && (flag==0 || flag==2)) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
                                            class="btn btn-primary"/><%}%>
                                             
 <% if (UserType.equals("Emp")){%>
-                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" onblur="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"/>
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" onblur="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')" <% if (Status == "" || Status.equals("Saved")) {
+                                            } else {
+                                                out.print("disabled='true'");
+                                            }%> />
                                      <% } %>
 
 
@@ -450,7 +456,7 @@ String rejectReason="";
                                 <td>
                                     <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;" readonly value ="<%= dealingOffice %>"/> 
                                 </td>
-                                <%}else if(flag == 3 || (UserType.equals("Emp") && (Status.equalsIgnoreCase("Accepted")|| Status.equalsIgnoreCase("Saved")||Status.equalsIgnoreCase("Rejected")))){%>
+                                <%}else if(flag == 3 || (UserType.equals("Emp") && (Status.equalsIgnoreCase("Accepted")|| Status.equalsIgnoreCase("Saved")||Status.equalsIgnoreCase("Rejected")||Status.equalsIgnoreCase("Returned")))){%>
                                 <td><input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;" readonly value ="<%= dealingOffice %>"/>  </td>
                                 <%}else{%>
                                 <td>
@@ -489,13 +495,19 @@ String rejectReason="";
                                     <%
                                             } else {%>
                                                 <td>
-                                                    <select class="form-control text-left" id="feeTypeSelect" disabled="true">
-                                            <option selected><%= feeType %></option>
+                                                    <select class="form-control text-left" id="feeTypeSelect"  <% if (Status.equals("Saved")) { out.print("onclick='feeType()'");
+                                            } else {
+                                                out.print("disabled='true'");
+                                            } %> >
+                                            <option><%if (Status.equals("Saved")) { out.print("Select");
+                                            } else {
+                                                out.print(feeType);
+                                            }  %></option>
                                         </select></td>
                                             <%}%> 
                                     <td colspan="2"  class="text-right h5"><fmt:message key='Invoice Number'/></td>
                                     <td>
-                                        <input type="text" class="form-control text-right" name="txtInvoiceNum" id="txtInvoiceNum"   maxlength="15" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "") {
+                                        <input type="text" class="form-control text-right" name="txtInvoiceNum" id="txtInvoiceNum"   maxlength="15" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /></td>
@@ -521,7 +533,7 @@ String rejectReason="";
                                         <input type="text" class="form-control text-right" name="txtCourtCaseNo" id="txtCourtCaseNo" value="" style="width: 100%"  /> 
                                     </td>-->
                                     <td  class="text-right h5">
-                                        <input autocomplete="off" type="text" name="txtCourtCaseNoWithout" id="txtCourtCaseNoWithout" style="width: 100%;" value="<%= courtCaseNo %>"  class="form-control"  placeholder=<fmt:message key='"Type and search or use space-bar"'/> " <% if (Status == "") {
+                                        <input autocomplete="off" type="text" name="txtCourtCaseNoWithout" id="txtCourtCaseNoWithout" style="width: 100%;" value="<%= courtCaseNo %>"  class="form-control"  placeholder=<fmt:message key='"Type and search or use space-bar"'/> " <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /> 
@@ -554,21 +566,7 @@ String rejectReason="";
                                     <input name="txtPartyNamesWithout" id="txtPartyNamesWithout" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= partyNames %>"/> 
                                 </td>
 
-                                </tr>
-                                <tr>
-                                    
-                                    <td class="text-right h5">Fee type</td>
-                                  
-                                                <td>
-                                                    <input name="txtFeeTypeWithout" id="txtFeeTypeWithout" type="text" class="form-control" size="20" style="width: 100%;"  readonly  /> 
-                                        </select></td>
-                                           
-                                     
-                                  
-
-
-                                </tr>
-                                    <%}%>
+                                </tr><%}%>
                                     
                                 <tr>
                                     
@@ -576,7 +574,7 @@ String rejectReason="";
                                      <td class="text-right h5" ><label id="mydrop_down_label">Region</label>.</td>
 
                                     <td >
-                                        <% if (Status == "") {
+                                        <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                         <select class="form-control text-left" id="txtRegion"   onchange="getLegalHierarchyLocation(this,'ZON')" >
                                             <option value ="">Select</option>
@@ -592,7 +590,7 @@ String rejectReason="";
                                     </td>
                                     <td  class="text-right h5" colspan="2">Zone.</td>
                                     <td>
-                                    <% if (Status == "") {
+                                    <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                      
                                         
@@ -612,7 +610,7 @@ String rejectReason="";
                                 <tr>
                                 <td class="text-right h5" >Circle</td>
                                 <td>
-                                   <% if (Status == "") {
+                                   <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                      <select class="form-control text-left" id="txtCircle"    onchange="getLegalHierarchyLocation(this,'DIV')" >
                                                     <option value ="" >Select</option>
@@ -627,7 +625,7 @@ String rejectReason="";
 
                                 <td class="text-right h5 " colspan="2">Division</td>
                                 <td > 
-                                   <% if (Status == "") {
+                                   <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                     <select class="form-control text-left" id="txtDivision"    onchange="getLegalHierarchyLocation(this,'SUB')" >
                                                     <option value ="">Select</option>
@@ -645,7 +643,7 @@ String rejectReason="";
                                 <tr>
                                     <td class="text-right h5" >Sub-Division</td>
                                 <td > 
-                                    <% if (Status == "") {
+                                    <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                     <select class="form-control text-left" id="txtSubDivision"    onchange="getLegalHierarchyLocation(this,'SUB-DIV')" >
                                                     <option value ="">Select</option>
@@ -662,11 +660,10 @@ String rejectReason="";
                                     <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;" readonly value ="<%= dealingOffice %>"/> 
                                 </td>
                                 </tr>
-                                <tr>
-                                    
+                                <tr>                                   
                                     <td class="text-right h5">Corporate Office</td>
                                     <td>
-                                        <% if (Status == "") {
+                                        <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                         <select class="form-control text-left" id="txtCorporateOffice"   onchange="disableOtherLocation(this.value)"  >
                                             <option value ="Select">Select</option>
@@ -680,19 +677,37 @@ String rejectReason="";
                                             <%}%>
                                     </td>
                                     
+                                    
+                                     </tr>
+                                     
+                                     
+                                     <tr>
+                                    
+                                    <td class="text-right h5">Fee type</td>
+                                  
+                                                <td>
+                                                    <!--<input name="txtFeeTypeWithout" id="txtFeeTypeWithout" type="text" class="form-control" size="20" style="width: 100%;"  readonly  />-->
+                                                    <select class="form-control text-left" id="feeTypeSelect" onclick="feeType();">
+                                            <option selected><%= feeType %></option>
+                                            
+                                        </select></td>
+
+
+                                
+                                     
                                     <td colspan="2"  class="text-right h5"><fmt:message key='Invoice Number'/></td>
                                     <td>
-                                        <input type="text" class="form-control text-right" name="txtInvoiceNumWithoutCase" id="txtInvoiceNumWithoutCase"   maxlength="15" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "") {
+                                        <input type="text" class="form-control text-right" name="txtInvoiceNumWithoutCase" id="txtInvoiceNumWithoutCase"   maxlength="15" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /></td>
-                                </tr>
+                               </tr>
                                 </tbody>
                                 <%//}%>
                                 <tr>
                                     <td width="10%" class="text-right h5"><fmt:message key='Invoice Amount(Incl. Taxes)'/></td>
                                     <td width="20%">
-                                        <input type="text" class="form-control text-right" value="<%=InvoiceAmt%>" size="20" placeholder=<fmt:message key='"Max length is 15"'/> maxlength="15" id="txtInvoiceAmt" name="txtInvoiceAmt" <% if (Status == "") {
+                                        <input type="text" class="form-control text-right" value="<%=InvoiceAmt%>" size="20" placeholder=<fmt:message key='"Max length is 15"'/> maxlength="15" id="txtInvoiceAmt" name="txtInvoiceAmt" <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /></td>
@@ -729,12 +744,12 @@ String rejectReason="";
                                      <td  class="text-right h5">Invoice Date </td>
                                     <td width="20%"> 
                                         <% if (flag == 2) {%>
-                                             <input name="" id="txtVendorInvoiceDate" type="text" readonly size="20" class="datefield" value="<%=InvoiceDate%>" maxlength="15" <% if (Status == "") {
+                                             <input name="" id="txtVendorInvoiceDate" type="text" readonly size="20" class="datefield" value="<%=InvoiceDate%>" maxlength="15" <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /> 
                                             <%  } else {%>
-                                                 <input name="txtVendorInvoiceDate" id="txtVendorInvoiceDate" type="text"  size="20" class="form-control" value="<%=InvoiceDate%>" maxlength="15" <% if (Status == "") {
+                                                 <input name="txtVendorInvoiceDate" id="txtVendorInvoiceDate" type="text"  size="20" class="form-control" value="<%=InvoiceDate%>" maxlength="15" <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> />
@@ -748,7 +763,7 @@ String rejectReason="";
                                     <td    colspan ="2" width="10%" class="text-right h5"><fmt:message key='Invoice Submit Date'/> </td>
                                     <td> 
                                         <input name="txtInvSubmitDt" class="datefield" style="text-align: left;" id="txtInvSubmitDt" type="text" size="20" class="form-control" 
-                                               value="<%=InvoiceSubmitDate%>" maxlength="15"  <% if (Status == "") {
+                                               value="<%=InvoiceSubmitDate%>" maxlength="15"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> />
@@ -899,6 +914,7 @@ String rejectReason="";
                                               <th><fmt:message key='File Type'/></th>
                                             <th><fmt:message key='Remark'/></th>
                                                 <% //if (UserType.equals("Vendor")) {%>
+                                            <%  //if ((flag == 2) && (flb.getDELETION_FLAG().equals("Y"))) {%>
                                             <th><fmt:message key='Remove'/></th> 
                                                 <% //}%>
                                                 <% }%>
@@ -907,7 +923,7 @@ String rejectReason="";
                                          String type = "";
                                             VendorApplFileBean flb = new VendorApplFileBean();
                                             flb = (VendorApplFileBean) itr.next();
-                                            j++;
+                                            j++; 
                                             if (!ApplicationUtils.isBlank(flb.getRemark())) {
                                                 remark = flb.getRemark();
                                             }
@@ -991,7 +1007,7 @@ String rejectReason="";
                                                 </tr>
                                                 <tr height="10"><td></td></tr>
                                                 <tr><td></td><td>
-                                                        <input class="form-control" type="text" text-align="right" name="txtReason"  id="txtReason1" maxlength="100" placeholder=<fmt:message key='"Specify Reason here(Max 100 Chars)"'/>.... style='display:none' onkeyup="myFunction()"/>
+                                                        <input class="form-control" type="text" text-align="right" name="txtReason"  id="txtReason1" maxlength="100" placeholder=<fmt:message key='"Specify Reason here(Max 100 Chars)...."'/> style='display:none' onkeyup="myFunction()"/>
                                                     </td> <td>
                                                         <input type="button" value=<fmt:message key='Submit'/> name="rejectSubmitButton" id="rejectSubmitButton" style='display:none' onclick="legalInvoiceRejectSubmitButton()"
                                                                class="btn  btn-primary" />
@@ -1991,7 +2007,7 @@ String rejectReason="";
                 }
             });
   }
-  function populateCaseRefDetails(){
+  function populateCaseRefDetails(){//alert(document.getElementById("txtCaseRefNoWithout").value);
        $.ajax({
                 url: "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value
                         +"&actionName=populateCaseRefDetails&txtCaseRefNoWithout="+document.getElementById("txtCaseRefNoWithout").value,
@@ -2011,6 +2027,22 @@ String rejectReason="";
                      console.log( textStatus);
                 }
             });
+  }
+  
+  function feeType(){alert("in feeType() fn");
+  $.ajax({url: '${pageContext.request.contextPath}'+'/LegalServlet?txtVendorCode='+document.getElementById('txtVendorCode').value+'&actionName=populateCaseDetails'
+                +'&caseRefNo='+document.getElementById('txtCaseRefNo').value,
+                dataType: 'json',
+               
+                success: function( data, textStatus, jqXHR) {
+                     //$('#feeTypeSelect').html(data.feeTypeList);
+                     $('#feeTypeSelect').html($.unique(data.feeTypeListArray.map(function (d) {return d.feetype;})));
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+  
   }
   
   </script>

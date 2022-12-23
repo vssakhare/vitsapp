@@ -2314,7 +2314,7 @@ public class AjaxControlServlet extends HttpServlet {
 
             Date invoiceDate = (ApplicationUtils.stringToDate((String) request.getParameter("txtVendorInvoiceDate"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             Date vendorinwardDate = (ApplicationUtils.stringToDate((String) request.getParameter("txtVendorInwardDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-            legalInvoiceInputBean.setStatus(ApplicationUtils.getRequestParameter(request, "txtStatus"));;
+            legalInvoiceInputBean.setStatus(ApplicationUtils.getRequestParameter(request, "txtStatus"));
             if (request.getParameter("isWithCourtCaseFlag") != null && !request.getParameter("isWithCourtCaseFlag").equals("")) {
                 legalInvoiceInputBean.setIsWithCourtCaseNo(ApplicationUtils.getRequestParameter(request, "isWithCourtCaseFlag"));
             }
@@ -2441,8 +2441,8 @@ public class AjaxControlServlet extends HttpServlet {
             } else if ((!(invoiceDate.after(today) || (vendorinwardDate.after(today))))//|| (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
                     && (legalInvoiceInputBean.getSaveFlag().equals("Accepted"))) {
                 obj = VendorFormController.getVerifiedLegalInvoiceFormStatus(legalInvoiceInputBean, request);
-            } else if ((!(invoiceDate.after(today) || (vendorinwardDate.after(today))))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
-                    && (legalInvoiceInputBean.getSaveFlag().equals("Rejected"))) {
+            } else if (!(invoiceDate.after(today) || (vendorinwardDate.after(today)))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
+                    && (legalInvoiceInputBean.getSaveFlag().equals("Rejected") || legalInvoiceInputBean.getSaveFlag().equals("Returned"))) {
                 obj = VendorFormController.getRejectedFormStatus(legalInvoiceInputBean, request);
             } else if ((!(invoiceDate.after(today) || (vendorinwardDate.after(today))))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
                     && (legalInvoiceInputBean.getSaveFlag().equals("Forwarded"))) {
