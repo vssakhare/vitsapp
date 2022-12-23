@@ -137,30 +137,32 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
              if((legalInvoiceBean.getSaveFlag().equals("Submitted")))
              {
              sql.append(" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS ");
-            sql.append(" SET SAVE_FLAG = ?, UPDATED_TIME_STAMP = SYSTIMESTAMP "); // 16-18 till here      
+            sql.append(" SET SAVE_FLAG = ?, FEE_TYPE = ?, UPDATED_TIME_STAMP = SYSTIMESTAMP "); // 16-18 till here      
             sql.append(" WHERE APPL_ID = ? ");
          
                        logger.log(Level.INFO, "ErpLegalInvoiceStatusTxnHelper :: getQueryResults() :: SQL :: " + sql.toString());
             statement = conn.prepareStatement(sql.toString());
             statement.setString(1, legalInvoiceBean.getSaveFlag());
-              statement.setInt(2, legalInvoiceBean.getApplId());
+            statement.setString(2, legalInvoiceBean.getFeeType());
+              statement.setInt(3, legalInvoiceBean.getApplId());
           
             count = statement.executeUpdate();
              }
-             if((legalInvoiceBean.getSaveFlag().equals("Accepted")) || (legalInvoiceBean.getSaveFlag().equals("Rejected")))
+             if((legalInvoiceBean.getSaveFlag().equals("Accepted")) || (legalInvoiceBean.getSaveFlag().equals("Rejected")) || (legalInvoiceBean.getSaveFlag().equals("Returned")))
              {
              sql.append(" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS ");
             sql.append(" SET SAVE_FLAG = ?, UPDATED_TIME_STAMP = SYSTIMESTAMP ,APPROVED_BY=?,APPROVE_REJECT_FLAG=?,REASON=?,MSEDCL_INWARD_NUMBER=?,MSEDCL_INWARD_DATE=?"); // 16-18 till here  
             if(legalInvoiceBean.getSaveFlag().equals("Accepted")){
                 sql.append(" , STATUS='With Technical/Legal' "); 
-                if(legalInvoiceBean.getIsWithCourtCaseNo().equals("N")){
+                if (legalInvoiceBean.getIsWithCourtCaseNo()!=null){if(legalInvoiceBean.getIsWithCourtCaseNo().equals("N")){
                     sql.append(" , CASE_REF_NO =?,  COURT_NAME =?  , CASE_DESCRIPTION =?,COURT_CASE_NO=?,PARTY_NAMES=?,FEE_TYPE=? "); 
                 }
-            }
-            sql.append(" WHERE APPL_ID = ? ");
+            }}
+                sql.append(" WHERE APPL_ID = ? ");
          
                        logger.log(Level.INFO, "ErpLegalInvoiceStatusTxnHelper :: getQueryResults() :: SQL :: " + sql.toString());
             statement = conn.prepareStatement(sql.toString());
+                 System.out.println(sql.toString());
             statement.setString(i++, legalInvoiceBean.getSaveFlag());
               
           statement.setString(i++, legalInvoiceBean.getApprovedBy());
@@ -168,14 +170,16 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
           statement.setString(i++, legalInvoiceBean.getRejectReason());
           statement.setString(i++, legalInvoiceBean.getMsedclInwardNo());
           statement.setDate(i++, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceBean.getMsedclInwardDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-          if(legalInvoiceBean.getSaveFlag().equals("Accepted") && legalInvoiceBean.getIsWithCourtCaseNo().equals("N")){
+          if(legalInvoiceBean.getSaveFlag().equals("Accepted")) {
+              if (legalInvoiceBean.getIsWithCourtCaseNo()!=null){
+              if (legalInvoiceBean.getIsWithCourtCaseNo().equals("N")){
                     statement.setString(i++, legalInvoiceBean.getCaseRefNo());
                     statement.setString(i++, legalInvoiceBean.getCourtName());
                     statement.setString(i++, legalInvoiceBean.getCaseDescription());
                     statement.setString(i++, legalInvoiceBean.getCourtCaseNo());
                     statement.setString(i++, legalInvoiceBean.getPartyNames());
                     statement.setString(i++, legalInvoiceBean.getFeeType());
-                }
+                }}}
           statement.setInt(i++, legalInvoiceBean.getApplId());
             count = statement.executeUpdate();
              }
