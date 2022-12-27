@@ -26,7 +26,24 @@ public class OrganizationMasterBean {
     private String subDivId;
     private String subDivName;
     private String selectedOfficeCode;
-    
+    private String deptId;
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+    private String deptName;
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
     
 
     public OrganizationMasterBean() {
