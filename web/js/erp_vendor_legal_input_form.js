@@ -41,10 +41,17 @@ function LegalApplDtlvalidation() {
     } else if (isWithCourtCaseFlag === 'N') {
         var txtRegion = document.getElementById('txtRegion').value;
         var txtCorporateOffice = document.getElementById('txtCorporateOffice').value;
+        var txtCorpSection = document.getElementById('txtCorpSection').value;
         if ((txtRegion === null || txtRegion === "" || txtRegion === "Select") && (txtCorporateOffice === null || txtCorporateOffice === "" || txtCorporateOffice === "Select")) {
             alert("Please select Region or Corporate office.");
             return false;
         }
+        
+        if (!(txtCorporateOffice === null || txtCorporateOffice === "" || txtCorporateOffice === "Select")&&(txtCorpSection === null || txtCorpSection === "" || txtCorpSection === "Select")) {
+            alert("Please select Corporate office section.");
+            return false;
+        }
+        
         txtInvoiceNum = document.getElementById('txtInvoiceNumWithoutCase').value;
 
         var usertype = document.getElementById('userType').value;
@@ -54,6 +61,13 @@ function LegalApplDtlvalidation() {
                 alert("Please select case ref no.");
                 return false;
             }
+            
+            var feeType = document.getElementById('feeTypeSelectWo').value;
+            if (feeType === null || feeType === "") {
+                alert("Please select fee type");
+                return false;
+            }
+            
         }
     }
     if (txtInvoiceAmount === null || txtInvoiceAmount === "") {
@@ -150,7 +164,9 @@ function saveLegalInvoice(action) {
     var division = "";
     var subdiv = "";
     var corporateOffice = "";
-    var feeType = "";
+    var corpSection = "";
+    var feeType = "";    
+       
     if (WithOrWithoutCourtCase === 'withCourtCase') {
         isWithCourtCaseFlag = "Y";
     } else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
@@ -184,6 +200,11 @@ function saveLegalInvoice(action) {
         corporateOffice = coSelect.options[coSelect.selectedIndex].text;
         if(corporateOffice==='Select'){
             corporateOffice="";
+        }
+        var coSection = document.getElementById("txtCorpSection");
+        corpSection = coSection.options[coSection.selectedIndex].text;
+        if(corpSection==='Select'){
+            corpSection="";
         }
         var feeTypeSelect = document.getElementById("feeTypeSelect");
         feeType = feeTypeSelect.options[feeTypeSelect.selectedIndex].text;
@@ -376,13 +397,14 @@ function saveLegalInvoice(action) {
             + "&division=" + encodeURIComponent(division)
             + "&subDivision=" + encodeURIComponent(subdiv)
             + "&corporateOffice=" + encodeURIComponent(corporateOffice)
+            + "&corpSection=" + encodeURIComponent(corpSection)
 //            + "&txtResubmitDt= " + encodeURIComponent(txtResubmitDt)
 //            + "&vendor_number=" + encodeURIComponent(vendor_number)
 //            + "&ForwardToPlant=" + encodeURIComponent(ForwardToPlant)
 //            + "&ForwardToDesc=" + encodeURIComponent(ForwardToDesc)
             + "&subAction=" + action
             ;
-
+//alert(txtInvoiceAmt+" & "+txtFeeType)
     callAjax("POST", url, params, false, out.response);
 
 
@@ -456,7 +478,7 @@ function viewLeaglEmpApp1(AppId, EmpNo, viewAction, status) {
             + "&subAction=" + encodeURIComponent(action)
             + "&status=" + encodeURIComponent(status)
             ;
-
+//alert(params);
     postForm(url, params, "get");
 }
 function legalInvoiceApproveButton() {
@@ -494,6 +516,13 @@ function LegalApplDtlvalidation_Approve() {
     var txtInwardNum = document.getElementById('txtInwardNum').value;
 
     var txtInwardDt = document.getElementById('txtInwardDt').value;
+    
+    var caseRefNoWithout = document.getElementById('txtCaseRefNoWithout').value;
+            if (caseRefNoWithout === null || caseRefNoWithout === "") {
+                alert("Please select case ref no.");
+                return false;
+            }
+    
     if (txtInwardNum === null || txtInwardNum === "") {
         alert("Inward Num is Required");
         return false;
@@ -738,16 +767,19 @@ function showWithOrWithoutCourtCaseFields() {
 
 function getLegalHierarchyLocation(value, officeType) {
     var office=value.options[value.selectedIndex].text;
+    
     if (officeType === 'ZON') {
         if (office !== 'Select') {
             document.getElementById("txtCorporateOffice").disabled = true;
+            document.getElementById("txtCorpSection").disabled = true;
         } else {
             document.getElementById("txtCorporateOffice").disabled = false;
+            document.getElementById("txtCorpSection").disabled = false;
         }
     }
     document.getElementById('txtDealingOffice').value = office;
     document.getElementById('txtDealingOfficewithoutCaseNo').value = office;
-    var officeCode = office.substring(0, office.indexOf("-"));
+    var officeCode = office.substring(0, office.indexOf("-"));//alert(officeCode);
     document.getElementById('selectedOffieCode').value = officeCode;
     if (officeType !== 'SUB-DIV') {
         var out = {
@@ -774,6 +806,11 @@ function getLegalHierarchyLocation(value, officeType) {
                 if (plant === 'SUB')
                 {
                     jQuery("#txtSubDivision").html(id)
+                }
+                if (plant === 'DEPT')
+                {
+                    //jQuery("#txtCorporateOffice").html(id)
+                    jQuery("#txtCorpSection").html(id)
                 }
             }
         };
