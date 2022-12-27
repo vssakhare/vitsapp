@@ -183,6 +183,10 @@
             invoiceDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
         }
 
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDate())) {
+            paymentDate = legalInvoiceInputBean.getPaymentDate();
+        }
+        
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInvDate())) {
             VENDORInvDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getVendorInvDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
         }
@@ -232,6 +236,9 @@
         }
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getEmailId())) {
             emailId = legalInvoiceInputBean.getEmailId();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getUTR_NO())) {
+            UTR_NO = legalInvoiceInputBean.getUTR_NO();
         }
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
             VENDOR_NUMBER = legalInvoiceInputBean.getVendorNumber();
@@ -478,7 +485,7 @@
                                                         <td class="text-center"><%= reasonForDeduction %></td> 
                                                         <td class="text-center"><%= taxAmount %></td> 
                                                         <td class="text-center"><%= paidAmount %></td>  
-                                                        <td class="text-center"><%= Status %></td>  
+                                                        <td class="text-center"><%= invoiceStatus %></td>  
                                                         <td class="text-center"><%= paymentDate %></td>  
                                                         <td class="text-center"><%= UTR_NO %></td>
                                                     </tr>
@@ -490,35 +497,6 @@
 
                             </fieldset>
                             <%if(UserType.equalsIgnoreCase("Emp")){%>
-                            <fieldset class="fldst_border">
-                                <legend>Invoice Details:</legend>  
-                                  <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                        
-                                                            <th class="text-center">Invoice Number</th> 
-                                                            <th class="text-center">Invoice Date</th> 
-                                                            <th class="text-center">Invoice Amount</th> 
-                                                            <th class="text-center">Status</th>                                                 
-                                                        </tr>
-                                                      </thead>
-                                                <tbody>
-                                                    <tr class="success">                                                                                        
-                                                            <td class="text-center"><%= InvoiceNumber %></td> 
-                                                            <td class="text-center"><%= invoiceDate %></td> 
-                                                            <td class="text-center"><%= invoiceAmount %></td> 
-                                                            <td class="text-center"><%= invoiceStatus %></td>                                                 
-                                                        </tr>
-                                                      </tbody>  
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            
                             <fieldset class="fldst_border">
                                 <legend>Liability Details </legend> 
                                 <div class="row">
