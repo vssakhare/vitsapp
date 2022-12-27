@@ -51,7 +51,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 legalInvoiceBean.setOfficeName((result.getString("OFFICE_NAME")));
                 legalInvoiceBean.setMsedclPartyName(result.getString("MSEDCL_PARTY_NAME"));
                 legalInvoiceBean.setVsPartyName(result.getString("VS_PARTY_NAME"));
-            } else {
+            } else {//System.out.println("in else now...");
                 logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getDataObject() :: method called ::");
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
                 legalInvoiceBean.setYEAR_L(result.getInt("YEAR_L"));
@@ -408,7 +408,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 
             }
             statement = connection.prepareStatement(sql.toString());
-            //System.out.println(sql.toString());
+            System.out.println(sql.toString());
             if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")|| legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
@@ -434,6 +434,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getQueryResults() :: Exception :: " + ex);
             throw ex;
         }
+        //System.out.println("qry executed sfully!");
         return rs;
     }
 }
