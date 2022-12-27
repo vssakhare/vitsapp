@@ -2443,7 +2443,7 @@ public class AjaxControlServlet extends HttpServlet {
                 obj = VendorFormController.getVerifiedLegalInvoiceFormStatus(legalInvoiceInputBean, request);
             } else if (!(invoiceDate.after(today) || (vendorinwardDate.after(today)))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
                     && (legalInvoiceInputBean.getSaveFlag().equals("Rejected") || legalInvoiceInputBean.getSaveFlag().equals("Returned"))) {
-                obj = VendorFormController.getRejectedFormStatus(legalInvoiceInputBean, request);
+                obj = VendorFormController.getRejectedLegalInvoiceFormStatus(legalInvoiceInputBean, request);
             } else if ((!(invoiceDate.after(today) || (vendorinwardDate.after(today))))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
                     && (legalInvoiceInputBean.getSaveFlag().equals("Forwarded"))) {
 //               obj=VendorFormController.getForwardedFormStatus(POBeanObj,vendorPrezDataObj,vendorInputBeanObj,request);

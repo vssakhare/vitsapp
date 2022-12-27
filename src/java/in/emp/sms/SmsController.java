@@ -238,8 +238,15 @@ private void sendSMS(String urlString, String smsData,SmsDTO smsdto) throws Exce
 		retval += decodedString;
             System.out.println("retval"+retval);
             if(retval!=null)
-            { retval = retval.substring(retval.indexOf("=") + 1);
-            smsresponsebeanbeanobj.setRESPONSE_ID(retval);}
+            {   if (retval.indexOf("~") > 0)
+                    { retval = retval.substring(retval.indexOf("=") + 1,retval.indexOf("~"));
+                    smsresponsebeanbeanobj.setRESPONSE_ID(retval);
+                    }
+               else
+                { retval = retval.substring(retval.indexOf("=") + 1);
+                    smsresponsebeanbeanobj.setRESPONSE_ID(retval);
+                    }
+            }
              System.out.println("calling trackSmsResponse");
                  trackSmsResponse(smsdto);//save into smsresponsetracker
 		logger.log(Level.INFO,   "Time - " + sdf.format(new Date()) + " " + retval + " smsData - "+smsData);

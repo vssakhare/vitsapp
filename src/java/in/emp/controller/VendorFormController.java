@@ -508,26 +508,26 @@ public class VendorFormController {
             //DIABLED FOR SMS 
            
             
-            if (objSmsEmp.getMobileNumber() != null) {
+            if (objSmsEmp.getMobileNumber() != null)
+            {
                    LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
                 if (mailTo.equals("EMP")){
                   sms.sendSMS(objSmsEmp, "476809",lstcredential);//UNCOMMENT FOR CLOUD
                   legalCommunicationSMSBean.setRECIPIENT_TYPE("EMP");
-                     legalCommunicationSMSBean.setSUBJECT("476809");
-                
+                  legalCommunicationSMSBean.setSUBJECT("476809");
                 }
-                
                 else if (mailTo.equals("VENDOR"))
                 {  sms.sendSMS(objSmsEmp, "476830", lstcredential);
                   legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
-                     legalCommunicationSMSBean.setSUBJECT("476830");
+                  legalCommunicationSMSBean.setSUBJECT("476830");
                 }
-                      legalCommunicationSMSBean.setRECIPIENTS_INFO(objSmsEmp.getMobileNumber());
-              
-               
+                
+                    legalCommunicationSMSBean.setRECIPIENTS_INFO(objSmsEmp.getMobileNumber());
                     legalCommunicationSMSBean.setCOMMUNICATION_TYPE("SMS");
                     legalCommunicationSMSBean.setCREATED(sysdate);
-           vendorMgrObj.updateLegalCommunicationLog(legalCommunicationSMSBean);
+                
+                    vendorMgrObj.updateLegalCommunicationLog(legalCommunicationSMSBean);
+                      
             }
             
             // Send mail to employee
@@ -551,12 +551,9 @@ public class VendorFormController {
                      
                  }
                 
-                
-                
-              
                   legalCommunicationBean.setSUBJECT(Subject);
-                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
-                    legalCommunicationBean.setCREATED(sysdate);
+                  legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                  legalCommunicationBean.setCREATED(sysdate);
             } else {
                  legalCommunicationBean.setRECIPIENTS_INFO(objSmsEmp.getEmailId());
                  if (mailTo.equals("EMP")){
@@ -1056,7 +1053,7 @@ public class VendorFormController {
                 if (!dealingOffice.equals("null")) {
                     if (!(dealingOffice.equals("261"))) {
                      
-                        assignOfficeDTO = smsemp.Ldap(dealingOffice);//office incharge and technical person 
+                    //    assignOfficeDTO = smsemp.Ldap(dealingOffice);//office incharge and technical person 
                     
                         objSmsEmp.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
                          objSmsEmp.setEmailId(assignOfficeDTO.getOfficerEmailId());
@@ -1077,30 +1074,7 @@ public class VendorFormController {
                  obj.put("Message1", "Please Check dealing office for Invoice!!! ");
                  return obj;
                 }
-//Process to send sms of invoice submission to po creator also
-            /*    if (!ApplicationUtils.getRequestParameter(request, "module_type").equals(ApplicationConstants.PROJECT_SYSTEM)) {
-                    if (request.getParameter("txtOnloadPurchasing_group").equals("Z00")) {
-                        POBeanObj = vendorMgrObj.getPlantCodeDetails(POBeanObj);
-                        assignOfficeDTO = smsemp.Ldap(POBeanObj.getOfficeode());
-                        objSmsPoCreator.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
-                    } else {
-                        hobeanObj.setPURCHASING_GROUP(ApplicationUtils.getRequestParameter(request, "txtOnloadPurchasing_group"));
-                        hobeanObj = vendorMgrObj.getHOSmsDetails(hobeanObj);//get the details of employee from emp_escalation_matrix
-                        if (!ApplicationUtils.isBlank(hobeanObj.getPLANT())) {
-                            if (hobeanObj.getPLANT().equals(ApplicationConstants.HO_OFFICE_PLANT)) {
-                                assignOfficebeanObj = smsemp.Ldapcpf(hobeanObj.getEMP_CPF());
-                                objSmsPoCreator.setMobileNumber(assignOfficebeanObj.getOfficerContactNo());
 
-                            } else {
-                                POBeanObj.setPlant(hobeanObj.getPLANT());
-                                POBeanObj = vendorMgrObj.getOfficeCodeDetails(POBeanObj);
-                                assignOfficeDTO = smsemp.Ldap(POBeanObj.getOfficeode());//office incharge and technical person 
-                                objSmsPoCreator.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
-
-                            }
-                        }
-                    }
-                }*/
 
             } catch (Exception e) {
 
@@ -1127,8 +1101,8 @@ public class VendorFormController {
 
             }                
                 
-                objSmsVendor.setMobileNumber(vendorBeanObj1.getMailId());
-                objSmsVendor.setEmailId(vendorBeanObj1.getVendorContactNumber());
+                objSmsVendor.setMobileNumber(vendorBeanObj1.getVendorContactNumber());
+                objSmsVendor.setEmailId(vendorBeanObj1.getMailId());
                 
                   notifyLegalEmpInvSubmit(request, objSmsVendor,legalInvoiceInputBean,"VENDOR");//uncomment for cloud
              
@@ -1186,9 +1160,16 @@ public class VendorFormController {
         JSONObject obj = new JSONObject();
         VendorDelegate vendorMgrObj = new VendorManager();
         String saveFlag = legalInvoiceInputBean.getSaveFlag();
+       
         try {
             legalInvoiceInputBean = vendorMgrObj.saveLegalInvoiceForm(legalInvoiceInputBean);
              obj.put("Message1", "Form Accepted Successfully");
+             
+            
+                
+                  notifyLegalVendorInvAccepted(request, legalInvoiceInputBean);//uncomment for cloud
+             
+         
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(VendorFormController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
              obj.put("Message1", "Something went wrong..Please Check!!! ");
@@ -1198,22 +1179,252 @@ public class VendorFormController {
         //  vendorVerifiedSmsSendProcess(request, saveFlag); //UNCOMMENT FOR CLOUD
         return obj;
     }
+    
+    public static void notifyLegalVendorInvAccepted(HttpServletRequest request, LegalInvoiceInputBean legalInvoiceInputBean) {
+        try {
+            List<String> lstParamsAppr = new ArrayList<String>();
+            HttpSession vendorSession = request.getSession();
+            VendorBean vendorBeanObj1 = new VendorBean();
+            String invoiceNumber = ApplicationUtils.getRequestParameter(request, "txtInvoiceNum");
 
-    public static JSONObject getRejectedFormStatus(LegalInvoiceInputBean legalInvoiceInputBean, HttpServletRequest request) {
+            List<String> lstcredential = new ArrayList<String>();
+            SmsController sms = new SmsController();
+            SmsDTO objSms = new SmsDTO();
+            String VendorContactNo = "";
+            String VendorEmailId = "";
+            String MailMessage = null;
+            Date sysdate = new Date();
+            VendorDelegate vendorMgrObj = new VendorManager();
+            VendorStatuBean vendorStatusBeanObj = new VendorStatuBean();
+
+            //matter in sms
+            lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtInvoiceNum"));
+            lstParamsAppr.add(legalInvoiceInputBean.getVendorNumber());
+
+            lstParamsAppr.add(legalInvoiceInputBean.getVendorName());
+            lstParamsAppr.add(ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            lstParamsAppr.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
+            //username password and url link
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+            objSms.setLstParams(lstParamsAppr);
+            try {
+                vendorBeanObj1.setVendorNumber(legalInvoiceInputBean.getVendorNumber());
+                vendorBeanObj1.setPassword("");//retrieve mobile and mail details without password
+                vendorBeanObj1 = vendorMgrObj.getContactNumber(vendorBeanObj1);
+                VendorContactNo = vendorBeanObj1.getVendorContactNumber();//mob no
+                VendorEmailId = vendorBeanObj1.getMailId();//mail id
+
+            } catch (Exception e) {
+
+            }
+            try {
+                objSms.setMobileNumber(VendorContactNo);//if contact number is null
+            } catch (Exception e) {
+
+            }
+            String Subject = "Invoice Verified Succesfully at Vendor Invoice Tracking System";
+            String VendorNumber = (String) ApplicationUtils.getRequestParameter(request, "vendor_number");
+            String VendorName = (String) ApplicationUtils.getRequestParameter(request, "vendor_name");
+            String InvoiceapprDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+            MailMessage = "  Invoice no. " + invoiceNumber + " submitted by Vendor " + VendorNumber + "," + VendorName + " is accepted on " + InvoiceapprDate + ". Track status at https://vits.mahadiscom.in/VendorBillTracking/erp ";
+
+            try {
+                
+         //       vendorStatusBeanObj.setSave_Flag(saveFlag);
+                //DIABLED FOR SMS 
+                if (objSms.getMobileNumber() != null) {
+                       sms.sendSMS(objSms, "476833", lstcredential);//UNCOMMENT FOR CLOUD   476833
+                  
+                    LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
+                    legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
+                    legalCommunicationSMSBean.setSUBJECT("476833");
+                    legalCommunicationSMSBean.setRECIPIENTS_INFO(objSms.getMobileNumber());
+                    legalCommunicationSMSBean.setCOMMUNICATION_TYPE("SMS");
+                    legalCommunicationSMSBean.setCREATED(sysdate);
+
+                     vendorMgrObj.updateLegalCommunicationLog(legalCommunicationSMSBean);
+                       
+                       
+                       
+                } else {
+                    
+                }
+
+            } catch (Exception e) {
+                
+            }
+            //DIABLED FOR SMS 
+            if (vendorBeanObj1.getMailId() != null) {
+                int success = SendMail.sendmail(VendorEmailId, Subject, MailMessage);
+                LegalCommunicationBean legalCommunicationBean = new LegalCommunicationBean();
+                if (success == 1) {
+                     
+                    legalCommunicationBean.setRECIPIENT_TYPE("VENDOR");
+                    legalCommunicationBean.setSUBJECT(Subject);
+                    legalCommunicationBean.setRECIPIENTS_INFO(vendorBeanObj1.getMailId());
+                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                    legalCommunicationBean.setCREATED(sysdate);
+
+                } else {
+                     legalCommunicationBean.setRECIPIENT_TYPE("VENDOR");
+                    legalCommunicationBean.setSUBJECT(Subject);
+                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                     legalCommunicationBean.setRECIPIENTS_INFO(vendorBeanObj1.getMailId());
+                    legalCommunicationBean.setCREATED(sysdate);
+                     legalCommunicationBean.setERROR("Email sending Failed");
+                    
+                  
+                }
+                
+                  vendorMgrObj.updateLegalCommunicationLog(legalCommunicationBean);
+            } else {
+                
+            }
+           
+        } catch (Exception e) {
+        }
+
+    }
+
+    public static JSONObject getRejectedLegalInvoiceFormStatus(LegalInvoiceInputBean legalInvoiceInputBean, HttpServletRequest request) {
          JSONObject obj = new JSONObject();
         VendorDelegate vendorMgrObj = new VendorManager();
         String saveFlag = legalInvoiceInputBean.getSaveFlag();
         try {
             legalInvoiceInputBean = vendorMgrObj.saveLegalInvoiceForm(legalInvoiceInputBean);
              obj.put("Message1", "Form returned Successfully");
+             
+             
+               notifyLegalVendorInvRejected(request, legalInvoiceInputBean);//uncomment for cloud
+             
+             
+             
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(VendorFormController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
              obj.put("Message1", "Something went wrong..Please Check!!! ");
         }
 
        
-        //  vendorVerifiedSmsSendProcess(request, saveFlag); //UNCOMMENT FOR CLOUD
+       
+        
         return obj;
+    }
+
+    
+    public static void notifyLegalVendorInvRejected(HttpServletRequest request, LegalInvoiceInputBean legalInvoiceInputBean) {
+        try {
+            List<String> lstParamsAppr = new ArrayList<String>();
+            HttpSession vendorSession = request.getSession();
+            VendorBean vendorBeanObj1 = new VendorBean();
+            String invoiceNumber = ApplicationUtils.getRequestParameter(request, "txtInvoiceNum");
+
+            List<String> lstcredential = new ArrayList<String>();
+            SmsController sms = new SmsController();
+            SmsDTO objSms = new SmsDTO();
+            String VendorContactNo = "";
+            String VendorEmailId = "";
+            String MailMessage = null;
+            Date sysdate = new Date();
+            VendorDelegate vendorMgrObj = new VendorManager();
+            VendorStatuBean vendorStatusBeanObj = new VendorStatuBean();
+
+            //matter in sms
+            lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtInvoiceNum"));
+            lstParamsAppr.add(legalInvoiceInputBean.getVendorNumber());
+
+            lstParamsAppr.add(legalInvoiceInputBean.getVendorName());
+            lstParamsAppr.add(ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            
+            lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtReason"));
+            lstParamsAppr.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
+            //username password and url link
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+            objSms.setLstParams(lstParamsAppr);
+            try {
+                vendorBeanObj1.setVendorNumber(legalInvoiceInputBean.getVendorNumber());
+                vendorBeanObj1.setPassword("");//retrieve mobile and mail details without password
+                vendorBeanObj1 = vendorMgrObj.getContactNumber(vendorBeanObj1);
+                VendorContactNo = vendorBeanObj1.getVendorContactNumber();//mob no
+                VendorEmailId = vendorBeanObj1.getMailId();//mail id
+
+            } catch (Exception e) {
+
+            }
+            try {
+                objSms.setMobileNumber(VendorContactNo);//if contact number is null
+            } catch (Exception e) {
+
+            }
+           
+           String VendorNumber = (String) ApplicationUtils.getRequestParameter(request, "vendor_number");
+            String VendorName = (String) ApplicationUtils.getRequestParameter(request, "vendor_name");
+            //String invoiceNumber = ApplicationUtils.getRequestParameter(request, "txtInvoiceNum");
+            String RejReason = ApplicationUtils.getRequestParameter(request, "txtReason");
+            String InvoicerejDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+            String Subject = "Invoice Rejected at Vendor Invoice Tracking System";
+            MailMessage = "  Invoice no. " + invoiceNumber + "  submitted by Vendor " + VendorNumber + "," + VendorName + "  has been rejected on " + InvoicerejDate + " due to " + RejReason + " reason. Resubmit invoice at https://vits.mahadiscom.in/VendorBillTracking/erp";
+           
+
+            try {
+               
+         //       vendorStatusBeanObj.setSave_Flag(saveFlag);
+                //DIABLED FOR SMS 
+                if (objSms.getMobileNumber() != null) {
+                       sms.sendSMS(objSms, "476834", lstcredential);//UNCOMMENT FOR CLOUD
+                  
+                    LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
+                    legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
+                    legalCommunicationSMSBean.setSUBJECT("476834");
+                    legalCommunicationSMSBean.setRECIPIENTS_INFO(objSms.getMobileNumber());
+                    legalCommunicationSMSBean.setCOMMUNICATION_TYPE("SMS");
+                    legalCommunicationSMSBean.setCREATED(sysdate);
+
+                     vendorMgrObj.updateLegalCommunicationLog(legalCommunicationSMSBean);
+                       
+                       
+                       
+                } else {
+                    
+                }
+
+            } catch (Exception e) {
+                
+            }
+            //DIABLED FOR SMS 
+            if (vendorBeanObj1.getMailId() != null) {
+                int success = SendMail.sendmail(VendorEmailId, Subject, MailMessage);
+                LegalCommunicationBean legalCommunicationBean = new LegalCommunicationBean();
+                if (success == 1) {
+                     
+                    legalCommunicationBean.setRECIPIENT_TYPE("VENDOR");
+                    legalCommunicationBean.setSUBJECT(Subject);
+                    legalCommunicationBean.setRECIPIENTS_INFO(vendorBeanObj1.getMailId());
+                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                    legalCommunicationBean.setCREATED(sysdate);
+
+                } else {
+                     legalCommunicationBean.setRECIPIENT_TYPE("VENDOR");
+                    legalCommunicationBean.setSUBJECT(Subject);
+                    legalCommunicationBean.setCOMMUNICATION_TYPE("Email");
+                     legalCommunicationBean.setRECIPIENTS_INFO(vendorBeanObj1.getMailId());
+                    legalCommunicationBean.setCREATED(sysdate);
+                     legalCommunicationBean.setERROR("Email sending Failed");
+                    
+                  
+                }
+                
+                  vendorMgrObj.updateLegalCommunicationLog(legalCommunicationBean);
+            } else {
+                
+            }
+           
+        } catch (Exception e) {
+        }
+
     }
 
     

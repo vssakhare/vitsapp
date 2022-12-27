@@ -12,7 +12,9 @@ import in.emp.util.ApplicationUtils;
 import in.emp.vendor.bean.VendorStatuBean;
 import in.emp.vendor.dao.helper.FtpFileReadHelper.getVendorStatusTxnHelper;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -57,6 +59,9 @@ public class updateLegalCommunicationLog implements TxnHelper  {
     public Object createObject(Connection conn) throws Exception {
           PreparedStatement statement = null;
         int count = 0;
+     
+        Date date = new Date();
+        Timestamp sysdate = new Timestamp(date.getTime());
         try {//CALL GOES FIRST TO DELETE OBJECT
             logger.log(Level.INFO, "updateLegalCommunicationLog ::: createObject() :: method called ::");
 StringBuilder sql = new StringBuilder();
@@ -65,8 +70,9 @@ StringBuilder sql = new StringBuilder();
           
               sql.append(" VALUES(LEGAL_COMMUNICATION_LOG_SEQ.NEXTVAL,?,?,?,?,?,?,?) ");
             statement = conn.prepareStatement(sql.toString());
-            statement.setDate(1, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalCommunicationBeanobj.getCREATED(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-            statement.setString(2, legalCommunicationBeanobj.getERROR());
+           // statement.setDate(1, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalCommunicationBeanobj.getCREATED(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            statement.setTimestamp(1, sysdate); 
+           statement.setString(2, legalCommunicationBeanobj.getERROR());
             statement.setString(3, legalCommunicationBeanobj.getCOMMUNICATION_TYPE());
             statement.setString(4,legalCommunicationBeanobj.getRECIPIENTS_INFO());
             statement.setString(5,legalCommunicationBeanobj.getSUBJECT());

@@ -996,8 +996,8 @@ String rejectReason="";
 
                                                     <td><select id="txtReason" name="txtReason" class="textfield" style="width: 300px ;height:25px;display:none; font-family : monospace;font-size : 10pt" onchange='checkvalue(this.value)'>
                                                             <option value="">- <fmt:message key='Select'/> -</option>                                              
-                                                            <option>Mismatch Of Portal Invoice Date With Inward Invoice Date</option>
-                                                            <option>Mismatch Of Portal Invoice Amount With Inward Invoice Amount</option>
+                                                            <option>Mismatch Portal Invoice Date With Inward Invoice Date</option>
+                                                            <option>Mismatch Portal Invoice Amount With Inward Invoice Amount</option>
                                                             <option>Invoice Documents uploaded are not readable</option>
                                                             <option>Wrong Court Case no Mapping</option>
                                                             <option value="other">other</option>

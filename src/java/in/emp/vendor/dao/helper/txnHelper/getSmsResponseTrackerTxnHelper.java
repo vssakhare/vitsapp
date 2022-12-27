@@ -70,7 +70,7 @@ public class getSmsResponseTrackerTxnHelper implements TxnHelper {
             sql.append(" ( ?, ?, ?, "); // 2 here
             sql.append(" ?, ?, ?, ?,  SYSTIMESTAMP ,?,? ) "); // 1 + 9 till here
 
-
+             System.out.println("Response_id is --" + smsresponsebeanbeanobj.getRESPONSE_ID());
             statement = conn.prepareStatement(sql.toString());
             statement.setString(1, smsresponsebeanbeanobj.getMOBILE_NUMBER());
             statement.setString(2, smsresponsebeanbeanobj.getTEMPLATEID());
