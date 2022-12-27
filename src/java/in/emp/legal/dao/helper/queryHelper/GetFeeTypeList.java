@@ -56,7 +56,7 @@ private static Logger logger = Logger.getLogger(GetErpLegalInvoiceStatusList.cla
             if ( feeTypeBean.getCaseType()!= null) {
                 statement.setInt(i++, feeTypeBean.getCaseType());
             } 
-            System.out.println("feetypelist sql::" + sql);
+            //System.out.println("feetypelist sql::" + sql);
             rs = statement.executeQuery();
 
         } catch (Exception ex) {

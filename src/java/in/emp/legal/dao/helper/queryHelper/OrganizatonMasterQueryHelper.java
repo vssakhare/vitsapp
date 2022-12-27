@@ -50,6 +50,8 @@ public class OrganizatonMasterQueryHelper implements QueryHelper{
             organizationMasterBean.setDivisionNAme(result.getString("DIVISION_NAME"));
             organizationMasterBean.setSubDivId(result.getString("SUB_DIVISION_ID"));
             organizationMasterBean.setSubDivName(result.getString("SUB_DIVISION_NAME"));
+            organizationMasterBean.setDeptId(result.getString("ORGANIZATION_ID"));
+            organizationMasterBean.setDeptName(result.getString("ORGANIZATION_NAME"));
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getDataObject() :: Exception :: " + ex);
@@ -66,7 +68,7 @@ public class OrganizatonMasterQueryHelper implements QueryHelper{
         try {
             logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getQueryResults() :: method called ::");
 //            sql.append(" SELECT * FROM ERP_LEGAL_INVOICE_STATUS ");
-            sql.append(" select ORGANIZATION_ID,ORG_ID_SAP,OFFICE_TYPE,OFFICE_LEVEL,REGION_ID,REGION_NAME,ZONE_ID,ZONE_NAME,CIRCLE_ID,CIRCLE_NAME,DIVISION_ID,DIVISION_NAME,SUB_DIVISION_ID,SUB_DIVISION_NAME ");
+            sql.append(" select ORGANIZATION_ID,ORGANIZATION_NAME,ORG_ID_SAP,OFFICE_TYPE,OFFICE_LEVEL,REGION_ID,REGION_NAME,ZONE_ID,ZONE_NAME,CIRCLE_ID,CIRCLE_NAME,DIVISION_ID,DIVISION_NAME,SUB_DIVISION_ID,SUB_DIVISION_NAME ");
             sql.append(" from xxmis_organization_master ");
             sql.append(" where office_type=? ");
             if(organizationMasterBean.getOfficeType().equalsIgnoreCase("ZON")){
@@ -77,10 +79,10 @@ public class OrganizatonMasterQueryHelper implements QueryHelper{
                 sql.append(" and circle_id=? ");
             }else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("SUB")){
                 sql.append(" and DIVISION_ID=? ");
-            }
-//            else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("DIV")){
-//                sql.append(" and division_id=? ");
-//            }else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("SUB")){
+            }else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("DEPT")){
+                sql.append(" and region_id=? ");
+            }    
+//            else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("SUB")){
 //                sql.append(" and SUB_DIVISION_ID=? ");
 //            }
             statement = connection.prepareStatement(sql.toString());

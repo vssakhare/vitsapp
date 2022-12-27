@@ -97,7 +97,10 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
             legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
             legalInvoiceInputBean.setStartPayDoneErpDoc1(result.getString("start_pay_done_erp_doc1"));
-
+            legalInvoiceInputBean.setMobileNo(result.getString("MOBILE_NO"));
+            legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
+            legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
+            legalInvoiceInputBean.setPaymentDate(result.getString("ZZFEE_DT_OF_PAYMENT"));
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getDataObject() :: Exception :: " + ex);
             throw ex;
@@ -124,7 +127,8 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
           
          if (status != null && status.equalsIgnoreCase("Accepted")){
-             sql.append(" select LD.*,OM.*,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ," +
+             sql.append(" select LD.*,OM.*,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ,zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT," +
+             //sql.append(" select LD.*,OM.*,zf.* ," +
 "  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc , substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1"
                      + " from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM , zhrt_legal_fee zf ");
             sql.append(" where LD.dealing_office_code=OM.organization_id "
@@ -183,7 +187,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
 
          else{
-            sql.append("select x.*, zf.status_fee,    zf.zzpark_post_doc_no,    zf.zzpay_done_erp_doc,    substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no," +
+            sql.append("select zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT, x.*, zf.status_fee,    zf.zzpark_post_doc_no,    zf.zzpay_done_erp_doc,    substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no," +
 "    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc,    substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1    from (" +
 "SELECT ld.*, om.ID,om.ORGANIZATION_NAME ,om.ORGANIZATION_ID,om.ORG_ID_SAP,om.OFFICE_TYPE,om.OFFICE_LEVEL,om.ADDRESS_LINE01,om.ADDRESS_LINE02,om.ADDRESS_LINE03,om.CITY," +
 "om.STATE,om.PIN_CODE,om.COUNTRY,om.PERSONAL_AREA,om.PERSONAL_AREA_NAME,om.PERSONAL_SUBAREA ,om.PERSONAL_SUBAREA_NAME ,om.REGION_ID,om.REGION_ID_SAP," +
@@ -287,7 +291,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                     }
                 }
             }
-            System.out.println("sql::" + sql);
+            System.out.println("sql##::" + sql);
             
           
             rs = statement.executeQuery();

@@ -2370,8 +2370,8 @@ public class AjaxControlServlet extends HttpServlet {
             
             if (ApplicationUtils.getRequestParameter(request, "corporateOffice").equals("261-Corporate Office")){
                legalInvoiceInputBean.setDealingOfficeCode("261"); 
-               legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
-                legalInvoiceInputBean.setDeptCode("13077");
+               legalInvoiceInputBean.setDealingOfficeName(ApplicationUtils.getRequestParameter(request, "corpSection").substring(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")));
+                legalInvoiceInputBean.setDeptCode(ApplicationUtils.getRequestParameter(request, "corpSection").substring(0, ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")));
              legalInvoiceInputBean.setDeptName("Testing");
                 
             }
@@ -2381,8 +2381,7 @@ public class AjaxControlServlet extends HttpServlet {
                legalInvoiceInputBean.setDealingOfficeCode("261"); 
                //legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
                 legalInvoiceInputBean.setDeptCode("13077");
-             legalInvoiceInputBean.setDeptName("Testing");
-                 legalInvoiceInputBean.setDeptName("Testing");
+             legalInvoiceInputBean.setDeptName("Testing");                 
             }
             /* if (!ApplicationUtils.isBlank(request.getParameter("txtModule"))) {//used for sms escalation
                    vendorInputBeanObj.setSelectedModule(ApplicationUtils.getRequestParameter(request, "txtModule"));
@@ -2496,9 +2495,12 @@ public class AjaxControlServlet extends HttpServlet {
                     hierarchylistString += "<option value = " +  masterBean.getOrganizationId() + "-" + masterBean.getDivisionNAme() +">" + masterBean.getDivisionId() + "-" + masterBean.getDivisionNAme() + "</option>";
                 } else if (masterBean.getOfficeType().equals("SUB")) {
                     hierarchylistString += "<option value = " +  masterBean.getOrganizationId() + "-" + masterBean.getSubDivName() +">" + masterBean.getSubDivId() + "-" + masterBean.getSubDivName() + "</option>";
+                } else if (masterBean.getOfficeType().equals("DEPT")) {
+                    hierarchylistString += "<option value = " +  masterBean.getOrganizationId() + "-" + masterBean.getDeptName()+">" + masterBean.getDeptId()+ "-" + masterBean.getDeptName() + "</option>";
                 }
             }
             obj.put("hierarchylistString", hierarchylistString);
+            //System.out.println("hierarchylistString "+hierarchylistString);
             obj.put("plant", organizationMasterBean.getOfficeType());
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: getnonPoVendorList() :: Exception :: " + ex);
