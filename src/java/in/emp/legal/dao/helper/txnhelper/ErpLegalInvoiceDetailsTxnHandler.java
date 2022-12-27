@@ -57,8 +57,8 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             sql.append("  INVOICE_AMOUNT , VENDOR_INV_DATE , MSEDCL_INWARD_NUMBER  ,");
             sql.append(" MSEDCL_INWARD_DATE , INV_SUBMIT_DATE , CREATED_BY_ID ,");
             sql.append(" CREATED_BY_DESIGNATION ,  CREATED_BY_NAME ,  CREATED_BY_USERTYPE ,  ");
-            sql.append(" SAVE_FLAG ,  CREATED_TIME_STAMP  , UPDATED_TIME_STAMP,FEE_TYPE,IS_WITH_COURT_CASE_NO,REGION,ZONE,CIRCLE,DIVISION,SUBDIVISION,CORPORATE_OFFICE,CASE_TYPE_DESC,VS_PARTY_NAMES)");
-            sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,SYSTIMESTAMP,SYSTIMESTAMP,?,?,?,?,?,?,?,?,?,?)");
+            sql.append(" SAVE_FLAG ,  CREATED_TIME_STAMP  , UPDATED_TIME_STAMP,FEE_TYPE,IS_WITH_COURT_CASE_NO,REGION,ZONE,CIRCLE,DIVISION,SUBDIVISION,CORPORATE_OFFICE,CASE_TYPE_DESC,VS_PARTY_NAMES,DEPT_NAME,DEPT_CODE)");
+            sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,SYSTIMESTAMP,SYSTIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             statement = conn.prepareStatement(sql.toString());
             statement.setInt(1, legalInvoiceBean.getApplId());
@@ -94,6 +94,8 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             statement.setString(30, legalInvoiceBean.getCorporateOffice());
             statement.setString(31, legalInvoiceBean.getCaseTypeDesc());
             statement.setString(32, legalInvoiceBean.getVsPartyNames());
+            statement.setString(33, legalInvoiceBean.getDeptName());
+            statement.setString(34, legalInvoiceBean.getDeptCode());
             logger.log(Level.INFO, "ErpLegalInvoiceStatusTxnHelper ::: createObject() :: SQL :: " + sql.toString());
 
             count = statement.executeUpdate();
@@ -137,14 +139,15 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
              if((legalInvoiceBean.getSaveFlag().equals("Submitted")))
              {
              sql.append(" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS ");
-            sql.append(" SET SAVE_FLAG = ?, FEE_TYPE = ?, UPDATED_TIME_STAMP = SYSTIMESTAMP "); // 16-18 till here      
+            sql.append(" SET SAVE_FLAG = ?, FEE_TYPE = ?, INVOICE_AMOUNT, UPDATED_TIME_STAMP = SYSTIMESTAMP "); // 16-18 till here      
             sql.append(" WHERE APPL_ID = ? ");
          
                        logger.log(Level.INFO, "ErpLegalInvoiceStatusTxnHelper :: getQueryResults() :: SQL :: " + sql.toString());
             statement = conn.prepareStatement(sql.toString());
             statement.setString(1, legalInvoiceBean.getSaveFlag());
             statement.setString(2, legalInvoiceBean.getFeeType());
-              statement.setInt(3, legalInvoiceBean.getApplId());
+              statement.setString(3, legalInvoiceBean.getInvoiceAmount());
+              statement.setInt(4, legalInvoiceBean.getApplId());
           
             count = statement.executeUpdate();
              }
