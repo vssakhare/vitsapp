@@ -733,11 +733,11 @@ function viewFile(id, option) {
 function showWithOrWithoutCourtCaseFields() {
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     if (WithOrWithoutCourtCase === 'withCourtCase') {
-        $('#withCourtCaseNoBody').show();
+        $('#withCourtCaseNoBody').show(); $("#withoutCourtCaseNoBody :input").val(''); $("#withoutCourtCaseNoBody :select").val('');
         $('#withoutCourtCaseNoBody').hide();
     } else {
         $('#withCourtCaseNoBody').hide();
-        $('#withoutCourtCaseNoBody').show();
+        $('#withoutCourtCaseNoBody').show(); $("#withCourtCaseNoBody :input").val(''); $("#withCourtCaseNoBody :select").val('');
         var out = {
             response: function validation(info) {
 

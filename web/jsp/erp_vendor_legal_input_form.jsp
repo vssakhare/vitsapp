@@ -431,8 +431,6 @@ String rejectReason="";
                                                 out.print("disabled='true'");
                                             }%> />
                                      <% } %>
-
-
 </td>
                                             
                                     <td colspan="2" class="text-right h5">Case Reference No.</td>
