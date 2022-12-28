@@ -139,7 +139,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
              if((legalInvoiceBean.getSaveFlag().equals("Submitted")))
              {
              sql.append(" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS ");
-            sql.append(" SET SAVE_FLAG = ?, FEE_TYPE = ?, INVOICE_AMOUNT, UPDATED_TIME_STAMP = SYSTIMESTAMP "); // 16-18 till here      
+            sql.append(" SET SAVE_FLAG = ?, FEE_TYPE = ?, INVOICE_AMOUNT = ?, UPDATED_TIME_STAMP = SYSTIMESTAMP "); // 16-18 till here      
             sql.append(" WHERE APPL_ID = ? ");
          
                        logger.log(Level.INFO, "ErpLegalInvoiceStatusTxnHelper :: getQueryResults() :: SQL :: " + sql.toString());
