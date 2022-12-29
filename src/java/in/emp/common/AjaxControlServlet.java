@@ -2281,7 +2281,7 @@ public class AjaxControlServlet extends HttpServlet {
     }
 
     private String postLegalApplicationForm(HttpServletRequest request) throws Exception {
-        System.out.println("postLegalApplicationForm");
+        System.out.println("$postLegalApplicationForm$");
 //         VendorPrezData vendorPrezDataObj = new VendorPrezData();
         VendorInputBean vendorInputBeanObj = new VendorInputBean();
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
@@ -2368,21 +2368,29 @@ public class AjaxControlServlet extends HttpServlet {
             legalInvoiceInputBean.setSubDivisionText(ApplicationUtils.getRequestParameter(request, "subDivision"));
             legalInvoiceInputBean.setCorporateOffice(ApplicationUtils.getRequestParameter(request, "corporateOffice"));
             
+            //System.out.println("blah blah "+ApplicationUtils.getRequestParameter(request, "corpSection"));
+            //System.out.println(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-"));
+            
             if (ApplicationUtils.getRequestParameter(request, "corporateOffice").equals("261-Corporate Office")){
                legalInvoiceInputBean.setDealingOfficeCode("261"); 
                legalInvoiceInputBean.setDealingOfficeName(ApplicationUtils.getRequestParameter(request, "corpSection").substring(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")));
                 legalInvoiceInputBean.setDeptCode(ApplicationUtils.getRequestParameter(request, "corpSection").substring(0, ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")));
-             legalInvoiceInputBean.setDeptName("Testing");
+legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, "corpSection").substring(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")+1));             
+//legalInvoiceInputBean.setDeptName("Testing");
                 
-            }
-            
+            }            
             
             if (ApplicationUtils.getRequestParameter(request, "txtDealingOffice").equals("261-Corporate Office")){
                legalInvoiceInputBean.setDealingOfficeCode("261"); 
-               //legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
-                legalInvoiceInputBean.setDeptCode("13077");
-             legalInvoiceInputBean.setDeptName("Testing");                 
-            }
+               legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
+                //legalInvoiceInputBean.setDeptCode("13077");
+                //System.out.println("blah blah "+ApplicationUtils.getRequestParameter(request, "corpSection"));
+                if(ApplicationUtils.getRequestParameter(request, "corpSection")!=null && !ApplicationUtils.getRequestParameter(request, "corpSection").isBlank() && !ApplicationUtils.getRequestParameter(request, "corpSection").isEmpty()){
+                legalInvoiceInputBean.setDeptCode(ApplicationUtils.getRequestParameter(request, "corpSection").substring(0, ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")));
+             //legalInvoiceInputBean.setDeptName("Testing");
+             legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, "corpSection").substring(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")+1));
+             //legalInvoiceInputBean.setDeptName("Testing");                 
+            }}
             /* if (!ApplicationUtils.isBlank(request.getParameter("txtModule"))) {//used for sms escalation
                    vendorInputBeanObj.setSelectedModule(ApplicationUtils.getRequestParameter(request, "txtModule"));
               

@@ -210,6 +210,7 @@ String rejectReason="";
                }
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeptName())) {
                    coSection=legalInvoiceInputBean.getDeptCode()+"-"+legalInvoiceInputBean.getDeptName();
+                   //System.out.println("coSection "+coSection);
                }
                String checkedValueCaseNo="",checkedValueWithoutCaseNo="";
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getIsWithCourtCaseNo())) {
@@ -496,12 +497,12 @@ String rejectReason="";
                                     <%
                                             } else {%>
                                                 <td>
-                                                    <select class="form-control text-left" id="feeTypeSelect" on <% if (Status.equals("Saved")) { out.print("onclick='feeType(this)'");
+                                                    <select class="form-control text-left" id="feeTypeSelect" <% if (Status.equals("Saved")) { out.print("onclick='feeType(this)'");
                                             } else {
                                                 out.print("disabled='true'");
                                             } %> >
                                             <option><% if (Status.equals("Saved")) { out.print(feeType);}
-                                            else out.print("Select");
+                                            else out.print(feeType);
                                                 %></option>
                                         </select></td>
                                             <%}%> 
@@ -664,7 +665,7 @@ String rejectReason="";
                                 <tr>
                                     <td class="text-right h5">Corporate Office</td>
                                 <td>
-                                        <% if (Status == "" || Status.equals("Saved")) {
+                                        <% if (Status == "") {
                                         %>
                                         <select class="form-control text-left" id="txtCorporateOffice"   onchange="disableOtherLocation(this.value);getLegalHierarchyLocation(this,'DEPT')"  >
                                             <option value ="Select">Select</option>
@@ -673,13 +674,13 @@ String rejectReason="";
                                         <%
                                             } else {%>
                                             <select class="form-control text-left" id="txtCorporateOffice"   readonly  >
-                                                    <option value =""><%= coText %></option>
+                                                    <option><%=coText %></option>
                                                 </select>
                                             <%}%>
                                     </td>
                                 <td class="text-right h5" colspan="2">Section</td>
                                 <td> 
-                                    <% if (Status == "" || Status.equals("Saved")) {
+                                    <% if (Status == "") {
                                         %>
                                     <select class="form-control text-left" id="txtCorpSection" >
                                                     <option value ="">Select</option>
@@ -687,7 +688,7 @@ String rejectReason="";
                                      <%
                                             } else {%>
                                             <select class="form-control text-left" id="txtCorpSection" readonly >
-                                                    <option value =""><%= coSection %></option>
+                                                    <option><%=coSection %></option>
                                                 </select>
                                      <% } %>
                                 </td>
@@ -702,7 +703,7 @@ String rejectReason="";
                                             } else {
                                                 out.print("disabled='true'");
                                             } %> >
-                                            <option></option>
+                                            <option><%=feeType%></option>
                                         </select></td>
 
 

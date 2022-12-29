@@ -154,7 +154,7 @@ function LegalDateVal() {
     return true;
 }
 
-function saveLegalInvoice(action) {
+function saveLegalInvoice(action) {//alert("saving process...");
 //    var rejFlag=document.getElementById("rejFlag").value;
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     var isWithCourtCaseFlag = "";
@@ -206,7 +206,7 @@ function saveLegalInvoice(action) {
         if(corpSection==='Select'){
             corpSection="";
         }
-        var feeTypeSelect = document.getElementById("feeTypeSelect");
+        var feeTypeSelect = document.getElementById("feeTypeSelectWo");
         feeType = feeTypeSelect.options[feeTypeSelect.selectedIndex].text;
         if(feeType==='Select'){
             feeType="";
@@ -245,7 +245,12 @@ function saveLegalInvoice(action) {
     var selectedOffieCode = document.getElementById('selectedOffieCode').value;
     var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtStatus = document.getElementById("txtStatus").value;
-    var sel = document.getElementById("feeTypeSelect");
+    
+    if (WithOrWithoutCourtCase === 'withCourtCase') {
+        var sel = document.getElementById("feeTypeSelect");
+    } else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
+        var sel = document.getElementById("feeTypeSelectWo");
+    }
     var txtFeeType = sel.options[sel.selectedIndex].text;
     if (isWithCourtCaseFlag === 'N') {
         
@@ -264,8 +269,8 @@ function saveLegalInvoice(action) {
         }
     }
 //    var txtFeeType=$('#feeTypeSelect').val();
-    if (action == "return") {
-        if (document.getElementById("txtReason").value == "other")
+    if (action === "return") {
+        if (document.getElementById("txtReason").value === "other")
         {
             var txtReason = document.getElementById("txtReason1").value;
         } else
@@ -404,7 +409,7 @@ function saveLegalInvoice(action) {
 //            + "&ForwardToDesc=" + encodeURIComponent(ForwardToDesc)
             + "&subAction=" + action
             ;
-//alert(txtInvoiceAmt+" & "+txtFeeType)
+//alert(params);
     callAjax("POST", url, params, false, out.response);
 
 
@@ -515,13 +520,8 @@ function legalInvoiceApproveButton() {
 function LegalApplDtlvalidation_Approve() {
     var txtInwardNum = document.getElementById('txtInwardNum').value;
 
-    var txtInwardDt = document.getElementById('txtInwardDt').value;
+    var txtInwardDt = document.getElementById('txtInwardDt').value;   
     
-    var caseRefNoWithout = document.getElementById('txtCaseRefNoWithout').value;
-            if (caseRefNoWithout === null || caseRefNoWithout === "") {
-                alert("Please select case ref no.");
-                return false;
-            }
     
     if (txtInwardNum === null || txtInwardNum === "") {
         alert("Inward Num is Required");
@@ -733,11 +733,11 @@ function viewFile(id, option) {
 function showWithOrWithoutCourtCaseFields() {
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     if (WithOrWithoutCourtCase === 'withCourtCase') {
-        $('#withCourtCaseNoBody').show(); $("#withoutCourtCaseNoBody :input").val(''); $("#withoutCourtCaseNoBody :select").val('');
+        $('#withCourtCaseNoBody').show(); $("#withoutCourtCaseNoBody :input[type='text']").val(''); $("#withoutCourtCaseNoBody :select").val('');
         $('#withoutCourtCaseNoBody').hide();
     } else {
         $('#withCourtCaseNoBody').hide();
-        $('#withoutCourtCaseNoBody').show(); $("#withCourtCaseNoBody :input").val(''); $("#withCourtCaseNoBody :select").val('');
+        $('#withoutCourtCaseNoBody').show(); $("#withCourtCaseNoBody :input[type='text']").val(''); $("#withCourtCaseNoBody :select").val('');
         var out = {
             response: function validation(info) {
 

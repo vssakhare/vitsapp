@@ -101,6 +101,8 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
             legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
             legalInvoiceInputBean.setPaymentDate(result.getString("ZZFEE_DT_OF_PAYMENT"));
+            legalInvoiceInputBean.setDeptCode(result.getString("DEPT_CODE"));
+            legalInvoiceInputBean.setDeptName(result.getString("DEPT_NAME"));
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getDataObject() :: Exception :: " + ex);
             throw ex;
