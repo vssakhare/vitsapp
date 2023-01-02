@@ -249,7 +249,7 @@ function saveLegalInvoice(action) {alert("saving process...");
     //if (WithOrWithoutCourtCase === 'withCourtCase') {
         var sel = document.getElementById("feeTypeSelect");
     //} else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
-        if (sel !== null && sel === ''){
+        if (sel === null && sel === ''){
         var sel = document.getElementById("feeTypeSelectWo");
     }
     var txtFeeType = sel.options[sel.selectedIndex].text;
