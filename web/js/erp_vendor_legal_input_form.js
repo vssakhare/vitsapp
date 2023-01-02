@@ -154,7 +154,7 @@ function LegalDateVal() {
     return true;
 }
 
-function saveLegalInvoice(action) {//alert("saving process...");
+function saveLegalInvoice(action) {alert("saving process...");
 //    var rejFlag=document.getElementById("rejFlag").value;
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     var isWithCourtCaseFlag = "";
@@ -246,9 +246,10 @@ function saveLegalInvoice(action) {//alert("saving process...");
     var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtStatus = document.getElementById("txtStatus").value;
     
-    if (WithOrWithoutCourtCase === 'withCourtCase') {
+    //if (WithOrWithoutCourtCase === 'withCourtCase') {
         var sel = document.getElementById("feeTypeSelect");
-    } else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
+    //} else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
+        if (sel !== null && sel === ''){
         var sel = document.getElementById("feeTypeSelectWo");
     }
     var txtFeeType = sel.options[sel.selectedIndex].text;
@@ -489,7 +490,7 @@ function viewLeaglEmpApp1(AppId, EmpNo, viewAction, status) {
 function legalInvoiceApproveButton() {
     if (LegalApplDtlvalidation() && LegalNumericVal() && LegalDateVal() && LegalApplDtlvalidation_Approve()) {
         var retVal = confirm("Do you want to Verify?");
-        if (retVal == true) {
+        if (retVal === true) {
             //document.write ("User wants to continue!");
             saveLegalInvoice("approve");
             var uiActionName = "getAuthLegalInvoiceList";
@@ -499,7 +500,7 @@ function legalInvoiceApproveButton() {
                     //+ "&subAction=" + encodeURIComponent(action)
                     ;
 
-            postForm(url, params, "get");
+            postForm(url, params, "get");alert(params);
             return true;
         } else {
             var uiActionName = "getAuthLegalInvoiceList";
