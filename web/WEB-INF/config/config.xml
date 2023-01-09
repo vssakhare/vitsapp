@@ -310,8 +310,8 @@
             
             <uiaction>
                 <action-name>getLegalInvoiceFile</action-name>
-                <success-page>/jsp/erp_view_file.jsp</success-page>
-                <error-page>/jsp/erp_view_file.jsp</error-page>
+                <success-page>/jsp/erp_view_legal_file.jsp</success-page>
+                <error-page>/jsp/erp_view_legal_file.jsp</error-page>
             </uiaction>
             <uiaction>
                 <action-name>getVendorSearchCourtCase</action-name>

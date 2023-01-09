@@ -841,5 +841,59 @@ function disableOtherLocation(value) {
         document.getElementById("txtDivision").disabled = false;
         document.getElementById("txtSubDivision").disabled = false;
     }
+    
+    
+    }
+    function removeLegalFile(id, option, filename) {
+    var AppId = document.getElementById("txtApplicationId").value;
+   
+        var txtvendorId = document.getElementById("txtVendorCode").value;
+         var vendor_name = document.getElementById("txtVendorName").value;
+        //var index = document.getElementById("txtVNum").value.indexOf("-");
+     /*   if (index === -1) {
+            var txtvendorId = document.getElementById("txtVendorCode").value;
+        } else {
+            var txtvendorId = document.getElementById("txtVNum").value;
+            var txtvendorId = txtvendorId.substring(0, txtvendorId.indexOf("-")).trim();
+            var vendor_name = document.getElementById("txtVNum").value;
+            var vendor_name = vendor_name.substring(vendor_name.indexOf('-') + 1);
+        }*/
+  
+    var module_type = document.getElementById("Module").value;//module type to differentiate between proj id and po number
+   
 
+    var out = {
+        response: function validation(info) {
+            var jsonObj = JSON.parse(info);
+            var de = jsonObj.AppId;
+        }
+    };
+   var url = "ajax";
+    var uiactionName = "deleteLegalInvoiceFile";
+    var params = "uiaction=" + uiactionName
+            + "&AppId=" + AppId
+            + "&FId=" + id
+            + "&Option=" + option
+            + "&FileName=" + filename
+            + "&txtvendorId=" + txtvendorId
+            + "&subAction=" + "delete"
+            ;
+
+    callAjax("POST", url, params, false, out.response);
+    
+
+    var uiActionName = document.getElementById("rem").value;
+    var action = "delete";
+    var url = "erp";
+    var params = "uiActionName=" + encodeURIComponent(uiActionName)
+            + "&module_type=" + module_type
+            + "&AppId=" + encodeURIComponent(AppId)
+            + "&subAction=" + encodeURIComponent(action)
+            + "&txtvendorId=" + encodeURIComponent(txtvendorId)
+            ;
+
+    postForm(url, params, "get");
 }
+
+
+

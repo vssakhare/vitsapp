@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import in.emp.dao.BaseDao;
 import in.emp.legal.dao.helper.queryHelper.GetVendorLegalApplFileListQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetVendorLegalApplFileQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.VendorLegalApplFileTxnHelper;
 import in.emp.vendor.bean.VendorApplFileBean;
 import in.emp.vendor.bean.VendorApplFilePrezData;
@@ -122,6 +123,22 @@ public class OracleVendorApplFileDao extends BaseDao implements VendorApplFileDa
         }
         return vendorapplFileBeanObj;
     }
+    
+    public VendorApplFileBean legalInvoiceFileDelHelper(VendorApplFileBean vendorapplFileBeanObj) throws Exception {
+        try {
+            logger.log(Level.INFO, "OracleVendorApplFileDao ::: legalInvoiceFileDelHelper() :: method called ::    ");
+            removeObject(new VendorLegalApplFileTxnHelper(vendorapplFileBeanObj));
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorApplFileDao ::: legalInvoiceFileDelHelper() :: Exception :: " + ex);
+            throw ex;
+        }
+        return vendorapplFileBeanObj;
+    }
+    
+    
+    
+    
       public VendorApplFileBean VendorPOFileDelHelper(VendorApplFileBean vendorapplFileBeanObj) throws Exception {
         try {
             logger.log(Level.INFO, "OracleVendorPOFileDao ::: VendorPOFileDelHelper() :: method called ::    ");
@@ -161,5 +178,18 @@ public class OracleVendorApplFileDao extends BaseDao implements VendorApplFileDa
             throw ex;
         }
         return FileList;
+    }
+    
+    
+    public VendorApplFileBean getVendorLegalApplFile(VendorApplFileBean vendorapplFileBeanObj) throws Exception {
+        try {
+            logger.log(Level.INFO, "OracleVendorApplFileDao ::: getVendorLegalApplFile() :: method called ::    ");
+            vendorapplFileBeanObj = (VendorApplFileBean) getDataObject(new GetVendorLegalApplFileQueryHelper(vendorapplFileBeanObj));
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorApplFileDao ::: getVendorApplFile() :: Exception :: " + ex);
+            throw ex;
+        }
+        return vendorapplFileBeanObj;
     }
 }

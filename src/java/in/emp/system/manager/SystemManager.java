@@ -94,4 +94,38 @@ public class SystemManager implements SystemDelegate
 		}
 		return systemMessageData;
 	}
+        
+        
+        
+        
+        public List GetSystemParamByRefCode(String refCode)  throws Exception
+	{
+		logger.log(Level.INFO, "Inside SystemManager :: GetSystemParamByRefCode()");
+		List systemParameterList = null;
+		SystemDao systemDao = null;
+
+		try
+		{
+			systemDao = new OracleSystemDao();
+			systemParameterList = (List)systemDao.GetSystemParamByRefCode(refCode);
+		}
+		catch(Exception ex)
+		{
+			logger.log(Level.ERROR, "SystemManager :: GetSystemParamByRefCode() :: Exception :: " + ex);
+			throw ex;
+		}		
+		finally
+		{
+			try
+			{
+				systemDao = null;
+			}
+			catch (Exception ignore){}
+		}
+		return systemParameterList;
+	}
+
+        
+        
+        
 }//-- End class

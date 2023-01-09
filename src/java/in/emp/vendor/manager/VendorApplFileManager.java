@@ -194,6 +194,24 @@ public class VendorApplFileManager implements VendorApplFileDelegate {
         return vendorapplFileBeanObj;
      }
 
+     public VendorApplFileBean legalInvoiceFileDelHelper(VendorApplFileBean vendorapplFileBeanObj) {
+       
+        OracleVendorApplFileDao vendorapplFileDaoObj = null;
+        try {
+            logger.log(Level.INFO, " VendorApplFileManager :: legalInvoiceFileDelHelper() :: method called");
+
+            //-- create the dao object
+            vendorapplFileDaoObj = new OracleVendorApplFileDao();
+
+            vendorapplFileBeanObj = vendorapplFileDaoObj.legalInvoiceFileDelHelper(vendorapplFileBeanObj);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorApplFileManager :: legalInvoiceFileDelHelper() :: Exception :: " + ex);
+        }
+        return vendorapplFileBeanObj;
+    }
+     
+     
     @Override
     public LinkedList getVendorLegalApplFileList(VendorApplFileBean vendorapplFileBeanObj) {
         VendorApplFilePrezData vendorapplFilePrezDataObj = null;
@@ -215,4 +233,26 @@ public class VendorApplFileManager implements VendorApplFileDelegate {
         }
         return vendorapplFileList;
     }
+    
+    
+    
+    public VendorApplFileBean getVendorLegalApplFile(VendorApplFileBean vendorapplFileBeanObj) {
+        
+        OracleVendorApplFileDao vendorapplFileDaoObj = null;
+        MasterDao masterDao = null;
+        try {
+            logger.log(Level.INFO, " VendorApplFileManager :: getVendorLegalApplFile() :: method called");
+
+            //-- create the dao object
+            vendorapplFileDaoObj = new OracleVendorApplFileDao();
+
+            vendorapplFileBeanObj = vendorapplFileDaoObj.getVendorLegalApplFile(vendorapplFileBeanObj);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorApplManagerFile :: getVendorLegalApplFile() :: Exception :: " + ex);
+
+        }
+        return vendorapplFileBeanObj;
+    }
+    
 }

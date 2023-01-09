@@ -94,6 +94,7 @@ public interface VendorDelegate {
        public LinkedList<VendorInputBean> getAuthContactList(VendorInputBean VendorInputBeanObj) throws Exception;
 
  public LinkedList<VendorInputBean> getSmsTrackerList(VendorInputBean VendorInputBeanObj) throws Exception;
+ public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean vendorInputBeanObj) throws Exception;
        public List getPOStatus(List lstErpToVitsFileFormat) throws Exception;
               public void getPOStatusProcedure() throws Exception;
 

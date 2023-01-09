@@ -102,6 +102,7 @@ public interface VendorDao {
          public LinkedList<VendorInputBean> getEscStatusSmsList(VendorInputBean vendorInputBeanObj) throws Exception;
     
     public LinkedList<VendorInputBean> getSmsTrackerList(VendorInputBean vendorInputBeanObj) throws Exception;
+     public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception;
 
     public List getPOStatus(List lstErpToVitsFileFormat) throws Exception;
      public void getPOStatusProcedure() throws Exception;

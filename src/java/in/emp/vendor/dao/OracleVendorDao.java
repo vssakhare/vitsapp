@@ -26,6 +26,7 @@ import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceDetailsList;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceStatusList;
 import in.emp.legal.dao.helper.queryHelper.GetFeeTypeList;
 import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
@@ -605,7 +606,20 @@ LinkedList PlantList = null;
         }
         return fileList;
     }
+    
+     public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception {
+              LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
+        try {
+            logger.log(Level.INFO, " OracleVendorDao :: getLegalSmsTrackerList() :: method called");
 
+            fileList = (LinkedList<LegalInvoiceInputBean>) getObjectList(new GetLegalSmsTrackerListQueryHelper(legalInvoiceInputBeanObj));
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " OracleVendorDao :: getSmsTrackerList() :: Exception :: " + ex);
+            //ex.printStackTrace();
+        }
+        return fileList;
+    }
+    
     public VendorInputBean getInvoicedetails(VendorInputBean vendorInputBeanObj) throws Exception {
         try {
             logger.log(Level.INFO, "OracleVendorDao ::: getInvoicedetails() :: method called ::    ");

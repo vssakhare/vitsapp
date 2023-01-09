@@ -30,4 +30,7 @@ public interface SystemDao
 	 * @return							the obj of SystemMessageData
 	 */	
 	public SystemMessageData getSystemMessageDetails(String sysMessageCd) throws Exception;
+        
+        
+        public Collection  GetSystemParamByRefCode(String refCode) throws Exception;
 }//end class

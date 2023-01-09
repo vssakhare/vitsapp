@@ -111,9 +111,93 @@ public class UploadVendorFile {
     }
    
     
+    
+    public  String UploadLegalFile(byte[] FILETOTRANSFER,String filename,String location,String foldername) {
+        //String SFTPHOST = "10.0.2.188";
+        
+               
+        String SFTPHOST = System.getProperty("sftp.url");
+        int SFTPPORT = Integer.parseInt(System.getProperty("sftp.port"));
+        String SFTPUSER = System.getProperty("sftp.username");
+       
+        //String SFTPPASS = "pass@123";
+        String SFTPPASS = System.getProperty("sftp.password");
+
+     //   String SFTPWORKINGDIR =ApplicationConstants.SFTPWORKINGDIR+location;  
+      String SFTPWORKINGDIR =System.getProperty("sftp.file.path.linux")+ "TEST_VENDOR_FILES/" +location;
+        // String SFTPWORKINGDIR = "/home/sap_interface/VPTS/VENDOR_FILES/"+location;
+        String Folder=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String InFolder = foldername;
+
+        Session session = null;
+        Channel channel = null;
+        ChannelSftp channelSftp = null;
+           String[] folders = Folder.split("-");
+
+        try {
+            JSch jsch = new JSch();
+            session = jsch.getSession(SFTPUSER, SFTPHOST, SFTPPORT);
+            session.setPassword(SFTPPASS);
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");
+            session.setConfig(config);
+            session.setTimeout(1000*60*10);
+            session.connect();
+            
+            channel = session.openChannel("sftp");
+            channel.connect();
+            channelSftp = (ChannelSftp) channel;
+            channelSftp.cd(SFTPWORKINGDIR);
+              // Build romote path subfolders inclusive:
+  
+
+  for (String folder : folders) {
+    if (folder.length() > 0 && !folder.contains(".")) {
+      // This is a valid folder:
+      try {
+        channelSftp.cd(folder);
+      } catch (SftpException e) {
+        // No such folder yet:
+        channelSftp.mkdir(folder);
+        channelSftp.cd(folder);
+      }
+    }
+  }
+
+  
+         if (InFolder.length() > 0 && !InFolder.contains(".")) {
+             try{
+               channelSftp.cd(InFolder);  
+             }catch (SftpException ex) {
+        channelSftp.mkdir(InFolder);
+                channelSftp.cd(InFolder);
+             }
+         }
+      
+    
+  
+              File file =null;
+       FileInputStream fis=null;
+
+             file = writeByteArrayTo(FILETOTRANSFER, filename);
+                                        fis=new FileInputStream(file);
+                                        channelSftp.put(fis, filename);
+                                       // log.info("file uploaded successfully....");
+                                      file.delete();
+
+       
+            
+       
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return SFTPWORKINGDIR+"/"+folders[0]+"/"+folders[1]+"/"+folders[2]+"/"+InFolder+"/"+filename;
+       
+    }
+    
         public File writeByteArrayTo(byte[] media, String fileName){
           
-                File file = new File(ApplicationConstants.Sftppath+fileName);
+                File file = new File(ApplicationConstants.SftpLegalpath+fileName);
                 FileOutputStream fOut = null;
                 try{
                         fOut =  new FileOutputStream(file);

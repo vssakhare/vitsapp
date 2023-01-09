@@ -29,11 +29,16 @@ public interface VendorApplFileDelegate {
     public VendorApplFileBean VendorPOFileTxnHelper(VendorApplFileBean vendorapplFormBeanObj) throws Exception;
     
     public VendorApplFileBean VendorApplFileDelHelper(VendorApplFileBean vendorapplFormBeanObj) throws Exception;
+    
+    public VendorApplFileBean  legalInvoiceFileDelHelper(VendorApplFileBean vendorapplFormBeanObj) throws Exception;
 
    public VendorApplFileBean VendorPOFileDelHelper(VendorApplFileBean vendorapplFormBeanObj) throws Exception;
 
     public VendorApplFileBean VendorLegalApplFileTxnHelper(VendorApplFileBean vendorapplFileBeanObj)throws Exception;
 
     public LinkedList getVendorLegalApplFileList(VendorApplFileBean vendorapplFileBeanObj);
+    
+    public VendorApplFileBean getVendorLegalApplFile(VendorApplFileBean vendorapplFormBeanObj) throws Exception;
+
 
 }

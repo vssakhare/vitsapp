@@ -28,6 +28,10 @@ import in.emp.vendor.bean.VendorBean;
 import in.emp.vendor.bean.VendorInputBean;
 import in.emp.vendor.bean.VendorPrezData;
 import in.emp.vendor.manager.VendorManager;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -140,7 +144,12 @@ public class VendorHandler implements GenericFormHandler {
                     sReturnPage = getVendorSearchCourtCase(request);
                 }/* else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_PO_LINE_DETAILS)) {
                  sReturnPage = viewPOLineDetails(request);
-                 } */ else {
+                
+                 } */ 
+                 else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_GET)) {
+                    sReturnPage = getLegalInvoiceFile(request);
+                }
+                else {
                     sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
                 }
             }
@@ -1356,13 +1365,13 @@ public class VendorHandler implements GenericFormHandler {
                         String foldername = vendorapplFileBeanObj.getId();
                         foldername = foldername.replaceAll("^0+(?!$)", "");
                         UploadVendorFile n = new UploadVendorFile();
-                        path = n.UploadFile(fileContent, fileName, location, foldername);//  uncomment on cloud
+                        path = n.UploadLegalFile(fileContent, fileName, location, foldername);//  uncomment on cloud
 //------------------------Comment on cloud---------------------
-//                        path = "E:/data/vpts/" + fileName;
-//                        File file = new File(path);
-////                        fileOutputStream.write(fileContent);
-//                        Path path1 = Paths.get(path);
-//                        Path write = Files.write(path1, fileContent);
+  //                     path = "D:/data/vpts/" + fileName;
+  //                    File file = new File(path);
+ //                       fileOutputStream.write(fileContent);
+ //                       Path path1 = Paths.get(path);
+   //                     Path write = Files.write(path1, fileContent);
 //------------------------Comment on cloud End only for local file uploading---------------------                
                         System.out.println("path:" + path);
                         vendorapplFileBeanObj.setPath(path);
@@ -1439,6 +1448,11 @@ public class VendorHandler implements GenericFormHandler {
 
             }
 
+            
+             
+            vendorapplFileBeanObj.setFileName(vendorapplFileBeanObj.getFileName()+ "." + vendorapplFileBeanObj.getFileType() );
+            vendorapplFileBeanObj.setFilePath(vendorapplFileBeanObj.getPath());
+            
             request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, vendorapplFileBeanObj);
 
         } catch (Exception ex) {

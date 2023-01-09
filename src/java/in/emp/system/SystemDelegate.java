@@ -34,5 +34,8 @@ public interface SystemDelegate
 	 * @return					the object of SystemMessageData
 	 */	
 	public SystemMessageData getSystemMessageDetails(String sysMessageCd) throws Exception;
+        
+        
+        public List  GetSystemParamByRefCode(String refCode) throws Exception;
 
 }//-- End class

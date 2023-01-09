@@ -6,6 +6,7 @@ import in.emp.dao.BaseDao;
 import in.emp.system.beans.SystemMessageData;
 import in.emp.system.dao.helpers.GetAllSystemParametersQueryHelper;
 import in.emp.system.dao.helpers.GetSystemMessageDetails;
+import in.emp.system.dao.helpers.GetSystemParamByRefCode;
 
 /**
  * Data access object for returning compound related value objects from the Oracle database. 
@@ -37,5 +38,14 @@ public class OracleSystemDao extends BaseDao implements SystemDao
 	{
 		return (SystemMessageData)getDataObject(new GetSystemMessageDetails(sysMessageCd));	
 	}
+        
+        
+        public Collection GetSystemParamByRefCode(String refCode) throws Exception
+	{
+		return getObjectList(new GetSystemParamByRefCode(refCode));	
+	}
+        
+        
+        
 
 }//end class

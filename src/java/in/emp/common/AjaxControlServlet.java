@@ -68,6 +68,7 @@ import in.emp.hrms.manager.HRMSManager;
 import in.emp.ldap.LDAP;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
+import in.emp.legal.common.RemoveLegalInvoiceFile;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.HOBean;
 import in.emp.vendor.bean.POBean;
@@ -192,6 +193,8 @@ public class AjaxControlServlet extends HttpServlet {
                     responseString = postVendorApplForm(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_INVOICE_FILE_POST)) {
                     responseString = postInvoiceFile(request);
+                } else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_DELETE)) {
+                    responseString = deleteLegalInvoiceFile(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_LOCATION)) {
                     responseString = getPOLocation(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_PO_DETAILS)) {
@@ -2385,7 +2388,7 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
                legalInvoiceInputBean.setDealingOfficeName("261-Corporate Office");
                 //legalInvoiceInputBean.setDeptCode("13077");
                 //System.out.println("blah blah "+ApplicationUtils.getRequestParameter(request, "corpSection"));
-                if(ApplicationUtils.getRequestParameter(request, "corpSection")!=null && !ApplicationUtils.getRequestParameter(request, "corpSection").isBlank() && !ApplicationUtils.getRequestParameter(request, "corpSection").isEmpty()){
+                if(ApplicationUtils.getRequestParameter(request, "corpSection")!=null && !ApplicationUtils.getRequestParameter(request, "corpSection").isEmpty()){
                 legalInvoiceInputBean.setDeptCode(ApplicationUtils.getRequestParameter(request, "corpSection").substring(0, ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")));
              //legalInvoiceInputBean.setDeptName("Testing");
              legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, "corpSection").substring(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")+1));
@@ -2512,6 +2515,72 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
             obj.put("plant", organizationMasterBean.getOfficeType());
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: getnonPoVendorList() :: Exception :: " + ex);
+            //ex.printStackTrace();
+        }
+        return obj.toString();
+    }
+
+    
+    
+    
+     private String deleteLegalInvoiceFile(HttpServletRequest request) throws Exception {
+        String sReturnPage = ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_DELETE;
+   
+        VendorApplFileBean vendorapplFileBeanObj = new VendorApplFileBean();
+        VendorApplFileBean vendorapplFileBeanObj_ftp = new VendorApplFileBean();
+        VendorApplFileDelegate vendorapplFileMgrObj = new VendorApplFileManager();
+     
+        HttpSession vendorapplSession = request.getSession();
+        JSONObject obj = new JSONObject();
+        String subAction = "";
+        String AppId = "";
+        String FId = "";
+        String Option = "";
+        String txtPONumber = "";
+        String FileName = "";
+        try {
+            logger.log(Level.INFO, "AjaxControlServlet :: postInvoiceFile() :: method called :: ");
+
+            subAction = (String) request.getParameter("subAction");
+            AppId = (String) request.getParameter("AppId");
+         
+            FId = (String) request.getParameter("FId");
+            Option = (String) request.getParameter("Option");
+            FileName = (String) request.getParameter("FileName");
+            FileBean FileObj = null;
+            if (subAction.equals("delete")) {
+                vendorapplFileBeanObj.setApplicationId(AppId);
+                //vendorapplFileBeanObj.setPo_Number(txtPONumber);
+                vendorapplFileBeanObj.setEmpNumber((String) vendorapplSession.getAttribute(ApplicationConstants.USER_NAME_SESSION));
+
+                vendorapplFileBeanObj.setId(FId);
+
+                if (Option != null) {
+                    // if(Option.equals("Letter Of Award") ||Option.equals("Copy Of Agreement")||Option.equals("Insurance Copy")||Option.equals("Milestone Chart")||Option.equals("Bank Guarantee") ){
+                    if (Option.equals("Invoice Document") || Option.equals("Other Supporting Document") || Option.equals("Retention claim Document")) {
+                        vendorapplFileBeanObj_ftp = vendorapplFileMgrObj.getVendorLegalApplFile(vendorapplFileBeanObj);
+                        String filepath = vendorapplFileBeanObj_ftp.getPath();
+                        filepath = filepath.substring(0, filepath.lastIndexOf("/"));
+                        RemoveLegalInvoiceFile rem = new RemoveLegalInvoiceFile();
+                        rem.RemoveFile(filepath, FileName);//remove file from ftp location
+                        vendorapplFileBeanObj = vendorapplFileMgrObj.legalInvoiceFileDelHelper(vendorapplFileBeanObj);//remove entry from database
+
+                    } 
+                    /*else {
+                        vendorapplFileBeanObj_ftp = vendorapplFileMgrObj.getVendorPOFile(vendorapplFileBeanObj);
+                        String filepath = vendorapplFileBeanObj_ftp.getPath();
+                        filepath = filepath.substring(0, filepath.lastIndexOf("/"));
+                        RemoveVendorFile rem = new RemoveVendorFile();
+                        rem.RemoveFile(filepath, FileName);
+                        vendorapplFileBeanObj = vendorapplFileMgrObj.VendorPOFileDelHelper(vendorapplFileBeanObj);
+                    }*/
+
+                }
+            }
+            obj.put("AppId", AppId);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "AjaxControlServlet :: postInvoiceFile() :: Exception :: " + ex);
             //ex.printStackTrace();
         }
         return obj.toString();

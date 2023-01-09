@@ -954,7 +954,7 @@ String rejectReason="";
                                     
                                         <%  if ((flag == 2) && (flb.getDELETION_FLAG().equals("Y"))) {%>
 
-                                        <td><a href="#nogo" onclick="removeFile('<%=flb.getId()%>', '<%=flb.getOption()%>', '<%=(flb.getFileName() + "." + flb.getFileType())%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td>
+                                        <td><a href="#nogo" onclick="removeLegalFile('<%=flb.getId()%>', '<%=flb.getOption()%>', '<%=(flb.getFileName() + "." + flb.getFileType())%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td>
                                                 <%  }%>
                                         </tr>   
 

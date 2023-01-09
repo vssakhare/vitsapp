@@ -1062,6 +1062,7 @@ public class ApplicationConstants {
     //public static    String Sftppath = "D:/Temp/";//to run locally
     
    public static String Sftppath = "/home/eportal/vpts/";//DEV
+    public static String SftpLegalpath = "/data/VPTS/";//DEV
     public static String SFTPWORKINGDIR = "/data/VPTS/TEST_VENDOR_FILES/";   //DEV
     public static String CONN_POOL_NAME = "ErpDev";
     
@@ -1071,9 +1072,25 @@ public class ApplicationConstants {
     public static String UIACTION_GET_VENDOR_LEGAL_INPUT_FORM="getVendorLegalInvoiceInputForm";
     public static String UIACTION_LEGAL_INVOICE_FILE_POST = "postLegalInvoiceFile";
     public static String UIACTION_LEGAL_INVOICE_FILE_GET = "getLegalInvoiceFile";
+     public static String UIACTION_LEGAL_INVOICE_FILE_DELETE = "deleteLegalInvoiceFile";
     
     public static String VENDOR_LEGAL_FORM_FILE_SESSION_APPID = "vendorLegalFormSessionApplId"; 
     public static String VENDOR_LEGAL_INVOICE_ACCEPTED_DATA="vendorLegalInvoiceAcceptedData";
     public static String UIACTION_GET_LEGAL_Hierarchy_LOCATION="getLegalHierarchyLocation";
     public static String UIACTION_GET_VENDOR_SEARCH_COURT_CASE = "getVendorSearchCourtCase";
+    
+    
+    /*sftp server detail code */
+	public static final String  SFTP_FILE_SEPERATOR="/";
+	public static final String  SFTP_PATH="sftp.file.path.linux";
+	public static final String  SFTP_URL="sftp.url";
+	public static final String  SFTP_PORT="sftp.port";
+	public static final String  SFTP_USERNAME="sftp.username";
+	public static final String  SFTP_PASSWORD="sftp.password";
+	public static final String  SFTP_CONN_DETAILS="SFTP_CONN_CODE";
+	
+	public static final String  SFTP_ARCHIEVE_BASE="dms_s3";
+	/*sftp server detail code */
+    
+    
 }
