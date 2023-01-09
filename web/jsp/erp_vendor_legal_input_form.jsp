@@ -4,8 +4,6 @@
     Author     : Rikma Rai
 --%>
 
-
-
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
 <%@page import="java.math.BigDecimal"%>
@@ -341,8 +339,8 @@ String rejectReason="";
                                 </tr>
                             </table>
 <%}else %>
-<% //if((UserType.equalsIgnoreCase("Vendor") && Status!="") || (UserType.equalsIgnoreCase("Emp") && Status!="")){%>
-<% if(UserType.equalsIgnoreCase("Vendor") && Status!=""){%>
+<% if((UserType.equalsIgnoreCase("Vendor") && Status!="") || (UserType.equalsIgnoreCase("Emp") && Status!="")){%>
+<% //if(UserType.equalsIgnoreCase("Vendor") && Status!=""){%>
                             <table class="table" border="0" cellspacing="0" cellpadding="1"  id="withOrWithoutCourtCaseRadio" style="width:100%">
                                 <tr>
                                     <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" <%=checkedValueCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled />&nbsp;With Court Case No
@@ -423,7 +421,7 @@ String rejectReason="";
                                             } else {
                                                 out.print("disabled='true'");
                                             }%>/>
-                                     <%} if (!(UserType.equals("Emp")) && (flag==0 || flag==2)) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
+                                     <% } if (!(UserType.equals("Emp")) && (flag==0 || flag==2)) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
                                            class="btn btn-primary"/><%}%>
                                             
 <% if (UserType.equals("Emp")){%>
@@ -575,7 +573,7 @@ String rejectReason="";
                                      <td class="text-right h5" ><label id="mydrop_down_label">Region</label>.</td>
 
                                     <td >
-                                        <% if (Status == "" || Status.equals("Saved")) {
+                                        <% if (Status == "") {
                                         %>
                                         <select class="form-control text-left" id="txtRegion"   onchange="getLegalHierarchyLocation(this,'ZON')" >
                                             <option value ="">Select</option>
@@ -583,7 +581,10 @@ String rejectReason="";
                                         </select>
                                         <%
                                             } else {%>
-                                        <select class="form-control text-left" id="txtRegion"   readonly >
+                                        <select class="form-control text-left" id="txtRegion" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onclick=\"showWithOrWithoutCourtCaseFields();\" onchange=\"getLegalHierarchyLocation(this,\'ZON\')\"");
+                                            } else {
+                                                out.print("readonly");
+                                            } %>  >
                                             <option value ="<%= regionText %>" selected><%= regionText %></option>
                                             
                                         </select>
@@ -591,7 +592,7 @@ String rejectReason="";
                                     </td>
                                     <td  class="text-right h5" colspan="2">Zone.</td>
                                     <td>
-                                    <% if (Status == "" || Status.equals("Saved")) {
+                                    <% if (Status == "") {
                                         %>
                                      
                                         
@@ -601,7 +602,10 @@ String rejectReason="";
                                          <%
                                             } else {%>
                                          
-                                         <select class="form-control text-left" id="txtZone"   readonly  >
+                                         <select class="form-control text-left" id="txtZone" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'CIR\')\"");
+                                            } else {
+                                                out.print("readonly");
+                                            } %>  >
                                                     <option value ='' selected ><%= zoneText %></option>
                                                 </select>
                                                 
@@ -611,14 +615,17 @@ String rejectReason="";
                                 <tr>
                                 <td class="text-right h5" >Circle</td>
                                 <td>
-                                   <% if (Status == "" || Status.equals("Saved")) {
+                                   <% if (Status == "") {
                                         %>
                                      <select class="form-control text-left" id="txtCircle"    onchange="getLegalHierarchyLocation(this,'DIV')" >
                                                     <option value ="" >Select</option>
                                                 </select>
                                        <%
                                             } else {%>
-                                       <select class="form-control text-left" id="txtCircle"    readonly >
+                                       <select class="form-control text-left" id="txtCircle" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'DIV\')\"");
+                                            } else {
+                                                out.print("readonly");
+                                            } %> >
                                                     <option value ="" selected><%= circleText %></option>
                                                 </select>
                                        <%}%>
@@ -626,14 +633,17 @@ String rejectReason="";
 
                                 <td class="text-right h5 " colspan="2">Division</td>
                                 <td > 
-                                   <% if (Status == "" || Status.equals("Saved")) {
+                                   <% if (Status == "") {
                                         %>
                                     <select class="form-control text-left" id="txtDivision"    onchange="getLegalHierarchyLocation(this,'SUB')" >
                                                     <option value ="">Select</option>
                                                 </select>
                                     <%
                                             } else {%>
-                                    <select class="form-control text-left" id="txtDivision"    readonly >
+                                    <select class="form-control text-left" id="txtDivision" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'SUB\')\"");
+                                            } else {
+                                                out.print("readonly");
+                                            } %> >
                                                     <option value =""><%= divText %></option>
                                                 </select>
                                     <%}%>
@@ -644,14 +654,17 @@ String rejectReason="";
                                 <tr>
                                     <td class="text-right h5" >Sub-Division</td>
                                 <td > 
-                                    <% if (Status == "" || Status.equals("Saved")) {
+                                    <% if (Status == "") {
                                         %>
                                     <select class="form-control text-left" id="txtSubDivision"    onchange="getLegalHierarchyLocation(this,'SUB-DIV')" >
                                                     <option value ="">Select</option>
                                                 </select>
                                      <%
                                             } else {%>
-                                            <select class="form-control text-left" id="txtSubDivision"    readonly >
+                                            <select class="form-control text-left" id="txtSubDivision" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'SUB-DIV\')\"");
+                                            } else {
+                                                out.print("readonly");
+                                            } %> >
                                                     <option value =""><%= subDivText %></option>
                                                 </select>
                                      <%}%>
@@ -703,7 +716,8 @@ String rejectReason="";
                                             } else {
                                                 out.print("disabled='true'");
                                             } %> >
-                                            <option><%=feeType%></option>
+                                            <option><% if (Status.equals("Saved")) { out.print(feeType);}
+                                            else out.print(feeType); %></option>
                                         </select></td>
 
 
