@@ -64,7 +64,7 @@ function LegalApplDtlvalidation() {
         }
         
         var feeType = document.getElementById('feeTypeSelectWo').value;
-            if (feeType === null || feeType === "") {
+            if (feeType === null || feeType === "" || feeType === "Select") {
                 alert("Please select fee type");
                 return false;
         }
@@ -245,13 +245,17 @@ function saveLegalInvoice(action) {alert("saving process...");
     var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtStatus = document.getElementById("txtStatus").value;
     
-    //if (WithOrWithoutCourtCase === 'withCourtCase') {
+    var txtFeeType ="";
+    
+    if (WithOrWithoutCourtCase === 'withCourtCase') {
         var sel = document.getElementById("feeTypeSelect");
-    //} else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
-        if (sel === null && sel === ''){
+        txtFeeType = sel.options[sel.selectedIndex].text;
+    } else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
+        //if (sel === null && sel === ''){
         var sel = document.getElementById("feeTypeSelectWo");
+        txtFeeType = sel.options[sel.selectedIndex].text;
     }
-    var txtFeeType = sel.options[sel.selectedIndex].text;
+    
     if (isWithCourtCaseFlag === 'N') {
         
         if (txtDealingOffice === '')
@@ -730,7 +734,7 @@ function viewFile(id, option) {
 
 }
 
-function showWithOrWithoutCourtCaseFields() {
+function showWithOrWithoutCourtCaseFields() {document.getElementById("txtRegion").onclick = "";
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     if (WithOrWithoutCourtCase === 'withCourtCase') {
         $('#withCourtCaseNoBody').show(); //$("#withoutCourtCaseNoBody :input[type='text']").val(''); $("#withoutCourtCaseNoBody :select").val('');
