@@ -1208,6 +1208,7 @@ public class VendorHandler implements GenericFormHandler {
         HttpSession session = request.getSession();
         List<LegalInvoiceInputBean> legalInvoiceInputBeanList = null;
         VendorApplFileDelegate vendorapplmgrObj = new VendorApplFileManager();
+        
         try {
             logger.log(Level.INFO, "VendorHandler :: getVendorLegalInvoiceInputList() :: method called :: ");
             String userType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
@@ -1254,6 +1255,7 @@ public class VendorHandler implements GenericFormHandler {
         List<LegalInvoiceInputBean> legalInvoiceInputBeanList = null;
         VendorApplFileDelegate vendorapplmgrObj = new VendorApplFileManager();
         String ApplID = "";
+        legalInvoiceInputBean.setSaveFlag(request.getParameter("status"));
         try {
             logger.log(Level.INFO, "VendorHandler :: viewVendorLegalInvoiceDetails() :: method called :: ");
             String userType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);

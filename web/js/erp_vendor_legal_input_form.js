@@ -114,17 +114,17 @@ function LegalNumericVal() {
 function LegalDateVal() {
     var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtInvSubmitDt1 = txtInvSubmitDt.replace('-', ' ');
-    var txtInvSubmitDt2 = txtInvSubmitDt1.replace('-', ' 20');
+    var txtInvSubmitDt2 = txtInvSubmitDt1.replace('-', ' ');
     var myDate = new Date(txtInvSubmitDt2);// application/vendor invoice date and should be greater than All
-
+    
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
     var txtVendorInvoiceDate1 = txtVendorInvoiceDate.replace('-', ' ');
-    var txtVendorInvoiceDate2 = txtVendorInvoiceDate1.replace('-', ' 20');
+    var txtVendorInvoiceDate2 = txtVendorInvoiceDate1.replace('-', ' ');
     var myDate1 = new Date(txtVendorInvoiceDate2); //Inward Date Greater than Inv To Date
 
     var txtVendorInwardDt = document.getElementById('txtVendorInwardDt').value;
     var txtVendorInwardDt1 = txtVendorInwardDt.replace('-', ' ');
-    var txtVendorInwardDt2 = txtVendorInwardDt.replace('-', ' 20');
+    var txtVendorInwardDt2 = txtVendorInwardDt.replace('-', ' ');
     var myDate2 = new Date(txtVendorInwardDt2);// Invoice From Date Should be less than all
 
     //var txtInvoiceToDt = document.getElementById('txtInvoiceToDt').value;
@@ -144,12 +144,19 @@ function LegalDateVal() {
     //  return false;
     //}
 
+    var today= new Date();    
+    
     if ((myDate < myDate1))
     {
-        alert('VENDOR Inward Date should be greater than VENDOR Invoice Date!');
+        alert('Invoice Received Date should be greater than Invoice Date!');
         return false;
     }
-
+    alert((today));alert(myDate);alert(myDate1);
+    if ((myDate > today || today < myDate1))
+    {        
+        alert('Invoice Date or Inward Date cannot be a future date!');
+        return false;
+    }
     return true;
 }
 
@@ -254,7 +261,7 @@ function saveLegalInvoice(action) {alert("saving process...");
         //if (sel === null && sel === ''){
         var sel = document.getElementById("feeTypeSelectWo");
         txtFeeType = sel.options[sel.selectedIndex].text;
-    }
+    } else {var sel = document.getElementById("feeTypeSelect");txtFeeType = sel.options[sel.selectedIndex].text;}
     
     if (isWithCourtCaseFlag === 'N') {
         
@@ -522,10 +529,18 @@ function legalInvoiceApproveButton() {
 }
 
 function LegalApplDtlvalidation_Approve() {
+    
+    var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
+    var txtInvSubmitDt1 = txtInvSubmitDt.replace('-', ' ');
+    var txtInvSubmitDt2 = txtInvSubmitDt1.replace('-', ' ');
+    var myDate = new Date(txtInvSubmitDt2);
+    
     var txtInwardNum = document.getElementById('txtInwardNum').value;
 
     var txtInwardDt = document.getElementById('txtInwardDt').value;   
-    
+    var txtInvSubmitDt1 = txtInwardDt.replace('-', ' ');
+    var txtInvSubmitDt2 = txtInvSubmitDt1.replace('-', ' ');
+    var myDate1 = new Date(txtInvSubmitDt2);
     
     if (txtInwardNum === null || txtInwardNum === "") {
         alert("Inward Num is Required");
@@ -533,6 +548,17 @@ function LegalApplDtlvalidation_Approve() {
     }
     if (txtInwardDt === null || txtInwardDt === "") {
         alert("Please select Inward Date");
+        return false;
+    }
+    if ((myDate > myDate1))
+    {
+        alert('Inward Date should be greater than Invoice Received Date!');
+        return false;
+    }
+    var today = new Date();
+    if (myDate1 > today)
+    {
+        alert('Inward Date cannot be a future date!');
         return false;
     }
     return true;

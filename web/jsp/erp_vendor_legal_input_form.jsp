@@ -966,7 +966,7 @@ String rejectReason="";
                                            <td><%=type%></td>
                                            <td><%=remark%></td>
                                     
-                                        <%  if ((flag == 2) && (flb.getDELETION_FLAG().equals("Y"))) {%>
+                                        <%  if (((flag == 2) && (flb.getDELETION_FLAG().equals("Y")))||(Status.equals("Saved") && UserType.equals("Emp"))) {%>
 
                                         <td><a href="#nogo" onclick="removeLegalFile('<%=flb.getId()%>', '<%=flb.getOption()%>', '<%=(flb.getFileName() + "." + flb.getFileType())%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td>
                                                 <%  }%>
@@ -2075,6 +2075,8 @@ String rejectReason="";
             });
   }
   }
-  
+  $('#txtInvoiceAmt').on('input', function () {
+        this.value = this.value.match(/^\d+\.?\d{0,2}/);
+    });
   </script>
                             </html>

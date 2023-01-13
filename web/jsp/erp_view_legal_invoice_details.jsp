@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.Collection"%>
@@ -242,6 +243,18 @@
         }
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
             VENDOR_NUMBER = legalInvoiceInputBean.getVendorNumber();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocNo())) {
+            liabilityDocNo = legalInvoiceInputBean.getLiabilityDocNo();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocDate())) {
+            liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-mm-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
+            liabilityDocAmt = legalInvoiceInputBean.getLiabilityDocAmt();
         }
         
                 if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
