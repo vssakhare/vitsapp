@@ -29,6 +29,7 @@ import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
+import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceSapStatusTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.updateLegalCommunicationLog;
 import in.emp.vendor.bean.ClearingDocDetails;
@@ -1088,7 +1089,8 @@ try {
            String sapStatus=getLegalInvoiceStatusFromSAP(lBean);
            
            list.get(i).setStatus(sapStatus);
-   
+           
+         // updateObject(new ErpLegalInvoiceSapStatusTxnHelper(lBean));
            
         }
         } catch (Exception ex) {

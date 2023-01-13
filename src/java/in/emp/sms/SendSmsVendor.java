@@ -85,7 +85,7 @@ public class SendSmsVendor {
                   sms.sendSMS(objSmsVendor, "476832", lstcredential);
                   sql=  " UPDATE sms_sent_tracker set Cashier_SMS_SENT = 'Y',Cashier_SMS_SENT_DATE=SYSDATE WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
                    try{
-                  String Subject="Invoice processed by Technical at Vendor Invoice Tracking Portal";
+                  String Subject="Invoice processed by Accounts at Vendor Invoice Tracking Portal";
                   String MailMessage= "Invoice No." +InvoiceNumber+" has been processed by Accounts on"+v.getVendorInvoiceDate()+"and sent to cashier .Payment will be done as per availability of funds.";
               int success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)

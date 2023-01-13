@@ -143,13 +143,15 @@ public class UploadVendorFile {
             session.setConfig(config);
             session.setTimeout(1000*60*10);
             session.connect();
+             System.out.println("Uplaod file Session connected") ;
             
             channel = session.openChannel("sftp");
             channel.connect();
+               System.out.println("Uplaod file channel connected") ;
             channelSftp = (ChannelSftp) channel;
             channelSftp.cd(SFTPWORKINGDIR);
               // Build romote path subfolders inclusive:
-  
+      System.out.println("SFTPWORKINGDIR" + SFTPWORKINGDIR) ;
 
   for (String folder : folders) {
     if (folder.length() > 0 && !folder.contains(".")) {
@@ -163,7 +165,9 @@ public class UploadVendorFile {
       }
     }
   }
-
+   System.out.println("folder structure created") ;
+   
+   System.out.println("InFolder" + InFolder) ;
   
          if (InFolder.length() > 0 && !InFolder.contains(".")) {
              try{
@@ -174,14 +178,19 @@ public class UploadVendorFile {
              }
          }
       
-    
+     System.out.println("Inside InFolder" ) ;
+  
   
               File file =null;
        FileInputStream fis=null;
-
+System.out.println("FILETOTRANSFER  "  + FILETOTRANSFER.length  +"fie name  " + filename ) ;
              file = writeByteArrayTo(FILETOTRANSFER, filename);
+               System.out.println("file length" + file.length() +"fie name  " + filename);
+              System.out.println("Inside InFolder 1" ) ;
                                         fis=new FileInputStream(file);
+                                         System.out.println("Inside InFolder 2 " ) ;
                                         channelSftp.put(fis, filename);
+                                         System.out.println("Inside InFolder 3" ) ;
                                        // log.info("file uploaded successfully....");
                                       file.delete();
 
@@ -190,21 +199,30 @@ public class UploadVendorFile {
        
         } catch (Exception ex) {
             ex.printStackTrace();
+             logger.error(ex.getMessage(),ex) ;
+             System.out.println("Uplaod file error--" +ex.getMessage());
+            
         }
         return SFTPWORKINGDIR+"/"+folders[0]+"/"+folders[1]+"/"+folders[2]+"/"+InFolder+"/"+filename;
        
     }
     
         public File writeByteArrayTo(byte[] media, String fileName){
-          
-                File file = new File(ApplicationConstants.SftpLegalpath+fileName);
-                FileOutputStream fOut = null;
-                try{
+               System.out.println("Inside writeByteArrayTo" ) ;  
+                FileOutputStream fOut = null;File file =null;
+             try{
+                 file = new File(ApplicationConstants.Sftppath+fileName); 
+                
+           
+                   System.out.println("file length" + file.length() +"fie name  " + fileName);
+               
+             
                         fOut =  new FileOutputStream(file);
+                         System.out.println("fout  " + fOut.toString());
                         fOut.write(media);
                 }catch (Exception e) {
                         //log.error("Exception", e);
-                    //e.printStackTrace();
+                    e.printStackTrace();
                         return null;
                 }finally {
                         closeOutputStream(fOut);

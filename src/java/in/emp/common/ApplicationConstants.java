@@ -976,6 +976,7 @@ public class ApplicationConstants {
     
     
     public static String VENDOR_FORM_FILE_SESSION_DATA = "vendorFileSessionData";
+    public static String VENDOR_FORM_VIEW_FILE_SESSION_DATA = "vendorViewFileSessionData";
     
     public static String VENDOR_FORM_FILE_SESSION_APPID = "AppId";
     
@@ -1061,7 +1062,7 @@ public class ApplicationConstants {
    
     //public static    String Sftppath = "D:/Temp/";//to run locally
     
-   public static String Sftppath = "/home/eportal/vpts/";//DEV
+   public static String Sftppath = "/data/vpts/";// "/home/eportal/vpts/";//DEV
     public static String SftpLegalpath = "/data/VPTS/";//DEV
     public static String SFTPWORKINGDIR = "/data/VPTS/TEST_VENDOR_FILES/";   //DEV
     public static String CONN_POOL_NAME = "ErpDev";

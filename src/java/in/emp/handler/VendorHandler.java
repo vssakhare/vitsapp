@@ -1047,6 +1047,7 @@ public class VendorHandler implements GenericFormHandler {
                 }
             }
             request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, FileList);
+            
             if (request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
                 getEmpInputForm(request);
             } else {
@@ -1455,7 +1456,7 @@ public class VendorHandler implements GenericFormHandler {
             vendorapplFileBeanObj.setFileName(vendorapplFileBeanObj.getFileName()+ "." + vendorapplFileBeanObj.getFileType() );
             vendorapplFileBeanObj.setFilePath(vendorapplFileBeanObj.getPath());
             
-            request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, vendorapplFileBeanObj);
+            request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_VIEW_FILE_SESSION_DATA, vendorapplFileBeanObj);
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: getLegalInvoiceFile() :: Exception :: " + ex);
