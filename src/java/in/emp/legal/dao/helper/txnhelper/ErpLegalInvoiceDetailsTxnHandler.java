@@ -57,7 +57,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             sql.append("  INVOICE_AMOUNT , VENDOR_INV_DATE , MSEDCL_INWARD_NUMBER  ,");
             sql.append(" MSEDCL_INWARD_DATE , INV_SUBMIT_DATE , CREATED_BY_ID ,");
             sql.append(" CREATED_BY_DESIGNATION ,  CREATED_BY_NAME ,  CREATED_BY_USERTYPE ,  ");
-            sql.append(" SAVE_FLAG ,  CREATED_TIME_STAMP  , UPDATED_TIME_STAMP,FEE_TYPE,IS_WITH_COURT_CASE_NO,REGION,ZONE,CIRCLE,DIVISION,SUBDIVISION,CORPORATE_OFFICE,CASE_TYPE_DESC,VS_PARTY_NAMES,DEPT_NAME,DEPT_CODE,EMAIL_ID,MOBILE_NO)");
+            sql.append(" SAVE_FLAG ,  CREATED_TIME_STAMP  , UPDATED_TIME_STAMP,FEE_TYPE,IS_WITH_COURT_CASE_NO,REGION,ZONE,CIRCLE,DIVISION,SUBDIVISION,CORPORATE_OFFICE,CASE_TYPE_DESC,VS_PARTY_NAMES,DEPT_NAME,DEPT_CODE,EMAIL_ID,MOBILE_NO,VENDOR_INWARD_DT)");
             sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,SYSTIMESTAMP,SYSTIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,(SELECT EMAIL FROM ERP_VENDOR_MASTER WHERE VENDOR_CODE=?),(SELECT PHN_MOB FROM ERP_VENDOR_MASTER WHERE VENDOR_CODE=?))");
 
             statement = conn.prepareStatement(sql.toString());
@@ -98,6 +98,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             statement.setString(34, legalInvoiceBean.getDeptCode());
             statement.setString(35, legalInvoiceBean.getVendorNumber());
             statement.setString(36, legalInvoiceBean.getVendorNumber());
+            statement.setDate(37, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceBean.getVendorInwardDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             logger.log(Level.INFO, "ErpLegalInvoiceStatusTxnHelper ::: createObject() :: SQL :: " + sql.toString());
 
             count = statement.executeUpdate();

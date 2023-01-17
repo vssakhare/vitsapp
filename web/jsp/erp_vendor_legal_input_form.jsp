@@ -80,7 +80,8 @@ if (request.getSession().getAttribute("LegalVendorInputForm") != null) {
     String caseTypeDesc = "";
     Date sysdate = new Date();
     String VendorInvoiceDt = "";
-    String VendorInwardDate = "";String EDCLInwardDate = "";
+    String VendorInwardDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+    String EDCLInwardDate = "";
     String InvoiceResubmissionDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
     String InvoiceAmt = "";
     String InwardNum = "";
@@ -244,6 +245,10 @@ String rejectReason="";
         }else{
             redirectUrl=ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE;
         }
+        
+if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwardDate())) {
+            VendorInwardDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getVendorInwardDate());
+        }}
 
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -743,7 +748,7 @@ String rejectReason="";
                                     <td colspan ="2" width="10%" class="text-right h5">Invoice Entry Date </td>
                                     <td width="20%"> 
                                         
-                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=InvoiceSubmitDate%>" maxlength="15" readonly />
+                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
                                           
                                     </td>          
                                          
