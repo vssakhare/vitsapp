@@ -42,7 +42,8 @@ public class GetHRMSUserDetailsQueryHelper implements QueryHelper {
             logger.log(Level.INFO, "GetHRMSUserDetailsQueryHelper :: getDataObject() :: method called ::    ");
             
             hrmsUserBeanObj.setEmpNumber(results.getString("VENDOR_CODE"));
-            hrmsUserBeanObj.setEmpName(results.getString("VENDOR_NAME"));           
+            hrmsUserBeanObj.setEmpName(results.getString("VENDOR_NAME"));
+            hrmsUserBeanObj.setIsLegal(results.getString("IS_LEGAL"));
             hrmsUserPrezDataObj.setHrmsUserBeanObj(hrmsUserBeanObj);
             
         } catch (Exception ex) {
@@ -59,7 +60,7 @@ public class GetHRMSUserDetailsQueryHelper implements QueryHelper {
         try {
             logger.log(Level.INFO, "GetHRMSUserDetailsQueryHelper :: getQueryResults() :: method called ::    ");
             
-            sql.append(" select EVM.VENDOR_CODE, EVM.VENDOR_NAME ");
+            sql.append(" select EVM.VENDOR_CODE, EVM.VENDOR_NAME, EVM.IS_LEGAL ");
             sql.append(" FROM ERP_VENDOR_MASTER EVM ");
             sql.append(" WHERE EVM.VENDOR_CODE =  ? ");
 

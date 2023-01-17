@@ -88,7 +88,7 @@ public class ApplicationConstants {
     public static String LOGOUT_URL = "LOGOUT_URL";
     public static String UIACTION_VERIFY_CONSUMER_DETAILS = "verifyConsumerDetails";
     public static String DEFAULT_EMAIL_ADDRESS_DELIMINATOR = ";";
-
+    public static String IS_LEGAL_USER = "IS_LEGAL";
     public static String INIT_CONTEXT = "java:/comp/env";
     public static String PROPERTIES_PATH = "/WEB-INF/config/emp.properties";
     public static String LOGGER_PATH = "/WEB-INF/config/logger.properties";
