@@ -793,14 +793,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                        
                                     
                                         
-                                    <td    colspan ="2" width="10%" class="text-right h5"><fmt:message key='Invoice Submit Date'/> </td>
-                                    <td> 
+                                    <!--<td    colspan ="2" width="10%" class="text-right h5"><fmt:message key='Invoice Submit Date'/> </td>-->
+                                    <!--<td> 
                                         <input name="txtInvSubmitDt" class="datefield" style="text-align: left;" id="txtInvSubmitDt" type="text" size="20" class="form-control" 
                                                value="<%=InvoiceSubmitDate%>" maxlength="15"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> />
-                                    </td>  
+                                    </td>-->  
                                     
                                         <% if (flag == 2) {%>
                                     <td width="05%">
