@@ -46,8 +46,8 @@
                 
            
                    
-                    if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_VIEW_FILE_SESSION_DATA) != null) {
-                        FileObj = (FileBean) request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_VIEW_FILE_SESSION_DATA);
+                    if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA) != null) {
+                        FileObj = (FileBean) request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA);
                     } 
                   
                  
@@ -97,9 +97,8 @@
                          o.close();
                    
                    }catch (Exception ex) {
-	               //logger.error(ex.getMessage(),ex) ;
-                       System.out.println("View file error--" +ex.getMessage());
-	                ex.printStackTrace();
+	               // log.error(ex.getMessage(),ex) ;
+	                //ex.printStackTrace();
 	            } 
         %>
 </head>
