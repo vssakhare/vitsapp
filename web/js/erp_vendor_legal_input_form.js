@@ -30,7 +30,7 @@ function LegalApplDtlvalidation() {
     var txtCourtCaseNo = document.getElementById('txtCourtCaseNo').value;
     var txtInvoiceAmount = document.getElementById('txtInvoiceAmt').value;
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
-    var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
+    //var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtInvoiceNum = document.getElementById('txtInvoiceNum').value;
 
     if (isWithCourtCaseFlag === 'Y') {
@@ -77,10 +77,10 @@ function LegalApplDtlvalidation() {
         alert("Please select invoice date.");
         return false;
     }
-    if (txtInvSubmitDt === null || txtInvSubmitDt === "") {
+    /*if (txtInvSubmitDt === null || txtInvSubmitDt === "") {
         alert("Please select invoice submit date.");
         return false;
-    }
+    }*/
     if (txtInvoiceNum === null || txtInvoiceNum === "") {
         alert("Please enter invoice number.");
         return false;
@@ -112,11 +112,11 @@ function LegalNumericVal() {
     return true;
 }
 function LegalDateVal() {
-    var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
+    /*var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtInvSubmitDt1 = txtInvSubmitDt.replace('-', ' ');
     var txtInvSubmitDt2 = txtInvSubmitDt1.replace('-', ' ');
     var myDate = new Date(txtInvSubmitDt2);// application/vendor invoice date and should be greater than All
-    
+    */
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
     var txtVendorInvoiceDate1 = txtVendorInvoiceDate.replace('-', ' ');
     var txtVendorInvoiceDate2 = txtVendorInvoiceDate1.replace('-', ' ');
@@ -146,13 +146,14 @@ function LegalDateVal() {
 
     var today= new Date();    
     
-    if ((myDate < myDate1))
+    /*if ((myDate < myDate1))
     {
         alert('Invoice Received Date should be greater than Invoice Date!');
         return false;
-    }
-    alert((today));alert(myDate);alert(myDate1);
-    if ((myDate > today || today < myDate1))
+    }*/
+    //alert((today));alert(myDate);alert(myDate1);
+    //if ((myDate > today || today < myDate1))
+    if (today < myDate1)
     {        
         alert('Invoice Date or Inward Date cannot be a future date!');
         return false;
@@ -249,7 +250,7 @@ function saveLegalInvoice(action) {alert("saving process...");
     var txtInvoiceAmt = document.getElementById('txtInvoiceAmt').value;
     var txtInvoiceAmt = txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
     var selectedOffieCode = document.getElementById('selectedOffieCode').value;
-    var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
+    //var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtStatus = document.getElementById("txtStatus").value;
     
     var txtFeeType ="";
@@ -392,7 +393,7 @@ function saveLegalInvoice(action) {alert("saving process...");
             + "&txtVendorInwardDt=" + encodeURIComponent(txtVendorInwardDt)
             + "&txtInvoiceAmt=" + encodeURIComponent(txtInvoiceAmt)
             + "&txtVendorInvoiceDate=" + encodeURIComponent(txtVendorInvoiceDate)
-            + "&txtInvSubmitDt=" + encodeURIComponent(txtInvSubmitDt)
+            //+ "&txtInvSubmitDt=" + encodeURIComponent(txtInvSubmitDt)
             + "&txtStatus=" + encodeURIComponent(txtStatus)
             + "&txtDealingOffice=" + encodeURIComponent(txtDealingOffice)
             + "&txtPartyNames=" + encodeURIComponent(txtPartyNames)
@@ -529,12 +530,12 @@ function legalInvoiceApproveButton() {
 }
 
 function LegalApplDtlvalidation_Approve() {
-    
+    /*
     var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtInvSubmitDt1 = txtInvSubmitDt.replace('-', ' ');
     var txtInvSubmitDt2 = txtInvSubmitDt1.replace('-', ' ');
     var myDate = new Date(txtInvSubmitDt2);
-    
+    */
     var txtInwardNum = document.getElementById('txtInwardNum').value;
 
     var txtInwardDt = document.getElementById('txtInwardDt').value;   
@@ -550,11 +551,11 @@ function LegalApplDtlvalidation_Approve() {
         alert("Please select Inward Date");
         return false;
     }
-    if ((myDate > myDate1))
+    /*if ((myDate > myDate1))
     {
         alert('Inward Date should be greater than Invoice Received Date!');
         return false;
-    }
+    }*/
     var today = new Date();
     if (myDate1 > today)
     {
