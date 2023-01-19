@@ -228,7 +228,7 @@ public class SecurityHandler implements GenericFormHandler {
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, hrmsUserBeanObj.getEmpName());
                         vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         vendorInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
-
+                        session.setAttribute(ApplicationConstants.IS_LEGAL_USER, String.valueOf(hrmsUserBeanObj.getIsLegal()));
                     }
 
                     if (hrmsUserBeanObj.getValLogin().equals("OLD")) {
@@ -249,7 +249,7 @@ public class SecurityHandler implements GenericFormHandler {
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, hrmsUserBeanObj.getEmpName());
                         vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         vendorInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
-
+                        session.setAttribute(ApplicationConstants.IS_LEGAL_USER, String.valueOf(hrmsUserBeanObj.getIsLegal()));
                     }
 
                     if (hrmsUserBeanObj.getValLogin().equals("INVALID")) {

@@ -88,7 +88,7 @@ public class ApplicationConstants {
     public static String LOGOUT_URL = "LOGOUT_URL";
     public static String UIACTION_VERIFY_CONSUMER_DETAILS = "verifyConsumerDetails";
     public static String DEFAULT_EMAIL_ADDRESS_DELIMINATOR = ";";
-
+    public static String IS_LEGAL_USER = "IS_LEGAL";
     public static String INIT_CONTEXT = "java:/comp/env";
     public static String PROPERTIES_PATH = "/WEB-INF/config/emp.properties";
     public static String LOGGER_PATH = "/WEB-INF/config/logger.properties";
@@ -976,8 +976,10 @@ public class ApplicationConstants {
     
     
     public static String VENDOR_FORM_FILE_SESSION_DATA = "vendorFileSessionData";
+
     public static String VENDOR_FORM_VIEW_FILE_SESSION_DATA = "vendorViewFileSessionData";
     public static String VENDOR_FEE_TYPE_DTL_SESSION_DATA="vendorFeeTypeDtls";
+
     
     public static String VENDOR_FORM_FILE_SESSION_APPID = "AppId";
     
@@ -1063,7 +1065,7 @@ public class ApplicationConstants {
    
     //public static    String Sftppath = "D:/Temp/";//to run locally
     
-   public static String Sftppath = "/data/vpts/";// "/home/eportal/vpts/";//DEV
+   public static String Sftppath = "/home/eportal/vpts/";//DEV
     public static String SftpLegalpath = "/data/VPTS/";//DEV
     public static String SFTPWORKINGDIR = "/data/VPTS/TEST_VENDOR_FILES/";   //DEV
     public static String CONN_POOL_NAME = "ErpDev";

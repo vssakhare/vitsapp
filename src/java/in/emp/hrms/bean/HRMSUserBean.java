@@ -27,7 +27,15 @@ public class HRMSUserBean {
     
     private String valLogin = ""; 
     private String userType = ""; 
+    private String isLegal = "";
 
+    public String getIsLegal() {
+        return isLegal;
+    }
+
+    public void setIsLegal(String isLegal) {
+        this.isLegal = isLegal;
+    }
     public String getUserType() {
         return userType;
     }

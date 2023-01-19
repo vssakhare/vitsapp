@@ -54,7 +54,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setVendorInvDate(result.getDate("VENDOR_INV_DATE"));
             legalInvoiceInputBean.setMsedclInwardNo(result.getString("MSEDCL_INWARD_NUMBER"));
             legalInvoiceInputBean.setMsedclInwardDate(result.getDate("MSEDCL_INWARD_DATE"));
-            legalInvoiceInputBean.setInvSubmitDate(result.getDate("INV_SUBMIT_DATE"));
+            //legalInvoiceInputBean.setInvSubmitDate(result.getDate("INV_SUBMIT_DATE"));
             legalInvoiceInputBean.setCreatedById(result.getString("CREATED_BY_ID"));
             legalInvoiceInputBean.setCreatedByDesignation(result.getString("CREATED_BY_DESIGNATION"));
             legalInvoiceInputBean.setCreatedByName(result.getString("CREATED_BY_NAME"));
