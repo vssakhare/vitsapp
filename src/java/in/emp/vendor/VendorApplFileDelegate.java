@@ -38,6 +38,8 @@ public interface VendorApplFileDelegate {
 
     public LinkedList getVendorLegalApplFileList(VendorApplFileBean vendorapplFileBeanObj);
     
+  
+    
     public VendorApplFileBean getVendorLegalApplFile(VendorApplFileBean vendorapplFormBeanObj) throws Exception;
 
 

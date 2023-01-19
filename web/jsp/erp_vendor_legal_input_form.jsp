@@ -29,6 +29,7 @@
 <%@page import="java.util.*"%>
 <%@page import="in.emp.vendor.bean.VendorInputBean"%>
 <%@page import="in.emp.vendor.bean.VendorPrezData"%> 
+<%@page import="in.emp.legal.bean.FeeTypeDtlsBean"%> 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 <%
@@ -37,6 +38,7 @@
     String uiAction = "";
     LinkedList FileList = new LinkedList();
     LinkedList vendorList = new LinkedList();
+     LinkedList FeeTypeDtlList = new LinkedList();
 
     LinkedList applListNew = new LinkedList();
     LinkedList applListOld = new LinkedList();
@@ -222,7 +224,14 @@ String rejectReason="";
         }
           if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA) != null) {
             FileList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA);
-        }    
+        }   
+          
+          if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FEE_TYPE_DTL_SESSION_DATA) != null) {
+            FeeTypeDtlList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.VENDOR_FEE_TYPE_DTL_SESSION_DATA);
+        }   
+          
+          
+          
     if (((Status == "") || (Status.equals("Saved")) || Status.equals("Rejected")) && UserType.equals("Vendor")) {
             
             flag = 2;//can edit 
@@ -850,18 +859,99 @@ String rejectReason="";
 
                             <!--<hr/>-->
                         </div>                          
+                                                <div  class="content_container_sub" >
+                      <!--   <form  method="post" enctype="multipart/form-data"> -->
+                             <div    class="row">
+                                            <div class="col-lg-2 col-md-2"  border=""> </div>
+                                            <div class="col-lg-8 col-md-8"  align="center"  border="0">
+                                                <label><h4>Add Fee Type Details</h4></label>
+                                                <br>
+                                                <div align="left">
+                                                      <%if(Status!=null && Status.equals("") || Status.equals("Saved")){ %>
+                                                <input type="button" name="addRowBtn" id="addRowBtn" value='Add Row'class="btn btn-success" onclick="addRow('feeTypeDtlTbl')"/> 
+                                                <% } %>
+                                                              </div>
+                                                  <table class="table" border="0" id="feeTypeDtlTbl"  name="feeTypeDtlTbl">
+                                                  <tr class="success">
+                                           
+                                            <th>#</th>                                                
+                                            <th><b>Fee Type</b></th>
+                                            <th><b>Amount</b></th>
+                                            <th><b>Remark</b></th>
+                                       
+                                            <th><b>Remove</b></th> 
+                                            
+                                               
+                                        </tr>    
+                                            <%  
+                                            Iterator itrdtl = FeeTypeDtlList.iterator();
+                                            System.out.println("FeeTypeDtlList::"+FeeTypeDtlList);
+                                            int kk = 0;
+                                            while (itrdtl.hasNext()) {    
+                                           
+                                           String feeTypedtl = "";
+                                           Integer  feeTypeDtlId=0;
+                                              Integer  amount = 0;
+                                              String remarkDtl="";
+                                              FeeTypeDtlsBean fdb = new FeeTypeDtlsBean();
+                                              fdb = (FeeTypeDtlsBean) itrdtl.next();
+                                              kk++; 
+                                              if (!ApplicationUtils.isBlank(fdb.getRemark())) {
+                                                remarkDtl = fdb.getRemark();
+                                             }
+                                               if (!ApplicationUtils.isBlank(fdb.getFeeType())) {
+                                                feeTypedtl = fdb.getFeeType();
+                                             }
+                                              if (!ApplicationUtils.isBlank(fdb.getFeeTypeDtlsId())) {
+                                                feeTypeDtlId = fdb.getFeeTypeDtlsId();
+                                             }
+                                             if (!ApplicationUtils.isBlank(fdb.getAmount())) {
+                                                amount = fdb.getAmount();
+                                             }
+                                             if (!ApplicationUtils.isBlank(fdb.getFeeType())) {
+                                                feeTypedtl = fdb.getFeeType();
+                                             }
+                                        %>
 
+                                        <tr >
+                                        <td><%=kk%>    <input type="hidden"  id="feeTypeDtlId" name="feeTypeDtlId" value = "<%=feeTypeDtlId%>"  /> </td>
+                                        
+                                         
+                                          <td>
+                                                    <select class="form-control text-left" id="sel0"  <% if (Status == "" || Status.equals("Saved")) { out.print("onclick='feeType(this)'");
+                                            } else {
+                                                out.print("disabled='true'");
+                                            } %> >
+                                            <option><% if (Status.equals("Saved")) { out.print(feeTypedtl);}
+                                            else out.print(feeTypedtl); %></option>
+                                        </select></td>
+                                         
+                                         
+                                         
+                                           <td><input name=""  id="" type="text" size="20"class="form-control" value="<%=amount%>" maxlength="15"  <%  if (Status != "" && !Status.equals("Saved")) { %>readonly="readonly"  <% } %>/></td>
+
+                                            <td><input name=""  id="" type="text" size="20"class="form-control" value="<%=remarkDtl%>" maxlength="15"<%  if (Status != "" && !Status.equals("Saved")) { %> readonly="readonly" <% } %>/></td>
+
+                                          <!--  <td><a href="#nogo" onclick="addRow('feeTypeDtlTbl')"><img src="images/icon_add.gif" alt="Add" width="16" height="16" border="0" /></a></td> -->
+                                         <td align="center"><a href="#nogo" onclick="deleteFeeTypeDtl('<%=(feeTypeDtlId)%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td></tr>
+                                           <%  }%> 
+                                                  </table>
+                                            </div>
+                                            
+                                              </div>
+                         <!--      </form> -->
+                                                               </div>
                         
                         <table width="100%" border="0" cellspacing="0" cellpadding="0"><!--save button-->
-                            <tr>
-                                <td class="col-md-1">
-                                </td>
-                                 <%if(Status!=null && Status.equals("")){ %>
-                                <td class="col-md-2">
+                            <tr >
+                              <td class="col-md-1">
+                                </td>  
+                                 <%if(Status!=null && Status.equals("") || Status.equals("Saved")){ %>
+                                 <td class="col-md-2" align="center">
                                    
-                                    <input type="button" value=<fmt:message key='Save'/> name="ButtonSave" id="ButtonSave" style="float: left;" onclick="saveLegalInvoiceButton()"
+                                    <input type="button" value=<fmt:message key='Save'/> name="ButtonSave" id="ButtonSave" style="float: center;" onclick="saveLegalInvoiceButton()"
                                            class="btn  btn-success"/>
-                                   
+                                  
 
                                 </td>
                                  <td class="col-md-1"> <%if (UserType.equals("Emp")) {%>
@@ -870,8 +960,8 @@ String rejectReason="";
                                 <%}%>
                             </tr>
                         </table>
-
-                                
+  
+                                                              
  <%
  if ((Status != null) && (Status.equals("Saved")|| Status.equals("Submitted"))){%>
  
@@ -1991,7 +2081,80 @@ String rejectReason="";
     });
     
   } );
-  
+  function addRow(tableID) {
+
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+    // table[rowCount].offsetHeight= "20px";
+       var cell1 = row.insertCell(0);
+        var element1 = document.createElement("label");
+        element1.innerHTML=rowCount;
+        cell1.appendChild(element1);
+        var  elName="feeTypeDtlId";
+        var elementc = document.createElement("input");
+         elementc.type = "hidden";
+           elementc.setAttribute("name" , elName);
+            elementc.setAttribute("id" , elName);
+              elementc.setAttribute("value", "0");
+           cell1.appendChild(elementc);
+    
+
+
+        var cell2 = row.insertCell(1);
+        var element2 = document.createElement("select");
+        var element2Id="sel"+rowCount;
+        element2.setAttribute("id" ,element2Id);
+         var opt = document.createElement('option');
+        opt.innerHTML="Select"
+         element2.appendChild(opt);
+        element2.setAttribute("class" ,"form-control text-left");
+         element2.setAttribute("onclick" ,"dynamicfeeType(this)");
+        
+         cell2.appendChild(element2);
+
+        var cell3 = row.insertCell(2);
+        var element3 = document.createElement("input");
+        element3.type = "text";
+        element3.setAttribute( "class","form-control text-right");
+        element3.name="txtAmt"+rowCount;
+        element3.height=20;
+        cell3.appendChild(element3);
+       
+        var cell4 = row.insertCell(3);
+        var element4 = document.createElement("input");
+        element4.type = "text";
+        element4.setAttribute( "class","form-control text-right");
+        element4.name="txtRemark"+rowCount;
+        element4.height=20;
+        
+         cell4.appendChild(element4);
+
+        
+      /*  var cell5 = row.insertCell(4);
+        var element5 = document.createElement("a");
+        var img1 = document.createElement("img");
+        img1.setAttribute("src","images/icon_add.gif");
+        element5.appendChild(img1);
+        element5.setAttribute("onClick", "addRow('feeTypeDtlTbl')");
+        element5.setAttribute("href", "#nogo");
+        cell5.appendChild(element5);*/
+        
+        
+         var cell5 = row.insertCell(4);
+     //    cell5.defineProperty("align","center");
+        var element5 = document.createElement("a");
+        var img2 = document.createElement("img");
+        img2.setAttribute("src","images/icon_delete.gif");
+        element5.appendChild(img2);
+        element5.setAttribute("onClick", "");
+        element5.setAttribute("href", "#nogo");
+        cell5.appendChild(element5);
+
+
+    }
   function openSearcher(url){
   var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew"+"&caseNo="+document.getElementById("txtCourtCaseNo").value;
   //alert(url);  
@@ -2068,6 +2231,25 @@ String rejectReason="";
                      $('#'+vid.id).html(data.feeTypeList);
                      //$("#feeTypeSelect").html($.unique(data.feeTypeListArray.map(function (d) {return d.feetype;})));
                      isCalled = true;
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+  }
+  }
+  
+   function dynamicfeeType(vid){//alert("in feeType() fn");
+      
+      if(vid.length === 1){//alert("in feeType() fn");
+  $.ajax({url: '${pageContext.request.contextPath}'+'/LegalServlet?txtVendorCode='+document.getElementById('txtVendorCode').value+'&actionName=populateCaseDetails'
+                +'&caseRefNo='+document.getElementById('txtCaseRefNo').value,
+                dataType: 'json',
+               
+                success: function( data, textStatus, jqXHR) {//alert('#'+vid.id);
+                     $('#'+vid.id).html(data.feeTypeList);
+                     //$("#feeTypeSelect").html($.unique(data.feeTypeListArray.map(function (d) {return d.feetype;})));
+                    // isCalled = true;
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                      console.log( textStatus);

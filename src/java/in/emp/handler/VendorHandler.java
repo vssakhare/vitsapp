@@ -12,6 +12,7 @@ import in.emp.arch.GenericFormHandler;
 import in.emp.common.ApplicationConstants;
 import in.emp.common.FileBean;
 import in.emp.common.UploadVendorFile;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.system.dao.helpers.MultipartRequestParser;
 //import in.emp.vendor.VendorDelegate;
@@ -1103,8 +1104,10 @@ public class VendorHandler implements GenericFormHandler {
         VendorDelegate vendorMgrObj = new VendorManager();
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
         VendorApplFileBean vendorapplFileBeanObj = new VendorApplFileBean();
+        FeeTypeDtlsBean feeTypeDtlsBeanObj=new FeeTypeDtlsBean();
         VendorApplFileDelegate vendorapplFileMgrObj = new VendorApplFileManager();
         LinkedList FileList = new LinkedList();
+        LinkedList FeeTypeDtlList = new LinkedList();
         String ApplID = "";
         String userType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
 //        if (request.getParameter("AppId") != null) {
@@ -1150,6 +1153,12 @@ public class VendorHandler implements GenericFormHandler {
             vendorapplFileBeanObj.setApplicationId(legalInvoiceInputBean.getApplId() + "");
             FileList = vendorapplFileMgrObj.getVendorLegalApplFileList(vendorapplFileBeanObj);
         }
+        
+        if (legalInvoiceInputBean.getApplId() != null) {
+            feeTypeDtlsBeanObj.setApplId(legalInvoiceInputBean.getApplId());
+            FeeTypeDtlList = vendorMgrObj.getVendorLegalInvoiceFeeTypeDtlList(feeTypeDtlsBeanObj);
+            
+        }
         legalInvoiceInputBean.setCreatedByUsertype(userType);
         
         if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")){
@@ -1171,6 +1180,7 @@ public class VendorHandler implements GenericFormHandler {
         request.getSession().setAttribute("LegalVendorInputForm", legalInvoiceInputBean);
         System.out.println("legalInvoiceInputBean::" + legalInvoiceInputBean + "    app_id:" + ApplID);
         request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, FileList);
+         request.getSession().setAttribute(ApplicationConstants.VENDOR_FEE_TYPE_DTL_SESSION_DATA, FeeTypeDtlList);
         return sReturnPage;
     }
     private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){

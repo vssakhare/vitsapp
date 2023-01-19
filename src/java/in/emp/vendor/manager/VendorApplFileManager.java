@@ -9,6 +9,7 @@ import in.emp.vendor.VendorApplFileDelegate;
 import in.emp.vendor.bean.VendorApplFileBean;
 import in.emp.vendor.bean.VendorApplFilePrezData;
 import in.emp.vendor.dao.OracleVendorApplFileDao;
+import in.emp.vendor.dao.OracleVendorDao;
 import java.util.LinkedList;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -211,6 +212,7 @@ public class VendorApplFileManager implements VendorApplFileDelegate {
         return vendorapplFileBeanObj;
     }
      
+    
      
     @Override
     public LinkedList getVendorLegalApplFileList(VendorApplFileBean vendorapplFileBeanObj) {

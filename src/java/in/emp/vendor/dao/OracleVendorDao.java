@@ -17,6 +17,7 @@ import in.emp.dao.QueryHelper;
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.hrms.dao.helper.VendorLoginTxnHelper;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
@@ -26,11 +27,13 @@ import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceDetailsList;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceStatusList;
 import in.emp.legal.dao.helper.queryHelper.GetFeeTypeList;
 import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetLegalInvoiceFeeTypeDtlListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceSapStatusTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
+import in.emp.legal.dao.helper.txnhelper.FeeTypeDtlsTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.updateLegalCommunicationLog;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
@@ -1061,6 +1064,23 @@ try {
         return list;
      }
      
+     
+     public FeeTypeDtlsBean saveLFeeTypeDtlsForm(FeeTypeDtlsBean feeTypeDtlsBean)throws Exception
+     {
+         try {
+            logger.log(Level.INFO, "OracleVendorDao ::: saveLFeeTypeDtlsForm() :: method called ::    ");
+            if(feeTypeDtlsBean.getFeeTypeDtlsId().equals(0)){
+                feeTypeDtlsBean = (FeeTypeDtlsBean) createObject(new FeeTypeDtlsTxnHelper(feeTypeDtlsBean));
+            }else{
+                updateObject(new FeeTypeDtlsTxnHelper(feeTypeDtlsBean));
+            }
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorDao ::: saveLFeeTypeDtlsForm() :: Exception :: " + ex);
+            throw ex;
+        }
+        return feeTypeDtlsBean;
+     }
+     
      public LegalInvoiceInputBean saveLegalInvoiceForm(LegalInvoiceInputBean legalInvoiceInputBean)throws Exception
      {
          try {
@@ -1174,6 +1194,35 @@ try {
             throw ex;
         }
         return HOSectionMatrixBeanObj;
+    }
+    
+    public LinkedList getLegalInvoiceFeeTypeDtlList(FeeTypeDtlsBean feeTypeDtlsBean)throws Exception{
+         LinkedList<FeeTypeDtlsBean> list=null;
+         try {
+            
+            logger.log(Level.INFO, "OracleVendorDao ::: getLegalInvoiceFeeTypeDtlList() :: method called ::    ");
+            list=(LinkedList<FeeTypeDtlsBean>)getObjectList(new GetLegalInvoiceFeeTypeDtlListQueryHelper(feeTypeDtlsBean));
+            // leaveapplFormBeanObj = (VendorBean) getDataObject(new GetVendorQueryHelper(leaveapplFormBeanObj));
+            
+       
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorDao ::: getLegalInvoiceFeeTypeDtlList() :: Exception :: " + ex);
+            throw ex;
+        }
+        return list;
+     }
+    
+    
+    public FeeTypeDtlsBean feeTypeDtlDelHelper(FeeTypeDtlsBean feeTypeDtlsBean) throws Exception {
+        try {
+            logger.log(Level.INFO, "OracleVendorDao ::: feeTypeDtlDelHelper() :: method called ::    ");
+            removeObject(new FeeTypeDtlsTxnHelper(feeTypeDtlsBean));
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorDao ::: feeTypeDtlDelHelper() :: Exception :: " + ex);
+            throw ex;
+        }
+        return feeTypeDtlsBean;
     }
      
 }

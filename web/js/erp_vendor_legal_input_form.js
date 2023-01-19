@@ -5,7 +5,9 @@
  */
 function saveLegalInvoiceButton() {
     if (LegalApplDtlvalidation() && LegalNumericVal() && LegalDateVal()) {
-        saveLegalInvoice('save');
+          var feeTypeDtl =  getInvoiceFeeTypedtls();
+     saveLegalInvoice('save',feeTypeDtl);
+    
         var userType = document.getElementById("userType").value;
         var uiActionName = document.getElementById("rem").value;
         var AppId = document.getElementById("txtApplicationId").value;
@@ -14,6 +16,7 @@ function saveLegalInvoiceButton() {
         var params = "uiActionName=" + encodeURIComponent(uiActionName)
                 + "&AppId=" + encodeURIComponent(AppId)
                 + "&subAction=" + encodeURIComponent(action)
+               
                 ;
 
         postForm(url, params, "get");
@@ -151,7 +154,7 @@ function LegalDateVal() {
         alert('Invoice Received Date should be greater than Invoice Date!');
         return false;
     }
-    alert((today));alert(myDate);alert(myDate1);
+  //  alert((today));alert(myDate);alert(myDate1);
     if ((myDate > today || today < myDate1))
     {        
         alert('Invoice Date or Inward Date cannot be a future date!');
@@ -160,7 +163,8 @@ function LegalDateVal() {
     return true;
 }
 
-function saveLegalInvoice(action) {alert("saving process...");
+function saveLegalInvoice(action,feetypeDtlArray) {
+   
 //    var rejFlag=document.getElementById("rejFlag").value;
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     var isWithCourtCaseFlag = "";
@@ -373,7 +377,7 @@ function saveLegalInvoice(action) {alert("saving process...");
             document.getElementById("txtStatus").value = jsonObj.status;
             var id2 = jsonObj.Message1;
             $('#ButtonSubmit').css('display', 'block');
-            $('#ButtonSave').hide();
+       //     $('#ButtonSave').hide();
             window.alert(id2);
 
         }
@@ -414,6 +418,7 @@ function saveLegalInvoice(action) {alert("saving process...");
             + "&subDivision=" + encodeURIComponent(subdiv)
             + "&corporateOffice=" + encodeURIComponent(corporateOffice)
             + "&corpSection=" + encodeURIComponent(corpSection)
+            + "&feetypeDtlArray=" + encodeURIComponent(JSON.stringify(feetypeDtlArray))
 //            + "&txtResubmitDt= " + encodeURIComponent(txtResubmitDt)
 //            + "&vendor_number=" + encodeURIComponent(vendor_number)
 //            + "&ForwardToPlant=" + encodeURIComponent(ForwardToPlant)
@@ -426,7 +431,74 @@ function saveLegalInvoice(action) {alert("saving process...");
 
 }
 
-
+function getInvoiceFeeTypedtls()
+{   
+   var table = document.getElementById("feeTypeDtlTbl");
+/*for (var i = 1, row; row = table.rows[i]; i++) {
+  
+   for (var j = 1, col; col = row.cells[j]; j++) {
+     
+   } */
+   
+  var feeTypDtlArray = [];
+   var i=0;
+    var feeTypeDtlId=0;
+       var amount=0;
+       var remark="";
+       var feeType="";
+   $("table#feeTypeDtlTbl tr").each(function() {
+      
+      var rowDataArray = [];
+      
+      var actualData = $(this).find('td');
+      
+     
+      if (actualData.length > 0) {
+        
+       //  actualData.each(function() {
+          //  rowDataArray.push($(this).text());
+          
+        //  if ( actualData.index== 0)
+           feeTypeDtlId=actualData[0].children.feeTypeDtlId.value;
+            
+      // ( actualData.index== 1)
+                   feeType=actualData[1].firstElementChild.options[actualData[1].firstElementChild.selectedIndex].text;
+                   if (feeType== 'Select')
+                   {   alert ("Please select FeeType");
+                       exit ;}
+       
+       // ( actualData.index== 2)
+         amount=actualData[2].firstChild.value;
+       
+        // ( actualData.index== 3)
+         remark=actualData[3].firstChild.value;
+       
+       
+       
+      //   });
+      feeTypDtlArray[i]=[];
+        feeTypDtlArray[i][0]=  feeTypeDtlId;
+                feeTypDtlArray[i][1]=feeType;
+                feeTypDtlArray[i][2]=amount;
+                feeTypDtlArray[i][3]=remark;
+                
+                i++;
+      }
+    
+   });
+   
+    console.log(feeTypDtlArray);
+    return feeTypDtlArray;
+   
+   
+   
+   
+   
+}
+    
+    
+    
+    
 function submitLegalInvoiceButton() {
     if (LegalApplDtlvalidation() && LegalNumericVal() && LegalDateVal()) {
 //        if (document.getElementById("txtVNum"))
@@ -446,7 +518,9 @@ function submitLegalInvoiceButton() {
 
         var retVal = confirm("Do you want to Submit?");
         if (retVal === true) {
-            saveLegalInvoice("submit");
+            
+             var feeTypeDtl =  getInvoiceFeeTypedtls();
+            saveLegalInvoice("submit",feeTypeDtl);
             var uiActionName = document.getElementById("redirectUrl").value;
             // var txtDealingOffice = document.getElementById("txtDealingOffice").value;
            //    var txtDealingOfficeCode = document.getElementById("txtDealingOfficeCode").value;
@@ -502,7 +576,8 @@ function legalInvoiceApproveButton() {
         var retVal = confirm("Do you want to Verify?");
         if (retVal === true) {
             //document.write ("User wants to continue!");
-            saveLegalInvoice("approve");
+              var feeTypeDtl =  getInvoiceFeeTypedtls();
+            saveLegalInvoice("approve",feeTypeDtl);
             var uiActionName = "getAuthLegalInvoiceList";
             var action = "approve";
             var url = "erp";
@@ -595,7 +670,8 @@ function legalInvoiceRejectSubmitButton() {
     if (LegalApplDtlvalidation_Approve()) {
         var retVal = confirm("Do you want to Return ?");
         if (retVal === true) {
-            saveLegalInvoice("return");
+              var feeTypeDtl =  getInvoiceFeeTypedtls();
+            saveLegalInvoice("return",feeTypeDtl);
             var uiActionName = "getAuthLegalInvoiceList";
             var action = "return";
             var url = "erp";
@@ -926,4 +1002,48 @@ function disableOtherLocation(value) {
 }
 
 
+function deleteFeeTypeDtl(feeTypeDtlId){
+    
+     var retVal = confirm("Do you want to delete this entr?");
+               if( retVal == true ) {
+	   var AppId = document.getElementById("txtApplicationId").value;
+   
+        var txtvendorId = document.getElementById("txtVendorCode").value;
+         var vendor_name = document.getElementById("txtVendorName").value;
+     
+  
+    
+    var module_type = document.getElementById("Module").value;
+
+    var out = {
+        response: function validation(info) {
+            var jsonObj = JSON.parse(info);
+            var de = jsonObj.AppId;
+        }
+    };
+   var url = "ajax";
+    var uiactionName = "deleteFeeTypeDtl";
+    var params = "uiaction=" + uiactionName
+            + "&feeTypeDtlId=" + feeTypeDtlId
+            + "&subAction=" + "delete"
+            ;
+
+    callAjax("POST", url, params, false, out.response);
+    
+
+    var uiActionName = document.getElementById("rem").value;
+    var action = "delete";
+    var url = "erp";
+    var params = "uiActionName=" + encodeURIComponent(uiActionName)
+            + "&module_type=" + module_type
+            + "&AppId=" + encodeURIComponent(AppId)
+            + "&subAction=" + encodeURIComponent(action)
+            + "&txtvendorId=" + encodeURIComponent(txtvendorId)
+            ;
+
+    postForm(url, params, "get");
+	  }
+	
+    
+}
 

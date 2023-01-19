@@ -66,6 +66,7 @@ import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.hrms.bean.HRMSUserPrezData;
 import in.emp.hrms.manager.HRMSManager;
 import in.emp.ldap.LDAP;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
 import in.emp.legal.common.RemoveLegalInvoiceFile;
@@ -80,6 +81,7 @@ import in.emp.vendor.bean.VendorPrezData;
 import in.emp.vendor.manager.VendorManager;
 import in.emp.vendor.bean.SmsDTO;
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.*;
 import java.util.List;
@@ -229,8 +231,9 @@ public class AjaxControlServlet extends HttpServlet {
                     responseString = postLegalApplicationForm(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_LEGAL_Hierarchy_LOCATION)) {
                     responseString = getLegalHierarchyLocation(request);
+                } else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FEE_TYPE_DELETE)) {
+                    responseString = deleteFeeTypeDtl(request);
                 }
-
 //                else if (uiActionName.equals(ApplicationConstants.UIACTION_POST_VENDOR_LIST)) {
 //                    responseString = postVendorList(request);
 //                }
@@ -2288,17 +2291,42 @@ public class AjaxControlServlet extends HttpServlet {
 //         VendorPrezData vendorPrezDataObj = new VendorPrezData();
         VendorInputBean vendorInputBeanObj = new VendorInputBean();
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
-
+       
         Date sysdate = new Date();
         HttpSession vendorSession = request.getSession();
         JSONObject obj = new JSONObject();
         String subAction = "";
         Date today = ApplicationUtils.getCurrentDate();
+        
+          LinkedList<FeeTypeDtlsBean> feeTypeDtlsBeanList = new LinkedList<FeeTypeDtlsBean>();
+           String feeTypeDtls=request.getParameter("feetypeDtlArray");
+          feeTypeDtls=feeTypeDtls.replace("[", "");
+          feeTypeDtls=feeTypeDtls.replace("]", "");
+           String[] strArr=feeTypeDtls.split(","); 
+          for (int i=0 ; i<strArr.length; )
+          {
+              
+               FeeTypeDtlsBean  feeTypeDtlsBean=new FeeTypeDtlsBean();
 
+              if (strArr[i] == ""){
+                  feeTypeDtlsBean.setFeeTypeDtlsId(0);
+              }else
+              feeTypeDtlsBean.setFeeTypeDtlsId(Integer.parseInt(strArr[i].replace("\"", "")));
+              feeTypeDtlsBean.setFeeType(strArr[i+1].replace("\"", ""));
+              feeTypeDtlsBean.setAmount(Integer.parseInt(strArr[i+2].replace("\"", "")));
+               feeTypeDtlsBean.setRemark(strArr[i+3].replace("\"", ""));
+             //  feeTypeDtlsBean.setApplId(Integer.parseInt(ApplicationUtils.getRequestParameter(request, "txtApplicationId")));
+               i=i+4;
+               
+               feeTypeDtlsBeanList.add(feeTypeDtlsBean);
+          }
+           
+           
         try {
             logger.log(Level.INFO, "AjaxControlServlet :: postLegalApplicationForm() :: method called :: ");
             if (ApplicationUtils.getRequestParameter(request, "txtApplicationId") != null && !ApplicationUtils.getRequestParameter(request, "txtApplicationId").equals("")) {
                 legalInvoiceInputBean.setApplId(Integer.parseInt(ApplicationUtils.getRequestParameter(request, "txtApplicationId")));
+               
             }
             if (vendorSession.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
                 legalInvoiceInputBean.setVendorNumber(ApplicationUtils.getRequestParameter(request, "txtVendorCode"));
@@ -2436,13 +2464,22 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
 //                legalInvoiceInputBean.setForwardToPlant(ApplicationUtils.getRequestParameter(request, "ForwardToPlant"));
 //                legalInvoiceInputBean.setForwardToDesc(ApplicationUtils.getRequestParameter(request, "ForwardToDesc"));
             }
+            
+            
+            
+            
+            
+            
+            
+            
+            
 //            vendorPrezDataObj.setVendorInputBean(vendorInputBeanObj);
             if ((!((invoiceDate.after(today)) && (vendorinwardDate.after(today))))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
                     && (legalInvoiceInputBean.getSaveFlag().equals("Submitted"))) {
                 obj = VendorFormController.getSubmittedLegalInvoiceFormStatus(legalInvoiceInputBean, request);
             } else if ((!(invoiceDate.after(today) || (vendorinwardDate.after(today))))// || (invoiceFrmDate.after(today)) || (inwardToDate.after(today)))
                     && (legalInvoiceInputBean.getSaveFlag().equals("Saved"))) {
-                obj = VendorFormController.getSaveLegalInvoiceFormStatus(legalInvoiceInputBean, request);
+                obj = VendorFormController.getSaveLegalInvoiceFormStatus(legalInvoiceInputBean,feeTypeDtlsBeanList, request);
                 /* if(vendorInputBeanObj.getApplId()!=null && vendorInputBeanObj.getINVOICE_TYPE()!=null 
                         && vendorInputBeanObj.getINVOICE_TYPE().equalsIgnoreCase("Retention Claim Charges")){
                    //obj=
@@ -2462,6 +2499,15 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
             }
             obj.put("AppId", legalInvoiceInputBean.getApplId());
             vendorSession.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_APPL_FORM_SESSION_DATA, legalInvoiceInputBean);
+             LinkedList FeeTypeDtlList = new LinkedList();
+               VendorDelegate vendorMgrObj = new VendorManager();
+            if (legalInvoiceInputBean.getApplId() != null) {
+                  FeeTypeDtlsBean  feeTypeDtlsBeanObj=new FeeTypeDtlsBean();
+            feeTypeDtlsBeanObj.setApplId(legalInvoiceInputBean.getApplId());
+            FeeTypeDtlList = vendorMgrObj.getVendorLegalInvoiceFeeTypeDtlList(feeTypeDtlsBeanObj);
+             vendorSession.setAttribute(ApplicationConstants.VENDOR_FEE_TYPE_DTL_SESSION_DATA, FeeTypeDtlList);
+            
+        }
         } catch (Exception ex) {
             logger.log(Level.ERROR, "AjaxControlServlet :: postLegalApplicationForm() :: Exception :: " + ex);
             ex.printStackTrace();
@@ -2581,6 +2627,46 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "AjaxControlServlet :: postInvoiceFile() :: Exception :: " + ex);
+            //ex.printStackTrace();
+        }
+        return obj.toString();
+    }
+
+     
+      private String deleteFeeTypeDtl(HttpServletRequest request) throws Exception {
+        String sReturnPage = ApplicationConstants.UIACTION_LEGAL_INVOICE_FEE_TYPE_DELETE;
+   
+        FeeTypeDtlsBean  feeTypeDtlsBean=new FeeTypeDtlsBean();
+        VendorDelegate vendorMgrObj = new VendorManager();
+     
+        HttpSession vendorapplSession = request.getSession();
+        JSONObject obj = new JSONObject();
+        String subAction = "";
+        Integer feeTypeDtlId = 0;
+       
+        try {
+            logger.log(Level.INFO, "AjaxControlServlet :: deleteFeeTypeDtl() :: method called :: ");
+
+            subAction = (String) request.getParameter("subAction");
+            feeTypeDtlId = Integer.parseInt(request.getParameter("feeTypeDtlId"));
+         
+           
+            FileBean FileObj = null;
+            if (subAction.equals("delete")) {
+                feeTypeDtlsBean.setFeeTypeDtlsId(feeTypeDtlId);
+                //vendorapplFileBeanObj.setPo_Number(txtPONumber);
+                
+            
+                        feeTypeDtlsBean = vendorMgrObj.feeTypeDtlDelHelper(feeTypeDtlsBean);//remove entry from database
+
+                
+
+               
+            }
+            obj.put("feeTypeDtlId", feeTypeDtlId);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "AjaxControlServlet :: deleteFeeTypeDtl() :: Exception :: " + ex);
             //ex.printStackTrace();
         }
         return obj.toString();

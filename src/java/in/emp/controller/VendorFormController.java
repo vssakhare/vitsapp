@@ -8,6 +8,7 @@ package in.emp.controller;
 import in.emp.common.AjaxControlServlet;
 import in.emp.common.ApplicationConstants;
 import in.emp.common.SendMail;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.sms.SmsController;
 import in.emp.sms.SmsEmployee;
@@ -1134,20 +1135,40 @@ public class VendorFormController {
           return obj;
     }
 
-    public static JSONObject getSaveLegalInvoiceFormStatus(LegalInvoiceInputBean legalInvoiceInputBean, HttpServletRequest request) {
+    public static JSONObject getSaveLegalInvoiceFormStatus(LegalInvoiceInputBean legalInvoiceInputBean,  LinkedList<FeeTypeDtlsBean> feeTypeDtlsBeanList,HttpServletRequest request) {
         JSONObject obj = new JSONObject();
         System.out.println("getSaveLegalInvoiceFormStatus");
         HttpSession vendorSession = request.getSession();
         VendorDelegate vendorMgrObj = new VendorManager();
-        String Appl_id;
+        FeeTypeDtlsBean feeTypeDtlsBean=new FeeTypeDtlsBean();
+        Integer Appl_id;
         try {
-               
+               Appl_id=legalInvoiceInputBean.getApplId();
                 legalInvoiceInputBean = vendorMgrObj.saveLegalInvoiceForm(legalInvoiceInputBean);
+                
+                
+                  for (FeeTypeDtlsBean fBean : (LinkedList<FeeTypeDtlsBean> ) feeTypeDtlsBeanList)
+                      
+                  { 
+                      
+                          if (legalInvoiceInputBean.getApplId()+"" != "" && legalInvoiceInputBean.getApplId().compareTo(0)!=0 ) 
+                                   fBean.setApplId(legalInvoiceInputBean.getApplId());
+                         else
+                                   fBean.setApplId(Appl_id);
+                          
+                          
+                     feeTypeDtlsBean=   vendorMgrObj.saveLFeeTypeDtlsForm(fBean);
+                              
+                  }
+                
+                
             if (legalInvoiceInputBean.getApplId()+"" != "" && legalInvoiceInputBean.getApplId().compareTo(0)!=0 ) {
                 obj.put("Message1", "Form Saved Successfully with ID " + legalInvoiceInputBean.getApplId());
                 obj.put("status","Saved");
             } else {
-                obj.put("Message1", "Invoice number already created..Please Check!!! ");
+                
+                legalInvoiceInputBean.setApplId(Appl_id);
+                obj.put("Message1", "Form Data updated succesfully!!! ");
             }
         } catch (Exception e) {
             e.printStackTrace();

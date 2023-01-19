@@ -7,6 +7,7 @@ package in.emp.vendor.dao;
 //-- java imports
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
@@ -131,6 +132,8 @@ public LinkedList<VendorBean> putRetentionInvoiceStatus( VendorBean vendorBeanOb
 
     public List getCourtCaseDetailsForVendor(LegalInvoiceBean legalInvoiceBean)throws Exception;
     public LegalInvoiceInputBean saveLegalInvoiceForm(LegalInvoiceInputBean legalInvoiceInputBean)throws Exception;
+    
+   public FeeTypeDtlsBean saveLFeeTypeDtlsForm(FeeTypeDtlsBean feeTypeDtlsBean)throws Exception;
 
     public List getLegalInvoiceInputList(LegalInvoiceInputBean legalInvoiceInputBean)throws Exception;
 

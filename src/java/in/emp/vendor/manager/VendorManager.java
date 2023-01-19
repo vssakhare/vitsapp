@@ -6,6 +6,7 @@ package in.emp.vendor.manager;
 
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
@@ -31,6 +32,7 @@ import in.emp.vendor.bean.ProjBean;
 import in.emp.vendor.bean.SMSResponseBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
+import in.emp.vendor.bean.VendorApplFileBean;
 /**
  *
  * @author Prajakta
@@ -1208,6 +1210,22 @@ public class VendorManager implements VendorDelegate {
         }
          return bean;
     }
+    
+     @Override
+     public FeeTypeDtlsBean saveLFeeTypeDtlsForm(FeeTypeDtlsBean feeTypeDtlsBean)throws Exception{
+        VendorDao vendorDaoObj = new OracleVendorDao();
+        FeeTypeDtlsBean bean=null;
+         try {
+            logger.log(Level.INFO, " VendorManager :: saveLFeeTypeDtlsForm() :: method called");
+                bean=(FeeTypeDtlsBean)vendorDaoObj.saveLFeeTypeDtlsForm(feeTypeDtlsBean);
+        }catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: saveLegalInvoiceForm() :: Exception :: " + ex);
+        }
+         return bean;
+    }
+    
+    
+    
      @Override
     public List<LegalInvoiceInputBean> getLegalInvoiceInputList(LegalInvoiceInputBean legalInvoiceInputBean)throws Exception{
         VendorDao vendorDaoObj = new OracleVendorDao();
@@ -1276,5 +1294,47 @@ public class VendorManager implements VendorDelegate {
     }
     
     
-    
+     
+     public LinkedList getVendorLegalInvoiceFeeTypeDtlList( FeeTypeDtlsBean feeTypeDtlBeanObj){
+      
+        OracleVendorDao vendorDaoObj = null;
+     //   FeeTypeDtlsBean feeTypeDtlBean = null;
+        LinkedList vendorFeeTypeDtlList = null;
+     
+        try {
+            logger.log(Level.INFO, " VendorManager :: getVendorLegalInvoiceFeeTypeDtlList() :: method called");
+
+            //-- create the dao object
+            vendorDaoObj = new OracleVendorDao();
+
+            vendorFeeTypeDtlList = vendorDaoObj.getLegalInvoiceFeeTypeDtlList(feeTypeDtlBeanObj);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getVendorLegalInvoiceFeeTypeDtlList() :: Exception :: " + ex);
+
+        }
+        return vendorFeeTypeDtlList;
+    }
+     
+     
+        public FeeTypeDtlsBean  feeTypeDtlDelHelper(FeeTypeDtlsBean feeTypeDtlsBean) {
+       
+        OracleVendorDao vendorDaoObj = null;
+        try {
+            logger.log(Level.INFO, " VendorManager :: feeTypeDtlDelHelper() :: method called");
+
+            //-- create the dao object
+            vendorDaoObj = new OracleVendorDao();
+
+            feeTypeDtlsBean = vendorDaoObj.feeTypeDtlDelHelper(feeTypeDtlsBean);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorApplFileManager :: legalInvoiceFileDelHelper() :: Exception :: " + ex);
+        }
+        return feeTypeDtlsBean;
+    }
+     
+     
+     
+     
 }

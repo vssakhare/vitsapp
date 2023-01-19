@@ -977,6 +977,7 @@ public class ApplicationConstants {
     
     public static String VENDOR_FORM_FILE_SESSION_DATA = "vendorFileSessionData";
     public static String VENDOR_FORM_VIEW_FILE_SESSION_DATA = "vendorViewFileSessionData";
+    public static String VENDOR_FEE_TYPE_DTL_SESSION_DATA="vendorFeeTypeDtls";
     
     public static String VENDOR_FORM_FILE_SESSION_APPID = "AppId";
     
@@ -1074,6 +1075,7 @@ public class ApplicationConstants {
     public static String UIACTION_LEGAL_INVOICE_FILE_POST = "postLegalInvoiceFile";
     public static String UIACTION_LEGAL_INVOICE_FILE_GET = "getLegalInvoiceFile";
      public static String UIACTION_LEGAL_INVOICE_FILE_DELETE = "deleteLegalInvoiceFile";
+    public static String UIACTION_LEGAL_INVOICE_FEE_TYPE_DELETE = "deleteFeeTypeDtl";
     
     public static String VENDOR_LEGAL_FORM_FILE_SESSION_APPID = "vendorLegalFormSessionApplId"; 
     public static String VENDOR_LEGAL_INVOICE_ACCEPTED_DATA="vendorLegalInvoiceAcceptedData";

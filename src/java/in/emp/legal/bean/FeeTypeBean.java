@@ -14,6 +14,7 @@ public class FeeTypeBean implements java.io.Serializable{
     private Integer caseType;
     private String feeType;
     private String sacCode;
+    
 
     public Integer getFeeIndex() {
         return feeIndex;

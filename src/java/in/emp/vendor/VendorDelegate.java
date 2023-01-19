@@ -6,6 +6,7 @@ package in.emp.vendor;
 
 import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.legal.bean.FeeTypeBean;
+import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
@@ -132,4 +133,13 @@ public interface VendorDelegate {
     public List getLegalHierarchyLocation(OrganizationMasterBean organizationMasterBean)throws Exception;
     
      public void updateLegalCommunicationLog(LegalCommunicationBean legalCommunicationBean) throws Exception;
+     
+     public LinkedList getVendorLegalInvoiceFeeTypeDtlList( FeeTypeDtlsBean feeTypeDtlBeanObj) throws Exception;
+     
+     public FeeTypeDtlsBean saveLFeeTypeDtlsForm(FeeTypeDtlsBean feeTypeDtlsBean)throws Exception;
+     
+       public FeeTypeDtlsBean  feeTypeDtlDelHelper(FeeTypeDtlsBean feeTypeDtlsBean) throws Exception;
+
+     
+     
 }
