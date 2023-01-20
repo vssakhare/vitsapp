@@ -267,10 +267,6 @@
          if (request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION)!=null) {
             UserType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
         }
-        
-        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
-            paidAmount = legalInvoiceInputBean.getPaidAmount();
-        }
 
     }
 %>
