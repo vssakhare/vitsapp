@@ -31,7 +31,7 @@ function LegalApplDtlvalidation() {
         isWithCourtCaseFlag = "N";
     }
     var txtCourtCaseNo = document.getElementById('txtCourtCaseNo').value;
-    var txtInvoiceAmount = document.getElementById('txtInvoiceAmt').value;
+    var txtInvoiceAmount = 0;//document.getElementById('txtInvoiceAmt').value;
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
     //var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtInvoiceNum = document.getElementById('txtInvoiceNum').value;
@@ -66,11 +66,11 @@ function LegalApplDtlvalidation() {
             }
         }
         
-        var feeType = document.getElementById('feeTypeSelectWo').value;
-            if (feeType === null || feeType === "" || feeType === "Select") {
+        var feeType = "";//document.getElementById('feeTypeSelectWo').value;
+          /*  if (feeType === null || feeType === "" || feeType === "Select") {
                 alert("Please select fee type");
                 return false;
-        }
+        }*/
     }
     if (txtInvoiceAmount === null || txtInvoiceAmount === "") {
         alert("Please enter invoice amount.");
@@ -102,8 +102,48 @@ function LegalApplDtlvalidation() {
     }
     return true;
 }
+
+function getTotal(){
+    var table = document.getElementById("feeTypeDtlTbl");
+   
+  var feeTypDtlArray = [];
+   var i=0;
+    var feeTypeDtlId=0;
+       var toltAmount=0;
+       var remark="";
+       var feeType="";
+   $("table#feeTypeDtlTbl tbody tr").each(function() {
+      
+     
+      var actualData = $(this).find('td');
+      
+     
+      if (actualData.length > 0) {
+        
+       //  actualData.each(function() {
+          //  rowDataArray.push($(this).text());
+          
+        //  if ( actualData.index== 0)
+        
+         toltAmount=toltAmount+parseInt(actualData[2].firstChild.value);
+       
+        
+       
+      
+      }
+    
+   });
+   
+   document.getElementById("totalInvAmtLbl").text=toltAmount;
+     document.getElementById("totalInvAmtLbl").innerHTML=toltAmount;
+   // console.log(feeTypDtlArray);
+   // return feeTypDtlArray;
+   
+   
+    
+}
 function LegalNumericVal() {
-    var txtInvoiceAmt = document.getElementById('txtInvoiceAmt').value;
+    var txtInvoiceAmt = 0;//document.getElementById('txtInvoiceAmt').value;
     // var txtInvoiceAmt = txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
     //var regexp = /^\d+\.\d{1,2}$/;
     // alert(txtInvoiceAmt);
@@ -223,8 +263,8 @@ function saveLegalInvoice(action,feetypeDtlArray) {
         if(corpSection==='Select'){
             corpSection="";
         }
-        var feeTypeSelect = document.getElementById("feeTypeSelectWo");
-        feeType = feeTypeSelect.options[feeTypeSelect.selectedIndex].text;
+      //  var feeTypeSelect = document.getElementById("feeTypeSelectWo");
+        feeType ="";// feeTypeSelect.options[feeTypeSelect.selectedIndex].text;
         if(feeType==='Select'){
             feeType="";
         }
@@ -257,22 +297,25 @@ function saveLegalInvoice(action,feetypeDtlArray) {
 
     var txtVendorInwardDt = document.getElementById('txtVendorInwardDt').value;
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
-    var txtInvoiceAmt = document.getElementById('txtInvoiceAmt').value;
-    var txtInvoiceAmt = txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
+    var txtInvoiceAmt =0;// document.getElementById('txtInvoiceAmt').value;
+    var txtInvoiceAmt = 0;//txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
     var selectedOffieCode = document.getElementById('selectedOffieCode').value;
     //var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtStatus = document.getElementById("txtStatus").value;
     
     var txtFeeType ="";
     
-    if (WithOrWithoutCourtCase === 'withCourtCase') {
+  /*  if (WithOrWithoutCourtCase === 'withCourtCase') {
         var sel = document.getElementById("feeTypeSelect");
-        txtFeeType = sel.options[sel.selectedIndex].text;
+        txtFeeType = "";//sel.options[sel.selectedIndex].text;
     } else if (WithOrWithoutCourtCase === 'withoutCourtCase') {
         //if (sel === null && sel === ''){
-        var sel = document.getElementById("feeTypeSelectWo");
-        txtFeeType = sel.options[sel.selectedIndex].text;
-    } else {var sel = document.getElementById("feeTypeSelect");txtFeeType = sel.options[sel.selectedIndex].text;}
+        var sel ="";// document.getElementById("feeTypeSelectWo");
+        txtFeeType = "";//sel.options[sel.selectedIndex].text;
+    } else {
+        var sel ="";// document.getElementById("feeTypeSelect");
+        txtFeeType ="";// sel.options[sel.selectedIndex].text;
+    }*/
     
     if (isWithCourtCaseFlag === 'N') {
         
@@ -453,7 +496,7 @@ function getInvoiceFeeTypedtls()
        var amount=0;
        var remark="";
        var feeType="";
-   $("table#feeTypeDtlTbl tr").each(function() {
+   $("table#feeTypeDtlTbl tbody tr").each(function() {
       
       var rowDataArray = [];
       

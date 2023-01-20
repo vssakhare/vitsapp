@@ -32,6 +32,8 @@
 <%@page import="in.emp.legal.bean.FeeTypeDtlsBean"%> 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
 <%
 
     String recordsVar = "No Records To Display !!!";
@@ -499,25 +501,13 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 
                                 <tr>
                                     
-                                    <td class="text-right h5">Fee type</td>
-                                    <% if (Status == "") {
-                                        %>
-                                    <td>
-                                        <select class="form-control text-left" id="feeTypeSelect">
-                                            <option>Select</option>
-                                        </select></td>
-                                    <%
-                                            } else {%>
-                                                <td>
-                                                    <select class="form-control text-left" id="feeTypeSelect" <% if (Status.equals("Saved")) { out.print("onclick='feeType(this)'");
-                                            } else {
-                                                out.print("disabled='true'");
-                                            } %> >
-                                            <option><% if (Status.equals("Saved")) { out.print(feeType);}
-                                            else out.print(feeType);
-                                                %></option>
-                                        </select></td>
-                                            <%}%> 
+                                    <td  class="text-right h5">Invoice Entry Date </td>
+                                    <td> 
+                                        
+                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
+                                          
+                                    </td>          
+                                         
                                     <td colspan="2"  class="text-right h5"><fmt:message key='Invoice Number'/></td>
                                     <td>
                                         <input type="text" class="form-control text-right" name="txtInvoiceNum" id="txtInvoiceNum"   maxlength="40" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
@@ -723,16 +713,15 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                      
                                      <tr>
                                     
-                                    <td class="text-right h5">Fee type</td>
-                                  
-                                                <td>
-                                                    <select class="form-control text-left" id="feeTypeSelectWo"  <% if (Status == "" || Status.equals("Saved")) { out.print("onclick='feeType(this)'");
-                                            } else {
-                                                out.print("disabled='true'");
-                                            } %> >
-                                            <option><% if (Status.equals("Saved")) { out.print(feeType);}
-                                            else out.print(feeType); %></option>
-                                        </select></td>
+                                
+                                        
+                                          <td class="text-right h5">Invoice Entry Date </td>
+                                    <td > 
+                                        
+                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
+                                          
+                                    </td>          
+                                         
 
 
                                 
@@ -747,17 +736,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 </tbody>
                                 <%//}%>
                                 <tr>
-                                    <td width="10%" class="text-right h5"><fmt:message key='Invoice Amount(Incl. Taxes)'/></td>
+                                    <td width="10%" ></td>
                                     <td width="20%">
-                                        <input type="text" class="form-control text-right" value="<%=InvoiceAmt%>" size="20" placeholder=<fmt:message key='"Max length is 15"'/> maxlength="15" id="txtInvoiceAmt" name="txtInvoiceAmt" <% if (Status == "" || Status.equals("Saved")) {
-                                            } else {
-                                                out.print("disabled='true'");
-                                            }%> /></td>
+                                       </td>
                                   
-                                    <td colspan ="2" width="10%" class="text-right h5">Invoice Entry Date </td>
+                                    <td colspan ="2" width="10%" ></td>
                                     <td width="20%"> 
                                         
-                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
+                                       
                                           
                                     </td>          
                                          
@@ -876,18 +862,21 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                                 <input type="button" name="addRowBtn" id="addRowBtn" value='Add Row'class="btn btn-success" onclick="addRow('feeTypeDtlTbl')"/> 
                                                 <% } %>
                                                               </div>
-                                                  <table class="table" border="0" id="feeTypeDtlTbl"  name="feeTypeDtlTbl">
+                                                  <table class="table" border="0" id="feeTypeDtlTbl"  name="feeTypeDtlTbl" >
+                                                      <thead>
                                                   <tr class="success">
                                            
                                             <th>#</th>                                                
                                             <th><b>Fee Type</b></th>
-                                            <th><b>Amount</b></th>
+                                            <th><b>Invoice Amount</b></th>
                                             <th><b>Remark</b></th>
-                                       
+                                           
                                             <th><b>Remove</b></th> 
-                                            
+                                           
                                                
-                                        </tr>    
+                                        </tr>   
+                                        </thead>
+                                        <tbody > 
                                             <%  
                                             Iterator itrdtl = FeeTypeDtlList.iterator();
                                             System.out.println("FeeTypeDtlList::"+FeeTypeDtlList);
@@ -933,14 +922,22 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                          
                                          
                                          
-                                           <td><input name=""  id="" type="text" size="20"class="form-control" value="<%=amount%>" maxlength="15"  <%  if (Status != "" && !Status.equals("Saved")) { %>readonly="readonly"  <% } %>/></td>
+                                           <td><input name="" style="text-align:right" id="" type="text" size="20"class="form-control" value="<%=amount%>" maxlength="15"  onfocusout='getTotal()' <%  if (Status != "" && !Status.equals("Saved")) { %>readonly="readonly"  <% } %>/></td>
 
                                             <td><input name=""  id="" type="text" size="20"class="form-control" value="<%=remarkDtl%>" maxlength="15"<%  if (Status != "" && !Status.equals("Saved")) { %> readonly="readonly" <% } %>/></td>
 
                                           <!--  <td><a href="#nogo" onclick="addRow('feeTypeDtlTbl')"><img src="images/icon_add.gif" alt="Add" width="16" height="16" border="0" /></a></td> -->
-                                         <td align="center"><a href="#nogo" onclick="deleteFeeTypeDtl('<%=(feeTypeDtlId)%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td></tr>
+                                         
+                                         <td align="center"><a href="#nogo"    <%  if ((Status.equals("Saved") && UserType.equals("Vendor"))) {%> onclick="deleteFeeTypeDtl('<%=(feeTypeDtlId)%>')" <%  }%>><img onload="getTotal()" src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a>  </td></tr>
                                            <%  }%> 
-                                                  </table>
+                                        </tbody>  
+                                            <tfoot>
+                                            <td></td>
+                                            <td class=""> <b>Total Invoice Amount: </b>
+                                                </td>
+                                              <td align="right" ><label  id='totalInvAmtLbl'></label></td>  
+                                            </tfoot>
+                                                                                              </table>
                                             </div>
                                             
                                               </div>
@@ -2124,6 +2121,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
         var element3 = document.createElement("input");
         element3.type = "text";
         element3.setAttribute( "class","form-control text-right");
+        element3.setAttribute( "onfocusout","getTotal()");
         element3.name="txtAmt"+rowCount;
         element3.height=20;
         cell3.appendChild(element3);
