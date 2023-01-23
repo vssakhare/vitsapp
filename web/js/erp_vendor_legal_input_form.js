@@ -1054,7 +1054,7 @@ function disableOtherLocation(value) {
 
 function deleteFeeTypeDtl(feeTypeDtlId){
     
-     var retVal = confirm("Do you want to delete this entr?");
+     var retVal = confirm("Do you want to delete this entry?");
                if( retVal == true ) {
 	   var AppId = document.getElementById("txtApplicationId").value;
    

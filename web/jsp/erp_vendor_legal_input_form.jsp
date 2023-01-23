@@ -2085,7 +2085,8 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
   } );
   function addRow(tableID) {
 
-        var table = document.getElementById(tableID);
+      //  var table = document.getElementById(tableID);
+         var table = document.getElementById(tableID).getElementsByTagName('tbody')[0];
 
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
@@ -2093,7 +2094,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
     // table[rowCount].offsetHeight= "20px";
        var cell1 = row.insertCell(0);
         var element1 = document.createElement("label");
-        element1.innerHTML=rowCount;
+        element1.innerHTML=rowCount+1;
         cell1.appendChild(element1);
         var  elName="feeTypeDtlId";
         var elementc = document.createElement("input");
