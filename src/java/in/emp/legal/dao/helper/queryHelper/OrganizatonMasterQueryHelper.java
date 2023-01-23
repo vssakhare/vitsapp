@@ -80,7 +80,7 @@ public class OrganizatonMasterQueryHelper implements QueryHelper{
             }else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("SUB")){
                 sql.append(" and DIVISION_ID=? ");
             }else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("DEPT")){
-                sql.append(" and region_id=? and office_level=3 and org_id_sap is not null and co_section='Y'");
+                sql.append(" and region_id=? and office_level=3 and org_id_sap is not null");
             }    
 //            else if(organizationMasterBean.getOfficeType().equalsIgnoreCase("SUB")){
 //                sql.append(" and SUB_DIVISION_ID=? ");
