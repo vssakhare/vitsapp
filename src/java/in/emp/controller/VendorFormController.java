@@ -373,7 +373,7 @@ public class VendorFormController {
                 vendorStatusBeanObj.setPO_NUMBER(ApplicationUtils.getRequestParameter(request, "txtPONumber"));
             }
             vendorStatusBeanObj.setVENDOR_CODE((String) vendorSession.getAttribute(ApplicationConstants.USER_NAME_SESSION));
-            vendorStatusBeanObj.setINVOICE_SUBMIT_DATE((ApplicationUtils.stringToDate((String) request.getParameter("txtInvSubmitDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT)));
+            //vendorStatusBeanObj.setINVOICE_SUBMIT_DATE((ApplicationUtils.stringToDate((String) request.getParameter("txtInvSubmitDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT)));
 //send sms to vendor
 
             //vendor sms process
