@@ -2287,7 +2287,7 @@ public class AjaxControlServlet extends HttpServlet {
     }
 
     private String postLegalApplicationForm(HttpServletRequest request) throws Exception {
-        System.out.println("$postLegalApplicationForm$");
+        //System.out.println("$postLegalApplicationForm$");
 //         VendorPrezData vendorPrezDataObj = new VendorPrezData();
         VendorInputBean vendorInputBeanObj = new VendorInputBean();
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
