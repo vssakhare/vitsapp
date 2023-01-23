@@ -2111,7 +2111,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
         var element2Id="sel"+rowCount;
         element2.setAttribute("id" ,element2Id);
          var opt = document.createElement('option');
-        opt.innerHTML="Select"
+        opt.innerHTML="Select";
          element2.appendChild(opt);
         element2.setAttribute("class" ,"form-control text-left");
          element2.setAttribute("onclick" ,"dynamicfeeType(this)");
