@@ -351,7 +351,7 @@
                                      }
                                      
                                       if (!ApplicationUtils.isBlank(vendorInputBean.getInvoiceAmount())) {
-                                       InvoiceAmt = vendorInputBean.getInvoiceAmount();
+                                       InvoiceAmt = vendorInputBean.getInvoiceAmount().toString();
                                        
                                               InvoiceAmt =  ApplicationUtils.formatAmount(Double.valueOf(InvoiceAmt));
                                      }

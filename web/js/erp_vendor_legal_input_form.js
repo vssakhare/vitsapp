@@ -297,8 +297,8 @@ function saveLegalInvoice(action,feetypeDtlArray) {
 
     var txtVendorInwardDt = document.getElementById('txtVendorInwardDt').value;
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
-    var txtInvoiceAmt =0;// document.getElementById('txtInvoiceAmt').value;
-    var txtInvoiceAmt = 0;//txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
+    var txtInvoiceAmt = document.getElementById('totalInvAmtLbl').innerHTML;
+   // var txtInvoiceAmt = 0;//txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
     var selectedOffieCode = document.getElementById('selectedOffieCode').value;
     //var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
     var txtStatus = document.getElementById("txtStatus").value;

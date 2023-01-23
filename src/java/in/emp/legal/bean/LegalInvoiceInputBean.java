@@ -26,7 +26,7 @@ public class LegalInvoiceInputBean implements java.io.Serializable{
         private String vsPartyNames  ;
 	private String invoiceNumber ;  
 	private Date invoiceDate ; 
-	private String invoiceAmount ; 
+	private Integer invoiceAmount ; 
 	private Date vendorInvDate ; 
 	private String msedclInwardNo  ; 
 	private Date msedclInwardDate ; 
@@ -572,11 +572,11 @@ private String liabilityDocNo ;
         this.invoiceDate = invoiceDate;
     }
 
-    public String getInvoiceAmount() {
+    public Integer getInvoiceAmount() {
         return invoiceAmount;
     }
 
-    public void setInvoiceAmount(String invoiceAmount) {
+    public void setInvoiceAmount(Integer invoiceAmount) {
         this.invoiceAmount = invoiceAmount;
     }
 

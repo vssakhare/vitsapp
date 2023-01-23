@@ -74,7 +74,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             statement.setString(10, legalInvoiceBean.getPartyNames());
             statement.setString(11, legalInvoiceBean.getInvoiceNumber());
             statement.setDate(12, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceBean.getInvoiceDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-            statement.setString(13, legalInvoiceBean.getInvoiceAmount());
+            statement.setInt(13, legalInvoiceBean.getInvoiceAmount());
             statement.setDate(14, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceBean.getVendorInvDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
 
             statement.setString(15, legalInvoiceBean.getMsedclInwardNo());
@@ -150,7 +150,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             statement = conn.prepareStatement(sql.toString());
             statement.setString(1, legalInvoiceBean.getSaveFlag());
             statement.setString(2, legalInvoiceBean.getFeeType());
-              statement.setString(3, legalInvoiceBean.getInvoiceAmount());
+              statement.setInt(3, legalInvoiceBean.getInvoiceAmount());
               statement.setInt(4, legalInvoiceBean.getApplId());
           
             count = statement.executeUpdate();

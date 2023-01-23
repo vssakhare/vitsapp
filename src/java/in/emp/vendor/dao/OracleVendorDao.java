@@ -1084,7 +1084,7 @@ try {
      {
          try {
             logger.log(Level.INFO, "OracleVendorDao ::: saveLegalInvoiceForm() :: method called ::    ");
-            if(legalInvoiceInputBean.getSaveFlag().equals("Saved")){
+            if(legalInvoiceInputBean.getSaveFlag().equals("Saved") && legalInvoiceInputBean.getApplId().equals(0)){
                 legalInvoiceInputBean = (LegalInvoiceInputBean) createObject(new ErpLegalInvoiceDetailsTxnHandler(legalInvoiceInputBean));
             }else{
                 updateObject(new ErpLegalInvoiceDetailsTxnHandler(legalInvoiceInputBean));

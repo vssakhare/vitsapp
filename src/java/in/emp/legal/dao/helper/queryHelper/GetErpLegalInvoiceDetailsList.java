@@ -50,7 +50,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setCaseTypeDesc(result.getString("CASE_TYPE_DESC"));
             legalInvoiceInputBean.setInvoiceNumber(result.getString("INVOICE_NUMBER"));
             legalInvoiceInputBean.setInvoiceDate(result.getDate("INVOICE_DATE"));
-            legalInvoiceInputBean.setInvoiceAmount(result.getString("INVOICE_AMOUNT"));
+            legalInvoiceInputBean.setInvoiceAmount(result.getInt("INVOICE_AMOUNT"));
             legalInvoiceInputBean.setVendorInvDate(result.getDate("VENDOR_INV_DATE"));
             legalInvoiceInputBean.setMsedclInwardNo(result.getString("MSEDCL_INWARD_NUMBER"));
             legalInvoiceInputBean.setMsedclInwardDate(result.getDate("MSEDCL_INWARD_DATE"));

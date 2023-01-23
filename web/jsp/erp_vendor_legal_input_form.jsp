@@ -868,7 +868,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                            
                                             <th>#</th>                                                
                                             <th><b>Fee Type</b></th>
-                                            <th><b>Invoice Amount</b></th>
+                                            <th><b>Invoice Amount (Incl. Taxes)</b></th>
                                             <th><b>Remark</b></th>
                                            
                                             <th><b>Remove</b></th> 

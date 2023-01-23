@@ -2359,7 +2359,7 @@ public class AjaxControlServlet extends HttpServlet {
             legalInvoiceInputBean.setDealingOfficeCode(ApplicationUtils.getRequestParameter(request, "selectedOffieCode"));
             legalInvoiceInputBean.setInvoiceDate(ApplicationUtils.stringToDate((String) request.getParameter("txtVendorInvoiceDate"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             legalInvoiceInputBean.setVendorInwardDate(ApplicationUtils.stringToDate((String) request.getParameter("txtVendorInwardDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-            legalInvoiceInputBean.setInvoiceAmount(ApplicationUtils.getRequestParameter(request, "txtInvoiceAmt"));
+            legalInvoiceInputBean.setInvoiceAmount(Integer.parseInt(ApplicationUtils.getRequestParameter(request, "txtInvoiceAmt")));
             legalInvoiceInputBean.setMsedclInwardNo(ApplicationUtils.getRequestParameter(request, "txtInwardNum"));
 //            vendorInputBeanObj.setLocation(ApplicationUtils.getRequestParameter(request, "txtPlant"));
             legalInvoiceInputBean.setMsedclInwardDate(ApplicationUtils.stringToDate((String) request.getParameter("txtInwardDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
