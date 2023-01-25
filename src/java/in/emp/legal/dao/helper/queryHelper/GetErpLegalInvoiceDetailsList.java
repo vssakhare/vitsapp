@@ -152,7 +152,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                                 sql.append(" AND VENDOR_NUMBER=? ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
-                                sql.append(" AND APPL_ID=?  ");
+                                sql.append(" AND LD.APPL_ID=?  ");
                     }
 //                    else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
 //                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
@@ -162,7 +162,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                 } else if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Emp")) {
                     if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
-                        sql.append(" AND APPL_ID=?  ");
+                        sql.append(" AND LD.APPL_ID=?  ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
                         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
 //                            sql.append(" WHERE DEALING_OFFICE_CODE  IN (select h.organization_id from hr_all_organization_units h, ");
