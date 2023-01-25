@@ -935,7 +935,8 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                             <td></td>
                                             <td class=""> <b>Total Invoice Amount: </b>
                                                 </td>
-                                              <td align="right" ><label  id='totalInvAmtLbl'></label></td>  
+                                              <td align="right" ><label  id='totalInvAmtLbl'></label>
+                                              <input type="hidden" id ='totalInvAmt'></td>  
                                             </tfoot>
                                                                                               </table>
                                             </div>

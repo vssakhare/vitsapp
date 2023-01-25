@@ -107,6 +107,8 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
             legalInvoiceInputBean.setLiabilityDocDate(result.getString("ZZPARK_POST_DATE"));
             legalInvoiceInputBean.setLiabilityDocAmt(result.getString("ZZPARK_DOC_AMT"));
             legalInvoiceInputBean.setPaidAmount(result.getString("ZZPAY_DOC_AMT"));
+            legalInvoiceInputBean.setsFeeType(result.getString("sFee_type"));
+            legalInvoiceInputBean.setsAmount(result.getInt("sAmount"));
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetErpLegalInvoiceStatusList :: getDataObject() :: Exception :: " + ex);
             throw ex;
@@ -133,16 +135,16 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
           
          if (status != null && status.equalsIgnoreCase("Accepted")){
-             sql.append(" select LD.*,OM.*,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ,zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT,zf.ZZPARK_POST_DOC_NO,zf.ZZPARK_POST_DATE,zf.ZZPARK_DOC_AMT,zf.ZZPAY_DOC_AMT," +
+             sql.append(" select LD.*,OM.*,f.fee_type as sFee_type,f.amount as sAmount,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ,zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT,zf.ZZPARK_POST_DOC_NO,zf.ZZPARK_POST_DATE,zf.ZZPARK_DOC_AMT,zf.ZZPAY_DOC_AMT," +
              //sql.append(" select LD.*,OM.*,zf.* ," +
 "  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc , substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1"
-                     + " from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM , zhrt_legal_fee zf ");
+                     + " from xxmis_erp_legal_invoice_details LD  join   xxmis_erp_legal_invoice_fee_type_dtls  f on     f.APPL_ID=LD.APPL_ID,xxmis_organization_master OM , zhrt_legal_fee zf ");
             sql.append(" where LD.dealing_office_code=OM.organization_id "
                     + " and TO_NUMBER(LD.VENDOR_NUMBER)=zf.vendor" +
                         " and  LD.CASE_REF_NO=zf.caserefno " +
                         " and  LD.INVOICE_NUMBER=zf.invoice_legal " +
                         " and  LD.INVOICE_DATE=zf.invoice_date " +
-                        " and  LD.FEE_TYPE=zf.adv_fee_type");
+                        " and  f.fee_type=zf.adv_fee_type");
                         if (legalInvoiceInputBean.getCreatedByUsertype() != null) {
                            if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
                               if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
@@ -186,7 +188,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                 }
 
             }
-            sql.append(" ORDER BY APPL_ID DESC ");
+            sql.append(" ORDER BY LD.APPL_ID DESC ");
             
          }
 
@@ -199,7 +201,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 "om.STATE,om.PIN_CODE,om.COUNTRY,om.PERSONAL_AREA,om.PERSONAL_AREA_NAME,om.PERSONAL_SUBAREA ,om.PERSONAL_SUBAREA_NAME ,om.REGION_ID,om.REGION_ID_SAP," +
 "om.REGION_NAME,om.ZONE_ID,om.ZONE_ID_SAP,om.ZONE_NAME,om.CIRCLE_ID,om.CIRCLE_ID_SAP,om.CIRCLE_NAME,om.DIVISION_ID,om.DIVISION_ID_SAP,om.DIVISION_NAME," +
 "om.SUB_DIVISION_ID,om.SUB_DIVISION_ID_SAP,om.SUB_DIVISION_NAME,om.SECTION_ID,om.SECTION_ID_SAP ,om.SECTION_NAME,om.SUB_STATION_ID,om.SUB_STATION_ID_SAP," +
-"om.SUB_STATION_NAME,om.PAYROLL_LOCATION,om.PAYROLL_AREA,om.PAYROLL_AREA_DESC,om.START_DATE,om.END_DATE  from xxmis_erp_legal_invoice_details LD,xxmis_organization_master OM ");
+"om.SUB_STATION_NAME,om.PAYROLL_LOCATION,om.PAYROLL_AREA,om.PAYROLL_AREA_DESC,om.START_DATE,om.END_DATE,f.FEE_TYPE as sFee_type,f.amount as sAmount  from xxmis_erp_legal_invoice_details LD join   xxmis_erp_legal_invoice_fee_type_dtls  f on     f.APPL_ID=LD.APPL_ID,xxmis_organization_master OM ");
             sql.append(" where nvl(LD.dealing_office_code,261)=OM.organization_id ");
             
 
@@ -217,7 +219,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                                 sql.append(" AND VENDOR_NUMBER=? ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
-                                sql.append(" AND APPL_ID=?  ");
+                                sql.append(" AND LD.APPL_ID=?  ");
                     }
 //                    else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
 //                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
@@ -227,7 +229,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                 } else if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Emp")) {
                     if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
-                        sql.append(" AND APPL_ID=?  ");
+                        sql.append(" AND LD.APPL_ID=?  ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
                         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
 //                            sql.append(" WHERE DEALING_OFFICE_CODE  IN (select h.organization_id from hr_all_organization_units h, ");
@@ -253,8 +255,8 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                 }
 
             }
-            sql.append(" ORDER BY APPL_ID DESC )x LEFT JOIN zhrt_legal_fee zf ON to_number(x.vendor_number) = zf.vendor" +
-" AND x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND x.invoice_date = zf.invoice_date  AND x.fee_type = zf.adv_fee_type ");
+            sql.append(" ORDER BY LD.APPL_ID DESC )x LEFT JOIN zhrt_legal_fee zf ON to_number(x.vendor_number) = zf.vendor" +
+" AND x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND x.invoice_date = zf.invoice_date  AND x.sFee_type = zf.adv_fee_type ");
          }
 
       

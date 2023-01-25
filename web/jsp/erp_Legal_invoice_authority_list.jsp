@@ -488,6 +488,7 @@
                                                     <th>Court Case No</th>  
                                                       <th>Case Reference No</th>  
                                                       <th>Court Name</th>
+                                                      <th>Fee Type</th>
                                                       <th>Dealing Office</th>
                                                     <th><fmt:message key='Vendor Invoice Number'/></th>  
                                                     <th><fmt:message key='Vendor Invoice Date'/></th> 
@@ -496,7 +497,7 @@
                                                     <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
                                                     <!--<th>Invoice From Date</th>
                                                     <th>Invoice To Date</th>-->
-                                                    <th><fmt:message key='Status'/></th> 
+                                                     <!-- <th>Status></th> -->
                                                     <th><fmt:message key='Invoice Status'/></th> 
                                                     <!--<th><fmt:message key='Pending for verification Since days'/></th>--> 
                                                     <th><fmt:message key='View'/></th> 
@@ -522,6 +523,7 @@
                                     String InwardNum = "";
                                     String InwardDate = "";
                                     String courtName = "";
+                                     String feeType = "";
                                     String dealingOffice="";
                                     //String InvoiceFrmDate = "";
                                     //String InvoiceToDate = "";
@@ -548,6 +550,10 @@
                                       if (!ApplicationUtils.isBlank(vendorInputBean.getCourtName())) {//to differentiate between proj id and proj system
                                        courtName = vendorInputBean.getCourtName();
                                      }
+                                       if (!ApplicationUtils.isBlank(vendorInputBean.getsFeeType())) {//to differentiate between proj id and proj system
+                                       feeType = vendorInputBean.getsFeeType();
+                                     }
+                                      
                                      if (!ApplicationUtils.isBlank(vendorInputBean.getInvoiceNumber())) {
                                        InvoiceNum = vendorInputBean.getInvoiceNumber();
                                      }
@@ -559,7 +565,7 @@
                                      }
                                      
                                       if (!ApplicationUtils.isBlank(vendorInputBean.getInvoiceAmount())) {
-                                       InvoiceAmt = vendorInputBean.getInvoiceAmount();
+                                       InvoiceAmt = vendorInputBean.getsAmount().toString();
                                        
                                               InvoiceAmt =  ApplicationUtils.formatAmount(Double.valueOf(InvoiceAmt));
                                      }
@@ -601,9 +607,10 @@
                                             <td><%=j%></td>
                                             <td width="5%"><%=ApplId%></td>
                                             <td width="8%"><%=ApplDate%></td> 
-                                            <td width="12%"><%=courtCaseNo%></td>
+                                            <td width="8%"><%=courtCaseNo%></td>
                                             <td width="4%"><%= caseRefNo %></td>
                                             <td><%=courtName %></td>
+                                            <td><%=feeType %></td>
                                             <td><%=dealingOffice %></td>
                                             <td><%=InvoiceNum %></td>
                                             <td width="7%"><%= InvoiceDate %></td>                                           
@@ -611,11 +618,11 @@
                                             <td><%=InwardNum%></td>
                                             <td width="7%"><%=InwardDate%></td>                                            
                                            
-                                            <td><%=Status%></td> 
+                                         
                                             <% if (Status.equals("Accepted")) {%>
-                                             <td width="12%"><%=Invoice_Status%></td> 
+                                             <td width="8%"><%=Invoice_Status%></td> 
                                              <% } else{%>
-                                             <td width="12%"></td> 
+                                             <td width="8%"></td> 
                                              <% } %>
 <!--                                           <td width="7%"><center><%=PendingSince%></center></td> -->
                                             <td>

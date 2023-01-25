@@ -173,7 +173,7 @@
             InvoiceNumber = legalInvoiceInputBean.getInvoiceNumber();
         }
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
-            invoiceAmount = legalInvoiceInputBean.getInvoiceAmount();
+            invoiceAmount = legalInvoiceInputBean.getInvoiceAmount().toString();
         }
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCreatedTimeStamp())) {

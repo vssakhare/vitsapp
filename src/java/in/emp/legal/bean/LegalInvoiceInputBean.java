@@ -93,6 +93,24 @@ private String liabilityDocNo ;
      private String startPayDoneErpDoc1;
      private String deptCode;
      private String deptName;
+     private String sFeeType;
+     private Integer sAmount;
+
+    public Integer getsAmount() {
+        return sAmount;
+    }
+
+    public void setsAmount(Integer sAmount) {
+        this.sAmount = sAmount;
+    }
+
+    public String getsFeeType() {
+        return sFeeType;
+    }
+
+    public void setsFeeType(String sFeeType) {
+        this.sFeeType = sFeeType;
+    }
 
     public String getDeptCode() {
         return deptCode;

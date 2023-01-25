@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 function saveLegalInvoiceButton() {
+    
+    var inputFile=document.getElementById('inpFile');
+    if (inputFile != null){
+    if (document.getElementById('inpFile').value != '')
+    {  alert("Please upload the file selected first..");
+        return;
+    }}
+    
+    
     if (LegalApplDtlvalidation() && LegalNumericVal() && LegalDateVal()) {
           var feeTypeDtl =  getInvoiceFeeTypedtls();
      saveLegalInvoice('save',feeTypeDtl);
@@ -124,6 +133,11 @@ function getTotal(){
           //  rowDataArray.push($(this).text());
           
         //  if ( actualData.index== 0)
+        var  txtInvoiceAmt=actualData[2].firstChild.value;
+         if (!(/^[-+]?\d*\.?\d*$/.test(txtInvoiceAmt))) {
+                    alert("Invoice Amount should be numerical and upto two decimal places Only!!!");
+                  return;
+                      }
         
          toltAmount=toltAmount+parseInt(actualData[2].firstChild.value);
        
@@ -134,8 +148,9 @@ function getTotal(){
     
    });
    
-   document.getElementById("totalInvAmtLbl").text=toltAmount;
+  // document.getElementById("totalInvAmtLbl").text=toltAmount;
      document.getElementById("totalInvAmtLbl").innerHTML=toltAmount;
+      document.getElementById("totalInvAmt").value=toltAmount;
    // console.log(feeTypDtlArray);
    // return feeTypDtlArray;
    
@@ -143,16 +158,38 @@ function getTotal(){
     
 }
 function LegalNumericVal() {
-    var txtInvoiceAmt = 0;//document.getElementById('txtInvoiceAmt').value;
-    // var txtInvoiceAmt = txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
-    //var regexp = /^\d+\.\d{1,2}$/;
-    // alert(txtInvoiceAmt);
-    // txtInvoiceAmt.replace(/\s/g, "");
-    if (!(/^[-+]?\d*\.?\d*$/.test(txtInvoiceAmt))) {
-        alert("Invoice Amount should be numerical and upto two decimal places Only!!!");
-        return false;
-    }
-    return true;
+   
+    
+     var table = document.getElementById("feeTypeDtlTbl");
+   
+     var isNumeric= true;
+   $("table#feeTypeDtlTbl tbody tr").each(function() {
+      
+     
+      var actualData = $(this).find('td');
+      
+     
+      if (actualData.length > 0) {
+        
+      
+        var  txtInvoiceAmt=actualData[2].firstChild.value;
+         if (!(/^[-+]?\d*\.?\d*$/.test(txtInvoiceAmt))) {
+                    alert("Invoice Amount should be numerical and upto two decimal places Only!!!");
+                  isNumeric= false;
+                 
+                      }
+        
+              }
+              
+             
+    
+   });
+    
+    return isNumeric
+    
+    
+   
+   
 }
 function LegalDateVal() {
     /*var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
@@ -297,7 +334,7 @@ function saveLegalInvoice(action,feetypeDtlArray) {
 
     var txtVendorInwardDt = document.getElementById('txtVendorInwardDt').value;
     var txtVendorInvoiceDate = document.getElementById('txtVendorInvoiceDate').value;
-    var txtInvoiceAmt = document.getElementById('totalInvAmtLbl').innerHTML;
+    var txtInvoiceAmt = document.getElementById('totalInvAmt').value;
    // var txtInvoiceAmt = 0;//txtInvoiceAmt.replace(/[^\d\.\-]/g, '');
     var selectedOffieCode = document.getElementById('selectedOffieCode').value;
     //var txtInvSubmitDt = document.getElementById('txtInvSubmitDt').value;
@@ -515,7 +552,7 @@ function getInvoiceFeeTypedtls()
                    feeType=actualData[1].firstElementChild.options[actualData[1].firstElementChild.selectedIndex].text;
                    if (feeType== 'Select')
                    {   alert ("Please select FeeType");
-                       exit ;}
+                       return ;}
        
        // ( actualData.index== 2)
          amount=actualData[2].firstChild.value;

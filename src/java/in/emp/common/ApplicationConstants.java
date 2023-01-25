@@ -1066,7 +1066,7 @@ public class ApplicationConstants {
     //public static    String Sftppath = "D:/Temp/";//to run locally
     
    public static String Sftppath = "/home/eportal/vpts/";//DEV
-    public static String SftpLegalpath = "/data/VPTS/";//DEV
+    public static String SftpLegalpath = "/data/vpts/";//DEV
     public static String SFTPWORKINGDIR = "/data/VPTS/TEST_VENDOR_FILES/";   //DEV
     public static String CONN_POOL_NAME = "ErpDev";
     
