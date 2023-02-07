@@ -62,6 +62,7 @@
     String courtName = "";
     String courtCaseNo = "";
     String caseRefNo = "";
+    String caseDesc = "";    
     String partyNames = "";
     String VENDOR_NAME = "";
     String VENDOR_NUMBER = "";
@@ -214,6 +215,14 @@
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
             caseRefNo = legalInvoiceInputBean.getCaseRefNo();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseDescription())) {
+            caseDesc = legalInvoiceInputBean.getCaseDescription();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
+            partyNames = legalInvoiceInputBean.getPartyNames();
         }
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtCaseNo())) {
@@ -420,7 +429,9 @@
                                                     <tr class="success">                                                                                       
                                                         <th class="text-center">Case Reference Number</th> 
                                                         <th class="text-center">Court Case Number</th> 
-                                                        <th class="text-center">Court Name</th>  
+                                                        <th class="text-center">Court Name</th>
+                                                        <th class="text-center">Court Desc.</th>
+                                                        <th class="text-center">Party Name</th>
 
                                                     </tr>
                                                 </thead>   
@@ -428,7 +439,9 @@
                                                     <tr class="success">                                                                                       
                                                         <td class="text-center"><%= caseRefNo %></td> 
                                                         <td class="text-center"><%= courtCaseNo %></td> 
-                                                        <td class="text-center"><%= courtName %></td>  
+                                                        <td class="text-center"><%= courtName %></td>
+                                                        <td class="text-center"><%= caseDesc %></td>
+                                                        <td class="text-center"><%= partyNames %></td>
 
                                                     </tr>
                                                 </tbody>  
