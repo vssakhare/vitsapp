@@ -490,6 +490,7 @@
                                                     <th><fmt:message key='Appl ID'/></th> 
                                                     <th><fmt:message key='Application Date'/></th> 
                                                    <!--  <th><fmt:message key='Module Type'/></th> -->
+                                                    <th>Vendor No. & Name</th>
                                                     <th>Court Case No</th>  
                                                       <th>Case Reference No</th>  
                                                       <th>Court Name</th>
@@ -498,9 +499,9 @@
                                                     <th><fmt:message key='Vendor Invoice Number'/></th>  
                                                     <th><fmt:message key='Vendor Invoice Date'/></th> 
                                                     <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 
-                                                    <th><fmt:message key='MSEDCL Inward Number'/></th>
+                                                    <!--<th><fmt:message key='MSEDCL Inward Number'/></th>
                                                     <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
-                                                    <!--<th>Invoice From Date</th>
+                                                    <th>Invoice From Date</th>
                                                     <th>Invoice To Date</th>-->
                                                      <!-- <th>Status></th> -->
                                                     <th><fmt:message key='Invoice Status'/></th> 
@@ -523,6 +524,7 @@
                                                     j++;
                                     String ApplId = "";
                                     String ApplDate ="";
+                                    String vendorNoName ="";
                                     String courtCaseNo = "";
                                     String caseRefNo = "";
                                     String InvoiceNum = "";
@@ -547,6 +549,9 @@
                                      }
                                      
                                     
+                                    if (!ApplicationUtils.isBlank(vendorInputBean.getVendorNumber()) && !ApplicationUtils.isBlank(vendorInputBean.getVendorName())) {
+                                       vendorNoName = vendorInputBean.getVendorNumber()+" "+vendorInputBean.getVendorName();
+                                     }
                                      if (!ApplicationUtils.isBlank(vendorInputBean.getCourtCaseNo())) {
                                        courtCaseNo = vendorInputBean.getCourtCaseNo();
                                      } 
@@ -615,6 +620,7 @@
                                             <td><%=j%></td>
                                             <td width="5%"><%=ApplId%></td>
                                             <td width="8%"><%=ApplDate%></td> 
+                                            <td width="8%"><%=vendorNoName%></td>                                            
                                             <td width="8%"><%=courtCaseNo%></td>
                                             <td width="4%"><%= caseRefNo %></td>
                                             <td><%=courtName %></td>
@@ -623,8 +629,8 @@
                                             <td><%=InvoiceNum %></td>
                                             <td width="7%"><%= InvoiceDate %></td>                                           
                                             <td width="7%"><%=InvoiceAmt%></td>                                            
-                                            <td><%=InwardNum%></td>
-                                            <td width="7%"><%=InwardDate%></td>                                            
+                                            <!--<td><%=InwardNum%></td>
+                                            <td width="7%"><%=InwardDate%></td>-->
                                            
                                          
                                             <% if (Status.equals("Accepted")) {%>

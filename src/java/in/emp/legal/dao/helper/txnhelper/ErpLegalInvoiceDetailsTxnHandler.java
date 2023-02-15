@@ -176,7 +176,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
              sql.append(" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS ");
             sql.append(" SET SAVE_FLAG = ?, UPDATED_TIME_STAMP = SYSTIMESTAMP ,APPROVED_BY=?,APPROVE_REJECT_FLAG=?,REASON=?,MSEDCL_INWARD_NUMBER=?,MSEDCL_INWARD_DATE=?"); // 16-18 till here  
             if(legalInvoiceBean.getSaveFlag().equals("Accepted")){
-                sql.append(" , STATUS='With Technical/Legal' "); 
+                sql.append(" , STATUS='With Technical Dept.' "); 
                 if (legalInvoiceBean.getIsWithCourtCaseNo()!=null){if(legalInvoiceBean.getIsWithCourtCaseNo().equals("N")){
                     sql.append(" , CASE_REF_NO =?,  COURT_NAME =?  , CASE_DESCRIPTION =?,COURT_CASE_NO=?,PARTY_NAMES=?,FEE_TYPE=? "); 
                 }

@@ -290,9 +290,9 @@
                                                     <th><fmt:message key='Vendor Invoice Number'/></th>  
                                                     <th><fmt:message key='Vendor Invoice Date'/></th> 
                                                     <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 
-                                                    <th><fmt:message key='MSEDCL Inward Number'/></th>
-                                                    <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
-                                                    <!--<th>Invoice From Date</th>
+                                                    <!--<th><fmt:message key='MSEDCL Inward Number'/></th>
+                                                    <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                               
+                                                    <th>Invoice From Date</th>
                                                     <th>Invoice To Date</th>-->
                                                      <!-- <th>Status></th> -->
                                                     <th><fmt:message key='Invoice Status'/></th> 
@@ -415,8 +415,8 @@
                                             <td><%=InvoiceNum %></td>
                                             <td width="7%"><%=InvoiceDate%></td>                                           
                                             <td width="7%"><%=InvoiceAmt%></td>                                            
-                                            <td><%=InwardNum%></td>
-                                            <td width="7%"><%=InwardDate%></td>                                            
+                                            <!--<td><%=InwardNum%></td>
+                                            <td width="7%"><%=InwardDate%></td>-->                                            
                                            
                                          
                                             <% if (Status.equals("Verified")) {%>

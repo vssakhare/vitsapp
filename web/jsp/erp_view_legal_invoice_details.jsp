@@ -62,6 +62,7 @@
     String courtName = "";
     String courtCaseNo = "";
     String caseRefNo = "";
+    String caseDesc = "";    
     String partyNames = "";
     String VENDOR_NAME = "";
     String VENDOR_NUMBER = "";
@@ -214,6 +215,14 @@
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
             caseRefNo = legalInvoiceInputBean.getCaseRefNo();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseDescription())) {
+            caseDesc = legalInvoiceInputBean.getCaseDescription();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
+            partyNames = legalInvoiceInputBean.getPartyNames();
         }
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtCaseNo())) {
