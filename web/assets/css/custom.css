@@ -14,17 +14,18 @@
     =============================================*/
 body {
     font-family: 'Open Sans', sans-serif;
-    line-height:30px;
+    /*line-height:20px;*/
    
 }
 
  #wrapper {
     width: 100%;
+   
     /*margin-top:50px;*/
 }
 
 #page-wrapper {
-background:#F3F3F3;
+background:#FFFFFF;
 padding: 15px 15px;
     min-height: 600px;
     
@@ -32,7 +33,7 @@ padding: 15px 15px;
 }
 #page-inner {
     width:100%;
-    margin:10px 20px 10px 0px;
+   /* margin:10px 20px 10px 0px;*/
     padding:10px;
      background-color:#fff!important;
  
@@ -71,18 +72,18 @@ font-size: 16px;
 	outline:0;
 }
 .sidebar-collapse {
-  height: 676px; /* Full-height: remove this if you want "auto" height */
+  height: 575px; /* Full-height: remove this if you want "auto" height */
   width: 15%; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   /*top: 0; /* Stay at the top */
   /*left: 0;*/
-  background-color: #555; /* Black */
+  background-color: #ffffff; /* Black */
   /*overflow-x: hidden; /* Disable horizontal scroll */
   /*padding-top: 20px;*/
   /*margin-top:125px;*/
   float:left;
-  top: 142px;
+  top: 100px;
 }
 .sidebar-collapse .sidebar-minimizer::before {
     position: absolute;
@@ -123,8 +124,8 @@ border: none;
 }
 .navbar-inverse {
 
-background-color: #5c88a7;
-border-color: #F0F0F0;
+background-color: #ffffff;
+  border-color: #080808;
 /*min-height: 50px;*/
  line-height: 30px;
 }
@@ -382,6 +383,9 @@ td.loc label {
     color: #fff !important;
 }
 
+ #collapseVendorInfo a:hover { 
+       COLOR: #fff; TEXT-DECORATION: none; 
+   }
 #collapseEmployeeInfo a{
     color: #fff !important;
 }
@@ -465,7 +469,7 @@ table#tablenonpoinvoices .sorting, table#tablenonpoinvoices .sorting_asc,table#t
      
         float: right;
     width: 85%;
- margin-top: 142px;
+ margin-top: 102px;
 
     
 		
@@ -474,7 +478,7 @@ table#tablenonpoinvoices .sorting, table#tablenonpoinvoices .sorting_asc,table#t
     #wrapper .navbar {
          position: fixed;
     margin: 0;
-    height: 142px;
+    height: 100px;
 
     }
     .navbar-side {

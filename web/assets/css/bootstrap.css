@@ -12,6 +12,7 @@ html {
 }
 body {
   margin: 0;
+   overflow-x: hidden;
 }
 article,
 aside,
@@ -197,7 +198,7 @@ th {
   }
   a,
   a:visited {
-    text-decoration: underline;
+    
   }
   a[href]:after {
     content: " (" attr(href) ")";
@@ -910,12 +911,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #333;
+  color: #fff;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #333;
+  color: #fff;
   text-decoration: underline;
 }
 a:focus {
@@ -997,7 +998,7 @@ h6,
 .h5,
 .h6 {
   font-family: inherit;
-  font-weight: 500;
+  
   line-height: 1.1;
   color: inherit;
 }
@@ -1085,7 +1086,9 @@ h2,
 }
 h3,
 .h3 {
-  font-size: 24px;
+  font-size: 16px;
+   font-weight:bold;
+      color:#1434A4;
 }
 h4,
 .h4 {
@@ -2071,6 +2074,13 @@ th {
   max-width: 100%;
   margin-bottom: 20px;
 }
+
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
@@ -2080,7 +2090,7 @@ th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #ddd;
+
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -2095,7 +2105,7 @@ th {
   border-top: 0;
 }
 .table > tbody + tbody {
-  border-top: 2px solid #ddd;
+  /*border-top: 2px solid #ddd;*/
 }
 .table .table {
   background-color: #fff;
@@ -2175,7 +2185,8 @@ table th[class*="col-"] {
 .table > thead > tr.success > th,
 .table > tbody > tr.success > th,
 .table > tfoot > tr.success > th {
-  background-color: #dff0d8;
+  background-color: 	#6F8FAF;
+  color: #FFFFFF;
 }
 .table-hover > tbody > tr > td.success:hover,
 .table-hover > tbody > tr > th.success:hover,
@@ -2196,7 +2207,8 @@ table th[class*="col-"] {
 .table > thead > tr.info > th,
 .table > tbody > tr.info > th,
 .table > tfoot > tr.info > th {
-  background-color: #d9edf7;
+  background-color:#ffffff;
+  boder-color:#4682B4;
 }
 .table-hover > tbody > tr > td.info:hover,
 .table-hover > tbody > tr > th.info:hover,
@@ -2773,8 +2785,8 @@ fieldset[disabled] .btn {
   opacity: .65;
 }
 .btn-default {
-  color: #333;
-  background-color: #fff;
+  color: #fff;
+  background-color: #2066a1;
   border-color: #ccc;
 }
 .btn-default:hover,
@@ -2806,7 +2818,7 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #fff;
+  background-color: #285e8e;
   border-color: #ccc;
 }
 .btn-default .badge {
@@ -2856,8 +2868,8 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-success {
   color: #fff;
-  background-color: #5cb85c;
-  border-color: #4cae4c;
+  background-color:#7393B3 ;
+  border-color: #708090;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -2865,8 +2877,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
   color: #fff;
-  background-color: #449d44;
-  border-color: #398439;
+  background-color: #2066a1;
+  border-color: #708090;
 }
 .btn-success:active,
 .btn-success.active,
@@ -2979,8 +2991,8 @@ fieldset[disabled] .btn-warning.active {
 }
 .btn-danger {
   color: #fff;
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: #C70039;
+  border-color: #555;
 }
 .btn-danger:hover,
 .btn-danger:focus,
@@ -2988,8 +3000,8 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger.active,
 .open > .dropdown-toggle.btn-danger {
   color: #fff;
-  background-color: #c9302c;
-  border-color: #ac2925;
+  background-color: #A95C68;
+  border-color: #555;
 }
 .btn-danger:active,
 .btn-danger.active,
@@ -3095,7 +3107,8 @@ input[type="button"].btn-block {
 }
 .collapse {
   display: none;
-  background-color: #555;
+ 
+  color: #555;
   line-height: 30px;
 }
 .collapse.in {
@@ -3167,9 +3180,9 @@ tbody.collapse.in {
   display: block;
   padding: 3px 20px;
   clear: both;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 1.42857143;
-  color: #333;
+  color: #4169E1;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
@@ -5000,7 +5013,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #555;
+  background-color: #fff;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
           box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
@@ -5197,12 +5210,12 @@ a.list-group-item-danger.active:focus {
   border-bottom: 1px solid #ddd;
 }
 .panel-default {
-  border-color: #ddd;
+   /* border-color: #ddd;*/
 }
 .panel-default > .panel-heading {
-  color: #DDD;
-  background-color: #555;
-  border-color: #333;
+  color: #555;
+  background-color: #fff;
+  /*border-color: #333;*/
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #ddd;
@@ -5218,7 +5231,7 @@ a.list-group-item-danger.active:focus {
   border-color: #428bca;
 }
 .panel-primary > .panel-heading {
-  color: #fff;
+  color: #555;
   background-color: #428bca;
   border-color: #428bca;
 }
@@ -6021,6 +6034,59 @@ button.close {
 .visible-lg-inline-block {
   display: none !important;
 }
+
+.blackfont  {
+    color: #555;
+} 
+
+.blackfont > a:hover  {
+    color: #555;
+} 
+
+.blackfont > a:visited  {
+    color: #555;
+} 
+
+.blackfont > a:active  {
+    color: #555;
+} 
+
+.invoiceheadleft {
+line-height: 1.1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+font-size: 14px;
+ font-family: inherit; 
+      color:#FF5733;
+}
+
+.invoiceheadright {
+line-height: 1.1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+font-size: 14px;
+ font-family: inherit; 
+      color:#00A36C;
+}
+
+.bg_inv {
+    background-color:#4682B4;
+color: #FFFFFF;
+}
+
+
+.invoiceBlueHead{
+    background-color: #4682B4;
+    color:#FFFFFF;
+     border-bottom:  5px solid #fff;
+}
+
+.invoicesubdiv {
+    padding-bottom:30px;
+    min-height: 80px;
+    overflow: hidden
+
+}
 @media (max-width: 767px) {
   .visible-xs {
     display: block !important;
@@ -6209,3 +6275,12 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+::-webkit-scrollbar {
+    width: 12px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}

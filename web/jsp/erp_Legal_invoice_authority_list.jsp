@@ -376,15 +376,14 @@
                                 <td class="tbl_hline_top">&nbsp;</td>
                                 <td class="module_tbl_tr">&nbsp;</td>
                             </tr>
-                            <tr> <!-- Start of Network Search Results tr -->
-                                <td class="bg_white">  <!-- Start of Network Search Results td -->
-                                    <!--<div class="form">-->  <!-- Start of  div  form -->
-                                    <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
-                                        <br><br> <div class="col-md-12"><h3><fmt:message key='List of Invoices'/></h3></div>
-                                        <div >&nbsp;</div>
-                                    </div>
-                                </td>
-                            </tr>
+                      <!--       <tr> <!-- Start of Network Search Results tr -->
+                      <!--            <td class="bg_white">  <!-- Start of Network Search Results td -->
+                      <!--               <!--<div class="form">-->  <!-- Start of  div  form -->
+                       <!--                    <div class="col-md-12"><h3><fmt:message key='List of Invoices'/></h3></div> -->
+                       <!--                   <div >&nbsp;</div> -->
+                           <!--           </div> -->
+                         <!--         </td> -->
+                           <!--   </tr>   -->
                         </table>
                             
                                 
@@ -465,8 +464,8 @@
                                 if (vendorInputList.size() != 0) {
                             %>   
                            <div class="row">                
-                                <div class="col-lg-12 col-md-12">                        
-                                    <div class="table-responsive">
+                                <div class="col-lg-12 col-md-12" align="center">                        
+                                    <div class="table-responsive" style="padding-bottom:15px">
                                      <!--   <select id="txtSearchStatus" name="txtSearchStatus" class="form-control" style="width: 20%;height:29px;float:right" >
                                                             <option>- <fmt:message key='SELECT STATUS'/> -</option> 
                                                             <option value="<%=ApplicationConstants.ALL%>"><fmt:message key='ALL'/></option> 
@@ -477,11 +476,17 @@
                                                         </select>-->
                                         
                                         
-                                        <div class="col-md-12 text-center"><h3><fmt:message key='List of Vendor Input Invoices'/></h3></div>
-                                        <table class="table" id="tableinputinvoices">
-                                            <thead>
-                                                <tr class="success">                                                                                       
-                                                    <th>#</th> 
+                                  <!--         <div class="col-md-12 text-center tbl-content"><h3><fmt:message key='List of Vendor Input Invoices'/></h3></div> -->
+                                     <section>
+  <!--for demo wrap-->
+  <div class="text-center " stye="padding-bottom:20px">
+      <h style="font-weight:bold;color:#1434A4" ><fmt:message key='List of Vendor Input Invoices'/></h></div>
+      <br>
+  <div class="tbl-header" >
+    <table class="table" id="tableinputinvoices">
+      <thead>
+        <tr class="success">
+        <th>#</th> 
                                                     <th><fmt:message key='Appl ID'/></th> 
                                                     <th><fmt:message key='Application Date'/></th> 
                                                    <!--  <th><fmt:message key='Module Type'/></th> -->
@@ -501,10 +506,13 @@
                                                     <th><fmt:message key='Invoice Status'/></th> 
                                                     <!--<th><fmt:message key='Pending for verification Since days'/></th>--> 
                                                     <th><fmt:message key='View'/></th> 
-                                                    
-                                                </tr>
-                                               
-                                            </thead>
+        </tr>
+      </thead>
+    </table>
+  </div>
+        <div class="tbl-content">
+            <table class="table" id="tableinputinvoices">
+                                          
                                             <tbody>
                                          <%
                                 
@@ -636,6 +644,9 @@
                                            <% } %>
                                             </tbody>
                                         </table>
+                                            
+        </div>
+                                     </section>
                                     </div>
                         <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" class="btn btn-danger"><fmt:message key='Back'/></a>
 
@@ -647,7 +658,7 @@
                             <div class="row">                
                                 <div class="col-lg-12 col-md-12">                        
                                     <div class="table-responsive">
-                                         <div class="table-responsive">
+                                         <div class="table-responsive "  style="padding-bottom:15px">
                                        <!--<select id="txtSearchStatus" name="txtSearchStatus" class="form-control" style="width: 20%;height:29px;float:right"  onchange='checkstatus(this.value)'>
                                                             <option>- <fmt:message key='SELECT STATUS'/> -</option> 
                                                             <option><fmt:message key='ALL'/></option> 
@@ -657,25 +668,43 @@
                                                            
                                                            
                                                         </select>-->
-                                        <div class="col-md-12 text-center"><h3><fmt:message key='List of Vendor Input Invoices'/></h3></div>
-                                        <table class="table">
-                                            <thead>
-                                                <tr class="success">                                        
-                                                    <th>#</th> 
-                                                    <th><fmt:message key='Application ID'/></th>  
-                                                     <th><fmt:message key='Module Type'/></th> 
-                                                    <th><fmt:message key='PO/Project Id Description'/></th>
-                                                    <th><fmt:message key='Vendor'/></th>                                                   
-                                                    <th><fmt:message key='Invoice Number'/></th>                                                                                                       
-                                                    <th><fmt:message key='Invoice Date'/></th>
-                                                    <th width="12%"><fmt:message key='Invoice Amount(Incl. Taxes)'/></th>
-                                                    <th><fmt:message key='Inward Number'/></th>                                                    
-                                                        <th><fmt:message key='Inward Date'/></th> 
-                                                        <th><fmt:message key='Status'/></th> 
-                                                        <th><fmt:message key='Updated On'/></th>
-                                                        <th><fmt:message key='View'/></th>   
-                                                </tr>
-                                            </thead>
+                                     <!--   <div class="col-md-12 text-center"><h3><fmt:message key='List of Vendor Input Invoices'/></h3></div> -->
+                                      <section>
+  <!--for demo wrap-->
+  <div class="text-center " stye="padding-bottom:20px">
+      <h style="font-weight:bold;color:#1434A4" ><fmt:message key='List of Vendor Input Invoices'/></h></div>
+      <br>
+  <div class="tbl-header" >
+    <table class="table" id="tableinputinvoices">
+      <thead>
+        <tr class="success">
+        <th>#</th> 
+                                                    <th><fmt:message key='Appl ID'/></th> 
+                                                    <th><fmt:message key='Application Date'/></th> 
+                                                   <!--  <th><fmt:message key='Module Type'/></th> -->
+                                                    <th>Court Case No</th>  
+                                                      <th>Case Reference No</th>  
+                                                      <th>Court Name</th>
+                                                      <th>Fee Type</th>
+                                                      <th>Dealing Office</th>
+                                                    <th><fmt:message key='Vendor Invoice Number'/></th>  
+                                                    <th><fmt:message key='Vendor Invoice Date'/></th> 
+                                                    <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 
+                                                    <th><fmt:message key='MSEDCL Inward Number'/></th>
+                                                    <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
+                                                    <!--<th>Invoice From Date</th>
+                                                    <th>Invoice To Date</th>-->
+                                                     <!-- <th>Status></th> -->
+                                                    <th><fmt:message key='Invoice Status'/></th> 
+                                                    <!--<th><fmt:message key='Pending for verification Since days'/></th>--> 
+                                                    <th><fmt:message key='View'/></th> 
+        </tr>
+      </thead>
+    </table>
+  </div>
+              <div class="tbl-content">
+        <table class="table">
+                                         
                                             <tbody>
                                                 <tr class="info" align="center" >                                                      
                                                     <td colspan="13"><%=recordsVar%></td>
@@ -683,6 +712,8 @@
 
                                             </tbody>
                                         </table>
+              </div>
+                                      </section>
                                     </div>
                                                 
                                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" class="btn btn-danger"><fmt:message key='Back'/></a>

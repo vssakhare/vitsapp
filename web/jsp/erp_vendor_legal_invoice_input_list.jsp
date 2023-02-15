@@ -186,9 +186,7 @@
                                         <!--<div class="form">-->  <!-- Start of  div  form -->
                                         <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
                                            
-                                            <div class="col-md-12"><h3><fmt:message key='Vendor Legal Invoice Details'/></h3></div>
-                                            <div >&nbsp;</div> 
-
+                                          
                                         </div>
                                     </td>
                                 </tr>
@@ -269,11 +267,18 @@
                                        %>   
                                   
                                         
-                                         <div class="col-md-12 text-center"><h3><fmt:message key='List of Invoices'/></h3></div>
-                                        <table class="table" id="table_ven_input_inv">
-                                            <thead>
-                                                <tr class="success">                                                                                       
-                                                    <th>#</th> 
+                                  <!--       <div class="col-md-12 text-center"><h3><fmt:message key='List of Invoices'/></h3></div>  -->
+                                         
+                                         <section>
+  <!--for demo wrap-->
+  <div class="text-center " stye="padding-bottom:20px">
+      <h style="font-weight:bold;color:#1434A4" ><fmt:message key='List of Invoices'/></h></div>
+      <br>
+  <div class="tbl-header" >
+    <table class="table" id="tableinputinvoices">
+      <thead>
+        <tr class="success">
+        <th>#</th> 
                                                     <th><fmt:message key='Appl ID'/></th> 
                                                     <th><fmt:message key='Application Date'/></th> 
                                                    <!--  <th><fmt:message key='Module Type'/></th> -->
@@ -289,14 +294,17 @@
                                                     <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
                                                     <!--<th>Invoice From Date</th>
                                                     <th>Invoice To Date</th>-->
-                                                    <!-- <th>'Status</th> -->
+                                                     <!-- <th>Status></th> -->
                                                     <th><fmt:message key='Invoice Status'/></th> 
                                                     <!--<th><fmt:message key='Pending for verification Since days'/></th>--> 
                                                     <th><fmt:message key='View'/></th> 
-                                                    
-                                                </tr>
-                                               
-                                            </thead>
+        </tr>
+      </thead>
+    </table>
+  </div>
+      <div class="tbl-content">                                    
+                                                        <table class="table" id="table_ven_input_inv">
+                                            
                                             <tbody>
                                          <%
                                 
@@ -428,6 +436,8 @@
                                            <% } %>
                                             </tbody>
                                         </table>
+                                             </div>
+                                     </section>
                                     </div>
 
                                 </div>

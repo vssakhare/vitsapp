@@ -201,13 +201,16 @@ body {
 
 div {
     font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size:12px;
+    font-size:16px;
 }
 
 .panel-menu {
-    padding: 2px 2px 2px 15px;
-    font-size:12px;
+    padding: 10px 2px 2px 15px;
+ font-size:12px;
+  
 }
+
+
 
 .panel-emptitle {
     margin-top: 0;
@@ -217,14 +220,34 @@ div {
 }
 
 .logout-espn {
-    float: right;
+    float: center;
     line-height:20px;
-    color:#FFFFFF;
+    color:#4169E1;
     font-size:12px;
     
     
 
 }
+
+.logout-espn  a{
+    float: center;
+    line-height:20px;
+    color:#4169E1;
+    font-size:12px;
+    
+    
+
+}
+
+.dropdown-menu > li  {
+  
+  padding : 0px 0px 0px 0px;
+  line-height: 1.5;
+  color: #4169E1;
+  white-space: nowrap;
+}
+
+
 
 .navbar-ebrand {
     float: none;
@@ -234,7 +257,7 @@ div {
 }
 
 .bfooter {
-    background-color:#214761;
+    background-color:#3a444d;
     width:100%;
     color:#fff;
     padding:20px 50px 20px 50px;
@@ -266,7 +289,7 @@ div {
     font-family: Verdana,Arial,Helvetica,sans-serif;
     alignment-adjust: auto;
     width: fit-content;
-    background-color:#F6FAFF;
+    background-color:#FFFFFF;
     text-align: center;
 }
 
@@ -282,7 +305,7 @@ div {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 14px;
-    color: #f6faff;
+    color: #555;
 }
 
 .Label_login_L{
@@ -329,12 +352,12 @@ div {
 
 .navbar-ehead {
     float: top;
-    color : #FFFFFF;
-    font-size : 14px;
+  
+    font-size : 16px;
     line-height : 20px;
     text-align: center;
     /*margin: 10px -100px 10px 100px;*/
-    padding:1.2% 0;
+    /* padding:1.2% 0;*/
 }
 
 

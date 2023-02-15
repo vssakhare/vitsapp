@@ -4,6 +4,8 @@
     Author     : Rikma Rai
 --%>
 
+
+
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
 <%@page import="java.math.BigDecimal"%>
@@ -29,18 +31,14 @@
 <%@page import="java.util.*"%>
 <%@page import="in.emp.vendor.bean.VendorInputBean"%>
 <%@page import="in.emp.vendor.bean.VendorPrezData"%> 
-<%@page import="in.emp.legal.bean.FeeTypeDtlsBean"%> 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
 <%
 
     String recordsVar = "No Records To Display !!!";
     String uiAction = "";
     LinkedList FileList = new LinkedList();
     LinkedList vendorList = new LinkedList();
-     LinkedList FeeTypeDtlList = new LinkedList();
 
     LinkedList applListNew = new LinkedList();
     LinkedList applListOld = new LinkedList();
@@ -84,8 +82,7 @@ if (request.getSession().getAttribute("LegalVendorInputForm") != null) {
     String caseTypeDesc = "";
     Date sysdate = new Date();
     String VendorInvoiceDt = "";
-    String VendorInwardDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
-    String EDCLInwardDate = "";
+    String VendorInwardDate = "";String EDCLInwardDate = "";
     String InvoiceResubmissionDate = ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
     String InvoiceAmt = "";
     String InwardNum = "";
@@ -192,7 +189,7 @@ String rejectReason="";
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getRejectReason())) {
             rejectReason = legalInvoiceInputBean.getRejectReason()+"";
         }
-               String regionText="",zoneText="",circleText="",divText="",subDivText="",coText="",coSection="";
+               String regionText="",zoneText="",circleText="",divText="",subDivText="",coText="";
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getRegionText())) {
                    regionText=legalInvoiceInputBean.getRegionText();
                }
@@ -211,10 +208,6 @@ String rejectReason="";
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCorporateOffice())) {
                    coText=legalInvoiceInputBean.getCorporateOffice();
                }
-               if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeptName())) {
-                   coSection=legalInvoiceInputBean.getDeptCode()+"-"+legalInvoiceInputBean.getDeptName();
-                   //System.out.println("coSection "+coSection);
-               }
                String checkedValueCaseNo="",checkedValueWithoutCaseNo="";
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getIsWithCourtCaseNo())) {
                    if(legalInvoiceInputBean.getIsWithCourtCaseNo().equalsIgnoreCase("Y")){
@@ -227,14 +220,7 @@ String rejectReason="";
         }
           if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA) != null) {
             FileList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA);
-        }   
-          
-          if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FEE_TYPE_DTL_SESSION_DATA) != null) {
-            FeeTypeDtlList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.VENDOR_FEE_TYPE_DTL_SESSION_DATA);
-        }   
-          
-          
-          
+        }    
     if (((Status == "") || (Status.equals("Saved")) || Status.equals("Rejected")) && UserType.equals("Vendor")) {
             
             flag = 2;//can edit 
@@ -256,18 +242,8 @@ String rejectReason="";
         }else{
             redirectUrl=ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE;
         }
-        
-if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwardDate())) {
-            VendorInwardDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getVendorInwardDate());
-        }}
 
 %>
-
-<style> 
-    table td{
-        border-top: 0px;
-    }
-</style> 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8" />
@@ -337,12 +313,18 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
 <input type="hidden"  id="isWithCourtCaseNo" name="isWithCourtCaseNo" value="<%=isWithCourtCaseNo%>"  /> 
                  
                     <div class="content_container">
-                       
+                        <table class="table" width="100%" border="0" cellspacing="0" cellpadding="0"> <!-- Start of Network Search results table -->
+                            <tr> <!-- Start of Network Search Results tr -->
+                                <td class="bg_white">  <!-- Start of Network Search Results td -->
+                                    <!--<div class="form">-->  <!-- Start of  div  form -->
                                     <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
-                                        <div class="col-md-12"><h3>Legal Invoice Form</h3></div>
+                                        <br><br><div class="col-md-12"><h3>Legal Invoice Form</h3></div>
                                         <div >&nbsp;</div>
                                     </div>
-                               <!-- End of Network Search results table -->
+                                </td>
+                            </tr>
+
+                        </table>  <!-- End of Network Search results table -->
 
                         <div class="content_container_sub">  <!-- Start of  content_container_sub div  -->
                             <%if(UserType.equalsIgnoreCase("Vendor") && Status=="" ){%>
@@ -355,19 +337,19 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 </tr>
                             </table>
 <%}else %>
-<% if((UserType.equalsIgnoreCase("Vendor") && Status!="") || (UserType.equalsIgnoreCase("Emp") && Status!="")){%>
-<% //if(UserType.equalsIgnoreCase("Vendor") && Status!=""){%>
-                            <table class="table" border="0px" cellspacing="0" cellpadding="1"  id="withOrWithoutCourtCaseRadio" style="width:100%">
-                                <tr style="border-top: 0px">
-                                    <td class="Label_login" style="border-top: 0px"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" <%=checkedValueCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled />&nbsp;With Court Case No
+<% //if((UserType.equalsIgnoreCase("Vendor") && Status!="") || (UserType.equalsIgnoreCase("Emp") && Status!="")){%>
+<% if(UserType.equalsIgnoreCase("Vendor") && Status!=""){%>
+                            <table class="table" border="0" cellspacing="0" cellpadding="1"  id="withOrWithoutCourtCaseRadio" style="width:100%">
+                                <tr>
+                                    <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" <%=checkedValueCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled />&nbsp;With Court Case No
                                     </td>
-                                    <td class="Label_login" style="border-top: 0px"><input type="radio"  name="rad_courtCase" id="rad_withoutCourtCase" value="withoutCourtCase" <%=checkedValueWithoutCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled/> &nbsp;Without Court Case No
+                                    <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withoutCourtCase" value="withoutCourtCase" <%=checkedValueWithoutCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled/> &nbsp;Without Court Case No
                                     </td>
                                 </tr>
                             </table>
 <%}%>
                             <table class="table" border="0" cellspacing="0" cellpadding="2" id="table_content"> <!-- Start of  table_content table  -->
-                                <tr >
+                                <tr>
                                     <td class="text-right h5">Application Id</td>
                                     <td>
 <!--                                        <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%"  readonly value="0100001969" >-->
@@ -431,14 +413,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
 
 
 
-<td   class="text-right h5 ">
+<td  class="text-right h5">
     <% if (!UserType.equals("Emp")){%>
-    <table width="100%"><tr><td>   <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%; float:left" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" <% if (Status == "" || Status.equals("Saved")) {
+                                        <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
-    }%>/></td>
-            <% } if (!(UserType.equals("Emp")) && (flag==0 || flag==2)) {%><td><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: right;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
-                                           class="btn btn-primary"/></td></tr></table><%}%>
+                                            }%>/>
+                                     <%} if (!(UserType.equals("Emp")) && (flag==0 || flag==2)) {%><input type="button" value=<fmt:message key='Search'/> name="ButtonSrch" id="ButtonSrch" style="float: left;" onclick="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')"
+                                           class="btn btn-primary"/><%}%>
                                             
 <% if (UserType.equals("Emp")){%>
                                         <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo()==null?"":legalInvoiceInputBean.getCourtCaseNo())%>" onblur="openSearcher('<%=ApplicationUtils.getRenderURL(request,ApplicationConstants.UIACTION_NAME,ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')" <% if (Status == "" || Status.equals("Saved")) {
@@ -446,6 +428,8 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                                 out.print("disabled='true'");
                                             }%> />
                                      <% } %>
+
+
 </td>
                                             
                                     <td colspan="2" class="text-right h5">Case Reference No.</td>
@@ -501,16 +485,31 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 
                                 <tr>
                                     
-                                    <td  class="text-right h5">Invoice Entry Date </td>
-                                    <td> 
-                                        
-                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
-                                          
-                                    </td>          
-                                         
+                                    <td class="text-right h5">Fee type</td>
+                                    <% if (Status == "") {
+                                        %>
+                                    <td>
+                                        <select class="form-control text-left" id="feeTypeSelect">
+                                            <option>Select</option>
+                                        </select></td>
+                                    <%
+                                            } else {%>
+                                                <td>
+                                                    <select class="form-control text-left" id="feeTypeSelect" 
+                                                            <% if (Status.equals("Saved")) { out.print("onclick='feeType()'");
+                                                    
+                                            } else {
+                                                out.print("disabled='true'");
+                                            } %> >
+                                            <option><%if (Status.equals("Saved")) { out.print("Select");
+                                            } else {
+                                                out.print(feeType);
+                                            }  %></option>
+                                        </select></td>
+                                            <%}%> 
                                     <td colspan="2"  class="text-right h5"><fmt:message key='Invoice Number'/></td>
                                     <td>
-                                        <input type="text" class="form-control text-right" name="txtInvoiceNum" id="txtInvoiceNum"   maxlength="40" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
+                                        <input type="text" class="form-control text-right" name="txtInvoiceNum" id="txtInvoiceNum"   maxlength="15" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /></td>
@@ -577,7 +576,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                      <td class="text-right h5" ><label id="mydrop_down_label">Region</label>.</td>
 
                                     <td >
-                                        <% if (Status == "") {
+                                        <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                         <select class="form-control text-left" id="txtRegion"   onchange="getLegalHierarchyLocation(this,'ZON')" >
                                             <option value ="">Select</option>
@@ -585,10 +584,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                         </select>
                                         <%
                                             } else {%>
-                                        <select class="form-control text-left" id="txtRegion" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onclick=\"showWithOrWithoutCourtCaseFields();\" onchange=\"getLegalHierarchyLocation(this,\'ZON\')\"");
-                                            } else {
-                                                out.print("readonly");
-                                            } %>  >
+                                        <select class="form-control text-left" id="txtRegion"   readonly >
                                             <option value ="<%= regionText %>" selected><%= regionText %></option>
                                             
                                         </select>
@@ -596,7 +592,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                     </td>
                                     <td  class="text-right h5" colspan="2">Zone.</td>
                                     <td>
-                                    <% if (Status == "") {
+                                    <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                      
                                         
@@ -606,10 +602,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                          <%
                                             } else {%>
                                          
-                                         <select class="form-control text-left" id="txtZone" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'CIR\')\"");
-                                            } else {
-                                                out.print("readonly");
-                                            } %>  >
+                                         <select class="form-control text-left" id="txtZone"   readonly  >
                                                     <option value ='' selected ><%= zoneText %></option>
                                                 </select>
                                                 
@@ -619,17 +612,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 <tr>
                                 <td class="text-right h5" >Circle</td>
                                 <td>
-                                   <% if (Status == "") {
+                                   <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                      <select class="form-control text-left" id="txtCircle"    onchange="getLegalHierarchyLocation(this,'DIV')" >
                                                     <option value ="" >Select</option>
                                                 </select>
                                        <%
                                             } else {%>
-                                       <select class="form-control text-left" id="txtCircle" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'DIV\')\"");
-                                            } else {
-                                                out.print("readonly");
-                                            } %> >
+                                       <select class="form-control text-left" id="txtCircle"    readonly >
                                                     <option value ="" selected><%= circleText %></option>
                                                 </select>
                                        <%}%>
@@ -637,17 +627,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
 
                                 <td class="text-right h5 " colspan="2">Division</td>
                                 <td > 
-                                   <% if (Status == "") {
+                                   <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                     <select class="form-control text-left" id="txtDivision"    onchange="getLegalHierarchyLocation(this,'SUB')" >
                                                     <option value ="">Select</option>
                                                 </select>
                                     <%
                                             } else {%>
-                                    <select class="form-control text-left" id="txtDivision" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'SUB\')\"");
-                                            } else {
-                                                out.print("readonly");
-                                            } %> >
+                                    <select class="form-control text-left" id="txtDivision"    readonly >
                                                     <option value =""><%= divText %></option>
                                                 </select>
                                     <%}%>
@@ -658,17 +645,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 <tr>
                                     <td class="text-right h5" >Sub-Division</td>
                                 <td > 
-                                    <% if (Status == "") {
+                                    <% if (Status == "" || Status.equals("Saved")) {
                                         %>
                                     <select class="form-control text-left" id="txtSubDivision"    onchange="getLegalHierarchyLocation(this,'SUB-DIV')" >
                                                     <option value ="">Select</option>
                                                 </select>
                                      <%
                                             } else {%>
-                                            <select class="form-control text-left" id="txtSubDivision" <% if (Status.equals("Saved")&&(coText==null||coText=="")) { out.print("onchange=\"getLegalHierarchyLocation(this,\'SUB-DIV\')\"");
-                                            } else {
-                                                out.print("readonly");
-                                            } %> >
+                                            <select class="form-control text-left" id="txtSubDivision"    readonly >
                                                     <option value =""><%= subDivText %></option>
                                                 </select>
                                      <%}%>
@@ -678,57 +662,44 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                     <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;" readonly value ="<%= dealingOffice %>"/> 
                                 </td>
                                 </tr>
-                                
-                                <tr>
+                                <tr>                                   
                                     <td class="text-right h5">Corporate Office</td>
-                                <td>
-                                        <% if (Status == "") {
+                                    <td>
+                                        <% if (Status == "" || Status.equals("Saved")) {
                                         %>
-                                        <select class="form-control text-left" id="txtCorporateOffice"   onchange="disableOtherLocation(this.value);getLegalHierarchyLocation(this,'DEPT')"  >
+                                        <select class="form-control text-left" id="txtCorporateOffice"   onchange="disableOtherLocation(this.value)"  >
                                             <option value ="Select">Select</option>
                                                     <option value ="261-Corporate Office">261-Corporate Office</option>
                                                 </select>
                                         <%
                                             } else {%>
                                             <select class="form-control text-left" id="txtCorporateOffice"   readonly  >
-                                                    <option><%=coText %></option>
+                                                    <option value =""><%= coText %></option>
                                                 </select>
                                             <%}%>
                                     </td>
-                                <td class="text-right h5" colspan="2">Section</td>
-                                <td> 
-                                    <% if (Status == "") {
-                                        %>
-                                    <select class="form-control text-left" id="txtCorpSection" >
-                                                    <option value ="">Select</option>
-                                                </select>
-                                     <%
-                                            } else {%>
-                                            <select class="form-control text-left" id="txtCorpSection" readonly >
-                                                    <option><%=coSection %></option>
-                                                </select>
-                                     <% } %>
-                                </td>
-                                </tr>     
+                                    
+                                    
+                                     </tr>
+                                     
                                      
                                      <tr>
                                     
-                                
-                                        
-                                          <td class="text-right h5">Invoice Entry Date </td>
-                                    <td > 
-                                        
-                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
-                                          
-                                    </td>          
-                                         
+                                    <td class="text-right h5">Fee type</td>
+                                  
+                                                <td>
+                                                    <!--<input name="txtFeeTypeWithout" id="txtFeeTypeWithout" type="text" class="form-control" size="20" style="width: 100%;"  readonly  />-->
+                                                    <select class="form-control text-left" id="feeTypeSelect" onclick="feeType();">
+                                            <option selected><%= feeType %></option>
+                                            
+                                        </select></td>
 
 
                                 
                                      
                                     <td colspan="2"  class="text-right h5"><fmt:message key='Invoice Number'/></td>
                                     <td>
-                                        <input type="text" class="form-control text-right" name="txtInvoiceNumWithoutCase" id="txtInvoiceNumWithoutCase"   maxlength="40" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
+                                        <input type="text" class="form-control text-right" name="txtInvoiceNumWithoutCase" id="txtInvoiceNumWithoutCase"   maxlength="15" placeholder=<fmt:message key='"Max length is 15"'/>  value="<%=InvoiceNum%>"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> /></td>
@@ -736,14 +707,17 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 </tbody>
                                 <%//}%>
                                 <tr>
-                                    <td width="10%" ></td>
+                                    <td width="10%" class="text-right h5"><fmt:message key='Invoice Amount(Incl. Taxes)'/></td>
                                     <td width="20%">
-                                       </td>
+                                        <input type="text" class="form-control text-right" value="<%=InvoiceAmt%>" size="20" placeholder=<fmt:message key='"Max length is 15"'/> maxlength="15" id="txtInvoiceAmt" name="txtInvoiceAmt" <% if (Status == "" || Status.equals("Saved")) {
+                                            } else {
+                                                out.print("disabled='true'");
+                                            }%> /></td>
                                   
-                                    <td colspan ="2" width="10%" ></td>
+                                    <td colspan ="2" width="10%" class="text-right h5">Invoice Entry Date </td>
                                     <td width="20%"> 
                                         
-                                       
+                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=InvoiceSubmitDate%>" maxlength="15" readonly />
                                           
                                     </td>          
                                          
@@ -788,14 +762,14 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                        
                                     
                                         
-                                    <!--<td    colspan ="2" width="10%" class="text-right h5"><fmt:message key='Invoice Submit Date'/> </td>-->
-                                    <!--<td> 
+                                    <td    colspan ="2" width="10%" class="text-right h5"><fmt:message key='Invoice Submit Date'/> </td>
+                                    <td> 
                                         <input name="txtInvSubmitDt" class="datefield" style="text-align: left;" id="txtInvSubmitDt" type="text" size="20" class="form-control" 
                                                value="<%=InvoiceSubmitDate%>" maxlength="15"  <% if (Status == "" || Status.equals("Saved")) {
                                             } else {
                                                 out.print("disabled='true'");
                                             }%> />
-                                    </td>-->  
+                                    </td>  
                                     
                                         <% if (flag == 2) {%>
                                     <td width="05%">
@@ -850,111 +824,18 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
 
                             <!--<hr/>-->
                         </div>                          
-                                                <div  class="content_container_sub" >
-                      <!--   <form  method="post" enctype="multipart/form-data"> -->
-                             <div    class="row">
-                                            <div class="col-lg-2 col-md-2"  border=""> </div>
-                                            <div class="col-lg-8 col-md-8"  align="center"  border="0">
-                                                <label><h4>Add Fee Type Details</h4></label>
-                                                <br>
-                                                <div align="left">
-                                                      <%if(Status!=null && Status.equals("") || Status.equals("Saved")){ %>
-                                                <input type="button" name="addRowBtn" id="addRowBtn" value='Add Row'class="btn btn-success" onclick="addRow('feeTypeDtlTbl')"/> 
-                                                <% } %>
-                                                              </div>
-                                                  <table class="table" border="0" id="feeTypeDtlTbl"  name="feeTypeDtlTbl" >
-                                                      <thead>
-                                                  <tr class="success">
-                                           
-                                            <th>#</th>                                                
-                                            <th><b>Fee Type</b></th>
-                                            <th><b>Invoice Amount (Incl. Taxes)</b></th>
-                                            <th><b>Remark</b></th>
-                                           
-                                            <th><b>Remove</b></th> 
-                                           
-                                               
-                                        </tr>   
-                                        </thead>
-                                        <tbody > 
-                                            <%  
-                                            Iterator itrdtl = FeeTypeDtlList.iterator();
-                                            System.out.println("FeeTypeDtlList::"+FeeTypeDtlList);
-                                            int kk = 0;
-                                            while (itrdtl.hasNext()) {    
-                                           
-                                           String feeTypedtl = "";
-                                           Integer  feeTypeDtlId=0;
-                                              Integer  amount = 0;
-                                              String remarkDtl="";
-                                              FeeTypeDtlsBean fdb = new FeeTypeDtlsBean();
-                                              fdb = (FeeTypeDtlsBean) itrdtl.next();
-                                              kk++; 
-                                              if (!ApplicationUtils.isBlank(fdb.getRemark())) {
-                                                remarkDtl = fdb.getRemark();
-                                             }
-                                               if (!ApplicationUtils.isBlank(fdb.getFeeType())) {
-                                                feeTypedtl = fdb.getFeeType();
-                                             }
-                                              if (!ApplicationUtils.isBlank(fdb.getFeeTypeDtlsId())) {
-                                                feeTypeDtlId = fdb.getFeeTypeDtlsId();
-                                             }
-                                             if (!ApplicationUtils.isBlank(fdb.getAmount())) {
-                                                amount = fdb.getAmount();
-                                             }
-                                             if (!ApplicationUtils.isBlank(fdb.getFeeType())) {
-                                                feeTypedtl = fdb.getFeeType();
-                                             }
-                                        %>
 
-                                        <tr >
-                                        <td><%=kk%>    <input type="hidden"  id="feeTypeDtlId" name="feeTypeDtlId" value = "<%=feeTypeDtlId%>"  /> </td>
-                                        
-                                         
-                                          <td>
-                                                    <select class="form-control text-left" id="sel0"  <% if (Status == "" || Status.equals("Saved")) { out.print("onclick='feeType(this)'");
-                                            } else {
-                                                out.print("disabled='true'");
-                                            } %> >
-                                            <option><% if (Status.equals("Saved")) { out.print(feeTypedtl);}
-                                            else out.print(feeTypedtl); %></option>
-                                        </select></td>
-                                         
-                                         
-                                         
-                                           <td><input name="" style="text-align:right" id="" type="text" size="20"class="form-control" value="<%=amount%>" maxlength="15"  onfocusout='getTotal()' <%  if (Status != "" && !Status.equals("Saved")) { %>readonly="readonly"  <% } %>/></td>
-
-                                            <td><input name=""  id="" type="text" size="20"class="form-control" value="<%=remarkDtl%>" maxlength="15"<%  if (Status != "" && !Status.equals("Saved")) { %> readonly="readonly" <% } %>/></td>
-
-                                          <!--  <td><a href="#nogo" onclick="addRow('feeTypeDtlTbl')"><img src="images/icon_add.gif" alt="Add" width="16" height="16" border="0" /></a></td> -->
-                                         
-                                         <td align="center"><a href="#nogo"    <%  if ((Status.equals("Saved") && UserType.equals("Vendor"))) {%> onclick="deleteFeeTypeDtl('<%=(feeTypeDtlId)%>')" <%  }%>><img onload="getTotal()" src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a>  </td></tr>
-                                           <%  }%> 
-                                        </tbody>  
-                                            <tfoot>
-                                            <td></td>
-                                            <td class=""> <b>Total Invoice Amount: </b>
-                                                </td>
-                                              <td align="right" ><label  id='totalInvAmtLbl'></label>
-                                              <input type="hidden" id ='totalInvAmt'></td>  
-                                            </tfoot>
-                                                                                              </table>
-                                            </div>
-                                            
-                                              </div>
-                         <!--      </form> -->
-                                                               </div>
                         
                         <table width="100%" border="0" cellspacing="0" cellpadding="0"><!--save button-->
-                            <tr >
-                              <td class="col-md-1">
-                                </td>  
-                                 <%if(Status!=null && Status.equals("") || Status.equals("Saved")){ %>
-                                 <td class="col-md-2" align="center">
+                            <tr>
+                                <td class="col-md-1">
+                                </td>
+                                 <%if(Status!=null && Status.equals("")){ %>
+                                <td class="col-md-2">
                                    
-                                    <input type="button" value=<fmt:message key='Save'/> name="ButtonSave" id="ButtonSave" style="float: center;" onclick="saveLegalInvoiceButton()"
+                                    <input type="button" value=<fmt:message key='Save'/> name="ButtonSave" id="ButtonSave" style="float: left;" onclick="saveLegalInvoiceButton()"
                                            class="btn  btn-success"/>
-                                  
+                                   
 
                                 </td>
                                  <td class="col-md-1"> <%if (UserType.equals("Emp")) {%>
@@ -963,8 +844,8 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                 <%}%>
                             </tr>
                         </table>
-  
-                                                              
+
+                                
  <%
  if ((Status != null) && (Status.equals("Saved")|| Status.equals("Submitted"))){%>
  
@@ -1055,13 +936,13 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
 
                                         <!--<tr class="info">-->
                                         <td><%=j%></td>
-                                        <td class="blackfont" ><a class="blackfont" href="#nogo" onclick="viewFile('<%=flb.getId()%>', '<%=flb.getOption()%>')"> <%=(flb.getFileName() + "." + flb.getFileType())%></a></td>
+                                        <td><a href="#nogo" onclick="viewFile('<%=flb.getId()%>', '<%=flb.getOption()%>')"> <%=(flb.getFileName() + "." + flb.getFileType())%></a></td>
                                            <td><%=type%></td>
                                            <td><%=remark%></td>
                                     
-                                        <%  if (((flag == 2) && (flb.getDELETION_FLAG().equals("Y")))||(Status.equals("Saved") && UserType.equals("Emp"))) {%>
+                                        <%  if ((flag == 2) && (flb.getDELETION_FLAG().equals("Y"))) {%>
 
-                                        <td><a href="#nogo" onclick="removeLegalFile('<%=flb.getId()%>', '<%=flb.getOption()%>', '<%=(flb.getFileName() + "." + flb.getFileType())%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td>
+                                        <td><a href="#nogo" onclick="removeFile('<%=flb.getId()%>', '<%=flb.getOption()%>', '<%=(flb.getFileName() + "." + flb.getFileType())%>')"><img src="images/icon_delete.gif" alt="Remove" width="16" height="16" border="0" /></a></td>
                                                 <%  }%>
                                         </tr>   
 
@@ -1117,8 +998,8 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
 
                                                     <td><select id="txtReason" name="txtReason" class="textfield" style="width: 300px ;height:25px;display:none; font-family : monospace;font-size : 10pt" onchange='checkvalue(this.value)'>
                                                             <option value="">- <fmt:message key='Select'/> -</option>                                              
-                                                            <option>Mismatch Portal Invoice Date With Inward Invoice Date</option>
-                                                            <option>Mismatch Portal Invoice Amount With Inward Invoice Amount</option>
+                                                            <option>Mismatch Of Portal Invoice Date With Inward Invoice Date</option>
+                                                            <option>Mismatch Of Portal Invoice Amount With Inward Invoice Amount</option>
                                                             <option>Invoice Documents uploaded are not readable</option>
                                                             <option>Wrong Court Case no Mapping</option>
                                                             <option value="other">other</option>
@@ -2084,82 +1965,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
     });
     
   } );
-  function addRow(tableID) {
-
-      //  var table = document.getElementById(tableID);
-         var table = document.getElementById(tableID).getElementsByTagName('tbody')[0];
-
-        var rowCount = table.rows.length;
-        var row = table.insertRow(rowCount);
-
-    // table[rowCount].offsetHeight= "20px";
-       var cell1 = row.insertCell(0);
-        var element1 = document.createElement("label");
-        element1.innerHTML=rowCount+1;
-        cell1.appendChild(element1);
-        var  elName="feeTypeDtlId";
-        var elementc = document.createElement("input");
-         elementc.type = "hidden";
-           elementc.setAttribute("name" , elName);
-            elementc.setAttribute("id" , elName);
-              elementc.setAttribute("value", "0");
-           cell1.appendChild(elementc);
-    
-
-
-        var cell2 = row.insertCell(1);
-        var element2 = document.createElement("select");
-        var element2Id="sel"+rowCount;
-        element2.setAttribute("id" ,element2Id);
-         var opt = document.createElement('option');
-        opt.innerHTML="Select";
-         element2.appendChild(opt);
-        element2.setAttribute("class" ,"form-control text-left");
-         element2.setAttribute("onclick" ,"dynamicfeeType(this)");
-        
-         cell2.appendChild(element2);
-
-        var cell3 = row.insertCell(2);
-        var element3 = document.createElement("input");
-        element3.type = "text";
-        element3.setAttribute( "class","form-control text-right");
-        element3.setAttribute( "onfocusout","getTotal()");
-        element3.name="txtAmt"+rowCount;
-        element3.height=20;
-        cell3.appendChild(element3);
-       
-        var cell4 = row.insertCell(3);
-        var element4 = document.createElement("input");
-        element4.type = "text";
-        element4.setAttribute( "class","form-control text-right");
-        element4.name="txtRemark"+rowCount;
-        element4.height=20;
-        
-         cell4.appendChild(element4);
-
-        
-      /*  var cell5 = row.insertCell(4);
-        var element5 = document.createElement("a");
-        var img1 = document.createElement("img");
-        img1.setAttribute("src","images/icon_add.gif");
-        element5.appendChild(img1);
-        element5.setAttribute("onClick", "addRow('feeTypeDtlTbl')");
-        element5.setAttribute("href", "#nogo");
-        cell5.appendChild(element5);*/
-        
-        
-         var cell5 = row.insertCell(4);
-     //    cell5.defineProperty("align","center");
-        var element5 = document.createElement("a");
-        var img2 = document.createElement("img");
-        img2.setAttribute("src","images/icon_delete.gif");
-        element5.appendChild(img2);
-        element5.setAttribute("onClick", "");
-        element5.setAttribute("href", "#nogo");
-        cell5.appendChild(element5);
-
-
-    }
+  
   function openSearcher(url){
   var url= "${pageContext.request.contextPath}"+"/LegalServlet?txtVendorCode="+document.getElementById("txtVendorCode").value+"&actionName=populateCaseDetailsNew"+"&caseNo="+document.getElementById("txtCourtCaseNo").value;
   //alert(url);  
@@ -2224,39 +2030,15 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                 }
             });
   }
-  var isCalled = false;
-  function feeType(vid){//alert("in feeType() fn");
-      
-      if(isCalled === false){//alert("in feeType() fn");
-  $.ajax({url: '${pageContext.request.contextPath}'+'/LegalServlet?txtVendorCode='+document.getElementById('txtVendorCode').value+'&actionName=populateCaseDetails'
-                +'&caseRefNo='+document.getElementById('txtCaseRefNo').value,
-                dataType: 'json',
-               
-                success: function( data, textStatus, jqXHR) {//alert('#'+vid.id);
-                     $('#'+vid.id).html(data.feeTypeList);
-                     //$("#feeTypeSelect").html($.unique(data.feeTypeListArray.map(function (d) {return d.feetype;})));
-                     isCalled = true;
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                     console.log( textStatus);
-                }
-            });
-  }
-  }
   
-   function dynamicfeeType(vid){//alert("in feeType() fn");
-      alert("in feeType() fn");
-      
-   
-          
+  function feeType(){alert("in feeType() fn");
   $.ajax({url: '${pageContext.request.contextPath}'+'/LegalServlet?txtVendorCode='+document.getElementById('txtVendorCode').value+'&actionName=populateCaseDetails'
                 +'&caseRefNo='+document.getElementById('txtCaseRefNo').value,
                 dataType: 'json',
                
-                success: function( data, textStatus, jqXHR) {//alert('#'+vid.id);
-                     $('#'+vid.id).html(data.feeTypeList);
-                     //$("#feeTypeSelect").html($.unique(data.feeTypeListArray.map(function (d) {return d.feetype;})));
-                    // isCalled = true;
+                success: function( data, textStatus, jqXHR) {
+                     //$('#feeTypeSelect').html(data.feeTypeList);
+                     $('#feeTypeSelect').html($.unique(data.feeTypeListArray.map(function (d) {return d.feetype;})));
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                      console.log( textStatus);
@@ -2264,8 +2046,6 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
             });
   
   }
-  $('#txtInvoiceAmt').on('input', function () {
-        this.value = this.value.match(/^\d+\.?\d{0,2}/);
-    });
+  
   </script>
                             </html>

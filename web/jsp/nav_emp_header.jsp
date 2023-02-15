@@ -10,50 +10,73 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 <!DOCTYPE html>
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="adjust-nav">
+    <div class="adjust-nav"> 
         <div class="container-fluid">
             <div class="row">
 
                 <div class="navbar-header col-sm-2">
+                       <a class="" href="#"><img alt=""  src="images/Mahadiscom_Logo.png"></a>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-ebrand" href="#">                 
-                        <img src="images/MAHAVITARAN_LOGO.png" class="mahavitranlogo"/>
-                    </a>
-                </div>    
-                <div class="navbar-ehead col-sm-7">
-                    <h5 align="center" style="font-size: 28px"><fmt:message key='Vendor Invoice Tracking System'/> </h5>
-                   
-                </div>
-                <div class="logout-espn col-sm-3" <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %> style="padding:1.6%;"<% } %> >
-                    <% System.out.println("-----USER TYPE in header : "+ session.getAttribute(ApplicationConstants.USER_TYPE_SESSION)); %>
-                    <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %>                    
-                    <p><fmt:message key='Logged in User Id'/>: <b><%=session.getAttribute(ApplicationConstants.USER_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.USER_NAME_SESSION)%></b></p>
-                    <p><fmt:message key='Name'/>: <%=session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION)%></p>
-                    <% } else if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) { %>                    
-                    <p><fmt:message key='Logged in User Id'/>: <b><%=session.getAttribute(ApplicationConstants.USER_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.USER_NAME_SESSION)%></b></p>
-                    <p><fmt:message key='Name'/>: <%=session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION)%></p>
-                        <p><fmt:message key='Designation'/>: <%=session.getAttribute(ApplicationConstants.DESIGNATION_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.DESIGNATION_SESSION)%></p>
-                        <p><fmt:message key='Office Code'/> : <%=session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION)%></p>
-                       <!-- <p><fmt:message key='Office Name'/>: <%=session.getAttribute(ApplicationConstants.OFFICE_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.OFFICE_NAME_SESSION)%></p> -->
-                    <% } %>
-                   
-                    <p><a href="/legalInvoiceTracking/erp?uiActionName=postlogin" class="btn-default"><fmt:message key='Logout'/></a></p>
-                     <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %>
-                     <p><fmt:message key='Download Manual'/> <a href="/VendorBillTracking/pdfFiles/Vendorreportmanual.pdf" class="btn-default"><fmt:message key='Click here'/>!!!</a></p>
-                    <% } %>
-                      <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) { %>
-                      <p><fmt:message key='Download Manual'/> <a href="/VendorBillTracking/pdfFiles/EmployeeReportManual.pdf" class="btn-default"><fmt:message key='Click here'/>!!!</a></p>
-                    <% } %>
                     
-
-                </div>                           
-            </div>
-        </div>
-    </div>
-</div>
-
+                </div>    
+                <div class="navbar-ehead col-sm-7" align="center">
+                   
+                   
+              
+                      <label  class="systemLabel" style="color: #C70039 ;padding:40px;font-size:20px">Vendor Invoice Tracking System     </label>    
+                </div>
+                
+             
+                    <div class="logout-espn  col-sm-3" >
+            <div class="pull-right advancehide">
+				
+                <div class="dropdown welcome " style="padding:10px;font-size:12px">                
+                    <b>  Welcome  </b>
+                    <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) 
+                    { %> 
+                    <b>   <%=session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION)%></b>
+                        <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <p align="right"><b> <span class="glyphicon glyphicon-user userdet" style="padding-right:10px"></span><%=session.getAttribute(ApplicationConstants.USER_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.USER_NAME_SESSION)%>
+                                    <span class="caret" ></span></b>    
+                         </p>
+                          </a>
+                       
+                       
+                    
+               
+                    <% } else if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) { %> 
+                    <b> <%=session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION)%></b>
+                       <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        
+                  
+                           <p><b>Designation: <%=session.getAttribute(ApplicationConstants.DESIGNATION_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.DESIGNATION_SESSION)%></b></p>
+                           <p><b>Office Code: <%=session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION)%></b></p>
+                           <p> <b>  <span class="glyphicon glyphicon-user userdet" style="padding-right:10px"></span><%=session.getAttribute(ApplicationConstants.USER_NAME_SESSION) == null ? "" : session.getAttribute(ApplicationConstants.USER_NAME_SESSION)%><span class="caret"></span></b></p>
+                          </a>
+                           <% } %>         
      
+               
+                    
+                      
+					<ul class="dropdown-menu logindrop" aria-labelledby="dropdownMenu1">
+                     
+                        <li align="center"><a href="/legalInvoiceTracking/erp?uiActionName=postlogin">LOGOUT</a>
+                        </li>
+                    </ul>
+                </div></div>
+            </div>
+                    
+            </div>
+                   
+             
+            </div>
+                     
+                  
+        </div>
+                    
+    </div>
+            

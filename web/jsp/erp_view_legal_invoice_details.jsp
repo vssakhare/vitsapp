@@ -306,286 +306,206 @@
 
                     <%@ include file="navJs.jsp"%>
 
-                    <div class="content_container">
+                    <div class="content_container" style="border:1px solid black;">
                         <table class="table" width="100%" border="0" cellspacing="0" cellpadding="0"> <!-- Start of Network Search results table -->
                             <tr> <!-- Start of Network Search Results tr -->
-                                <td class="bg_white">  <!-- Start of Network Search Results td -->
+                                <td class="bg_inv">  <!-- Start of Network Search Results td -->
                                     <!--<div class="form">-->  <!-- Start of  div  form -->
                                     <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
-                                        <div class="col-md-12"><h3>Legal Invoice Details</h3></div>
-                                        <div >&nbsp;</div>
+                                        <div style="padding-top:20px" ><h  style="font-size: 30px;color:#FFFFFF;font-weight: bold " >INVOICE </h>
+                                          
+                                        </div>
+                                      
+                                        
                                     </div>
                                 </td>
                             </tr>
+                                        <tr>
+                                            <td>
+                                                 <div class="table-responsive" align="left" >
+                                            <div class=" invoiceheadleft" style="float:left"><label>Invoice Number :  <%= InvoiceNumber %> </label>
+                                                <br><label>Invoice Date :  <%= invoiceDate %> </label> </div>
+                                            
+                                            <div class=" invoiceheadright " style="float:right; padding-bottom: 10px">
+                                               <label  style="padding-right: 10px">Vendor Name:</label> <label  ><%= VendorName %></label><br>
+                                             
+                                                <label  style="padding-right: 10px">Vendor no:</label><label> <%= VENDOR_NUMBER %></label><br>
+                                             <label style="padding-right: 10px" >Mobile:</label> <label><%= mobileNo %></label><br>
+                                                <label style="padding-right: 10px"> Email:</label> <label><%= emailId %>  </label>
+                                              
+                                              </div>
+                                                 </div>
+                                            </td>
+                                        </tr>
+                                                 
+                                                  
 
                         </table>  <!-- End of Network Search results table -->
 
-                        <div class="content_container_sub">  <!-- Start of  content_container_sub div  -->
-
-                            <fieldset class="fldst_border">
-                                <legend>Vendor Details:</legend>
-<!--                                <div class="row">
-
-                                    <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-right h5">Vendor Code</span>
-                                    <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                                        <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode" value="0100001969" readonly="true" >
-                                    </span>
-                                    <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-right h5">Vendor Name</span>
-                                    <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                                        <input type="text" class="form-control text-left" name="txtVendorName" id="txtVendorName" value="VISHWANATH PROJECTS LIMITED" readonly="true" >
-                                    </span>
-                                </div>-->
-<div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center">Vendor Code</th> 
-                                                        <th class="text-center">Vendor Name</th> 
-                                                        <th class="text-center">Mobile Number</th>  
-                                                        <th class="text-center">Email Id</th>
-                                                    </tr>
-                                                </thead>   
-                                                <tbody>
-                                                    <tr class="success">                                                                                       
-                                                        <td class="text-center"><%= VENDOR_NUMBER %></td> 
-                                                        <td class="text-center"><%= VendorName %></td> 
-                                                        <td class="text-center"><%= mobileNo %></td>  
-                                                        <td class="text-center"><%= emailId %></td> 
-                                                    </tr>
-                                                </tbody>  
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                            <fieldset class="fldst_border">
-                                <legend>Location Details:</legend>
-
-
-
-<!--                                <div class="row">
-
-                                    <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-right h5">Dealing Office</span>
-                                    <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                                        <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" value="Thane Division" readonly="true" > 
-                                    </span>
-
-                                    
-
-                                </div>-->
-<div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center">Region</th> 
-                                                        <th class="text-center">Zone</th> 
-                                                        <th class="text-center">Circle</th>  
-                                                        <th class="text-center">Division</th>
-                                                        <th class="text-center">Sub-Division</th>
-                                                        <th class="text-center">Section</th>
-                                                        <th class="text-center">Substation</th>
-                                                    </tr>
-                                                </thead>   
-                                                <tbody>
-                                                    <tr class="success">                                                                                       
-                                                        <td class="text-center"><%= region %></td> 
-                                                        <td class="text-center"><%= Zone %></td> 
-                                                        <td class="text-center"><%= Circle %></td>  
-                                                        <td class="text-center"><%= Division %></td>  
-                                                        <td class="text-center"><%= subdiv %></td> 
-                                                        <td class="text-center"><%= section %> </td> 
-                                                        <td class="text-center"><%= subStation %></td> 
-                                                    </tr>
-                                                </tbody>  
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                            <fieldset class="fldst_border">
-                                <legend>Case Details:</legend>
-
-
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center">Case Reference Number</th> 
-                                                        <th class="text-center">Court Case Number</th> 
-                                                        <th class="text-center">Court Name</th>  
-
-                                                    </tr>
-                                                </thead>   
-                                                <tbody>
-                                                    <tr class="success">                                                                                       
-                                                        <td class="text-center"><%= caseRefNo %></td> 
-                                                        <td class="text-center"><%= courtCaseNo %></td> 
-                                                        <td class="text-center"><%= courtName %></td>  
-
-                                                    </tr>
-                                                </tbody>  
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </fieldset>
-                            <fieldset class="fldst_border">
-                                <legend>Vendor Invoice Details:</legend>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center">Vendor Code</th> 
-                                                        <th class="text-center">Vendor Name</th> 
-                                                        <th class="text-center">Invoice Number</th>  
-                                                        <th class="text-center">Invoice Date</th> 
-                                                        <th class="text-center">MSEDCL Inward Number</th>  
-                                                        <th class="text-center">MSEDCL Inward Date</th> 
-                                                        <th class="text-center">Invoice Amount</th>  
-<!--                                                        <th class="text-center">Deduction Amount</th> 
-                                                        <th class="text-center">Reason for Deduction</th> 
-                                                        <th class="text-center">Tax Amounts</th> 
-                                                        <th class="text-center">Paid Amount</th>  
-                                                        <th class="text-center">Status</th>  -->
-                                                    </tr>
-                                                  </thead> 
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <td class="text-center"><%= VENDOR_NUMBER %></td> 
-                                                        <td class="text-center"><%= VendorName %></td> 
-                                                        <td class="text-center"><%= InvoiceNumber %></td>  
-                                                        <td class="text-center"><%= invoiceDate %></td> 
-                                                        <td class="text-center"><%= msedclInwardNo %></td>  
-                                                        <td class="text-center"><%= msedclInwardDate %></td> 
-                                                        <td class="text-center"><%= invoiceAmount %></td>  
-<!--                                                        <td class="text-center">100</td> 
-                                                        <td class="text-center">None</td> 
-                                                        <td class="text-center">150</td> 
-                                                        <td class="text-center">1300</td>  
-                                                        <td class="text-center">Paid</td>  -->
-                                                    </tr>
-                                                  </thead> 
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center">Deduction Amount</th> 
-                                                        <th class="text-center">Reason for Deduction</th> 
-                                                        <th class="text-center">Tax Amount</th> 
-                                                        <th class="text-center">Paid Amount</th>  
-                                                        <th class="text-center">Status</th> 
-                                                        <th class="text-center">Payment Date</th>  
-                                                        <th class="text-center">UTR No</th> 
-                                                    </tr>
-                                                  </thead> 
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <td class="text-center"><%= deductionAmount %></td> 
-                                                        <td class="text-center"><%= reasonForDeduction %></td> 
-                                                        <td class="text-center"><%= taxAmount %></td> 
-                                                        <td class="text-center"><%= paidAmount %></td>  
-                                                        <td class="text-center"><%= invoiceStatus %></td>  
-                                                        <td class="text-center"><%= paymentDate %></td>  
-                                                        <td class="text-center"><%= UTR_NO %></td>
-                                                    </tr>
-                                                  </thead> 
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                            <%if(UserType.equalsIgnoreCase("Emp")){%>
-                            <fieldset class="fldst_border">
-                                <legend>Liability Details </legend> 
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center" > Liability Document</th>  
-                                                        <th class="text-center" >Liability Document Date</th>  
-                                                        <th class="text-center" > Liability Amount</th>  
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="success">                                                                                       
-                                                        <td class="text-center" > <%= liabilityDocNo %></td>  
-                                                        <td class="text-center" ><%= liabilityDocDate %></td>  
-                                                        <td class="text-center" > <%= liabilityDocAmt %></td>  
-                                                    </tr>
-                                                </tbody>
-                                                    
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
+                        <div class="content_container_sub"  >  <!-- Start of  content_container_sub div  -->
+                            <div class="form-group invoicesubdiv"  >
+                            <div class="col-sm-12 invoiceBlueHead" >  
+                               <label>Invoice Details</label>
+                            </div>
                             
-                            <fieldset class="fldst_border">
-                                <legend>Payment/Adjustment Details:</legend> 
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr class="success">                                                                                       
-                                                        <th class="text-center">Payment Document</th> 
-                                                        <th class="text-center">Payment Document Amount</th> 
-                                                        <th class="text-center">Payment Date</th> 
-                                                        <th class="text-center">UTR Number</th> 
-                                                        <th class="text-center">Payment Status</th> 
-
-                                                    </tr>
-                                                </thead>
-                                                    <tbody>
-                                                         <tr class="success">                                                                                       
-                                                        <td class="text-center"><%= paymentDocNo %></td> 
-                                                        <td class="text-center"><%= paymentDocAmount %></td> 
-                                                        <td class="text-center"><%= paymentDocDate %></td> 
-                                                        <td class="text-center"><%= UTR_NO %></td> 
-                                                        <td class="text-center"><%= paymentStatus %></td> 
-
-                                                    </tr>
-                                                    </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                            <div class="col-sm-3">
+				<div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>MSEDCL Inward Number :</label>  <label><%= msedclInwardNo %></label>
                                 </div>
-                            </fieldset>
-                    <%}%>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>MSEDCL Inward Date :</label>  <label><%= msedclInwardDate %> </label>
+                                           </div>
+                            </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Invoice Amount : </label> <label><%= invoiceAmount %></label>
+				</div>
+			    </div>
+                     
+                                
+                                <div class="col-sm-3">
+				<div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Deduction Amount :</label>  <label><%= deductionAmount %></label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Reason for Deduction :</label>  <label><%= reasonForDeduction %> </label>
+                                           </div>
+                            </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Tax Amount : </label> <label><%= taxAmount %></label>
+				</div>
+			    </div>
+                                <div class="col-sm-3">
+				<div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Paid Amount :</label>  <label><%= paidAmount %></label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Status :</label>  <label><%= invoiceStatus %> </label>
+                                           </div>
+                            </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Payment Date : </label> <label><%= paymentDate %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>UTR No : </label> <label><%= UTR_NO %></label>
+				</div>
+			    </div>
+                            </div>
+                            
+                           <div class="invoicesubdiv" >
+                            <div class="col-sm-12 invoiceBlueHead" >  
+                               <label>Case Details</label>
+                            </div>
+                                
+                               
+                               <div class="col-sm-3">
+				<div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Case Reference Number :</label>  <label><%= caseRefNo %></label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Court Case Number :</label>  <label><%= courtCaseNo %> </label>
+                                           </div>
+                            </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Court Name : </label> <label><%= courtName %></label>
+				</div>
+			    </div>
+                                <div class="col-sm-8"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Location : </label> <label><%= subStation %> <%= section %>  <%= subdiv %> <%= Division %> <%= Circle %> <%= Zone %></label>
+				</div>
+                               
+                           </div>
+                           </div>
+                            
+                                
+                                  <%if(UserType.equalsIgnoreCase("Emp")){%>
+                               <div class="invoicesubdiv">
+                            <div class="col-sm-12 invoiceBlueHead" >   <label>Liability Details</label>
+                            </div>
+                                
+                               
+                               <div class="col-sm-3">
+				<div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Liability Document :</label>  <label><%= liabilityDocNo %></label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Liability Document Date :</label>  <label><%= liabilityDocDate %> </label>
+                                           </div>
+                            </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Liability Amount : </label> <label><%= liabilityDocAmt %></label>
+				</div>
+			    </div>
+                               
+                           </div>
+                                
+                                   <div class="invoicesubdiv">
+                            <div class="col-sm-12 invoiceBlueHead" >   <label>Payment/Adjustment Details</label>
+                            </div>
+                                
+                               
+                               <div class="col-sm-3">
+				<div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Payment Document :</label>  <label><%= paymentDocNo %></label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Payment Document Amount :</label>  <label><%= paymentDocAmount %> </label>
+                                           </div>
+                            </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Payment Date : </label> <label><%= paymentDocDate %></label>
+				</div>
+			    </div>
+                                
+                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>UTR Number : </label> <label><%= UTR_NO %></label>
+				</div>
+			    </div>
+                                
+                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Payment Status : </label> <label><%= paymentStatus %></label>
+				</div>
+			    </div>
+                                
+                                
+			    </div>
+                                <%}%>
+                           </div>
+                            
+                            
+
+                      
+               
+                           
 
 
-
-
-                            <div class="row">                                      
-                                <span class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-right h5">
+                            <div class="row" align="center">                                      
+                               
                                     <% if (UserType.equals("Vendor")) {%>
                                     <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST)%>" class="btn btn-danger"><fmt:message key='Back'/></a>
                                     <% } else if (UserType.equals("Emp")) {%>
                                     <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE)%>" class="btn btn-danger"><fmt:message key='Back'/></a>
                                     <% }%>
 
-                                </span>
+                               
 
 
 
