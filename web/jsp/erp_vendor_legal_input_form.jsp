@@ -912,7 +912,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                                         
                                          
                                           <td>
-                                                    <select class="form-control text-left" id="sel0"  <% if (Status == "" || Status.equals("Saved")) { out.print("onclick='feeType(this)'");
+                                                    <select class="form-control text-left" id="sel0"  <% if (Status == "" || Status.equals("Saved")) { out.print("onclick='dynamicfeeType(this)'");
                                             } else {
                                                 out.print("disabled='true'");
                                             } %> >
@@ -2226,7 +2226,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
   }
   var isCalled = false;
   function feeType(vid){//alert("in feeType() fn");
-      
+     
       if(isCalled === false){//alert("in feeType() fn");
   $.ajax({url: '${pageContext.request.contextPath}'+'/LegalServlet?txtVendorCode='+document.getElementById('txtVendorCode').value+'&actionName=populateCaseDetails'
                 +'&caseRefNo='+document.getElementById('txtCaseRefNo').value,
@@ -2241,12 +2241,13 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                      console.log( textStatus);
                 }
             });
+  
   }
   }
   
    function dynamicfeeType(vid){//alert("in feeType() fn");
-      alert("in feeType() fn");
-      
+    
+       if (vid.length == 1){
    
           
   $.ajax({url: '${pageContext.request.contextPath}'+'/LegalServlet?txtVendorCode='+document.getElementById('txtVendorCode').value+'&actionName=populateCaseDetails'
@@ -2263,6 +2264,7 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
                 }
             });
   
+  }
   }
   $('#txtInvoiceAmt').on('input', function () {
         this.value = this.value.match(/^\d+\.?\d{0,2}/);

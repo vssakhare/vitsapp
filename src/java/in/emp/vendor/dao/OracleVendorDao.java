@@ -1142,7 +1142,7 @@ try {
                      sapStatus="Payment Document Reversed";
                 }
               else {
-               sapStatus="With Technical/Legal";
+               sapStatus="With Technical";
               }
     } else {
         sapStatus=liBean.getSaveFlag();

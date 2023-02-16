@@ -278,26 +278,21 @@
     <table class="table" id="tableinputinvoices">
       <thead>
         <tr class="success">
-        <th>#</th> 
-                                                    <th><fmt:message key='Appl ID'/></th> 
-                                                    <th><fmt:message key='Application Date'/></th> 
-                                                   <!--  <th><fmt:message key='Module Type'/></th> -->
-                                                    <th>Court Case No</th>  
-                                                      <th>Case Reference No</th>  
-                                                      <th>Court Name</th>
-                                                      <th>Fee Type</th>
-                                                      <th>Dealing Office</th>
-                                                    <th><fmt:message key='Vendor Invoice Number'/></th>  
-                                                    <th><fmt:message key='Vendor Invoice Date'/></th> 
-                                                    <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 
-                                                    <!--<th><fmt:message key='MSEDCL Inward Number'/></th>
-                                                    <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                               
-                                                    <th>Invoice From Date</th>
-                                                    <th>Invoice To Date</th>-->
-                                                     <!-- <th>Status></th> -->
-                                                    <th><fmt:message key='Invoice Status'/></th> 
-                                                    <!--<th><fmt:message key='Pending for verification Since days'/></th>--> 
-                                                    <th><fmt:message key='View'/></th> 
+        <th width="2%" >#</th> 
+                                                    <th width="5%"><fmt:message key='Appl ID'/></th> 
+                                                    <th width="5%"><fmt:message key='Application Date'/></th> 
+                                                 
+                                                    <th width="10%">Court Case No</th>  
+                                                       <th width="7%">Case Reference No</th>  
+                                                      <th width="13%">Court Name</th>
+                                                     <th width="11%">Fee Type</th>
+                                                      <th width="10%">Dealing Office</th>
+                                                     <th width="8%"><fmt:message key='Invoice Number'/></th>  
+                                                    <th width="7%"><fmt:message key='Invoice Date'/></th> 
+                                                    <th width="7%">Invoice Amount (Incl. Taxes)</th> 
+                                                    <th width="8%"><fmt:message key='Status'/></th> 
+                                                   
+                                                    <th width="7%"> <fmt:message key='View'/></th> 
         </tr>
       </thead>
     </table>
@@ -404,15 +399,15 @@
                                           
                                             
                                                 <tr class="info" >
-                                            <td><%=j%></td>
+                                            <td width="2%"><%=j%></td>
                                             <td width="5%"><%=ApplId%></td>
-                                            <td width="8%"><%=ApplDate%></td> 
-                                            <td width="12%"><%=courtCaseNo%></td>
-                                            <td width="4%"><%= caseRefNo %></td>
-                                            <td><%=courtName %></td>
-                                            <td><%=feeType%></td>
-                                            <td><%=dealingOffice %></td>
-                                            <td><%=InvoiceNum %></td>
+                                            <td width="5%"><%=ApplDate%></td> 
+                                            <td width="10%"><%=courtCaseNo%></td>
+                                            <td width="7%"><%= caseRefNo %></td>
+                                           <td width="13%"><%=courtName %></td>
+                                            <td width="11%"><%=feeType%></td>
+                                            <td width="10%"><%=dealingOffice %></td>
+                                            <td width="8%"><%=InvoiceNum %></td>
                                             <td width="7%"><%=InvoiceDate%></td>                                           
                                             <td width="7%"><%=InvoiceAmt%></td>                                            
                                             <!--<td><%=InwardNum%></td>
@@ -420,17 +415,17 @@
                                            
                                          
                                             <% if (Status.equals("Verified")) {%>
-                                             <td width="12%"><%=Invoice_Status%></td> 
+                                             <td width="8%"><%=Invoice_Status%></td> 
                                              <% } else{%>
-                                             <td width="12%"><%=Invoice_Status%></td> 
+                                             <td width="8%"><%=Invoice_Status%></td> 
                                              <% } %>
 <!--                                           <td width="7%"><center><%=PendingSince%></center></td> -->
                                            <% if (Status.equals("Accepted") ) {%>
                                           
-                                       <td><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>','<%=UserNumber%>', '<%=viewActionVerified%>', '<%=Status%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                        <td width="7%"><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>','<%=UserNumber%>', '<%=viewActionVerified%>', '<%=Status%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                             
                                        <% } else{ %>
-                                            <td><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>', '<%=UserNumber%>', '<%=viewAction%>', '<%=Status%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                             <td width="7%"><a href="#nogo" onclick="viewLeaglEmpApp1('<%=ApplId%>', '<%=UserNumber%>', '<%=viewAction%>', '<%=Status%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                          <% } %>
                                              </tr>
                                            <% } %>

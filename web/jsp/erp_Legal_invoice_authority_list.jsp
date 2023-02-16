@@ -219,7 +219,7 @@
         if (uiAction.equals(ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE)) {
             for (VendorBean o : (LinkedList<VendorBean>) vendorList) {
                 if(o.getINV_STATUS()!=null){
-                 if ((o.getINV_STATUS().equals("With Technical/Legal")) || (o.getINV_STATUS().equals("Pending With Accounts")) || (o.getINV_STATUS().equals("Pending For Payment")) )  {
+                 if ((o.getINV_STATUS().equals("With Technical")) || (o.getINV_STATUS().equals("With Technical/Legal")) || (o.getINV_STATUS().equals("Pending With Accounts")) || (o.getINV_STATUS().equals("Pending For Payment")) )  {
                       applListNew.add(o); 
                    } else if (o.getINV_STATUS().equals("Paid")) 
                      {
@@ -486,27 +486,22 @@
     <table class="table" id="tableinputinvoices">
       <thead>
         <tr class="success">
-        <th>#</th> 
-                                                    <th><fmt:message key='Appl ID'/></th> 
-                                                    <th><fmt:message key='Application Date'/></th> 
-                                                   <!--  <th><fmt:message key='Module Type'/></th> -->
-                                                    <th>Vendor No. & Name</th>
-                                                    <th>Court Case No</th>  
-                                                      <th>Case Reference No</th>  
-                                                      <th>Court Name</th>
-                                                      <th>Fee Type</th>
-                                                      <th>Dealing Office</th>
-                                                    <th><fmt:message key='Vendor Invoice Number'/></th>  
-                                                    <th><fmt:message key='Vendor Invoice Date'/></th> 
-                                                    <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 
-                                                    <!--<th><fmt:message key='MSEDCL Inward Number'/></th>
-                                                    <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
-                                                    <th>Invoice From Date</th>
-                                                    <th>Invoice To Date</th>-->
-                                                     <!-- <th>Status></th> -->
-                                                    <th><fmt:message key='Invoice Status'/></th> 
-                                                    <!--<th><fmt:message key='Pending for verification Since days'/></th>--> 
-                                                    <th><fmt:message key='View'/></th> 
+        <th width="2%">#</th> 
+                                                    <th width="5%"><fmt:message key='Appl ID'/></th> 
+                                                    <th width="7%"><fmt:message key='Application Date'/></th> 
+                                                   
+                                                    <th width="10%">Vendor No. <br>& Name</th>
+                                                    <th width="8%">Court Case No</th>  
+                                                      <th width="5%">Case Ref. No</th>  
+                                                      <th width="11%">Court Name</th>
+                                                      <th width="9%">Fee Type</th>
+                                                      <th width="8%">Dealing Office</th>
+                                                    <th width="8%"><fmt:message key='Invoice Number'/></th>  
+                                                    <th width="7%"><fmt:message key='Invoice Date'/></th> 
+                                                    <th width="7%">Invoice Amount (Incl. Taxes)</th> 
+                                                    <th width="8%"><fmt:message key='Status'/></th> 
+                                                   
+                                                    <th width="7%"> <fmt:message key='View'/></th> 
         </tr>
       </thead>
     </table>
@@ -525,6 +520,8 @@
                                     String ApplId = "";
                                     String ApplDate ="";
                                     String vendorNoName ="";
+                                    String vendorNo="";
+                                    String vendorName="";
                                     String courtCaseNo = "";
                                     String caseRefNo = "";
                                     String InvoiceNum = "";
@@ -551,6 +548,8 @@
                                     
                                     if (!ApplicationUtils.isBlank(vendorInputBean.getVendorNumber()) && !ApplicationUtils.isBlank(vendorInputBean.getVendorName())) {
                                        vendorNoName = vendorInputBean.getVendorNumber()+" "+vendorInputBean.getVendorName();
+                                       vendorNo=vendorInputBean.getVendorNumber();
+                                       vendorName=vendorInputBean.getVendorName();
                                      }
                                      if (!ApplicationUtils.isBlank(vendorInputBean.getCourtCaseNo())) {
                                        courtCaseNo = vendorInputBean.getCourtCaseNo();
@@ -617,16 +616,16 @@
                                           
                                             
                                                 <tr class="info" >
-                                            <td><%=j%></td>
+                                            <td width="2%"><%=j%></td>
                                             <td width="5%"><%=ApplId%></td>
-                                            <td width="8%"><%=ApplDate%></td> 
-                                            <td width="8%"><%=vendorNoName%></td>                                            
+                                            <td width="7%"><%=ApplDate%></td> 
+                                            <td width="10%"><%=vendorNo%><br><%=vendorName%></td>                                            
                                             <td width="8%"><%=courtCaseNo%></td>
-                                            <td width="4%"><%= caseRefNo %></td>
-                                            <td><%=courtName %></td>
-                                            <td><%=feeType %></td>
-                                            <td><%=dealingOffice %></td>
-                                            <td><%=InvoiceNum %></td>
+                                            <td width="5%"><%= caseRefNo %></td>
+                                            <td width="11%"><%=courtName %></td>
+                                            <td width="9%"><%=feeType %></td>
+                                            <td width="8%"><%=dealingOffice %></td>
+                                            <td width="8%"><%=InvoiceNum %></td>
                                             <td width="7%"><%= InvoiceDate %></td>                                           
                                             <td width="7%"><%=InvoiceAmt%></td>                                            
                                             <!--<td><%=InwardNum%></td>
