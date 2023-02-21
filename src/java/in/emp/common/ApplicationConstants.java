@@ -1081,6 +1081,7 @@ public class ApplicationConstants {
     
     public static String VENDOR_LEGAL_FORM_FILE_SESSION_APPID = "vendorLegalFormSessionApplId"; 
     public static String VENDOR_LEGAL_INVOICE_ACCEPTED_DATA="vendorLegalInvoiceAcceptedData";
+    public static String VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST="vendorLegalInvoiceAcceptedDataList";
     public static String UIACTION_GET_LEGAL_Hierarchy_LOCATION="getLegalHierarchyLocation";
     public static String UIACTION_GET_VENDOR_SEARCH_COURT_CASE = "getVendorSearchCourtCase";
     

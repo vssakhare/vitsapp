@@ -6,16 +6,12 @@ package in.emp.vendor.dao;
 
 //-- java imports
 import java.util.LinkedList;
-import java.util.HashMap;
 
 //-- Logger Imports
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import in.emp.dao.BaseDao;
-import in.emp.dao.QueryHelper;
-import in.emp.hrms.bean.HRMSUserBean;
-import in.emp.hrms.dao.helper.VendorLoginTxnHelper;
 import in.emp.legal.bean.FeeTypeBean;
 import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
@@ -27,6 +23,7 @@ import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceDetailsList;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceStatusList;
 import in.emp.legal.dao.helper.queryHelper.GetFeeTypeList;
 import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetLegalEmailSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalInvoiceFeeTypeDtlListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
@@ -36,7 +33,6 @@ import in.emp.legal.dao.helper.txnhelper.FeeTypeDtlsTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.updateLegalCommunicationLog;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
-import in.emp.vendor.bean.PoStatusBean;
 import in.emp.vendor.bean.HOBean;
 import in.emp.vendor.bean.PoLineStatusBean;
 import in.emp.vendor.bean.ProjBean;
@@ -53,7 +49,6 @@ import in.emp.vendor.dao.helper.listHelper.GetPOListQueryHelper;
 
 import in.emp.vendor.dao.helper.listHelper.GetVendorDtlListQueryHelper;
 import in.emp.vendor.dao.helper.formHelper.GetVendorFormDataQueryHelper;
-import in.emp.vendor.dao.helper.formHelper.GetVendorFormQueryHelper;
 import in.emp.vendor.dao.helper.formHelper.GetVendorInputFormDataQueryHelper;
 import in.emp.vendor.dao.helper.formHelper.GetVendorInputFormQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.GetVendorInputListQueryHelper;
@@ -64,7 +59,6 @@ import in.emp.vendor.dao.helper.GetInvoicedetailsQueryHelper;
 import in.emp.vendor.dao.helper.GetSmsTrackerListQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.GetVendorListQueryHelper;
 import in.emp.vendor.dao.helper.txnHelper.VendorApplFormTxnHelper;
-import in.emp.vendor.dao.helper.txnHelper.VendorApplTxnHelper;
 import in.emp.vendor.dao.helper.FtpFileReadHelper.getPOStatusTxnhelper;
 import in.emp.vendor.dao.helper.getVendorSmsStatus;
 import in.emp.vendor.dao.helper.FtpFileReadHelper.getVendorStatusTxnHelper;
@@ -78,7 +72,6 @@ import in.emp.vendor.dao.helper.psHelper.GetProjDetailsQueryHelper;
 import in.emp.vendor.dao.helper.psHelper.GetProjInvDetailsQueryHelper;
 import in.emp.vendor.dao.helper.psHelper.GetProjListQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.GetSummaryListQueryHelper;
-import in.emp.vendor.dao.helper.GetTableListQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.GetVendorInvListQueryHelper;
 import in.emp.vendor.dao.helper.formHelper.GetVendorNonpoInputFormDataQueryHelper;
 import in.emp.vendor.dao.helper.formHelper.GetVendorPsFormDataQueryHelper;
@@ -623,6 +616,19 @@ LinkedList PlantList = null;
         return fileList;
     }
     
+    public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception {
+              LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
+        try {
+            logger.log(Level.INFO, " OracleVendorDao :: getLegalSmsTrackerList() :: method called");
+
+            fileList = (LinkedList<LegalInvoiceInputBean>) getObjectList(new GetLegalEmailSmsTrackerListQueryHelper(legalInvoiceInputBeanObj));
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " OracleVendorDao :: getSmsTrackerList() :: Exception :: " + ex);
+            //ex.printStackTrace();
+        }
+        return fileList;
+    } 
+     
     public VendorInputBean getInvoicedetails(VendorInputBean vendorInputBeanObj) throws Exception {
         try {
             logger.log(Level.INFO, "OracleVendorDao ::: getInvoicedetails() :: method called ::    ");

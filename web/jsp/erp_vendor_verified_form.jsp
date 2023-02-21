@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
 <%@page import="java.math.BigDecimal"%>
@@ -31,11 +32,13 @@
     }
 
     LegalInvoiceInputBean legalInvoiceInputBean=null;
+    List<LegalInvoiceInputBean> legalInvoiceInputBeanList=null;
     String SaveFlag = "";
     int flag = 0;
 
     if (request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA) != null) {
         legalInvoiceInputBean = (LegalInvoiceInputBean) request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA);
+        //legalInvoiceInputBeanList = (List<LegalInvoiceInputBean>)(request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST));
     }
     
     String Zone = "";
@@ -176,7 +179,12 @@
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
             invoiceAmount = legalInvoiceInputBean.getInvoiceAmount().toString();
         }
-
+        /*
+        for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+        invoiceAmount+=(l.getsAmount()+"+");
+        //System.out.println("invoiceAmount"+invoiceAmount);
+            }
+        */
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCreatedTimeStamp())) {
             CREATION_DATE = ApplicationUtils.dateToString(legalInvoiceInputBean.getCreatedTimeStamp(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
         }
@@ -238,6 +246,12 @@
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
             feeType = legalInvoiceInputBean.getFeeType();
         }
+        /*
+        for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+        feeType+=(l.getsFeeType()+"+");
+        //System.out.println("feeType"+feeType);
+            }
+        */
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorName())) {
             VendorName = legalInvoiceInputBean.getVendorName();
         }
@@ -262,10 +276,15 @@
             liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-mm-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
         }
         
-        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
+       if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
             liabilityDocAmt = legalInvoiceInputBean.getLiabilityDocAmt();
         }
-        
+        /*
+        for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+        liabilityDocAmt+=(l.getLiabilityDocAmt()+"+");
+        //System.out.println("liabilityDocAmt"+liabilityDocAmt);
+            }
+        */
                 if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
             invoiceStatus = legalInvoiceInputBean.getStatus();
         }
@@ -368,6 +387,13 @@
                                     <label>MSEDCL Inward Date :</label>  <label><%= msedclInwardDate %> </label>
                                            </div>
                             </div>
+                                           
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Status :</label>  <label><%= invoiceStatus %> </label>
+                                           </div>
+                            </div>
+                                           
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Invoice Amount : </label> <label><%= invoiceAmount %></label>
 				</div>
@@ -393,13 +419,8 @@
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
                                     <label>Paid Amount :</label>  <label><%= paidAmount %></label>
                                 </div>
-                            </div>
+                            </div>                            
                             
-                            <div class="col-sm-3">
-                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Status :</label>  <label><%= invoiceStatus %> </label>
-                                           </div>
-                            </div>
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Date : </label> <label><%= paymentDate %></label>
 				</div>

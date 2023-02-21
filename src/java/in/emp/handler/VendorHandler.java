@@ -420,6 +420,7 @@ public class VendorHandler implements GenericFormHandler {
                 legalInvoiceInputBean = legalInvoiceInputBeanList.get(0);
             }
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA, legalInvoiceInputBean);
+            session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST, legalInvoiceInputBeanList);
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() :: Exception :: " + ex);

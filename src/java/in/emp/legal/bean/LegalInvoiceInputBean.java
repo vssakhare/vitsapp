@@ -95,6 +95,24 @@ private String liabilityDocNo ;
      private String deptName;
      private String sFeeType;
      private Integer sAmount;
+     private String emailSent;
+     private String smsSent;
+
+    public String getEmailSent() {
+        return emailSent;
+    }
+
+    public void setEmailSent(String emailSent) {
+        this.emailSent = emailSent;
+    }
+
+    public String getSmsSent() {
+        return smsSent;
+    }
+
+    public void setSmsSent(String smsSent) {
+        this.smsSent = smsSent;
+    }
 
     public Integer getsAmount() {
         return sAmount;

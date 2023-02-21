@@ -186,7 +186,7 @@
         }
 
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDate())) {
-            paymentDate = legalInvoiceInputBean.getPaymentDate();
+            paymentDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDate()));
         }
         
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInvDate())) {
@@ -259,7 +259,7 @@
         }
         
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocDate())) {
-            liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-mm-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
+            liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
         }
         
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
@@ -286,8 +286,8 @@
         }
         
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDocDate())) {
-            paymentDocDate = legalInvoiceInputBean.getPaymentDocDate();
-            System.out.println("paymentDocDate "+paymentDocDate);
+            paymentDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDocDate()));
+            //System.out.println("paymentDocDate "+paymentDocDate);
         }
 
     }
