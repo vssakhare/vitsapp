@@ -452,6 +452,14 @@
                                      <label>Court Name : </label> <label><%= courtName %></label>
 				</div>
 			    </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Case Desc. : </label> <label><%= caseDesc %></label>
+				</div>
+			    </div>
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Party Name : </label> <label><%= partyNames %></label>
+				</div>
+			    </div>    
                                 <div class="col-sm-8"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Location : </label> <label><%= subStation %> <%= section %>  <%= subdiv %> <%= Division %> <%= Circle %> <%= Zone %></label>
 				</div>
