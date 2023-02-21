@@ -280,6 +280,15 @@
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
             paidAmount = legalInvoiceInputBean.getPaidAmount();
         }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPayDoneErpDoc())) {
+            paymentDocNo = legalInvoiceInputBean.getPayDoneErpDoc();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDocDate())) {
+            paymentDocDate = legalInvoiceInputBean.getPaymentDocDate();
+            System.out.println("paymentDocDate "+paymentDocDate);
+        }
 
     }
 %>
@@ -368,13 +377,19 @@
                                     <label>MSEDCL Inward Date :</label>  <label><%= msedclInwardDate %> </label>
                                            </div>
                             </div>
+                            
+                            <div class="col-sm-3">
+                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <label>Status :</label>  <label><%= invoiceStatus %> </label>
+                                           </div>
+                            </div>
+                                           
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Invoice Amount : </label> <label><%= invoiceAmount %></label>
 				</div>
-			    </div>
-                     
-                                
-                                <div class="col-sm-3">
+			    </div>                
+                                                                       
+                            <div class="col-sm-3">
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
                                     <label>Deduction Amount :</label>  <label><%= deductionAmount %></label>
                                 </div>
@@ -393,13 +408,8 @@
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
                                     <label>Paid Amount :</label>  <label><%= paidAmount %></label>
                                 </div>
-                            </div>
+                            </div>                            
                             
-                            <div class="col-sm-3">
-                                           <div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Status :</label>  <label><%= invoiceStatus %> </label>
-                                           </div>
-                            </div>
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Date : </label> <label><%= paymentDate %></label>
 				</div>
@@ -476,7 +486,8 @@
                             
                             <div class="col-sm-3">
                                            <div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Payment Document Amount :</label>  <label><%= paymentDocAmount %> </label>
+                                    <label>Payment Document Amount :</label>  <label><%= paidAmount//paymentDocAmount
+                                        %> </label>
                                            </div>
                             </div>
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
