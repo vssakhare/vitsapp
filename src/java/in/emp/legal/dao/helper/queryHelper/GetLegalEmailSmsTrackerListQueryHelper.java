@@ -86,8 +86,10 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
             legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
             legalInvoiceInputBean.setPaymentDate(result.getString("ZZFEE_DT_OF_PAYMENT"));
-            legalInvoiceInputBean.setEmailSent(result.getString("EMAIL_SENT"));
-            legalInvoiceInputBean.setSmsSent(result.getString("SMS_SENT"));
+            legalInvoiceInputBean.setCashSmsEmailSent(result.getString("CASH_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setPaySmsEmailSent(result.getString("PAY_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setPayAdjSmsEmailSent(result.getString("PAY_ADJ_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setPayDocSmsEmailSent(result.getString("PAY_DOC_REVRSD_SMS_EMAIL_SENT"));
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetLegalSmsTrackerListQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
