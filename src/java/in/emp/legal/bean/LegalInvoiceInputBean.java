@@ -90,29 +90,49 @@ private String liabilityDocNo ;
     private String payDoneErpDoc ;
     private String startPostDocNo;
     private String startPayDoneErpDoc;
-     private String startPayDoneErpDoc1;
-     private String deptCode;
-     private String deptName;
-     private String sFeeType;
-     private Integer sAmount;
-     private String emailSent;
-     private String smsSent;
+    private String startPayDoneErpDoc1;
+    private String deptCode;
+    private String deptName;
+    private String sFeeType;
+    private Integer sAmount;
+    private String cashSmsEmailSent;
+    private String paySmsEmailSent;
+    private String payAdjSmsEmailSent;
+    private String payDocSmsEmailSent;
 
-    public String getEmailSent() {
-        return emailSent;
+    public String getCashSmsEmailSent() {
+        return cashSmsEmailSent;
     }
 
-    public void setEmailSent(String emailSent) {
-        this.emailSent = emailSent;
+    public void setCashSmsEmailSent(String cashSmsEmailSent) {
+        this.cashSmsEmailSent = cashSmsEmailSent;
     }
 
-    public String getSmsSent() {
-        return smsSent;
+    public String getPaySmsEmailSent() {
+        return paySmsEmailSent;
     }
 
-    public void setSmsSent(String smsSent) {
-        this.smsSent = smsSent;
+    public void setPaySmsEmailSent(String paySmsEmailSent) {
+        this.paySmsEmailSent = paySmsEmailSent;
     }
+
+    public String getPayAdjSmsEmailSent() {
+        return payAdjSmsEmailSent;
+    }
+
+    public void setPayAdjSmsEmailSent(String payAdjSmsEmailSent) {
+        this.payAdjSmsEmailSent = payAdjSmsEmailSent;
+    }
+
+    public String getPayDocSmsEmailSent() {
+        return payDocSmsEmailSent;
+    }
+
+    public void setPayDocSmsEmailSent(String payDocSmsEmailSent) {
+        this.payDocSmsEmailSent = payDocSmsEmailSent;
+    }
+
+    
 
     public Integer getsAmount() {
         return sAmount;

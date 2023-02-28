@@ -85,7 +85,8 @@ public class LegalVendorSmsScheduler extends TimerTask
           Date date=new Date();
          System.out.println("SendLegalVendorSms Task executed"+formatter.format(date));
             System.out.println("SendLegalVendorSmsScheduler Scheduled ..... "+new Date());           
-                 SendSmsLegalVendor.SendSms();
+                 //SendSmsLegalVendor.SendSms();
+                 SendEmailSmsLegalVendor.SendEmailSms();
         } catch (Exception ex) {
             System.out.println("Exception SendVendorSmsScheduler run : "+ex.getMessage());
         }
