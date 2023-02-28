@@ -11,7 +11,7 @@
 			height: 90%;
 			position: fixed;
 			background-color: #6F8FAF;
-			width: 270px;
+			width: 240px;
 			transition: 1000ms all cubic-bezier(0.19, 1, 0.22, 1);
 			transform: translateX(-100%);
 			left: 60px;

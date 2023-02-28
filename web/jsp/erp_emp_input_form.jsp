@@ -515,7 +515,7 @@
                                                <input autocomplete="off" type="text" name="txtPONumber" id="txtPONumber" style="width: 72%;float:left"  value ="<%=PODesc%>" class="form-control" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> onkeypress="getPOSearchList();" <% if (flag == 2) {
                                                       } else {
                                                           out.print("disabled='true'");
-                                                      }%> /> <button type="button" class="button_allign" style="height:34px;width:28%" id="myBtn"  disabled onClick="getPOLineDetails()">Show PO Details</button> 
+                                                      }%> /> <button type="button" class="btn  btn-success" style="height:34px;width:28%" id="myBtn"  disabled onClick="getPOLineDetails()">Show PO Details</button> 
                                                     <% }%>
                                             <% if (UserType.equals("Emp")) {
                                              	if (selectedmodule.equals("PS")) {%> <input type="text" name="txtPONumber" id="txtPONumber" style="width: 100%" value ="<%=PODesc%>" class="form-control" readonly="true" >

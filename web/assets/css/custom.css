@@ -26,7 +26,7 @@ body {
 
 #page-wrapper {
 background:#FFFFFF;
-padding: 15px 15px;
+    /*padding: 15px 15px;*/
     min-height: 600px;
     
    
@@ -72,7 +72,7 @@ font-size: 16px;
 	outline:0;
 }
 .sidebar-collapse {
-  height: 575px; /* Full-height: remove this if you want "auto" height */
+  height: 510px; /* Full-height: remove this if you want "auto" height */
   width: 15%; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
@@ -465,7 +465,7 @@ table#tablenonpoinvoices .sorting, table#tablenonpoinvoices .sorting_asc,table#t
  @media(min-width:768px) {
      #page-wrapper{
                /*margin: 0 0 0 200px;*/
-        padding: 15px 2%;
+       /* padding: 15px 2%;*/
      
         float: right;
     width: 85%;

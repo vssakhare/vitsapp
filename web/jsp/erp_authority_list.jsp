@@ -351,15 +351,14 @@
                                 <td class="tbl_hline_top">&nbsp;</td>
                                 <td class="module_tbl_tr">&nbsp;</td>
                             </tr>
-                            <tr> <!-- Start of Network Search Results tr -->
-                                <td class="bg_white">  <!-- Start of Network Search Results td -->
-                                    <!--<div class="form">-->  <!-- Start of  div  form -->
-                                    <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
-                                        <br><br> <div class="col-md-12"><h3><fmt:message key='List of Invoices'/></h3></div>
-                                        <div >&nbsp;</div>
-                                    </div>
-                                </td>
-                            </tr>
+                      <!--       <tr> <!-- Start of Network Search Results tr -->
+                      <!--            <td class="bg_white">  <!-- Start of Network Search Results td -->
+                      <!--               <!--<div class="form">-->  <!-- Start of  div  form -->
+                       <!--                    <div class="col-md-12"><h3><fmt:message key='List of Invoices'/></h3></div> -->
+                       <!--                   <div >&nbsp;</div> -->
+                           <!--           </div> -->
+                         <!--         </td> -->
+                           <!--   </tr>   -->
                         </table>
                             
                                 
@@ -450,12 +449,13 @@
                             <%@ include file="sort_paging_hidden_fields.jsp" %>                      
                               <div id="vendorInputList" class="tab-pane fade in active">
                                 <div class="content_container_sub"> 
-                            <%
+                           
+                           <div class="row">                
+                                <div class="col-lg-12 col-md-12" align="center">                        
+                                    <div class="table-responsive" style="padding-bottom:15px">
+                                         <%
                                 if (VendorInpList.size() != 0) {
                             %>   
-                           <div class="row">                
-                                <div class="col-lg-12 col-md-12">                        
-                                    <div class="table-responsive">
                                      <!--   <select id="txtSearchStatus" name="txtSearchStatus" class="form-control" style="width: 20%;height:29px;float:right" >
                                                             <option>- <fmt:message key='SELECT STATUS'/> -</option> 
                                                             <option value="<%=ApplicationConstants.ALL%>"><fmt:message key='ALL'/></option> 
@@ -466,7 +466,13 @@
                                                         </select>-->
                                         
                                         
-                                        <div class="col-md-12 text-center"><h3><fmt:message key='List of Vendor Input Invoices'/></h3></div>
+                                      <!--         <div class="col-md-12 text-center tbl-content"><h3><fmt:message key='List of Vendor Input Invoices'/></h3></div> -->
+                                     <section>
+  <!--for demo wrap-->
+  <div class="text-center " stye="padding-bottom:20px">
+      <h style="font-weight:bold;color:#1434A4" ><fmt:message key='List of Vendor Input Invoices'/></h></div>
+      <br>
+  <div class="tbl-header" >
                                         <table class="table" id="tableinputinvoices">
                                             <thead>
                                                 <tr class="success">                                                                                       
@@ -484,8 +490,14 @@
                                                         <th><fmt:message key='Updated On'/></th>
                                                         <th><fmt:message key='Status'/></th> 
                                                         <th><fmt:message key='View'/></th>                                                    
-                                                </tr>
+                                               
+
+ </tr>
                                             </thead>
+ </table>
+  </div>
+        <div class="tbl-content">
+            <table class="table" id="">
                                             <tbody>
                                          <%
                                 
@@ -611,6 +623,8 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                     </section>
+                                    </div>
                         <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" class="btn btn-danger"><fmt:message key='Back'/></a>
 
                                 </div>
@@ -618,7 +632,7 @@
                                             
 
                             <%  } else {%>
-                            <div class="row">                
+                             <div class="row">                
                                 <div class="col-lg-12 col-md-12">                        
                                     <div class="table-responsive">
                                          <div class="table-responsive">
@@ -668,7 +682,7 @@
 
                                     <!--%@ include file="paging_buttons.jsp" %-->
                                 </div>
-                            </div>           
+                            </div>          
                             <div id="pendingList" class="tab-pane fade ">
                                 <div class="content_container_sub">
                                          <%
@@ -677,14 +691,7 @@
                                      <div class="row">
                                         <div class="col-lg-12 col-md-12">
                                             <div class="table-responsive">
-                                               <!--  <select id="txtPendingSearchStatus" name="txtPendingSearchStatus" class="form-control" style="width: 20%;height:29px;float:right"  >
-                                                            <option>- <fmt:message key='SELECT STATUS'/> -</option> 
-                                                            <option value="<%=ApplicationConstants.ALL%>"><fmt:message key='ALL'/></option> 
-                                                            <option value="<%=ApplicationConstants.TECHNICAL%>"><fmt:message key='Pending With Technical'/></option>
-                                                            <option value="<%=ApplicationConstants.ACCOUNTS%>"><fmt:message key='Pending With Accounts'/></option>
-                                                            <option value="<%=ApplicationConstants.PAYMENT%>"><fmt:message key='Pending For Payment'/></option>
-                                                           
-                                                        </select>-->
+                                           
                                                 <div class="col-md-12 text-center"><h3><fmt:message key='Pending Invoices'/></h3></div>
                                         <table class="table" id="tablependinginvoices">
                                             <thead>

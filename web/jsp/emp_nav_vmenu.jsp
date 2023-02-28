@@ -33,7 +33,7 @@
                                     <a  id="M1" data-toggle="collapse" data-parent="#accordion" href="#collapseVendorInfo" class="collapsed"
                                        title="Your Submitted Invoices"      ><img src="images/vendor.png" width="18" height="16" style=""><b>Vendor</b>
                                     </a></div>
-                                      <div id="collapseVendorInfo" class="panel-collapse collapse subMenu" style="line-height: 4;">
+                                      <div id="collapseVendorInfo" class="panel-collapse collapse subMenu" style="line-height: 2;">
                     <% if(!session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) { %> 
                         <div class="panel-menu" id="M1I1">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDORINPUT_LIST)%>" title="" ><img src="images/bullet.png" width="16" height="16" style="">Submit Vendor Invoice></a>
@@ -71,6 +71,7 @@
                                title="Your Location's Invoices"><img src="images/vendor.png" width="18" height="16" style=""><b>Employee</b></a>
                       
                     </div>
+                    
                     <div id="collapseEmployeeInfo" class="panel-collapse collapse subMenu" style="line-height: 2; font-size:12px">
                          <div class="panel-menu" id="M2I1">
 
