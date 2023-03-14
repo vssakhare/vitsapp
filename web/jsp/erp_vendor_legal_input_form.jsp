@@ -1988,8 +1988,8 @@ if (flag!=2) {if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInwar
         //buttonImageOnly: true,
         //yearRange: '2016:2020',
         dateFormat: 'dd-M-yy',
-        minDate: '-3Y',
-        maxDate: '+3Y'
+        minDate: '-8Y',
+        maxDate: '+1Y'
     });
     $("#txtInvSubmitDt").datepicker({
         changeMonth: true,

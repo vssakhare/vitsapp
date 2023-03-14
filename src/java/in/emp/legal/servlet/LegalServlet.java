@@ -160,6 +160,7 @@ public class LegalServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println("legalInvoiceBeanList.size()"+legalInvoiceBeanList.size());
         if (legalInvoiceBeanList != null && legalInvoiceBeanList.size() > 0) {
 
             /*jSONObject.put("CaseRefNo", legalInvoiceBeanList.get(0).getCASEREFNO());
@@ -193,12 +194,13 @@ public class LegalServlet extends HttpServlet {
 "</script><body><table><thead style=\"background-color: lightblue; position: sticky; top:0\"><tr style=\"text-align:left\">"
                 + "<th><input type='button' value='Select' onclick='selectFunction();'></th><th>Case No.</th><th>Case Ref. No.</th><th>Filing Date</th><th>Office Name</th>"
                 + "<th>Court Name</th><th>Case Type</th><th>Case Details</th><th>MSEDCL Party Name</th></tr></thead>");
+        
         for (LegalInvoiceBean lib : legalInvoiceBeanList){
             out.println("<tr><td align='center'><input type='radio' name='casenoradio' value='"+lib.getCASENOCOURT()+'|'+lib.getCASEREFNO()+"'>"
-                    + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+new SimpleDateFormat("dd/MM/yyyy").format(lib.getDOF_LC())+"</td><td>"+lib.getOfficeName()+"</td><td>"
+                    + "</td><td>"+lib.getCASENOCOURT()+"</td><td>"+lib.getCASEREFNO()+"</td><td>"+(lib.getDOF_LC() == null ? "N.A." : new SimpleDateFormat("dd/MM/yyyy").format(lib.getDOF_LC()))+"</td><td>"+lib.getOfficeName()+"</td><td>"
                     +lib.getCOURTNAME()+"</td><td>"+lib.getCASETYPEDESC()+"</td><td>"+lib.getCASEDET()+"</td><td>"+lib.getMsedclPartyName()+"</td></tr>");
         //out.println(lib.getCASEREFNO());
-    }out.print("</table></body></html>");
+    } out.print("</table></body></html>");
         out.flush();
     }
     
