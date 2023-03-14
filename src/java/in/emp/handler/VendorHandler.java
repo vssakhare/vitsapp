@@ -1152,6 +1152,7 @@ public class VendorHandler implements GenericFormHandler {
         if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")){
         String sapStatus=getLegalInvoiceStatusFromSAP(legalInvoiceInputBean);
         legalInvoiceInputBean.setSaveFlag(sapStatus);
+           legalInvoiceInputBean.setStatus(sapStatus);
         }
 //         if (module.equals("PS")) {
 //                vendorInputBeanObj = vendorMgrObj.getVendorPsInputForm(vendorInputBeanObj);
