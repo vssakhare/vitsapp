@@ -9,6 +9,7 @@ package in.emp.common;
  * @author Pooja Jadhav
  */
 
+import in.emp.legal.scheduler.LegalVendorSmsScheduler;
 import in.emp.legal.scheduler.ReadLegalInvoiceDetailsScheduler;
 import in.emp.sms.EmployeeStatusSmsScheduler;
 import in.emp.sms.EscEmpStatusSmsScheduler;
@@ -65,7 +66,7 @@ public class LoadSchedulerServlet extends HttpServlet
                 WriteInvSatusScheduler.startScheduler();  //10.30 pm write inv file
                 ReadRetentionResponseScheduler.startScheduler();
                     ReadLegalInvoiceDetailsScheduler.startScheduler();*/
-                    
+                LegalVendorSmsScheduler.startScheduler();
             }
 		catch(Exception ex)
 		{

@@ -62,26 +62,15 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setRejectReason(result.getString("REASON"));
             legalInvoiceInputBean.setIsWithCourtCaseNo(result.getString("IS_WITH_COURT_CASE_NO"));
             legalInvoiceInputBean.setCorporateOffice(result.getString("CORPORATE_OFFICE"));
-             legalInvoiceInputBean.setRegionText(result.getString("REGION_NAME"));
-             legalInvoiceInputBean.setRegionCode(result.getString("REGION_ID"));
-            legalInvoiceInputBean.setZoneText(result.getString("ZONE_NAME"));
-            legalInvoiceInputBean.setZoneCode(result.getString("ZONE_ID"));
-            legalInvoiceInputBean.setCircleText(result.getString("CIRCLE_NAME"));
-            legalInvoiceInputBean.setCircleCode(result.getString("CIRCLE_ID"));
-            legalInvoiceInputBean.setDivisionText(result.getString("DIVISION_NAME"));
-            legalInvoiceInputBean.setDivisionCode(result.getString("DIVISION_ID"));
-            legalInvoiceInputBean.setSubDivisionText(result.getString("SUB_DIVISION_NAME"));
-            legalInvoiceInputBean.setSubDivisionCode(result.getString("SUB_DIVISION_ID"));
-            legalInvoiceInputBean.setSectionCode(result.getString("SECTION_ID"));
-            legalInvoiceInputBean.setSectionText(result.getString("SECTION_NAME"));
-            legalInvoiceInputBean.setSubStationCode(result.getString("SUB_STATION_ID"));
-            legalInvoiceInputBean.setSubStationText(result.getString("SUB_STATION_NAME"));
+            legalInvoiceInputBean.setZoneText(result.getString("ZONE"));
+            legalInvoiceInputBean.setDivisionText(result.getString("DIVISION"));            
+            
             legalInvoiceInputBean.setStatusFee(result.getString("STATUS_FEE"));
             legalInvoiceInputBean.setParkPostDocNo(result.getString("ZZPARK_POST_DOC_NO"));
             legalInvoiceInputBean.setPayDoneErpDoc(result.getString("ZZPAY_DONE_ERP_DOC"));
             legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
             legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
-            legalInvoiceInputBean.setStartPayDoneErpDoc1(result.getString("start_pay_done_erp_doc1"));
+            
             legalInvoiceInputBean.setMobileNo(result.getString("MOBILE_NO"));
             legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
             legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));

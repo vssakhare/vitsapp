@@ -59,76 +59,88 @@ public class SendEmailSmsLegalVendor {
                 objSmsVendor.setMobileNumber(v.getMobileNo());
               VendorMailId=v.getEmailId();
               InvoiceNumber=v.getInvoiceNumber();
+              int success=0;
 //currently designed only for migo as ven inv no is added only while doing migo in sap process
-             if(v.getStartPostDocNo() != null &&(v.getStartPostDocNo().equals("16" )) && v.getPayDoneErpDoc() == null && !v.getCashSmsEmailSent().equals("Y"))
+             if(v.getStartPostDocNo() != null &&(v.getStartPostDocNo().equals("16" )) && v.getPayDoneErpDoc() == null && //!v.getCashSmsEmailSent().equals("Y")
+                     v.getCashSmsEmailSent()==null)
              {
                //sapStatus="With Cash";
               //lstParam.add(df3.format(UpdatedDate));
                  //lstParam2.add(df3.format(v.getSormDate()));
-                 sms.sendSMS(objSmsVendor, "476831", lstcredential);
+                 System.out.println("sending sms & email for sapStatus=With Cash");
+             try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
                 //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
-             try{
-                  String Subject="Invoice is with cash for processing at Vendor Invoice Tracking Portal";
-                  String MailMessage="Invoice no" +InvoiceNumber+" has been processed  by Technical on "+" and sent to accounts for necessary action.";
              
-                  int success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
+             String Subject="Invoice is with cash for processing at Vendor Invoice Tracking Portal";
+                  String MailMessage="Invoice no. " +InvoiceNumber+" is with cash section for processing.";
+             
+                 success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
               {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
-             }
-             catch(Exception e){
+             
+             }catch(Exception e){
                  
              }
+                  
+             
              }
-             else if (v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" ))&& v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc().equals("17") && !v.getPaySmsEmailSent().equals("Y"))
+             else if (v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" ))&& v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc().equals("17") && v.getPaySmsEmailSent()==null)
              {
              //sapStatus="Payment Done";
                  lstParam2.add(df3.format(v.getInvoiceDate()));
-                  sms.sendSMS(objSmsVendor, "476831", lstcredential);
+                try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
                 //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YY' WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
-             try{
-                  String Subject="Invoice payment is done at Vendor Invoice Tracking Portal";
-                  String MailMessage="Invoice no" +InvoiceNumber+" has been processed  by Technical on "+" and sent to accounts for necessary action.";
+             String Subject="Invoice payment is done at Vendor Invoice Tracking Portal";
+                  String MailMessage="For invoice no. " +InvoiceNumber+", payment has been done.";
              
-                  int success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
+              success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
               {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
-             }
-             catch(Exception e){
+              
+              }catch(Exception e){
                  
              }
+                  
              }
+             
+             
             
-             else if(v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" )) && v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc1().equals("020") && !v.getPayAdjSmsEmailSent().equals("Y"))
+             else if(v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" )) && v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc1().equals("020") && v.getPayAdjSmsEmailSent()==null)
              {
              //sapStatus="Payment Adjusted"; 
-             sms.sendSMS(objSmsVendor, "476831", lstcredential);
+             try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
                 //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YYY' WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
-             try{
-                  String Subject="Invoice payment is adjusted at Vendor Invoice Tracking Portal";
-                  String MailMessage="Invoice no" +InvoiceNumber+" has been processed  by Technical on "+" and sent to accounts for necessary action.";
+             String Subject="Invoice payment is adjusted at Vendor Invoice Tracking Portal";
+                  String MailMessage="For invoice no. " +InvoiceNumber+" payment has been adjusted.";
              
-                  int success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
+              success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
               {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
-             }catch(Exception e){
+              
+               }catch(Exception e){
                  
-             }        
              }
-             else if(v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" )) && v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc1().equals("12") && !v.getPayDocSmsEmailSent().equals("Y"))
+                  
+                     
+             }
+             else if(v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" )) && v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc1().equals("12") && v.getPayDocSmsEmailSent()==null)
              {
              //sapStatus="Payment Document Reversed"; 
-             sms.sendSMS(objSmsVendor, "476831", lstcredential);
+             try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
                 //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YYYY' WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
-             try{
-                  String Subject="Invoice payment document is reversed at Vendor Invoice Tracking Portal";
-                  String MailMessage="Invoice no" +InvoiceNumber+" has been processed  by Technical on "+" and sent to accounts for necessary action.";
-             
-                  int success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
+              String Subject="Invoice payment document is reversed at Vendor Invoice Tracking Portal";
+                  String MailMessage="For invoice no. " +InvoiceNumber+" paument document has been reversed.";
+                success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
               {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+             
+             
              }catch(Exception e){
                  
-             }        
+             } 
+                  
+             
+                      
              }
              try {
                        if(sql!=null && sql!=""){

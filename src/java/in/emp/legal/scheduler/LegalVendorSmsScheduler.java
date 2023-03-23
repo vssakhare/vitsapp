@@ -79,6 +79,7 @@ public class LegalVendorSmsScheduler extends TimerTask
             throw ex;
         }
     }
+   @Override
  public void run() {
         try {
             SimpleDateFormat formatter= new SimpleDateFormat();
