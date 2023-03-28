@@ -271,7 +271,7 @@ public class LegalServlet extends HttpServlet {
         legalInvoiceBean.setWhereClause("CaseRefNo");
 //        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
         legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
-        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
         List<LegalInvoiceBean> legalInvoiceBeanList = null;
         try {
             legalInvoiceBeanList = vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);

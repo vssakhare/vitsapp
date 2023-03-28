@@ -817,15 +817,23 @@ function getLegalListVal() {
     var txtFrmDt = document.getElementById("txtFrmDt").value;
     var txtToDt = document.getElementById("txtToDt").value;
 
-    if (txtFrmDt === null || txtFrmDt === "") {
+    /*if (txtFrmDt === null || txtFrmDt === "") {
         alert("From Date is Required");
         return false;
     }
     if (txtToDt === null || txtToDt === "") {
         alert("To Date is Required");
         return false;
+    }*/
+    
+    if ((txtFrmDt === null || txtFrmDt === "") && (txtToDt !== null || txtToDt !== "")) {
+        alert("From Date is Required");
+        return false;
     }
-
+    if ((txtToDt === null || txtToDt === "") && (txtFrmDt !== null || txtFrmDt !== "")) {
+        alert("To Date is Required");
+        return false;
+    }
 
     var CurrentDate = new Date();
     GivenDate = new Date(txtToDt);
