@@ -635,7 +635,7 @@
                                             <% if (Status.equals("Accepted")) {%>
                                              <td width="8%"><%=Invoice_Status%></td> 
                                              <% } else{%>
-                                             <td width="8%"><%=Invoice_Status%></td> 
+                                             <td width="8%"></td> 
                                              <% } %>
 <!--                                           <td width="7%"><center><%=PendingSince%></center></td> -->
                                             <td>
@@ -858,9 +858,6 @@
                                       if (!ApplicationUtils.isBlank(comBean.getINV_STATUS())) {
                                        Status = comBean.getINV_STATUS();
                                      }
-                                      
-                                      
-                                      
                                        if (!ApplicationUtils.isBlank(comBean.getLocationName())) {
                                                         Location = comBean.getLocationName();
                                                     }

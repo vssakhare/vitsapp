@@ -295,42 +295,31 @@
                                        %>   
                                   
                                         
-                                   <!--      <div class="col-md-12 text-center"><h3><fmt:message key='List of Invoices'/></h3></div> -->
-                                        <section>
-  <!--for demo wrap-->
-  <div class="text-center " stye="padding-bottom:20px">
-      <h style="font-weight:bold;color:#1434A4" ><fmt:message key='List of Invoices'/></h></div>
-      <br>
-  <div class="tbl-header" >
-                                        <table class="table" id="tableinputinvoices">
+                                         <div class="col-md-12 text-center"><h3><fmt:message key='List of Invoices'/></h3></div>
+                                        <table class="table" id="table_ven_input_inv">
                                             <thead>
                                                 <tr class="success">                                                                                       
-                                                    <th width="2%">#</th> 
-                                                    <th width="5%"><fmt:message key='Appl ID'/></th> 
-                                                    <th width="8%"><fmt:message key='Application Date'/></th> 
-                                                  
-                                                    <th width="13%">PO/Project<BR> Id Description</th>  
-                                                      <th width="5%">Invoice Type</th>  
-                                                    <th width="8%">Vendor Invoice Number</th>  
-                                                    <th width="8%">Vendor <br> Invoice <br> Date</th> 
-                                                    <th width="5%">Vendor <br> Invoice <br>  Amount <br>  (Incl. Taxes)</th> 
-                                                    <th width="6%">MSEDCL <br> Inward <br> Number</th>
-                                                    <th width="8%">MSEDCL<br>  Inward <br> Date</th>                                                                                                       
-                                                   
-                                                    <th width="8%">Status</th> 
-                                                    <th width="8%">Invoice Status</th> 
-                                                    <th width="9%">Pending for<br>  verification<br>  Since days</th> 
-                                                    <th width="7%">View</th> 
+                                                    <th>#</th> 
+                                                    <th><fmt:message key='Appl ID'/></th> 
+                                                    <th><fmt:message key='Application Date'/></th> 
+                                                   <!--  <th><fmt:message key='Module Type'/></th> -->
+                                                    <th><fmt:message key='PO/Project Id Description'/></th>  
+                                                      <th><fmt:message key='Invoice Type'/></th>  
+                                                    <th><fmt:message key='Vendor Invoice Number'/></th>  
+                                                    <th><fmt:message key='Vendor Invoice Date'/></th> 
+                                                    <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 
+                                                    <th><fmt:message key='MSEDCL Inward Number'/></th>
+                                                    <th><fmt:message key='MSEDCL Inward Date'/></th>                                                                                                       
+                                                    <!--<th>Invoice From Date</th>
+                                                    <th>Invoice To Date</th>-->
+                                                    <th><fmt:message key='Status'/></th> 
+                                                    <th><fmt:message key='Invoice Status'/></th> 
+                                                    <th><fmt:message key='Pending for verification Since days'/></th> 
+                                                    <th><fmt:message key='View'/></th> 
                                                     
                                                 </tr>
                                                
                                             </thead>
-                                              </table>
-  </div>
-      <div class="tbl-content">                                    
-                                                        <table class="table" id="table_ven_input_inv">
-                                            
-                                         
                                             <tbody>
                                          <%
                                 
@@ -430,44 +419,41 @@
                                           
                                             
                                                 <tr class="info" >
-                                            <td width="2%"><%=j%></td>
+                                            <td><%=j%></td>
                                             <td width="5%"><%=ApplId%></td>
                                             <td width="8%"><%=ApplDate%></td> 
                                           <!--   <td width="4%"><%=Module_dtl%></td>-->
-                                            <td width="13%"><%=PODesc%></td>
-                                            <td width="5%"><%=InvoiceType%></td>
-                                            <td width="8%"><%=InvoiceNum%></td>
-                                            <td width="8%"><%=InvoiceDate%></td>                                           
-                                            <td width="5%"><%=InvoiceAmt%></td>                                            
-                                            <td width="6%"><%=InwardNum%></td>
-                                            <td width="8%"><%=InwardDate%></td>                                            
+                                            <td width="12%"><%=PODesc%></td>
+                                            <td width="4%"><%=InvoiceType%></td>
+                                            <td><%=InvoiceNum%></td>
+                                            <td width="7%"><%=InvoiceDate%></td>                                           
+                                            <td width="7%"><%=InvoiceAmt%></td>                                            
+                                            <td><%=InwardNum%></td>
+                                            <td width="7%"><%=InwardDate%></td>                                            
                                            
-                                            <td width="8%"><%=Status%></td> 
+                                            <td><%=Status%></td> 
                                             <% if (Status.equals("Verified")) {%>
-                                             <td width="8%"><%=Invoice_Status%></td> 
+                                             <td width="12%"><%=Invoice_Status%></td> 
                                              <% } else{%>
-                                             <td width="8%"></td> 
+                                             <td width="12%"></td> 
                                              <% } %>
-                                           <td width="9%"><center><%=PendingSince%></center></td> 
+                                           <td width="7%"><center><%=PendingSince%></center></td> 
                                            <% if (Status.equals("Verified") && (!Module.equals("PS"))) {%>
                                           
-                                       <td width="7%"><a href="#nogo" onclick="viewEmpAppVerified('<%=ApplId%>','<%=InvoiceNum.toUpperCase().replaceAll("[^a-zA-Z0-9]", "")%>',' <%=UserNumber%>','<%=viewActionVerified%>','<%=PONumber%>','<%=Module%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                       <td><a href="#nogo" onclick="viewEmpAppVerified('<%=ApplId%>','<%=InvoiceNum.toUpperCase().replaceAll("[^a-zA-Z0-9]", "")%>',' <%=UserNumber%>','<%=viewActionVerified%>','<%=PONumber%>','<%=Module%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                             
                                        <% } else if (Status.equals("Verified") && (Module.equals("PS"))) {%>
                                           
-                                       <td width="7%"><a href="#nogo" onclick="viewEmpAppVerified_PS('<%=ApplId%>','<%=InvoiceNum.toUpperCase().replaceAll("[^a-zA-Z0-9]", "")%>',' <%=UserNumber%>','<%=viewEmpActionVerified%>','<%=PONumber%>','<%=Module%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                       <td><a href="#nogo" onclick="viewEmpAppVerified_PS('<%=ApplId%>','<%=InvoiceNum.toUpperCase().replaceAll("[^a-zA-Z0-9]", "")%>',' <%=UserNumber%>','<%=viewEmpActionVerified%>','<%=PONumber%>','<%=Module%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                             
                                        <% } else{ %>
-                                            <td width="7%"><a href="#nogo" onclick="viewEmpApp1('<%=ApplId%>', '<%=UserNumber%>', '<%=viewAction%>','<%=PONumber%>','<%=Module%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
+                                            <td><a href="#nogo" onclick="viewEmpApp1('<%=ApplId%>', '<%=UserNumber%>', '<%=viewAction%>','<%=PONumber%>','<%=Module%>');"><img src="images/instructions1.png" alt="Update" width="20" height="20" border="0" /></a></td>
                                          <% } %>
                                              </tr>
                                            <% } %>
                                             </tbody>
                                         </table>
-                                              </div>
-                                     </section>
                                     </div>
-                                   
 
                                 </div>
                             </div>                                                          
@@ -477,7 +463,7 @@
                                 <div class="col-lg-12 col-md-12">                        
                                     <div class="table-responsive">
                                         <div class="col-md-12 text-center"><h3>List of Invoices</h3></div>
-                                        <table class="table" id="table_ven_input_inv">
+                                        <table class="table">
                                             <thead>
                                                 <tr class="success">                                        
                                                      <th><fmt:message key='Appl ID'/></th> 
@@ -515,25 +501,18 @@
                             <input type = "hidden" name="lastValueDataType"   id="lastValueDataType" value="" />
                             </div>  
                             </div>
-                            <%
-                                           if (nonPoVendorList != null) {
-                                       %>
                              <div id="nonPoList" class="tab-pane fade ">
                                 <div class="content_container_sub">
                                     
                                      <div class="row">
                                 <div class="col-lg-12 col-md-12">  
                                       <div class="table-responsive">
-                                          
+                                       <%
+                                           if (nonPoVendorList != null) {
+                                       %>   
                                   
                                         
-                                     <!--     <div class="col-md-12 text-center"><h3><fmt:message key='List of Invoices'/></h3></div> -->
-                                          <section>
-  <!--for demo wrap-->
-  <div class="text-center " stye="padding-bottom:20px">
-      <h style="font-weight:bold;color:#1434A4" ><fmt:message key='List of Invoices'/></h></div>
-      <br>
-  <div class="tbl-header" >
+                                         <div class="col-md-12 text-center"><h3><fmt:message key='List of Invoices'/></h3></div>
                                         <table class="table" id="tablenonpoinvoices">
                                             <thead>
                                                 <tr class="success">                                                                                       
@@ -556,10 +535,6 @@
                                                 </tr>
                                                
                                             </thead>
-                                             </table>
-  </div>
-      <div class="tbl-content">                                    
-                                                        <table class="table" id="table_ven_input_inv">
                                          <%
                                 
                                      int j = 0;
@@ -671,9 +646,8 @@
                                            <% } %>
                                             </tbody>
                                         </table>
-                                              </div>
-                                     </section>
                                     </div>
+
                                 </div>
                             </div>                                                          
 

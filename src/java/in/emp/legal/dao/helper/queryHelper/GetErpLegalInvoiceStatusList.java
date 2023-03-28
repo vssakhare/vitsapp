@@ -408,7 +408,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 
             }
             statement = connection.prepareStatement(sql.toString());
-            System.out.println(sql.toString());
+           // System.out.println(sql.toString());
             if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")|| legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {

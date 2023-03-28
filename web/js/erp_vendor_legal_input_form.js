@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 function saveLegalInvoiceButton() {
     
     var inputFile=document.getElementById('inpFile');
@@ -923,7 +924,8 @@ function viewFile(id, option) {
 
 }
 
-function showWithOrWithoutCourtCaseFields() {document.getElementById("txtRegion").onclick = "";
+function showWithOrWithoutCourtCaseFields() {
+    document.getElementById("txtRegion").onclick = "";
     var WithOrWithoutCourtCase = $('input[name="rad_courtCase"]:checked').val();
     if (WithOrWithoutCourtCase === 'withCourtCase') {
         $('#withCourtCaseNoBody').show(); //$("#withoutCourtCaseNoBody :input[type='text']").val(''); $("#withoutCourtCaseNoBody :select").val('');

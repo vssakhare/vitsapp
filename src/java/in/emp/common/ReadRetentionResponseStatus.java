@@ -120,7 +120,7 @@ List<VendorInputBean>	listErpToVitsFileFormat	=	new ArrayList<VendorInputBean>()
                                    //     System.out.println(); 
                      
                 }
-                conn = ApplicationUtils.getConnection();
+               // conn = ApplicationUtils.getConnection();
            
                 logger.log(Level.INFO, "ReadVENDORStatus ::: ReadVENDORStatusFile() :: method called ::delete method ended");
               //  System.out.println("Reading Vendor File : /data/VPTS/Vendor_List_"+sapToVitsFullFilePath);

@@ -49,8 +49,8 @@ public class GetVendorInputFormQueryHelper implements QueryHelper {
 
            vendorbean.setVendorNumber(results.getString("VENDOR_CODE"));
            vendorbean.setVendorName(results.getString("VENDOR_NAME"));
-vendorbean.setContactNumber("PHN_LL");
-vendorbean.setEmailId("EMAIL");
+           vendorbean.setContactNumber(results.getString("PHN_LL"));
+           vendorbean.setEmailId(results.getString("EMAIL"));
             
 
         } catch (Exception ex) {

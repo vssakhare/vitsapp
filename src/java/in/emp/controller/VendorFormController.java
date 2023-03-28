@@ -911,7 +911,7 @@ public class VendorFormController {
                         bean = vendorPrezDataObj.getVendorInputBean();
                         if (!invoiceAndProjectIdList.equals("")) {
                             String[] invoiceAndProjectId = invoiceAndProjectIdList[i].split(",");
-                            for (int j = 0; j < invoiceAndProjectId.length; j++) {
+                           // for (int j = 0; j < invoiceAndProjectId.length; j++) {
                                 String invoiceNo = invoiceAndProjectId[0];
                                 String projectId = invoiceAndProjectId[1];
                                 bean.setMsedclInvoiceNumber(invoiceNo);
@@ -928,7 +928,7 @@ public class VendorFormController {
                                     bean.setWRET_AMT(invoiceAndProjectId[3]);
                                     bean.setFullOrPartialRetention("partial");
                                 }
-                            }
+                           // }
                             if (vendorBean.getWRPST() != null) {// added to insert seperate record for each wrpst,orpst,crpst,srpst
 
                                 bean.setSerialNo(++counter+"");

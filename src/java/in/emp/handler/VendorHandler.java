@@ -147,6 +147,10 @@ public class VendorHandler implements GenericFormHandler {
                  sReturnPage = viewPOLineDetails(request);
                 
                  } */ 
+                else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_VERIFIED_FORM)) {
+                    sReturnPage = getVendorLegalVerifiedForm(request);
+                }
+                
                  else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_GET)) {
                     sReturnPage = getLegalInvoiceFile(request);
                 }
@@ -383,9 +387,65 @@ public class VendorHandler implements GenericFormHandler {
         return sReturnPage;
     }/* End of Method */
 
-
-    private String getVendorVerifiedForm(HttpServletRequest request) throws Exception {
+private String getVendorVerifiedForm(HttpServletRequest request) throws Exception {
         String sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_VERIFIED_FORM;
+        VendorPrezData vendorPrezDataObj = new VendorPrezData();
+        VendorPrezData vendorPrezDataObjTwo = new VendorPrezData();
+        VendorPrezData vendorPrezDataObjThree = new VendorPrezData();
+        VendorPrezData vendorPrezDataObjFour = new VendorPrezData();
+        VendorPrezData vendorPrezDataObjFive = new VendorPrezData();
+        VendorPrezData vendorPrezDataObjSix = new VendorPrezData();
+        VendorInputBean vendorInputBeanObj = new VendorInputBean();
+        VendorBean vendorBeanObj = new VendorBean();
+        VendorDelegate vendorMgrObj = new VendorManager();
+        LinkedList POList = new LinkedList();
+        HttpSession session = request.getSession();
+        try {
+            logger.log(Level.INFO, "VendorHandler :: getVendorList() :: method called :: ");
+            vendorInputBeanObj.setVendorNumber(ApplicationUtils.getRequestParameter(request, "EmpNo"));
+            vendorInputBeanObj.setApplId(ApplicationUtils.getRequestParameter(request, "appl_id"));
+            vendorInputBeanObj.setPONumber(ApplicationUtils.getRequestParameter(request, "PoNumber"));
+            vendorInputBeanObj.setVendorInvoiceNumber(ApplicationUtils.getRequestParameter(request, "VendorInvNo"));
+
+            vendorInputBeanObj = vendorMgrObj.getVendorVerifiedInputForm(vendorInputBeanObj);
+            if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) {
+                vendorInputBeanObj.setUserType("Vendor");
+            } else if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
+                vendorInputBeanObj.setUserType("Emp");
+            }
+            vendorPrezDataObj.setVendorInputBean(vendorInputBeanObj);
+
+            vendorBeanObj.setVendorNumber(ApplicationUtils.getRequestParameter(request, "EmpNo"));
+            vendorBeanObj.setApplId(ApplicationUtils.getRequestParameter(request, "appl_id"));
+            vendorBeanObj.setPONumber(ApplicationUtils.getRequestParameter(request, "PoNumber"));
+            vendorBeanObj.setVendorInvoiceNumber(ApplicationUtils.getRequestParameter(request, "VendorInvNo"));
+
+            vendorBeanObj.setSES_MIGO_INV_TYPE("SES");
+            vendorPrezDataObjThree = vendorMgrObj.getVendorVerifiedList(vendorBeanObj);
+            vendorPrezDataObj.setSesList(vendorPrezDataObjThree.getVendorList());
+            vendorBeanObj.setSES_MIGO_INV_TYPE("MIGO");
+            vendorPrezDataObjFour = vendorMgrObj.getVendorVerifiedList(vendorBeanObj);
+            vendorPrezDataObj.setMigoList(vendorPrezDataObjFour.getVendorList());
+            vendorBeanObj.setSES_MIGO_INV_TYPE("INVOICE");
+            vendorPrezDataObjFive = vendorMgrObj.getVendorVerifiedList(vendorBeanObj);
+            vendorPrezDataObj.setInvList(vendorPrezDataObjFive.getVendorList());
+            vendorBeanObj.setSES_MIGO_INV_TYPE("PAYMENT");
+            vendorPrezDataObjSix = vendorMgrObj.getVendorVerifiedList(vendorBeanObj);
+            vendorPrezDataObj.setPaymentList(vendorPrezDataObjSix.getVendorList());
+            vendorPrezDataObj.setVendorBean(vendorBeanObj);
+
+            session.setAttribute(ApplicationConstants.VENDOR_VERIFIEDLIST_SESSION_DATA, vendorPrezDataObj);
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "VendorHandler :: getVendorList() :: Exception :: " + ex);
+            //ex.printStackTrace();
+        }
+
+        return sReturnPage;
+    }
+
+    private String getVendorLegalVerifiedForm(HttpServletRequest request) throws Exception {
+        String sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_VERIFIED_FORM;
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
         VendorDelegate vendorMgrObj = new VendorManager();
         HttpSession session = request.getSession();
@@ -1152,7 +1212,6 @@ public class VendorHandler implements GenericFormHandler {
         if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")){
         String sapStatus=getLegalInvoiceStatusFromSAP(legalInvoiceInputBean);
         legalInvoiceInputBean.setSaveFlag(sapStatus);
-           legalInvoiceInputBean.setStatus(sapStatus);
         }
 //         if (module.equals("PS")) {
 //                vendorInputBeanObj = vendorMgrObj.getVendorPsInputForm(vendorInputBeanObj);
@@ -1363,7 +1422,7 @@ public class VendorHandler implements GenericFormHandler {
                         || Option.equals("Other Documents")) {
                     vendorapplFileBeanObj = vendorapplmgrObj.VendorLegalApplFileTxnHelper(vendorapplFileBeanObj);//to insert record of uploaded file
                     if (vendorapplFileBeanObj != null) {
-                        String location = "Application_number";
+                        String location = "Legal_Invoice";
                         String foldername = vendorapplFileBeanObj.getId();
                         foldername = foldername.replaceAll("^0+(?!$)", "");
                         UploadVendorFile n = new UploadVendorFile();

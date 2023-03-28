@@ -247,6 +247,11 @@
                 <success-page>/jsp/erp_vendor_verified_form.jsp</success-page>
                 <error-page>/jsp/erp_vendor_verified_form.jsp</error-page>
             </uiaction>
+              <uiaction>
+                <action-name>getVendorLegalVerifiedForm</action-name>
+                <success-page>/jsp/erp_vendor_legal_verified_form.jsp</success-page>
+                <error-page>/jsp/erp_vendor_legal_verified_form.jsp</error-page>
+            </uiaction>
              <uiaction>
                 <action-name>getEmpVerifiedPsForm</action-name>
                 <success-page>/jsp/erp_emp_ps_appl_form.jsp</success-page>

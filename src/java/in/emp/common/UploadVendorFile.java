@@ -33,15 +33,25 @@ public class UploadVendorFile {
     private static Logger logger = Logger.getLogger(UploadVendorFile.class);
 
     public  String UploadFile(byte[] FILETOTRANSFER,String filename,String location,String foldername) {
-        //String SFTPHOST = "10.0.2.188";
-        String SFTPHOST = "ftp-vpts-erp.mahadiscom.in";
-        int SFTPPORT = 22;
-        String SFTPUSER = "vptserp";
+        String SFTPHOST = System.getProperty("sftp.url");
+        int SFTPPORT = Integer.parseInt(System.getProperty("sftp.port"));
+        String SFTPUSER = System.getProperty("sftp.username");
        
         //String SFTPPASS = "pass@123";
-        String SFTPPASS = "Erp#V321";
+        String SFTPPASS = System.getProperty("sftp.password");
 
-        String SFTPWORKINGDIR =ApplicationConstants.SFTPWORKINGDIR+location;  
+     //   String SFTPWORKINGDIR =ApplicationConstants.SFTPWORKINGDIR+location;  
+      String SFTPWORKINGDIR =System.getProperty("sftp.file.path.linux")+ "TEST_VENDOR_FILES/" +location;
+        // String SFTPWORKINGDIR = "/home/sap_interface/VPTS/VENDOR_FILES/"+location;
+        //String SFTPHOST = "10.0.2.188";
+       // String SFTPHOST = "ftp-vpts-erp.mahadiscom.in";
+       // int SFTPPORT = 22;
+        //String SFTPUSER = "vptserp";
+       
+        //String SFTPPASS = "pass@123";
+        //String SFTPPASS = "Erp#V321";
+
+       // String SFTPWORKINGDIR =ApplicationConstants.SFTPWORKINGDIR+location;  
         // String SFTPWORKINGDIR = "/home/sap_interface/VPTS/VENDOR_FILES/"+location;
         String Folder=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String InFolder = foldername;

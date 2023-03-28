@@ -21,7 +21,7 @@ for (var i = 0; i < dd.options.length; i++) {
         break;
     }
 }
-var sel = document.getElementById('selectdiv');
+var sel = document.getElementById('txtDivision');
 if(document.getElementById('selectdiv').value)
 {
 var option = document.createElement("option");

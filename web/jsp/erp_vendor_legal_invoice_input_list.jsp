@@ -118,7 +118,7 @@
                         <input type="hidden" name=uiActionName" id="uiActionName" value="<%=uiAction%>"/>
                         <input type="hidden" name="redirLegalEmpVerifiedform" id="redirLegalEmpVerifiedform" value="<%=ApplicationConstants.UIACTION_GET_EMP_VERIFIED_FORM_PS%>"/>
                         <input type="hidden" name="redirectUrl" id="redirectUrl" value="<%=ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_FORM%>"/>
-                        <input type="hidden" name="redirLegalVerifiedform" id="redirLegalVerifiedform" value="<%=ApplicationConstants.UIACTION_GET_VENDOR_VERIFIED_FORM%>"/>
+                        <input type="hidden" name="redirLegalVerifiedform" id="redirLegalVerifiedform" value="<%=ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_VERIFIED_FORM%>"/>
                         <input type="hidden" name="deleteAction" id="deleteAction" value="<%=ApplicationConstants.UIACTION_POST_VENDORINPUT_LIST%>"/>
                         <input type="hidden" name="deleteRedirect" id="deleteRedirect" value="<%=ApplicationConstants.UIACTION_GET_VENDORINPUT_LIST%>"/>
                         
@@ -280,9 +280,9 @@
         <tr class="success">
         <th width="2%" >#</th> 
                                                     <th width="5%"><fmt:message key='Appl ID'/></th> 
-                                                    <th width="8%"><fmt:message key='Application Date'/></th> 
+                                                    <th width="5%"><fmt:message key='Application Date'/></th> 
                                                  
-                                                    <th width="7%">Court <br>Case No</th>  
+                                                    <th width="10%">Court Case No</th>  
                                                        <th width="7%">Case Reference No</th>  
                                                       <th width="13%">Court Name</th>
                                                      <th width="11%">Fee Type</th>
@@ -295,11 +295,7 @@
                                                     <th width="7%"> <fmt:message key='View'/></th> 
         </tr>
       </thead>
-    </table>
-  </div>
-      <div class="tbl-content">                                    
-                                                        <table class="table" id="table_ven_input_inv">
-                                            
+   
                                             <tbody>
                                          <%
                                 
@@ -401,8 +397,8 @@
                                                 <tr class="info" >
                                             <td width="2%"><%=j%></td>
                                             <td width="5%"><%=ApplId%></td>
-                                            <td width="8%"><%=ApplDate%></td> 
-                                            <td width="7%"><%=courtCaseNo%></td>
+                                            <td width="5%"><%=ApplDate%></td> 
+                                            <td width="10%"><%=courtCaseNo%></td>
                                             <td width="7%"><%= caseRefNo %></td>
                                            <td width="13%"><%=courtName %></td>
                                             <td width="11%"><%=feeType%></td>

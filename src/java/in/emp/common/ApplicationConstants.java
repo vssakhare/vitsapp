@@ -937,6 +937,7 @@ public class ApplicationConstants {
      public static String UIACTION_GET_EMP_INPUT_FORM = "getEmpInputForm";
     public static String UIACTION_GET_EMP_VERIFIED_FORM_PS="getEmpVerifiedPsForm";
     public static String UIACTION_GET_VENDOR_VERIFIED_FORM="getVendorVerifiedForm";
+    public static String UIACTION_GET_VENDOR_LEGAL_VERIFIED_FORM="getVendorLegalVerifiedForm";
     public static String UIACTION_POST_VENDOR_APPL_FORM = "postVendorApplForm";
     
     public static String UIACTION_GET_VENDOR_LOGIN = "getVendorLogin";

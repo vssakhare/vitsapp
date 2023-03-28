@@ -419,6 +419,8 @@ function save(action) {
             var vendor_name = vendor_name.substring(vendor_name.indexOf('-') + 1);
         }
     }
+    if (module_type == 'PS')
+    {
     var retentionCheckBoxValue = "blank";
     var fullOrPartial="";
     if (txtInvoiceType === 'Retention Claim Charges') {
@@ -432,6 +434,7 @@ function save(action) {
         }else if(document.getElementById('rad_Retention_balance').checked) {
             fullOrPartial="partial";
         }
+    }
     }
     var out = {
         response: function validation(info) {
@@ -1883,9 +1886,11 @@ function showOrHideRTDetails() {
         jQuery("#retention_inward_table_content").hide();
         jQuery("#retentionRadioButton").hide();
         document.getElementById("txtInvoiceAmt").readOnly = false;
+        document.getElementById("txtInvoiceAmt").value = '';
     }
 }
 function RetentionApplDtlvalidation() {
+    if (document.getElementById("Module").value === 'PS') {
     var retentionCheckBoxValue="";
     var txtInvoiceType = document.getElementById("selecttxtInvoiceType").value;
     if (txtInvoiceType === 'Retention Claim Charges') {
@@ -1899,6 +1904,7 @@ function RetentionApplDtlvalidation() {
             return false;
         }
     }
+}
     return true;
 }
 
