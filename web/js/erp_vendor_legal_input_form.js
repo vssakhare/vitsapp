@@ -816,7 +816,7 @@ function getLegalList() {
 function getLegalListVal() {
     var txtFrmDt = document.getElementById("txtFrmDt").value;
     var txtToDt = document.getElementById("txtToDt").value;
-
+    
     /*if (txtFrmDt === null || txtFrmDt === "") {
         alert("From Date is Required");
         return false;
@@ -826,11 +826,11 @@ function getLegalListVal() {
         return false;
     }*/
     
-    if ((txtFrmDt === null || txtFrmDt === "") && (txtToDt !== null || txtToDt !== "")) {
+    if (txtFrmDt === "" && txtToDt !== "") {
         alert("From Date is Required");
         return false;
     }
-    if ((txtToDt === null || txtToDt === "") && (txtFrmDt !== null || txtFrmDt !== "")) {
+    if (txtFrmDt !== "" && txtToDt === "") {
         alert("To Date is Required");
         return false;
     }
