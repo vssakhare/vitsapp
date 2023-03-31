@@ -285,9 +285,9 @@ public class LegalServlet extends HttpServlet {
         //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
 //    query = query.toLowerCase();
         for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
-            String searchCase = legalInvoiceBeanList.get(i).getCASEREFNO() + "";
+            String searchCase = legalInvoiceBeanList.get(i).getCASEREFNO().toString() + "";
             if (searchCase.contains(query)) {
-                arrayObj.add(legalInvoiceBeanList.get(i).getCASEREFNO());
+                arrayObj.add(legalInvoiceBeanList.get(i).getCASEREFNO().toString());
             }
         }
         out.println(arrayObj.toString());
@@ -393,9 +393,9 @@ public class LegalServlet extends HttpServlet {
         //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
 //    query = query.toLowerCase();
         for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
-            String searchCase = legalInvoiceBeanList.get(i).getINVOICE_LEGAL()+ "";
+            String searchCase = legalInvoiceBeanList.get(i).getOfficeName()+ "";
             if (searchCase.contains(query)) {
-                arrayObj.add(legalInvoiceBeanList.get(i).getINVOICE_LEGAL());
+                arrayObj.add(legalInvoiceBeanList.get(i).getOfficeName());
             }
         }
         out.println(arrayObj.toString());

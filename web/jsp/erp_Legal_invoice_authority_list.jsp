@@ -33,7 +33,7 @@
     String OfficeCode="";
     String OfficeTypeId="";    
     String uiAction = "";
-    String LocationName ="ALL";
+    String LocationName ="";
     
     System.out.println("session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) " + session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
     if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) != null) {
