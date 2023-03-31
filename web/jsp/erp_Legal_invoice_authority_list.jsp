@@ -393,13 +393,13 @@
                                          <td class="text-right h5"><fmt:message key='Vendor'/></td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtVendorNumber" id="txtVendorNumber" style="width: 100%" value ="<%=VDescHdr%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" onkeypress="getVendorSearchList();"  />
+                                                <input type="text" name="txtVendorNumber" id="txtVendorNumber" style="width: 100%" value ="<%=VDescHdr%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
                                           <td class="text-right h5" colspan="2"><fmt:message key='Location'/></td>
                                            <td id="myDropdownThree">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="<%=LocationName%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" onkeypress="getLocSearchList();"  />
+                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="<%=LocationName%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td>   
                                           
@@ -408,13 +408,13 @@
                                          <td class="text-right h5">Invoice No.</td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="<%=casRefNo%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                                <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
                                           <td class="text-right h5" colspan="2">Case Ref No.</td>
                                            <td id="myDropdownThree">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtCaseRefNo" id="txtCaseRefNo" style="width: 100%" value ="<%=casRefNo%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                                <input type="text" name="txtCaseRefNo" id="txtCaseRefNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td>   
                                           
@@ -1260,7 +1260,7 @@
         }
     });
      
-    $("#txtCaseRefNo").autocomplete({
+    $("#txtCaseRefNo" ).autocomplete({
 //      source: availableTags
         source: function(request, response) {
             $.ajax({
@@ -1278,6 +1278,45 @@
             });
         }
     });
+    
+    $("#txtInvNo" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=invNo",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+    
+    $("#txtLocation" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=locn",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+    
   } );
         
     </script>

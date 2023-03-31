@@ -784,8 +784,8 @@ function legalInvoiceRejectSubmitButton() {
 }
 function getLegalList() {
     if (getLegalListVal()) {
-        var txtVendorNumber = document.getElementById("txtVendorNumber").value;
-        var txtVendorNumber = txtVendorNumber.substring(0, txtVendorNumber.indexOf("-"));
+        var txtVendorNumber = '0'+parseInt(document.getElementById("txtVendorNumber").value);
+        //var txtVendorNumber = txtVendorNumber.substring(0, txtVendorNumber.indexOf("-"));
         /*   if (txtPONumber.indexOf('-') > -1)
          {
          var txtPONumber = txtPONumber.substring(0, txtPONumber.indexOf("-"));
@@ -809,7 +809,7 @@ function getLegalList() {
                 + "&txtFrmDt=" + txtFrmDt
                 + "&txtToDt=" + txtToDt
                 ;
-
+        //alert(params);
         postForm(url, params, "POST");
     }
 }

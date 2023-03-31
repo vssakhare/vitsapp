@@ -14,7 +14,6 @@ import in.emp.vendor.manager.VendorManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +49,10 @@ public class LegalServlet extends HttpServlet {
                 processVendorAutocompleteRequest(request, response);
             } else if (request.getParameter("autoCompleteParam") != null && request.getParameter("autoCompleteParam").equalsIgnoreCase("caseRefNo")) {
                 processCaseRefNoAutocompleteRequest(request, response);
+            } else if (request.getParameter("autoCompleteParam") != null && request.getParameter("autoCompleteParam").equalsIgnoreCase("invNo")) {
+                processInvNoAutocompleteRequest(request, response);
+            } else if (request.getParameter("autoCompleteParam") != null && request.getParameter("autoCompleteParam").equalsIgnoreCase("locn")) {
+                processLocnAutocompleteRequest(request, response);
             } else {
                 processAutocompleteRequest(request, response);
             }
@@ -279,7 +282,7 @@ public class LegalServlet extends HttpServlet {
             Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         String query = request.getParameter("term");
-        System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
+        //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
 //    query = query.toLowerCase();
         for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
             String searchCase = legalInvoiceBeanList.get(i).getCASEREFNO() + "";
@@ -329,6 +332,74 @@ public class LegalServlet extends HttpServlet {
         }
         out.print(jSONObject);
         out.flush();
+    }
+
+    private void processInvNoAutocompleteRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("processInvNoAutocompleteRequest");
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+        response.setHeader("Cache-control", "no-cache, no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "-1");
+
+        JSONArray arrayObj = new JSONArray();
+
+        LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
+        legalInvoiceBean.setWhereClause("InvNo");
+//        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+        //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        List<LegalInvoiceBean> legalInvoiceBeanList = null;
+        try {
+            legalInvoiceBeanList = vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);
+        } catch (Exception ex) {
+            Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query = request.getParameter("term");
+        //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
+//    query = query.toLowerCase();
+        for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
+            String searchCase = legalInvoiceBeanList.get(i).getINVOICE_LEGAL()+ "";
+            if (searchCase.contains(query)) {
+                arrayObj.add(legalInvoiceBeanList.get(i).getINVOICE_LEGAL());
+            }
+        }
+        out.println(arrayObj.toString());
+        out.close();
+    }
+
+    private void processLocnAutocompleteRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("processLocnAutocompleteRequest");
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+        response.setHeader("Cache-control", "no-cache, no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "-1");
+
+        JSONArray arrayObj = new JSONArray();
+
+        LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
+        legalInvoiceBean.setWhereClause("locn");
+//        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+        //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        List<LegalInvoiceBean> legalInvoiceBeanList = null;
+        try {
+            legalInvoiceBeanList = vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);
+        } catch (Exception ex) {
+            Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query = request.getParameter("term");
+        //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
+//    query = query.toLowerCase();
+        for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
+            String searchCase = legalInvoiceBeanList.get(i).getINVOICE_LEGAL()+ "";
+            if (searchCase.contains(query)) {
+                arrayObj.add(legalInvoiceBeanList.get(i).getINVOICE_LEGAL());
+            }
+        }
+        out.println(arrayObj.toString());
+        out.close();
     }
 
 }

@@ -35,6 +35,10 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
         try {
             if (this.legalInvoiceBean.getWhereClause().equals("Emp")) {
                 legalInvoiceBean.setVENDOR(result.getString("VENDOR"));
+            } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNo")) {
+                legalInvoiceBean.setINVOICE_LEGAL(result.getString("INVOICE_NUMBER"));
+            } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
+                legalInvoiceBean.setOfficeName(result.getString("LOC"));
             } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNo")) {
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
             } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
@@ -388,6 +392,10 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append(" and lOCM.Personal_Subarea=nvl(COOFFICE_BTRTL,(NVL(REGION_BTRTL,NVL(ZZONE_BTRTL,NVL(CIRCLE_BTRTL,NVL(DIVISION_BTRTL,NVL(SUBDIV_BTRTL,NVL(SECTION_BTRTL,substation))))))))  ");
                 sql.append(" and orgm.organization_id=? ");*/
                 sql.append("SELECT distinct vendor_number vendor FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNo")) {
+                sql.append("SELECT distinct INVOICE_NUMBER FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
+                sql.append("SELECT distinct dealing_office_name loc FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNo")) {
                 sql.append("        select distinct zlvf.CASEREFNO   ");
                 sql.append("         from ZHRT_LEGAL_H  ZLH,ZHRT_LE_FILED ZLVF,  ");
@@ -409,13 +417,17 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 
             }
             statement = connection.prepareStatement(sql.toString());
-           // System.out.println(sql.toString());
+            System.out.println(sql.toString());
             if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendor")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNo")|| legalInvoiceBean.getWhereClause().equalsIgnoreCase("vendorCaseNoNew")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR().substring(1));
                 statement.setString(2, legalInvoiceBean.getCASENOCOURT());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("Emp")) {
+                statement.setString(1, legalInvoiceBean.getLocationId());
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNo")) {
+                statement.setString(1, legalInvoiceBean.getLocationId());
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
                 statement.setString(1, legalInvoiceBean.getLocationId());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNo")) {
                 statement.setString(i++, legalInvoiceBean.getLocationId());

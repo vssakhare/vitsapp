@@ -76,7 +76,7 @@ public class SendEmailSmsLegalVendor {
              
                  success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
              
              }catch(Exception e){
                  
@@ -95,7 +95,7 @@ public class SendEmailSmsLegalVendor {
              
               success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
               
               }catch(Exception e){
                  
@@ -115,7 +115,7 @@ public class SendEmailSmsLegalVendor {
              
               success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
               
                }catch(Exception e){
                  
@@ -132,14 +132,12 @@ public class SendEmailSmsLegalVendor {
                   String MailMessage="For invoice no. " +InvoiceNumber+","+v.getFeeType()+" payment document has been reversed.";
                 success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
              
              
              }catch(Exception e){
                  
-             } 
-                  
-             
+             }            
                       
              }
              try {
@@ -147,10 +145,9 @@ public class SendEmailSmsLegalVendor {
                         PreparedStatement psq = null;
                         conn = ApplicationUtils.getConnection();
                          logger.log(Level.INFO, "GetSendSmsVendorQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
-                        psq = conn.prepareStatement(sql.toString());                        
-                        psq.setString(1, v.getInvoiceNumber());                     
-                        psq.setString(2, v.getVendorNumber());
-                        psq.setString(3, String.valueOf(v.getApplId()));
+                        psq = conn.prepareStatement(sql.toString());                                                
+                        psq.setString(1, String.valueOf(v.getApplId()));
+                        psq.setString(2, String.valueOf(v.getFeeType()));
                         psq.executeUpdate();
                         conn.commit();
 
