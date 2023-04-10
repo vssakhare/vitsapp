@@ -35,14 +35,14 @@
     String uiAction = "";
     String LocationName ="ALL";
     
-    System.out.println("session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) " + session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+    //System.out.println("session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) " + session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
     if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) != null) {
         OfficeCode = (String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION);
-        System.out.println("OfficeCode : " + OfficeCode);
+       // System.out.println("OfficeCode : " + OfficeCode);
     }
      if (session.getAttribute(ApplicationConstants.OFFICE_TYPE_ID_SESSION) != null) {
         OfficeTypeId = (String) session.getAttribute(ApplicationConstants.OFFICE_TYPE_ID_SESSION);
-        System.out.println("OfficeTypeId : " + OfficeTypeId);
+       // System.out.println("OfficeTypeId : " + OfficeTypeId);
     }
     
     if (!ApplicationUtils.isBlank(request.getParameter("uiActionName"))) {

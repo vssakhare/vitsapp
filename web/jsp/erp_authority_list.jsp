@@ -494,10 +494,7 @@
 
  </tr>
                                             </thead>
- </table>
-  </div>
-        <div class="tbl-content">
-            <table class="table" id="">
+
                                             <tbody>
                                          <%
                                 

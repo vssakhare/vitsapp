@@ -15,13 +15,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
 <%@page import="in.emp.common.ApplicationConstants"%>
 <%@page import="in.emp.util.ApplicationUtils"%>
 <%@page import="java.util.*"%>
 <%@page import="in.emp.user.bean.UserBean"%>
-
-
 <%@page import="in.emp.vendor.bean.VendorApplFileBean"%>
 <%@page import="in.emp.vendor.bean.POBean"%>
 <%@page import="in.emp.vendor.bean.ProjBean"%>
@@ -340,21 +337,17 @@ String FORWARD_AT_DESC="";
         if ((vendorInputBean.getForwardToDesc() != null)) {
             FORWARD_AT_DESC = FORWARD_AT_PLANT + "-" + vendorInputBean.getForwardToDesc();
         }
-        
-        
-        
-        
         if ((vendorInputBean.getZone() != null)) {
             zone = vendorInputBean.getZone();
         }
-    }
+   
     if ((vendorInputBean.getCircle() != null)) {
         circle = vendorInputBean.getCircle();
     }
     if ((vendorInputBean.getDivision() != null)) {
         division = vendorInputBean.getDivision();
     }
-System.out.println("flag="+flag+"   PODesc::"+PODesc);
+ }
 
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">

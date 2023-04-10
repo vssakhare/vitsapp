@@ -149,6 +149,13 @@
     String SIGST_TX = "";
     String OTSGST_TX = "";
     String OTIGST_TX = "";
+    String TdsAmount = "";
+        String CgstAmount = "";
+        String SgstAmount = "";
+        String CgstTdsAmount = "";
+        String SgstTdsAmount = "";
+        String IgstAmount = "";
+        String IgstTdsAmount = "";
 //UserType="Vendor";
     if (legalInvoiceInputBean != null) {
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getRegionText())) {
@@ -299,7 +306,54 @@
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
             paidAmount = legalInvoiceInputBean.getPaidAmount();
         }
+ if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getTdsAmount())) {
+                TdsAmount = legalInvoiceInputBean.getTdsAmount();
+                TdsAmount = ApplicationUtils.formatAmount(Double.valueOf(TdsAmount));
+            }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCgstAmount())) {
+                 CgstAmount = legalInvoiceInputBean.getCgstAmount();
+                 CgstAmount = ApplicationUtils.formatAmount(Double.valueOf(CgstAmount));
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSgstAmount())) {
+                 SgstAmount = legalInvoiceInputBean.getSgstAmount();
+                 SgstAmount = ApplicationUtils.formatAmount(Double.valueOf(SgstAmount));
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSgstTdsAmount())) {
+                 SgstTdsAmount = legalInvoiceInputBean.getSgstTdsAmount();
+                 SgstTdsAmount = ApplicationUtils.formatAmount(Double.valueOf(SgstTdsAmount));
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getIgstAmount())) {
+                 IgstAmount = legalInvoiceInputBean.getIgstAmount();
+                 IgstAmount = ApplicationUtils.formatAmount(Double.valueOf(IgstAmount));
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getIgstTdsAmount())) {
+                 IgstTdsAmount = legalInvoiceInputBean.getIgstTdsAmount();
+                 IgstTdsAmount = ApplicationUtils.formatAmount(Double.valueOf(IgstTdsAmount));
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCgstTdsAmount())) {
+                 CgstTdsAmount = legalInvoiceInputBean.getCgstTdsAmount();
+                 CgstTdsAmount = ApplicationUtils.formatAmount(Double.valueOf(CgstTdsAmount));
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentStatus())) {
+                 paymentStatus = legalInvoiceInputBean.getPaymentStatus();
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getReasonForDeduction())) {
+                 reasonForDeduction = legalInvoiceInputBean.getReasonForDeduction();
+             }
+             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeductionAmount())) {
+                 deductionAmount = legalInvoiceInputBean.getDeductionAmount();
+                 deductionAmount = ApplicationUtils.formatAmount(Double.valueOf(deductionAmount));
+             }
+               if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
+                paidAmount = legalInvoiceInputBean.getPaidAmount();
+                paidAmount = ApplicationUtils.formatAmount(Double.valueOf(paidAmount));
+            }
 
+
+            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDocDate())) {
+                paymentDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDocDate()));
+                //System.out.println("paymentDocDate "+paymentDocDate);
+            }
     }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -491,41 +545,69 @@
 			    </div>
                                
                            </div>
+                                <%}%>
                                 
                                    <div class="invoicesubdiv">
                             <div class="col-sm-12 invoiceBlueHead" >   <label>Payment/Adjustment Details</label>
                             </div>
                                 
-                               
-                               <div class="col-sm-3">
+                               <%if(UserType.equalsIgnoreCase("Emp")){%>
+                               <div class="col-sm-4">
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
                                     <label>Payment Document :</label>  <label><%= paymentDocNo %></label>
                                 </div>
                             </div>
-                            
-                            <div class="col-sm-3">
+                            <%}%>
+                            <div class="col-sm-4">
                                            <div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Payment Document Amount :</label>  <label><%= paymentDocAmount %> </label>
+                                    <label>Payment Document Amount :</label>  <label><%= paidAmount %> </label>
                                            </div>
                             </div>
-                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                            <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Date : </label> <label><%= paymentDocDate %></label>
 				</div>
 			    </div>
                                 
-                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>UTR Number : </label> <label><%= UTR_NO %></label>
 				</div>
 			    </div>
-                                
-                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                    <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>TDS Amount: </label> <label><%= TdsAmount %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>CGST Amount: </label> <label><%= CgstAmount %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>SGST Amount: </label> <label><%= SgstAmount %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>CGST TDS Amount: </label> <label><%= CgstTdsAmount %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>SGST TDS Amount: </label> <label><%= SgstTdsAmount %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>IGST Amount: </label> <label><%= IgstAmount %></label>
+				</div>
+			    </div>
+                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>IGST TDS Amount: </label> <label><%= IgstTdsAmount %></label>
+				</div>
+			    </div>
+                                <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Status : </label> <label><%= paymentStatus %></label>
 				</div>
 			    </div>
                                 
                                 
 			    </div>
-                                <%}%>
+                                
                            </div>
                             
                             

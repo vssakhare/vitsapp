@@ -99,6 +99,98 @@ private String liabilityDocNo ;
     private String paySmsEmailSent;
     private String payAdjSmsEmailSent;
     private String payDocSmsEmailSent;
+    private String fiscalYear;
+    private String tdsAmount;
+    private String cgstAmount;
+    private String sgstAmount;
+    private String igstAmount;
+    private String cgstTdsAmount;
+    private String sgstTdsAmount;
+    private String igstTdsAmount;
+    private String DeductionAmount;
+    private String reasonForDeduction  ;    
+
+    public String getDeductionAmount() {
+        return DeductionAmount;
+    }
+
+    public void setDeductionAmount(String DeductionAmount) {
+        this.DeductionAmount = DeductionAmount;
+    }
+
+    public String getReasonForDeduction() {
+        return reasonForDeduction;
+    }
+
+    public void setReasonForDeduction(String reasonForDeduction) {
+        this.reasonForDeduction = reasonForDeduction;
+    }
+    public String getTdsAmount() {
+        return tdsAmount;
+    }
+
+    public void setTdsAmount(String tdsAmount) {
+        this.tdsAmount = tdsAmount;
+    }
+
+    public String getCgstAmount() {
+        return cgstAmount;
+    }
+
+    public void setCgstAmount(String cgstAmount) {
+        this.cgstAmount = cgstAmount;
+    }
+
+    public String getSgstAmount() {
+        return sgstAmount;
+    }
+
+    public void setSgstAmount(String sgstAmount) {
+        this.sgstAmount = sgstAmount;
+    }
+
+    public String getIgstAmount() {
+        return igstAmount;
+    }
+
+    public void setIgstAmount(String igstAmount) {
+        this.igstAmount = igstAmount;
+    }
+
+    public String getCgstTdsAmount() {
+        return cgstTdsAmount;
+    }
+
+    public void setCgstTdsAmount(String cgstTdsAmount) {
+        this.cgstTdsAmount = cgstTdsAmount;
+    }
+
+    public String getSgstTdsAmount() {
+        return sgstTdsAmount;
+    }
+
+    public void setSgstTdsAmount(String sgstTdsAmount) {
+        this.sgstTdsAmount = sgstTdsAmount;
+    }
+
+    public String getIgstTdsAmount() {
+        return igstTdsAmount;
+    }
+
+    public void setIgstTdsAmount(String igstTdsAmount) {
+        this.igstTdsAmount = igstTdsAmount;
+    }
+   
+
+    
+    public String getFiscalYear() {
+        return fiscalYear;
+    }
+
+    public void setFiscalYear(String fiscalYear) {
+        this.fiscalYear = fiscalYear;
+    }
+    
 
     public String getCashSmsEmailSent() {
         return cashSmsEmailSent;
