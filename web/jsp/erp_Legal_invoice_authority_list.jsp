@@ -230,7 +230,12 @@
         }
     }
     
-    
+    String UserType = "";
+if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) {
+        UserType = "Vendor";
+    } else if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
+        UserType = "Emp";
+    }
     
     
         
@@ -272,6 +277,7 @@
                 <div id="page-wrapper" style="width:100%;padding-left: 15%;">
 
                     <div id="page-inner" style="min-height:500px;">
+                        <input type="hidden"  id="userType" name="userType" value = "<%=UserType%>"/> 
                      <input type="hidden" name="redirEmpVerifiedform" id="redirEmpVerifiedform" value="<%=ApplicationConstants.UIACTION_GET_EMP_VERIFIED_FORM_PS%>"/>
                     <input type="hidden" name="redirLegalAcceptedform" id="redirLegalAcceptedform" value="<%=ApplicationConstants.UIACTION_VIEW_VENDOR_LEGAL_INPUT_LIST%>"/>
                         <input type="hidden" name="uiActionName" id="uiActionName" value="<%=uiAction%>"/>
@@ -393,7 +399,7 @@
                                          <td class="text-right h5"><fmt:message key='Vendor'/></td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtVendorNumber" id="txtVendorNumber" style="width: 100%" value ="<%=VDescHdr%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                                <input type="text" name="txtVendorNumber" id="txtVendorNumber" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
                                           <td class="text-right h5" colspan="2"><fmt:message key='Location'/></td>

@@ -71,8 +71,12 @@
         }
 
     }
-
-    
+String UserType = "";
+if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) {
+        UserType = "Vendor";
+    } else if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
+        UserType = "Emp";
+    }    
     
    
    
@@ -114,7 +118,7 @@
 
                     <div id="page-inner" style="min-height:500px;">
 
-
+                        <input type="hidden"  id="userType" name="userType" value = "<%=UserType%>"/> 
                         <input type="hidden" name=uiActionName" id="uiActionName" value="<%=uiAction%>"/>
                         <input type="hidden" name="redirLegalEmpVerifiedform" id="redirLegalEmpVerifiedform" value="<%=ApplicationConstants.UIACTION_GET_EMP_VERIFIED_FORM_PS%>"/>
                         <input type="hidden" name="redirectUrl" id="redirectUrl" value="<%=ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_FORM%>"/>
@@ -213,7 +217,56 @@
                              
                                 
                                 <table  class="table" style="width:100%" id="tblone1" border="0" cellspacing="0" cellpadding="1" >
-                                    <tr><th><left><fmt:message key='Search Criteria'/></left></th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                    <tr>
+                                         <td class="text-right h5"></td>
+                                         <td id="myDropdownTwo">
+                                            
+                                          </td> 
+                                          <td class="text-right h5" colspan="2"><fmt:message key='Location'/></td>
+                                           <td id="myDropdownThree">
+                                            <div class="autocomplete" style="width:300px;">
+                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                              </div>        
+                                          </td>   
+                                          
+                                          </tr>
+                                          <tr>
+                                         <td class="text-right h5">Invoice No.</td>
+                                         <td id="myDropdownTwo">
+                                            <div class="autocomplete" style="width:300px;">
+                                                <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                              </div>        
+                                          </td> 
+                                          <td class="text-right h5" colspan="2">Case Ref No.</td>
+                                           <td id="myDropdownThree">
+                                            <div class="autocomplete" style="width:300px;">
+                                                <input type="text" name="txtCaseRefNo" id="txtCaseRefNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                              </div>        
+                                          </td>   
+                                          
+                                          </tr>
+                                          <tr>
+                                              <td width="20%" class="text-right h5"><fmt:message key='Invoice submitted during the period From Date'/></td>
+                                                <td width="5%"> 
+                                                    <input name="txtFrmDt" id="txtFrmDt" type="text" size="20" value=""  class="datefield" maxlength="15" readonly="readonly"/> </td>
+                                                <td width="5%">
+                                                 <!--   <a href="javascript:void(0)" onClick="return callCalender('txtFrmDt','1');">
+                                                        <img src="<%=ApplicationConstants.IMAGE_PATH%>icon_calendar2.gif" alt="Calander" width="25" height="25" border="0" align="absmiddle" />
+                                                    </a-->
+                                           </td>
+                                           
+                                           <td width="20%" class="text-right h5"><fmt:message key='Invoice submitted during the period To Date'/></td>
+                                                <td width="5%"> 
+                                                    <input name="txtToDt" id="txtToDt" type="text" size="20" value="" class="datefield" maxlength="15" readonly="readonly" </td>
+                                                <td width="5%">
+                                                  <!--  <a href="javascript:void(0)" onClick="return callCalender('txtToDt','1');">
+                                                        <img src="<%=ApplicationConstants.IMAGE_PATH%>icon_calendar2.gif" alt="Calander" width="25" height="25" border="0" align="absmiddle" />
+                                                    </a>-->
+                                           </td>
+                                          </tr>
+                                    
+                                    <tr><!--<th><left><fmt:message key='Search Criteria'/></left></th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                      <td colspan="2">
                                                          
                                                         <select id="txtSearch" name="txtSearch" class="form-control" style="width: 100%" >
@@ -234,12 +287,13 @@
                                                                <div class="autocomplete" style="width:300px;">
                                                                    <input class="form-control" type="text" text-align="left" name="txtSearch1" value ="<%=PODescHdr%>"  id="txtSearch1"  style="width: 100%" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> onkeypress="getPOSearchList();" />
                                                             </div>
-                                                     </td>
+                                                     </td>-->
               
                                                  &nbsp;&nbsp;&nbsp;
-                                                 <td colspan="3" align="center"><input type="button" name="btnFile" id="btnFile" value=<fmt:message key='Search'/>  class="btn btn-success" style="height:30px;width:70px" onclick="searchButton()"/> </td> 
+                                                 <td colspan="3" align="center"><input type="button" name="btnFile" id="btnFile" value=<fmt:message key='Search'/>  class="btn btn-success" style="height:30px;width:70px" onclick="getLegalList()"/> </td> 
                                                  
                                                </tr>
+                                               
                                                 </table>
                           
                             <!--<div class="buttons_holder" align="right">
@@ -507,6 +561,87 @@
    
          
     </body>
+<script>
+    $("#txtToDt").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //showOn: 'button',
+        //buttonImage: 'images/calendar.png',
+        //buttonImageOnly: true,
+        //yearRange: '2016:2020',
+        dateFormat: 'dd-M-yy',
+        minDate: '-3Y',
+        maxDate: '+3Y'
+    });
+    $("#txtFrmDt").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //showOn: 'button',
+        //buttonImage: 'images/calendar.png',
+        //buttonImageOnly: true,
+        //yearRange: '2016:2020',
+        dateFormat: 'dd-M-yy',
+        minDate: '-3Y',
+        maxDate: '+3Y'
+    });
+    $("#txtCaseRefNo" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=caseRefNo",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+    
+    $("#txtInvNo" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=invNo",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+    
+    $("#txtLocation" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=locn",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+</script>
+    
 </html>
 
 

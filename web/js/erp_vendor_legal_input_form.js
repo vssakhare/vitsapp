@@ -783,33 +783,39 @@ function legalInvoiceRejectSubmitButton() {
     }
 }
 function getLegalList() {
-    if (getLegalListVal()) {
-        var txtVendorNumber = '0'+parseInt(document.getElementById("txtVendorNumber").value);
+    if (getLegalListVal()) {        
         //var txtVendorNumber = txtVendorNumber.substring(0, txtVendorNumber.indexOf("-"));
         /*   if (txtPONumber.indexOf('-') > -1)
          {
          var txtPONumber = txtPONumber.substring(0, txtPONumber.indexOf("-"));
          }*/
+        var caseRefNo = document.getElementById("txtCaseRefNo").value;
         var txtLocation = document.getElementById("txtLocation").value;
         if ((txtLocation.indexOf("-")) > -1) {
             var txtLocation = txtLocation.substring(0, txtLocation.indexOf("-"));
         }
-//    var txtInvoiceNumber = document.getElementById("txtInvoiceNumber").value.trim(); 
+        var txtInvoiceNumber = document.getElementById("txtInvNo").value.trim(); 
         var txtFrmDt = document.getElementById("txtFrmDt").value;
         var txtToDt = document.getElementById("txtToDt").value;
 
-
         var url = "erp";
-        var uiactionName = "getAuthLegalInvoiceList";
-        var params = "uiActionName=" + uiactionName
-                + "&txtVendorNumber=" + txtVendorNumber
+        if (document.getElementById("userType").value==="Vendor"){
+            var uiactionName = "getVendorLegalInvoiceInputList";
+        }else{
+            var txtVendorNumber = (document.getElementById("txtVendorNumber").value);
+            var uiactionName = "getAuthLegalInvoiceList";
+        }
+        //alert(uiactionName);
+        var params = "uiActionName=" + uiactionName;
+        if (document.getElementById("userType").value!=="Vendor"){params = params + "&txtVendorNumber=" + txtVendorNumber;}
 //            + "&txtPONumber=" + txtPONumber 
-                + "&txtLocation=" + txtLocation
-//            + "&txtInvoiceNumber=" + txtInvoiceNumber           
+                params = params + "&txtLocation=" + txtLocation
+                + "&caseRefNo=" + caseRefNo
+                + "&txtInvoiceNumber=" + txtInvoiceNumber           
                 + "&txtFrmDt=" + txtFrmDt
                 + "&txtToDt=" + txtToDt
                 ;
-        //alert(params);
+        alert(params);
         postForm(url, params, "POST");
     }
 }

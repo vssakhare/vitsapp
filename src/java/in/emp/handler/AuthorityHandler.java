@@ -505,11 +505,17 @@ private String getAuthLegalInvoiceList(HttpServletRequest request) throws Except
                 legalInvoiceInputBean.setInvoiceToDate(ApplicationUtils.stringToDate((String) request.getParameter("txtToDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             }
              if (!ApplicationUtils.isBlank((request.getParameter("txtVendorNumber")))) {
-            legalInvoiceInputBean.setVendorNumber(ApplicationUtils.getRequestParameter(request, "txtVendorNumber"));  
+            legalInvoiceInputBean.setVendorNumber(ApplicationUtils.getRequestParameter(request, "txtVendorNumber"));System.out.println("blah::" + request.getParameter("txtVendorNumber"));   
              }
+             if (!ApplicationUtils.isBlank((request.getParameter("caseRefNo")))) {
+                legalInvoiceInputBean.setCaseRefNo((String) request.getParameter("caseRefNo"));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtInvoiceNumber")))) {
+                legalInvoiceInputBean.setInvoiceNumber((String) request.getParameter("txtInvoiceNumber"));
+            }
             logger.log(Level.INFO, "AuthorityHandler :: getAuthLegalInvoiceList() :: method called :: ");
             String userType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
-            System.out.println("userType::" + userType);
+            System.out.println("userType::" + userType);System.out.println("blah::" + legalInvoiceInputBean.getVendorNumber());
             if (userType.equalsIgnoreCase("Emp")) {
                 legalInvoiceInputBean.setCreatedByUsertype("Emp");
                 legalInvoiceInputBean.setWhereClause("Emp");

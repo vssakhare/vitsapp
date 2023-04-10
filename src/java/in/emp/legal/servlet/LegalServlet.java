@@ -270,9 +270,12 @@ public class LegalServlet extends HttpServlet {
 
         JSONArray arrayObj = new JSONArray();
 
-        LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
-        legalInvoiceBean.setWhereClause("CaseRefNo");
-//        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
+        LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();//System.out.println("blah..."+request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION));
+        if(!"Vendor".equals((String)request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION))){
+            legalInvoiceBean.setWhereClause("CaseRefNo");}
+        else{
+            legalInvoiceBean.setWhereClause("CaseRefNoV");
+            legalInvoiceBean.setVENDOR((String)request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));}
         legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
         List<LegalInvoiceBean> legalInvoiceBeanList = null;
@@ -281,7 +284,7 @@ public class LegalServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(LegalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String query = request.getParameter("term");
+        String query = request.getParameter("term");System.out.println(legalInvoiceBean.getWhereClause());
         //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
 //    query = query.toLowerCase();
         for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
@@ -289,7 +292,9 @@ public class LegalServlet extends HttpServlet {
             if (searchCase.contains(query)) {
                 arrayObj.add(legalInvoiceBeanList.get(i).getCASEREFNO().toString());
             }
-        }
+        }//System.out.println((String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION));
+        //System.out.println((String) request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));
+        //System.out.println(legalInvoiceBeanList.size());
         out.println(arrayObj.toString());
         out.close();
     }
