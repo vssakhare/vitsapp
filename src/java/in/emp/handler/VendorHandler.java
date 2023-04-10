@@ -21,7 +21,6 @@ import in.emp.system.dao.helpers.MultipartRequestParser;
 //import in.emp.vendor.bean.VendorPrezData;
 //import in.emp.vendor.manager.VendorManager;
 import in.emp.util.ApplicationUtils;
-import in.emp.util.TaxAmountDisplayFromSap;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
@@ -479,14 +478,6 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             legalInvoiceInputBeanList = (List<LegalInvoiceInputBean>) vendorMgrObj.getLegalInvoiceInputList(legalInvoiceInputBean);
             if (legalInvoiceInputBeanList != null && legalInvoiceInputBeanList.size() > 0) {
                 legalInvoiceInputBean = legalInvoiceInputBeanList.get(0);
-            }
-             if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")&& legalInvoiceInputBean.getStatus().equalsIgnoreCase("Payment Done")) {
-                try {
-                    legalInvoiceInputBean = TaxAmountDisplayFromSap.consumeSapWebservice(legalInvoiceInputBean);
-                } catch (Exception ex) {
-                    logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() ::consumeSapWebservice Exception :: " + ex);
-                    
-                }
             }
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA, legalInvoiceInputBean);
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST, legalInvoiceInputBeanList);
@@ -1350,15 +1341,6 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             if (legalInvoiceInputBeanList != null && legalInvoiceInputBeanList.size() > 0) {
                 legalInvoiceInputBean = legalInvoiceInputBeanList.get(0);
             }
-             if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")&& legalInvoiceInputBean.getStatus().equalsIgnoreCase("Payment Done")) {
-                try {
-                    legalInvoiceInputBean = TaxAmountDisplayFromSap.consumeSapWebservice(legalInvoiceInputBean);
-                } catch (Exception ex) {
-                    logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() ::consumeSapWebservice Exception :: " + ex);
-                    
-                }
-            }
-            
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA, legalInvoiceInputBean);
 
         } catch (Exception ex) {

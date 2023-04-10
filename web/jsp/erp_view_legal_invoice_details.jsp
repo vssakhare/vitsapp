@@ -38,252 +38,259 @@
         legalInvoiceInputBean = (LegalInvoiceInputBean) request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA);
     }
     
-        String Zone = "";
-        String Circle = "";
-        String Division = "";
-        String subdiv = "";
-        String section = "";
-        String subStation = "";
-        int i = 0;
-        // Set <String>clearing_amt = new HashSet<String>();
-        HashMap<String, String> clearing_amt = new HashMap<String, String>();
-        String Status = "";
-        String VendorNum = "";
-        String VendorName = "";
-        String MSEDCLInvNo = "";
-        String MSEDCLInvDate = "";
-        String VENDORInvDate = "";
-        String region = "";
-        String PROJECT_DESC = "";
-        String CREATION_DATE = "";
-        String dealingOffice = "";
-        String courtName = "";
-        String courtCaseNo = "";
-        String caseRefNo = "";
-        String caseDesc = "";
-        String partyNames = "";
-        String VENDOR_NAME = "";
-        String VENDOR_NUMBER = "";
-        String MSEDCL_INV_NO = "";
-        String UserType = "";
-        String deductionAmount = "";
-        String invoiceDate = "";
-        String reasonForDeduction = "";
-        String liabilityDocNo = "";
-        String liabilityDocDate = "";
-        String liabilityDocAmt = "";
-        String taxAmount = "";
-        String paidAmount = "";
-        String paymentDate = "";
-        String UTR_NO = "";
-        String msedclInwardNo = "";
-        String msedclInwardDate = "";
-        String invoiceAmount = "";
-        String paymentDocNo = "";
-        String paymentDocAmount = "";
-        String paymentDocDate = "";
-        String paymentStatus = "";
-        String mobileNo = "";
-        String emailId = "";
-        String feeType = "";
-        String invoiceStatus = "";
-        String InvoiceNumber = "";
-        String SubStatus = "";
-        String TdsAmount = "";
-        String CgstAmount = "";
-        String SgstAmount = "";
-        String CgstTdsAmount = "";
-        String SgstTdsAmount = "";
-        String IgstAmount = "";
-        String IgstTdsAmount = "";
+    String Zone = "";
+    String Circle = "";
+    String Division = "";
+    String subdiv="";
+    String section="";
+    String subStation="";
+    int i = 0;
+    // Set <String>clearing_amt = new HashSet<String>();
+    HashMap<String, String> clearing_amt = new HashMap<String, String>();
+    String Status = "";
 
+    String VendorNum = "";
+    String VendorName = "";
 
+    String MSEDCLInvNo = "";
+    String MSEDCLInvDate = "";
+    String VENDORInvDate = "";
+    String region = "";
+    String PROJECT_DESC = "";
+    String CREATION_DATE = "";
+    String dealingOffice = "";
+    String courtName = "";
+    String courtCaseNo = "";
+    String caseRefNo = "";
+    String caseDesc = "";    
+    String partyNames = "";
+    String VENDOR_NAME = "";
+    String VENDOR_NUMBER = "";
+    String MSEDCL_INV_NO = "";
+    String UserType = "";
+    String deductionAmount = "";
+    String invoiceDate = "";
+    String reasonForDeduction = "";
+    String liabilityDocNo = "";
+    String liabilityDocDate = "";
+    String liabilityDocAmt = "";
+    String taxAmount = "";
+    String paidAmount = "";
+    String paymentDate = "";
+    String UTR_NO = "";
+    String msedclInwardNo = "";
+    String msedclInwardDate = "";
+    String invoiceAmount = "";
+    String paymentDocNo = "";
+    String paymentDocAmount = "";
+    String paymentDocDate = "";
+    String paymentStatus = "";
+    String mobileNo = "";
+    String emailId = "";
+    String feeType = "";
+    String invoiceStatus = "";
+    String MAT_OS_CLEARING_DOC_NO = "";
+    String MAT_OS_AC_DOC_DATE = "";
+    String MAT_OS_CLEARING_AMT = "";
+    String MSEDCL_INVOICE_NUMBER = "";
+    String MAT_OTH_PARK_DOC_NO = "";
+    String MAT_OTH_DOC_DATE = "";
+    String MAT_OTH_PARK_AMT = "";
+    String MAT_OTH_CLEARING_DOC_NO = "";
+    String MAT_OTH_AC_DOC_DATE = "";
+    String MAT_OTH_CLEARING_AMT = "";
+    String MAT_PO_AMOUNT = "";
+    String CEN_PO_AMOUNT = "";
+    String CIV_PO_AMOUNT = "";
+    String INV_PO_AMOUNT = "";
+    String ProjectCode = "";
+    String ProjectScheme = "";
+    String TotalPoAmount = "";
+    String InvoiceNumber = "";
+    String TAX_CODE = "";
+    String INV_TYP = "";
+    String WTAX_AMT = "";
+    String WIT_TDS = "";
+    String WGST_TDS = "";
+    String WRPST = "";
+    String WRET_AMT = "";
+    String OTAX_AMT = "";
+    String OIT_TDS = "";
+    String OGST_TDS = "";
+    String ORPST = "";
+    String ORET_AMT = "";
+    String CTAX_AMT = "";
+    String CIT_TDS = "";
+    String CGST_TDS = "";
+    String CRPST = "";
+    String CRET_AMT = "";
+    String STAX_AMT = "";
+    String SIT_TDS = "";
+    String SGST_TDS = "";
+    String SRPST = "";
+    String SRET_AMT = "";
+    String OTTAX_AMT = "";
+    String OTIT_TDS = "";
+    String OTGST_TDS = "";
+    String OTRPST = "";
+    String OTRET_AMT = "";
+    String SubStatus = "";
+    String INVOICE_TYPE = "";
+    String MIGST_TX = "";
+    String MSGST_TX = "";
+    String OSGST_TX = "";
+    String OIGST_TX = "";
+    String CSGST_TX = "";
+    String CIGST_TX = "";
+    String SSGST_TX = "";
+    String SIGST_TX = "";
+    String OTSGST_TX = "";
+    String OTIGST_TX = "";
 //UserType="Vendor";
     if (legalInvoiceInputBean != null) {
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getRegionText())) {
-                region = legalInvoiceInputBean.getRegionText();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getZoneText())) {
-                Zone = legalInvoiceInputBean.getZoneText();
-            }
+            region = legalInvoiceInputBean.getRegionText();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getZoneText())) {
+            Zone = legalInvoiceInputBean.getZoneText();
+        }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCircleText())) {
-                Circle = legalInvoiceInputBean.getCircleText();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDivisionText())) {
-                Division = legalInvoiceInputBean.getDivisionText();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSubDivisionText())) {
-                subdiv = legalInvoiceInputBean.getSubDivisionText();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSectionText())) {
-                section = legalInvoiceInputBean.getSectionText();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSubStationText())) {
-                subStation = legalInvoiceInputBean.getSubStationText();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
-                InvoiceNumber = legalInvoiceInputBean.getInvoiceNumber();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
-                invoiceAmount = legalInvoiceInputBean.getInvoiceAmount().toString();
-                invoiceAmount = ApplicationUtils.formatAmount(Double.valueOf(invoiceAmount));
-            }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCircleText())) {
+            Circle = legalInvoiceInputBean.getCircleText();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDivisionText())) {
+            Division = legalInvoiceInputBean.getDivisionText();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSubDivisionText())) {
+            subdiv = legalInvoiceInputBean.getSubDivisionText();
+        }
+         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSectionText())) {
+            section = legalInvoiceInputBean.getSectionText();
+        }
+         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSubStationText())) {
+            subStation = legalInvoiceInputBean.getSubStationText();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
+            InvoiceNumber = legalInvoiceInputBean.getInvoiceNumber();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
+            invoiceAmount = legalInvoiceInputBean.getInvoiceAmount().toString();
+        }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCreatedTimeStamp())) {
-                CREATION_DATE = ApplicationUtils.dateToString(legalInvoiceInputBean.getCreatedTimeStamp(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
-            }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCreatedTimeStamp())) {
+            CREATION_DATE = ApplicationUtils.dateToString(legalInvoiceInputBean.getCreatedTimeStamp(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+        }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceDate())) {
-                invoiceDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
-            }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceDate())) {
+            invoiceDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+        }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDate())) {
-                paymentDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDate()));
-            }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDate())) {
+            paymentDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDate()));
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInvDate())) {
+            VENDORInvDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getVendorInvDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+        }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorInvDate())) {
-                VENDORInvDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getVendorInvDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
-            }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtName())) {
+            courtName = legalInvoiceInputBean.getCourtName();
+        }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtName())) {
-                courtName = legalInvoiceInputBean.getCourtName();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSaveFlag())) {
-                Status = legalInvoiceInputBean.getSaveFlag();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
-                SubStatus = legalInvoiceInputBean.getStatus();
-            }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSaveFlag())) {
+            Status = legalInvoiceInputBean.getSaveFlag();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
+            SubStatus = legalInvoiceInputBean.getStatus();
+        }
 //        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMsedclInvoiceNumber())) {
 //            MSEDCLInvNo = legalInvoiceInputBean.getMsedclInvoiceNumber();
 //        }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMsedclInwardNo())) {
-                msedclInwardNo = legalInvoiceInputBean.getMsedclInwardNo();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMsedclInwardDate())) {
-                msedclInwardDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getMsedclInwardDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
-                caseRefNo = legalInvoiceInputBean.getCaseRefNo();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseDescription())) {
-                caseDesc = legalInvoiceInputBean.getCaseDescription();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
-                partyNames = legalInvoiceInputBean.getPartyNames();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtCaseNo())) {
-                courtCaseNo = legalInvoiceInputBean.getCourtCaseNo();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDealingOfficeName())) {
-                dealingOffice = legalInvoiceInputBean.getDealingOfficeName();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
-                partyNames = legalInvoiceInputBean.getPartyNames();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
-                feeType = legalInvoiceInputBean.getFeeType();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorName())) {
-                VendorName = legalInvoiceInputBean.getVendorName();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMobileNo())) {
-                mobileNo = legalInvoiceInputBean.getMobileNo();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getEmailId())) {
-                emailId = legalInvoiceInputBean.getEmailId();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getUTR_NO())) {
-                UTR_NO = legalInvoiceInputBean.getUTR_NO();
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
-                VENDOR_NUMBER = legalInvoiceInputBean.getVendorNumber();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocNo())) {
-                liabilityDocNo = legalInvoiceInputBean.getLiabilityDocNo();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocDate())) {
-                liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
-                liabilityDocAmt = legalInvoiceInputBean.getLiabilityDocAmt();
-                liabilityDocAmt = ApplicationUtils.formatAmount(Double.valueOf(liabilityDocAmt));
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
-                invoiceStatus = legalInvoiceInputBean.getStatus();
-            }
-            int appl_ID;
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getApplId())) {
-                appl_ID = legalInvoiceInputBean.getApplId();
-            }
-            if (request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION) != null) {
-                UserType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
-                paidAmount = legalInvoiceInputBean.getPaidAmount();
-                paidAmount = ApplicationUtils.formatAmount(Double.valueOf(paidAmount));
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPayDoneErpDoc())) {
-                paymentDocNo = legalInvoiceInputBean.getPayDoneErpDoc();
-            }
-
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDocDate())) {
-                paymentDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDocDate()));
-                //System.out.println("paymentDocDate "+paymentDocDate);
-            }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getTdsAmount())) {
-                TdsAmount = legalInvoiceInputBean.getTdsAmount();
-                TdsAmount = ApplicationUtils.formatAmount(Double.valueOf(TdsAmount));
-            }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCgstAmount())) {
-                 CgstAmount = legalInvoiceInputBean.getCgstAmount();
-                 CgstAmount = ApplicationUtils.formatAmount(Double.valueOf(CgstAmount));
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSgstAmount())) {
-                 SgstAmount = legalInvoiceInputBean.getSgstAmount();
-                 SgstAmount = ApplicationUtils.formatAmount(Double.valueOf(SgstAmount));
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getSgstTdsAmount())) {
-                 SgstTdsAmount = legalInvoiceInputBean.getSgstTdsAmount();
-                 SgstTdsAmount = ApplicationUtils.formatAmount(Double.valueOf(SgstTdsAmount));
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getIgstAmount())) {
-                 IgstAmount = legalInvoiceInputBean.getIgstAmount();
-                 IgstAmount = ApplicationUtils.formatAmount(Double.valueOf(IgstAmount));
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getIgstTdsAmount())) {
-                 IgstTdsAmount = legalInvoiceInputBean.getIgstTdsAmount();
-                 IgstTdsAmount = ApplicationUtils.formatAmount(Double.valueOf(IgstTdsAmount));
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCgstTdsAmount())) {
-                 CgstTdsAmount = legalInvoiceInputBean.getCgstTdsAmount();
-                 CgstTdsAmount = ApplicationUtils.formatAmount(Double.valueOf(CgstTdsAmount));
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentStatus())) {
-                 paymentStatus = legalInvoiceInputBean.getPaymentStatus();
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getReasonForDeduction())) {
-                 reasonForDeduction = legalInvoiceInputBean.getReasonForDeduction();
-             }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeductionAmount())) {
-                 deductionAmount = legalInvoiceInputBean.getDeductionAmount();
-                 deductionAmount = ApplicationUtils.formatAmount(Double.valueOf(deductionAmount));
-             }
-               
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMsedclInwardNo())) {
+            msedclInwardNo = legalInvoiceInputBean.getMsedclInwardNo();
         }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMsedclInwardDate())) {
+            msedclInwardDate = ApplicationUtils.dateToString(legalInvoiceInputBean.getMsedclInwardDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
+        }
+
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
+            caseRefNo = legalInvoiceInputBean.getCaseRefNo();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseDescription())) {
+            caseDesc = legalInvoiceInputBean.getCaseDescription();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
+            partyNames = legalInvoiceInputBean.getPartyNames();
+        }
+
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtCaseNo())) {
+            courtCaseNo = legalInvoiceInputBean.getCourtCaseNo();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDealingOfficeName())) {
+            dealingOffice = legalInvoiceInputBean.getDealingOfficeName();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPartyNames())) {
+            partyNames = legalInvoiceInputBean.getPartyNames();
+        }
+
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
+            feeType = legalInvoiceInputBean.getFeeType();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorName())) {
+            VendorName = legalInvoiceInputBean.getVendorName();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getMobileNo())) {
+            mobileNo = legalInvoiceInputBean.getMobileNo();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getEmailId())) {
+            emailId = legalInvoiceInputBean.getEmailId();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getUTR_NO())) {
+            UTR_NO = legalInvoiceInputBean.getUTR_NO();
+        }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
+            VENDOR_NUMBER = legalInvoiceInputBean.getVendorNumber();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocNo())) {
+            liabilityDocNo = legalInvoiceInputBean.getLiabilityDocNo();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocDate())) {
+            liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
+            liabilityDocAmt = legalInvoiceInputBean.getLiabilityDocAmt();
+        }
+        
+                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
+            invoiceStatus = legalInvoiceInputBean.getStatus();
+        }
+        int appl_ID;
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getApplId())) {
+            appl_ID = legalInvoiceInputBean.getApplId();
+        }
+         if (request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION)!=null) {
+            UserType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
+            paidAmount = legalInvoiceInputBean.getPaidAmount();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPayDoneErpDoc())) {
+            paymentDocNo = legalInvoiceInputBean.getPayDoneErpDoc();
+        }
+        
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentDocDate())) {
+            paymentDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(legalInvoiceInputBean.getPaymentDocDate()));
+            //System.out.println("paymentDocDate "+paymentDocDate);
+        }
+
+    }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -480,56 +487,29 @@
                             </div>
                                 
                                
-                               <div class="col-sm-4">
+                               <div class="col-sm-3">
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
                                     <label>Payment Document :</label>  <label><%= paymentDocNo %></label>
                                 </div>
                             </div>
                             
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                            <div class="styled-input" style="font-size:12px;padding-top:10px">
                                     <label>Payment Document Amount :</label>  <label><%= paidAmount//paymentDocAmount
                                         %> </label>
                                            </div>
                             </div>
-                            <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Date : </label> <label><%= paymentDocDate %></label>
 				</div>
 			    </div>
                                 
-                                <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>UTR Number : </label> <label><%= UTR_NO %></label>
 				</div>
 			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>TDS Amount: </label> <label><%= TdsAmount %></label>
-				</div>
-			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>CGST Amount: </label> <label><%= CgstAmount %></label>
-				</div>
-			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>SGST Amount: </label> <label><%= SgstAmount %></label>
-				</div>
-			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>CGST TDS Amount: </label> <label><%= CgstTdsAmount %></label>
-				</div>
-			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>SGST TDS Amount: </label> <label><%= SgstTdsAmount %></label>
-				</div>
-			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>IGST Amount: </label> <label><%= IgstAmount %></label>
-				</div>
-			    </div>
-                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>IGST TDS Amount: </label> <label><%= IgstTdsAmount %></label>
-				</div>
-			    </div>
-                               <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                
+                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Status : </label> <label><%= paymentStatus %></label>
 				</div>
 			    </div>
