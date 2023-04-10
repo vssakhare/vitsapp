@@ -35,9 +35,9 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
         try {
             if (this.legalInvoiceBean.getWhereClause().equals("Emp")) {
                 legalInvoiceBean.setVENDOR(result.getString("VENDOR"));
-            } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNo")) {
+            } else if (this.legalInvoiceBean.getWhereClause().startsWith("InvNo")) {
                 legalInvoiceBean.setINVOICE_LEGAL(result.getString("INVOICE_NUMBER"));
-            } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
+            } else if (this.legalInvoiceBean.getWhereClause().startsWith("locn")) {
                 legalInvoiceBean.setOfficeName(result.getString("LOC"));
             } else if (this.legalInvoiceBean.getWhereClause().startsWith("CaseRefNo")) {
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
@@ -396,6 +396,10 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append("SELECT distinct INVOICE_NUMBER FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
                 sql.append("SELECT distinct dealing_office_name loc FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNoV")) {
+                sql.append("SELECT distinct INVOICE_NUMBER FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where VENDOR_NUMBER=?");
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locnv")) {
+                sql.append("SELECT distinct dealing_office_name loc FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where VENDOR_NUMBER=?");
             } else if (legalInvoiceBean.getWhereClause().startsWith("CaseRefNo")) {
                 sql.append("        select distinct zlvf.CASEREFNO   ");
                 sql.append("         from ZHRT_LEGAL_H  ZLH,ZHRT_LE_FILED ZLVF,  ");
@@ -433,6 +437,10 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 statement.setString(1, legalInvoiceBean.getLocationId());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
                 statement.setString(1, legalInvoiceBean.getLocationId());
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNoV")) {
+                statement.setString(1, legalInvoiceBean.getVENDOR());
+            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locnv")) {
+                statement.setString(1, legalInvoiceBean.getVENDOR());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNoV")) {
                    statement.setString(1, legalInvoiceBean.getVENDOR());
                    System.out.println(legalInvoiceBean.getVENDOR());

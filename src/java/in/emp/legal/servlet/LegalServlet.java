@@ -350,7 +350,10 @@ public class LegalServlet extends HttpServlet {
         JSONArray arrayObj = new JSONArray();
 
         LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
-        legalInvoiceBean.setWhereClause("InvNo");
+        if(!"Vendor".equals((String)request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION))){
+            legalInvoiceBean.setWhereClause("InvNo");}
+        else{legalInvoiceBean.setWhereClause("InvNoV");
+        legalInvoiceBean.setVENDOR((String)request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));}
 //        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
         legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
@@ -384,7 +387,10 @@ public class LegalServlet extends HttpServlet {
         JSONArray arrayObj = new JSONArray();
 
         LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
-        legalInvoiceBean.setWhereClause("locn");
+        if(!"Vendor".equals((String)request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION))){
+            legalInvoiceBean.setWhereClause("locn");}
+        else{legalInvoiceBean.setWhereClause("locnv");
+        legalInvoiceBean.setVENDOR((String)request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));}
 //        legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
         legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
