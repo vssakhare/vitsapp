@@ -223,6 +223,21 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                               if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
 //                        sql.append(" WHERE VENDOR_NUMBER=? ");
                                 sql.append(" AND VENDOR_NUMBER=? ");
+                             
+                             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
+                        sql.append(" AND INVOICE_NUMBER = ?  ");
+                    }
+                             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
+                    sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
+                    sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?)) ");                     }
+                                
+                             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
+                        sql.append(" AND CASE_REF_NO = ?  ");
+                    }
+                    if (!((ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceFromDate())) && (ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceToDate())))) {
+                        sql.append(" AND INVOICE_DATE BETWEEN ? AND  ? ");
+                    }                                  
+                               
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
 //                        sql.append(" WHERE APPL_ID=?  ");
                                 sql.append(" AND LD.APPL_ID=?  ");
@@ -249,12 +264,15 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                         }
                     }
                     
-                    if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
-                        sql.append(" AND VENDOR_NUMBER = ?  ");
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber()) && legalInvoiceInputBean.getVendorNumber()!=null) {
+                        sql.append(" AND '0'||VENDOR_NUMBER = ?  ");
                     }
-//          if(!ApplicationUtils.isBlank(vendorBean.getVendorInvoiceNumber())){
-//           sql.append(" AND EVL.INVOICE_NUMBER = ?  ");
-//          }
+        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
+                        sql.append(" AND INVOICE_NUMBER = ?  ");
+                    }
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
+                        sql.append(" AND CASE_REF_NO = ?  ");
+                    }
                     if (!((ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceFromDate())) && (ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceToDate())))) {
                         sql.append(" AND INVOICE_DATE BETWEEN ? AND  ? ");
                     }
@@ -271,6 +289,28 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                 if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Vendor")) {
                     if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("vendor")) {
                         statement.setString(i++, legalInvoiceInputBean.getVendorNumber());
+                     
+                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
+                        statement.setString(i++, legalInvoiceInputBean.getInvoiceNumber());
+                    }
+                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
+                            statement.setString(i++, legalInvoiceInputBean.getLocationId());
+                            statement.setString(i++, legalInvoiceInputBean.getLocationId());
+                            statement.setString(i++, legalInvoiceInputBean.getLocationId());
+                            statement.setString(i++, legalInvoiceInputBean.getLocationId());
+                            statement.setString(i++, legalInvoiceInputBean.getLocationId());
+                        }
+                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
+                        statement.setString(i++, legalInvoiceInputBean.getCaseRefNo());
+                    }
+                        
+                        
+                        if (!((ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceFromDate())) && (ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceToDate())))) {
+                            statement.setDate(i++, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceFromDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+                            statement.setDate(i++, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceToDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+                        }
+                        
+                        
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
                         statement.setInt(i++, legalInvoiceInputBean.getApplId());
                     } 
@@ -295,6 +335,13 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber())) {
                             statement.setString(i++, legalInvoiceInputBean.getVendorNumber());
                         }
+                    
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
+                        statement.setString(i++, legalInvoiceInputBean.getInvoiceNumber());
+                    }
+                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
+                        statement.setString(i++, legalInvoiceInputBean.getCaseRefNo());
+                    }
 //          if(!ApplicationUtils.isBlank(vendorBean.getVendorInvoiceNumber())){
 //           sql.append(" AND EVL.INVOICE_NUMBER = ?  ");
 //          }

@@ -58,7 +58,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setUpdatedTimeStamp(result.getDate("UPDATED_TIME_STAMP"));
             legalInvoiceInputBean.setStatus(result.getString("STATUS"));
             legalInvoiceInputBean.setVendorInwardDate(result.getDate("VENDOR_INWARD_DT"));
-            legalInvoiceInputBean.setFeeType(result.getString("FEE_TYPE"));
+            legalInvoiceInputBean.setFeeType(result.getString("ADV_FEE_TYPE"));
             legalInvoiceInputBean.setRejectReason(result.getString("REASON"));
             legalInvoiceInputBean.setIsWithCourtCaseNo(result.getString("IS_WITH_COURT_CASE_NO"));
             legalInvoiceInputBean.setCorporateOffice(result.getString("CORPORATE_OFFICE"));
@@ -91,11 +91,11 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
         StringBuilder sql = new StringBuilder();
         ResultSet rs = null;
         try {
-            sql.append(" SELECT zf.*,ld.*,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc "
-                    + " FROM zhrt_legal_fee zf, XXMIS_ERP_LEGAL_INVOICE_DETAILS ld\n" +
+            sql.append(" SELECT ftd.*,zf.*,ld.*,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc "
+                    + " FROM zhrt_legal_fee zf, XXMIS_ERP_LEGAL_INVOICE_DETAILS ld, XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS ftd\n" +
 "where LD.CASE_REF_NO=zf.caserefno\n" +
-"and  LD.INVOICE_NUMBER=zf.invoice_legal\n" +
-"and  LD.INVOICE_DATE=zf.invoice_date\n");
+"and LD.INVOICE_NUMBER=zf.invoice_legal\n" +
+"and LD.INVOICE_DATE=zf.invoice_date and ld.appl_id=ftd.appl_id and zf.adv_fee_type=ftd.fee_type\n");
          /*   sql.append(" UNION ALL ");
             sql.append("  SELECT distinct SUBMIT_AT_LOCATION,LOCATION,OFFICE_CODE,S.APPL_ID,P.PURCHASING_GROUP ,P.VENDOR_NUMBER,P.VENDOR_NAME,S.VENDOR_EMAILID,VENDOR_CONTACT_NO,VENDOR_INVOICE_NUMBER,VENDOR_INV_NO,INV_CREATIONDATE ");
             sql.append("  ,(CASE WHEN acc_date LIKE '01-01-01' THEN NULL ELSE acc_date end )acc_date, ");

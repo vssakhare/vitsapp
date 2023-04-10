@@ -33,7 +33,7 @@
     String OfficeCode="";
     String OfficeTypeId="";    
     String uiAction = "";
-    String LocationName ="ALL";
+    String LocationName ="";
     
     //System.out.println("session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) " + session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
     if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) != null) {
@@ -143,7 +143,7 @@
      String FrmDtHdr="";
      String ToDtHdr="";
      String VNumHdr = "";
-     String VDescHdr = "";
+     String VDescHdr = ""; String casRefNo = "";
      String LocationHdr="";
      String Module_type="";////MODULE TYPE TO DIFFERENTIATE BETWEEN PO NUMBER AND PROJ ID  
     
@@ -230,7 +230,12 @@
         }
     }
     
-    
+    String UserType = "";
+if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) {
+        UserType = "Vendor";
+    } else if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
+        UserType = "Emp";
+    }
     
     
         
@@ -272,6 +277,7 @@
                 <div id="page-wrapper" style="width:100%;padding-left: 15%;">
 
                     <div id="page-inner" style="min-height:500px;">
+                        <input type="hidden"  id="userType" name="userType" value = "<%=UserType%>"/> 
                      <input type="hidden" name="redirEmpVerifiedform" id="redirEmpVerifiedform" value="<%=ApplicationConstants.UIACTION_GET_EMP_VERIFIED_FORM_PS%>"/>
                     <input type="hidden" name="redirLegalAcceptedform" id="redirLegalAcceptedform" value="<%=ApplicationConstants.UIACTION_VIEW_VENDOR_LEGAL_INPUT_LIST%>"/>
                         <input type="hidden" name="uiActionName" id="uiActionName" value="<%=uiAction%>"/>
@@ -393,18 +399,32 @@
                                          <td class="text-right h5"><fmt:message key='Vendor'/></td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtVendorNumber" id="txtVendorNumber" style="width: 100%" value ="<%=VDescHdr%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" onkeypress="getVendorSearchList();"  />
+                                                <input type="text" name="txtVendorNumber" id="txtVendorNumber" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
                                           <td class="text-right h5" colspan="2"><fmt:message key='Location'/></td>
                                            <td id="myDropdownThree">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="<%=LocationName%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" onkeypress="getLocSearchList();"  />
+                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="<%=LocationName%>" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td>   
                                           
                                           </tr>
+                                          <tr>
+                                         <td class="text-right h5">Invoice No.</td>
+                                         <td id="myDropdownTwo">
+                                            <div class="autocomplete" style="width:300px;">
+                                                <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                              </div>        
+                                          </td> 
+                                          <td class="text-right h5" colspan="2">Case Ref No.</td>
+                                           <td id="myDropdownThree">
+                                            <div class="autocomplete" style="width:300px;">
+                                                <input type="text" name="txtCaseRefNo" id="txtCaseRefNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                              </div>        
+                                          </td>   
                                           
+                                          </tr>
                                           <tr>
                                               <td width="20%" class="text-right h5"><fmt:message key='Invoice submitted during the period From Date'/></td>
                                                 <td width="5%"> 
@@ -635,7 +655,7 @@
                                             <% if (Status.equals("Accepted")) {%>
                                              <td width="8%"><%=Invoice_Status%></td> 
                                              <% } else{%>
-                                             <td width="8%"></td> 
+                                             <td width="8%"><%=Invoice_Status%></td> 
                                              <% } %>
 <!--                                           <td width="7%"><center><%=PendingSince%></center></td> -->
                                             <td>
@@ -858,6 +878,9 @@
                                       if (!ApplicationUtils.isBlank(comBean.getINV_STATUS())) {
                                        Status = comBean.getINV_STATUS();
                                      }
+                                      
+                                      
+                                      
                                        if (!ApplicationUtils.isBlank(comBean.getLocationName())) {
                                                         Location = comBean.getLocationName();
                                                     }
@@ -1243,11 +1266,64 @@
         }
     });
      
+    $("#txtCaseRefNo" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=caseRefNo",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+    
+    $("#txtInvNo" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=invNo",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
+    
+    $("#txtLocation" ).autocomplete({
+//      source: availableTags
+        source: function(request, response) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=locn",
+                dataType: "json",
+                data: request,
+                success: function( data, textStatus, jqXHR) {
+                    console.log( data);
+                    var items = data;
+                    response(items);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                     console.log( textStatus);
+                }
+            });
+        }
+    });
     
   } );
         
     </script>
 </html>
-
-
-

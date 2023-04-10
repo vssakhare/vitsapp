@@ -69,14 +69,14 @@ public class SendEmailSmsLegalVendor {
                  //lstParam2.add(df3.format(v.getSormDate()));
                  System.out.println("sending sms & email for sapStatus=With Cash");
              try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
-                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
+                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
              
              String Subject="Invoice is with cash for processing at Vendor Invoice Tracking Portal";
                   String MailMessage="Invoice no. " +InvoiceNumber+" is with cash section for processing.";
              
                  success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
              
              }catch(Exception e){
                  
@@ -89,13 +89,13 @@ public class SendEmailSmsLegalVendor {
              //sapStatus="Payment Done";
                  lstParam2.add(df3.format(v.getInvoiceDate()));
                 try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
-                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YY' WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
+                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YY' WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
              String Subject="Invoice payment is done at Vendor Invoice Tracking Portal";
-                  String MailMessage="For invoice no. " +InvoiceNumber+", payment has been done.";
+                  String MailMessage="For invoice no. " +InvoiceNumber+","+v.getFeeType()+" payment has been done.";
              
               success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
               
               }catch(Exception e){
                  
@@ -109,13 +109,13 @@ public class SendEmailSmsLegalVendor {
              {
              //sapStatus="Payment Adjusted"; 
              try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
-                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YYY' WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
+                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YYY' WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
              String Subject="Invoice payment is adjusted at Vendor Invoice Tracking Portal";
-                  String MailMessage="For invoice no. " +InvoiceNumber+" payment has been adjusted.";
+                  String MailMessage="For invoice no. " +InvoiceNumber+","+v.getFeeType()+" payment has been adjusted.";
              
               success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
               
                }catch(Exception e){
                  
@@ -127,19 +127,17 @@ public class SendEmailSmsLegalVendor {
              {
              //sapStatus="Payment Document Reversed"; 
              try{sms.sendSMS(objSmsVendor, "476831", lstcredential);
-                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YYYY' WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
+                //sql=  " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set SMS_SENT = 'YYYY' WHERE INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";
               String Subject="Invoice payment document is reversed at Vendor Invoice Tracking Portal";
-                  String MailMessage="For invoice no. " +InvoiceNumber+" paument document has been reversed.";
+                  String MailMessage="For invoice no. " +InvoiceNumber+","+v.getFeeType()+" payment document has been reversed.";
                 success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_DETAILS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp WHERE VENDOR_INVOICE_NUMBER = ? AND VENDOR_NUMBER = ? AND APPL_ID = ?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
              
              
              }catch(Exception e){
                  
-             } 
-                  
-             
+             }            
                       
              }
              try {
@@ -147,10 +145,9 @@ public class SendEmailSmsLegalVendor {
                         PreparedStatement psq = null;
                         conn = ApplicationUtils.getConnection();
                          logger.log(Level.INFO, "GetSendSmsVendorQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
-                        psq = conn.prepareStatement(sql.toString());                        
-                        psq.setString(1, v.getInvoiceNumber());                     
-                        psq.setString(2, v.getVendorNumber());
-                        psq.setString(3, String.valueOf(v.getApplId()));
+                        psq = conn.prepareStatement(sql.toString());                                                
+                        psq.setString(1, String.valueOf(v.getApplId()));
+                        psq.setString(2, String.valueOf(v.getFeeType()));
                         psq.executeUpdate();
                         conn.commit();
 
@@ -180,6 +177,3 @@ public class SendEmailSmsLegalVendor {
         }
 }
          }
-
-    
-

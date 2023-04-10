@@ -1287,6 +1287,20 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
                 legalInvoiceInputBean.setCreatedByUsertype("Vendor");
                 legalInvoiceInputBean.setWhereClause("vendor");
 //            vendorBeanObj.setInvoiceFlag("true");
+                if (!ApplicationUtils.isBlank((request.getParameter("txtLocation")))) {
+                legalInvoiceInputBean.setLocationId(request.getParameter("txtLocation"));}
+                if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+                legalInvoiceInputBean.setInvoiceFromDate(ApplicationUtils.stringToDate((String) request.getParameter("txtFrmDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+                legalInvoiceInputBean.setInvoiceToDate(ApplicationUtils.stringToDate((String) request.getParameter("txtToDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("caseRefNo")))) {
+                legalInvoiceInputBean.setCaseRefNo((String) request.getParameter("caseRefNo"));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtInvoiceNumber")))) {
+                legalInvoiceInputBean.setInvoiceNumber((String) request.getParameter("txtInvoiceNumber"));
+            }
             } else {
                 VendorApplFileBean vendorapplFileBeanObj = new VendorApplFileBean();
                 LinkedList FileList = new LinkedList();
