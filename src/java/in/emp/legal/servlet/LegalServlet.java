@@ -47,7 +47,7 @@ public class LegalServlet extends HttpServlet {
         if (request.getParameter("actionName") != null && request.getParameter("actionName").equalsIgnoreCase("autocomplete")) {
             if (request.getParameter("autoCompleteParam") != null && request.getParameter("autoCompleteParam").equalsIgnoreCase("vendor")) {
                 processVendorAutocompleteRequest(request, response);
-            } else if (request.getParameter("autoCompleteParam") != null && request.getParameter("autoCompleteParam").equalsIgnoreCase("caseRefNo")) {
+            } else if (request.getParameter("autoCompleteParam") != null && (request.getParameter("autoCompleteParam").equalsIgnoreCase("caseRefNo") || request.getParameter("autoCompleteParam").equalsIgnoreCase("courtCaseNo"))) {
                 processCaseRefNoAutocompleteRequest(request, response);
             } else if (request.getParameter("autoCompleteParam") != null && request.getParameter("autoCompleteParam").equalsIgnoreCase("invNo")) {
                 processInvNoAutocompleteRequest(request, response);
@@ -274,7 +274,7 @@ public class LegalServlet extends HttpServlet {
         if(!"Vendor".equals((String)request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION))){
             legalInvoiceBean.setWhereClause("CaseRefNo");}
         else{
-            legalInvoiceBean.setWhereClause("CaseRefNoV");
+            legalInvoiceBean.setWhereClause("courtCaseNo");
             legalInvoiceBean.setVENDOR((String)request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));}
         legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         //legalInvoiceBean.setVENDOR(request.getParameter("txtVendorCode"));
@@ -287,12 +287,20 @@ public class LegalServlet extends HttpServlet {
         String query = request.getParameter("term");System.out.println(legalInvoiceBean.getWhereClause());
         //System.out.println("legalInvoiceBeanList==" + legalInvoiceBeanList.size());
 //    query = query.toLowerCase();
-        for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
-            String searchCase = legalInvoiceBeanList.get(i).getCASEREFNO().toString() + "";
-            if (searchCase.contains(query)) {
-                arrayObj.add(legalInvoiceBeanList.get(i).getCASEREFNO().toString());
+        if ("CaseRefNo".equals(legalInvoiceBean.getWhereClause())){
+            for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
+                String searchCase = legalInvoiceBeanList.get(i).getCASEREFNO().toString() + "";
+                if (searchCase.contains(query)) {
+                    arrayObj.add(legalInvoiceBeanList.get(i).getCASEREFNO().toString());
+                }
             }
-        }//System.out.println((String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION));
+        }else{
+            for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
+                String searchCase = legalInvoiceBeanList.get(i).getCASENOCOURT() + "";
+                if (searchCase.contains(query)) {
+                    arrayObj.add(legalInvoiceBeanList.get(i).getCASENOCOURT());
+                }
+            }}//System.out.println((String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION));
         //System.out.println((String) request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));
         //System.out.println(legalInvoiceBeanList.size());
         out.println(arrayObj.toString());

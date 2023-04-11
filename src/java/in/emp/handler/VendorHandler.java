@@ -1295,8 +1295,15 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
                 legalInvoiceInputBean.setInvoiceToDate(ApplicationUtils.stringToDate((String) request.getParameter("txtToDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             }
-            if (!ApplicationUtils.isBlank((request.getParameter("caseRefNo")))) {
+            /*if (!ApplicationUtils.isBlank((request.getParameter("caseRefNo")))) {
                 legalInvoiceInputBean.setCaseRefNo((String) request.getParameter("caseRefNo"));
+            }*/
+            if (!ApplicationUtils.isBlank((request.getParameter("courtCaseNo")))) {
+                legalInvoiceInputBean.setCourtCaseNo((String) request.getParameter("courtCaseNo"));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("pmntStatus")))) {
+                System.out.println("pmntStatus " + request.getParameter("pmntStatus"));
+                legalInvoiceInputBean.setPaymentStatus((String) request.getParameter("pmntStatus"));
             }
             if (!ApplicationUtils.isBlank((request.getParameter("txtInvoiceNumber")))) {
                 legalInvoiceInputBean.setInvoiceNumber((String) request.getParameter("txtInvoiceNumber"));
