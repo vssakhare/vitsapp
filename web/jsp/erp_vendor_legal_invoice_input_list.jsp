@@ -228,7 +228,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                            <td>
                                             <div class="autocomplete" style="width:300px;">
                                                 <select class="form-control text-left" name="pmntStatus" id="pmntStatus" style="width: 100%">
-                                                <option value="all">All</option>    
+                                                <option value="">All</option>    
                                                 <option value="With Technical Dept.">With Technical</option>
                                                 <option value="With Cash">With Cash</option>
                                                 <option value="Payment Done">Payment Done</option>                                     
