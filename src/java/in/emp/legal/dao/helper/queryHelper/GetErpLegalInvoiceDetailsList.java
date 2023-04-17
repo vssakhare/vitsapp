@@ -201,7 +201,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
 
          else{
-            sql.append("select zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT,zf.ZZPARK_POST_DOC_NO,zf.ZZPARK_POST_DATE,zf.ZZPARK_DOC_AMT,zf.ZZPAY_DOC_AMT,zf.ZZPOST_DATE, x.*, zf.status_fee,    zf.zzpark_post_doc_no,    zf.zzpay_done_erp_doc,zf.ZZPOST_FISCAL ,   substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no," +
+            sql.append("SELECT * FROM (select zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT,zf.ZZPARK_POST_DOC_NO,zf.ZZPARK_POST_DATE,zf.ZZPARK_DOC_AMT,zf.ZZPAY_DOC_AMT,zf.ZZPOST_DATE, x.*, zf.status_fee, zf.zzpay_done_erp_doc,zf.ZZPOST_FISCAL ,   substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no," +
 "    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc,    substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1,(x.INVOICE_AMOUNT-zf.FEE_RECOMMENDED)DEDUCTION_AMOUNT, zf.REASON_FOR_DEDUCTION    from (" +
 "SELECT ld.*, om.ID,om.ORGANIZATION_NAME ,om.ORGANIZATION_ID,om.ORG_ID_SAP,om.OFFICE_TYPE,om.OFFICE_LEVEL,om.ADDRESS_LINE01,om.ADDRESS_LINE02,om.ADDRESS_LINE03,om.CITY," +
 "om.STATE,om.PIN_CODE,om.COUNTRY,om.PERSONAL_AREA,om.PERSONAL_AREA_NAME,om.PERSONAL_SUBAREA ,om.PERSONAL_SUBAREA_NAME ,om.REGION_ID,om.REGION_ID_SAP," +
@@ -236,9 +236,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                              if(!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtCaseNo())) {
                         sql.append(" AND COURT_CASE_NO = ?  ");
                     }
-                             if(!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentStatus())) {
-                        sql.append(" AND LD.STATUS = ?  ");
-                    }
+                             
                     if (!((ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceFromDate())) && (ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceToDate())))) {
                         sql.append(" AND INVOICE_DATE BETWEEN ? AND  ? ");
                     }                                  
@@ -270,7 +268,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                     }
                     
                     if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorNumber()) && legalInvoiceInputBean.getVendorNumber()!=null) {
-                        sql.append(" AND '0'||VENDOR_NUMBER = ?  ");
+                        sql.append(" AND VENDOR_NUMBER = ?  ");
                     }
         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
                         sql.append(" AND INVOICE_NUMBER = ?  ");
@@ -285,7 +283,25 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
             }
             sql.append(" ORDER BY LD.APPL_ID DESC )x LEFT JOIN zhrt_legal_fee zf ON to_number(x.vendor_number) = zf.vendor" +
-" AND x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND x.invoice_date = zf.invoice_date  AND x.sFee_type = zf.adv_fee_type ");
+" AND x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND x.invoice_date = zf.invoice_date  AND x.sFee_type = zf.adv_fee_type) ");
+         
+         if(!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentStatus())) {
+                        //sql.append(" AND LD.STATUS = ?  ");
+                        if("With Accounts".equals(legalInvoiceInputBean.getPaymentStatus())){
+                        sql.append(" where SAVE_FLAG = 'Accepted' AND STATUS_FEE='SUBMITTED' AND ZZPARK_POST_DOC_NO is null ");
+                        } else if("With Cash".equals(legalInvoiceInputBean.getPaymentStatus())){
+                        sql.append(" where SAVE_FLAG = 'Accepted' AND substr(zzpark_post_doc_no,1,2)='16' AND substr(ZZPAY_DONE_ERP_DOC,1,2) is null ");
+                        } else if("Payment Done".equals(legalInvoiceInputBean.getPaymentStatus())){
+                        sql.append(" where SAVE_FLAG = 'Accepted' AND substr(zzpark_post_doc_no,1,2)='16' AND substr(zzpay_done_erp_doc,1,2)='17' ");
+                        } else if("Payment Adjusted".equals(legalInvoiceInputBean.getPaymentStatus())){
+                        sql.append(" where SAVE_FLAG = 'Accepted' AND substr(zzpark_post_doc_no,1,2)='16' AND substr(zzpay_done_erp_doc,1,3)='020' ");
+                        } else if("Payment Document Reversed".equals(legalInvoiceInputBean.getPaymentStatus())){
+                        sql.append(" where SAVE_FLAG = 'Accepted' AND substr(zzpark_post_doc_no,1,2)='16' AND substr(zzpay_done_erp_doc,1,2)='12' ");
+                        } else if("With Technical".equals(legalInvoiceInputBean.getPaymentStatus())){
+                            sql.append(" where SAVE_FLAG = 'Accepted' ");
+                        } else {sql.append(" where SAVE_FLAG = ? ");}
+                    }
+         
          }
 
       
@@ -311,15 +327,15 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                     if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCourtCaseNo())) {
                         statement.setString(i++, legalInvoiceInputBean.getCourtCaseNo());
                     }   
-                    if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentStatus())) {
-                        statement.setString(i++, legalInvoiceInputBean.getPaymentStatus());
-                    }    
+                    
                         if (!((ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceFromDate())) && (ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceToDate())))) {
                             statement.setDate(i++, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceFromDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
                             statement.setDate(i++, ApplicationUtils.stringToDate(ApplicationUtils.dateToString(legalInvoiceInputBean.getInvoiceToDate(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
                         }
                         
-                        
+                        if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaymentStatus()) && ("Saved".equals(legalInvoiceInputBean.getPaymentStatus()) || "Submitted".equals(legalInvoiceInputBean.getPaymentStatus()) || "Returned".equals(legalInvoiceInputBean.getPaymentStatus()))) {
+                        statement.setString(i++, legalInvoiceInputBean.getPaymentStatus());
+                    }
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
                         statement.setInt(i++, legalInvoiceInputBean.getApplId());
                     } 
@@ -361,7 +377,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                     }
                 }
             }
-            //System.out.println("sql##::" + sql);
+            System.out.println("sql##::" + sql);
             
           
             rs = statement.executeQuery();

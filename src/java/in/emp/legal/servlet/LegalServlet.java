@@ -231,7 +231,7 @@ public class LegalServlet extends HttpServlet {
         for (int i = 0; i < legalInvoiceBeanList.size(); i++) {
             String searchCase = legalInvoiceBeanList.get(i).getVENDOR().toLowerCase();
             if (searchCase.contains(query)) {
-                arrayObj.add("0" + legalInvoiceBeanList.get(i).getVENDOR());
+                arrayObj.add(legalInvoiceBeanList.get(i).getVENDOR());
             }
         }
 
