@@ -581,7 +581,7 @@
 			    </div>
                                 
                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>UTR Number : </label> <label><%= UTR_NO %></label>
+                                        <label>UTR Number : </label> <label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofutrno&applid=<%= appl_ID %>&reportType=PDF');" style="background-color: orange"><%= UTR_NO %></a></label>
 				</div>
 			    </div>
                                     <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
