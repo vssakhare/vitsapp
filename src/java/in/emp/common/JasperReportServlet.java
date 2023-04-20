@@ -8,7 +8,6 @@ import in.emp.util.ApplicationUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -105,6 +104,10 @@ public class JasperReportServlet extends HttpServlet {
                 parameters = Vendor_Statistics_Reports(request);
             } else if (reportName.equals(ApplicationConstants.REPORT_EMPLOYEE_STATISTICS)) {
                 parameters = Employee_Statistics_Reports(request);
+            } else if (reportName.equals("dtlsofutrno")) {
+                parameters.put("reportName", reportName);
+                parameters.put("reportFileName", "dtlsofutrno");
+                parameters.put("applid", request.getParameter("applid"));
             }
 
             if (!ApplicationUtils.isBlank(parameters.get("folderName"))) {
@@ -123,6 +126,7 @@ public class JasperReportServlet extends HttpServlet {
             JasperPrint jprint = JasperFillManager.fillReport(reportFile.getAbsolutePath(), parameters, conn);
             
             System.out.println("fileType : "+ fileType);
+            System.out.println(parameters.toString());
 
 
             if (fileType.equalsIgnoreCase("PDF")) {

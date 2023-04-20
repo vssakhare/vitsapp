@@ -216,35 +216,44 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                         </table>
                              
                                 
-                                <table  class="table" style="width:100%" id="tblone1" border="0" cellspacing="0" cellpadding="1" >
-                                    
+                                <table  class="table" style="width:100%" id="tblone1" border="0" cellspacing="0" cellpadding="1" >                                
                                     <tr>
-                                         <td class="text-right h5"></td>
-                                         <td id="myDropdownTwo">
-                                            
-                                          </td> 
-                                          <td class="text-right h5" colspan="2"><fmt:message key='Location'/></td>
-                                           <td id="myDropdownThree">
+                                         <td class="text-right h5">Court Case No.</td>
+                                         <td>
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                                <input type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
-                                          </td>   
-                                          
-                                          </tr>
-                                          <tr>
+                                          </td> 
+                                          <td class="text-right h5" colspan="2">Payment Status</td>
+                                           <td>
+                                            <div class="autocomplete" style="width:300px;">
+                                                <select class="form-control text-left" name="pmntStatus" id="pmntStatus" style="width: 100%">
+                                                <option value="">All</option>    
+                                                <option value="With Accounts">With Accounts</option>
+                                                <option value="With Cash">With Cash</option>
+                                                <option value="Payment Done">Payment Done</option>                                                                              <option value="Payment Adjusted">Payment Adjusted</option>
+                                                <option value="Payment Document Reversed">Payment Doc. Reversed</option>
+                                                <option value="With Technical">With Technical</option>
+                                                <option value="Saved">Saved</option>
+                                                <option value="Submitted">Submitted</option>
+                                                <option value="Returned">Returned</option>
+                                                </select>    
+                                              </div>        
+                                          </td>                                          
+                                          </tr>    
+                                    <tr>
                                          <td class="text-right h5">Invoice No.</td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
                                                 <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
-                                          <td class="text-right h5" colspan="2">Case Ref No.</td>
+                                          <td class="text-right h5" colspan="2"><fmt:message key='Location'/></td>
                                            <td id="myDropdownThree">
                                             <div class="autocomplete" style="width:300px;">
-                                                <input type="text" name="txtCaseRefNo" id="txtCaseRefNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
+                                                <input type="text" name="txtLocation" id="txtLocation" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
-                                          </td>   
-                                          
+                                          </td>                                          
                                           </tr>
                                           <tr>
                                               <td width="20%" class="text-right h5"><fmt:message key='Invoice submitted during the period From Date'/></td>
@@ -290,7 +299,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                      </td>-->
               
                                                  &nbsp;&nbsp;&nbsp;
-                                                 <td colspan="3" align="center"><input type="button" name="btnFile" id="btnFile" value=<fmt:message key='Search'/>  class="btn btn-success" style="height:30px;width:70px" onclick="getLegalList()"/> </td> 
+                                                 <td colspan="6" align="center"><input type="button" name="btnFile" id="btnFile" value=<fmt:message key='Search'/>  class="btn btn-success" style="height:30px;width:70px" onclick="getLegalList()"/> </td> 
                                                  
                                                </tr>
                                                
@@ -584,11 +593,11 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
         minDate: '-3Y',
         maxDate: '+3Y'
     });
-    $("#txtCaseRefNo" ).autocomplete({
+    $("#txtCourtCaseNo" ).autocomplete({
 //      source: availableTags
         source: function(request, response) {
             $.ajax({
-                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=caseRefNo",
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=courtCaseNo",
                 dataType: "json",
                 data: request,
                 success: function( data, textStatus, jqXHR) {
@@ -643,6 +652,3 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
 </script>
     
 </html>
-
-
-

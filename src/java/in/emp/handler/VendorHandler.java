@@ -448,6 +448,8 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
     private String getVendorLegalVerifiedForm(HttpServletRequest request) throws Exception {
         String sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_VERIFIED_FORM;
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
+        VendorApplFileDelegate vendorapplFileMgrObj = new VendorApplFileManager();
+        LinkedList FileList = new LinkedList();
         VendorDelegate vendorMgrObj = new VendorManager();
         HttpSession session = request.getSession();
         List<LegalInvoiceInputBean> legalInvoiceInputBeanList = null;
@@ -490,7 +492,11 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             }
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA, legalInvoiceInputBean);
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST, legalInvoiceInputBeanList);
-
+            if (legalInvoiceInputBean.getApplId() != null) {
+            vendorapplFileBeanObj.setApplicationId(legalInvoiceInputBean.getApplId() + "");
+            FileList = vendorapplFileMgrObj.getVendorLegalApplFileList(vendorapplFileBeanObj);
+        }
+            request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, FileList);
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() :: Exception :: " + ex);
             //ex.printStackTrace();
@@ -1295,8 +1301,15 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
                 legalInvoiceInputBean.setInvoiceToDate(ApplicationUtils.stringToDate((String) request.getParameter("txtToDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             }
-            if (!ApplicationUtils.isBlank((request.getParameter("caseRefNo")))) {
+            /*if (!ApplicationUtils.isBlank((request.getParameter("caseRefNo")))) {
                 legalInvoiceInputBean.setCaseRefNo((String) request.getParameter("caseRefNo"));
+            }*/
+            if (!ApplicationUtils.isBlank((request.getParameter("courtCaseNo")))) {
+                legalInvoiceInputBean.setCourtCaseNo((String) request.getParameter("courtCaseNo"));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("pmntStatus")))) {
+                System.out.println("pmntStatus " + request.getParameter("pmntStatus"));
+                legalInvoiceInputBean.setPaymentStatus((String) request.getParameter("pmntStatus"));
             }
             if (!ApplicationUtils.isBlank((request.getParameter("txtInvoiceNumber")))) {
                 legalInvoiceInputBean.setInvoiceNumber((String) request.getParameter("txtInvoiceNumber"));

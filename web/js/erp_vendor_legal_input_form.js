@@ -789,7 +789,7 @@ function getLegalList() {
          {
          var txtPONumber = txtPONumber.substring(0, txtPONumber.indexOf("-"));
          }*/
-        var caseRefNo = document.getElementById("txtCaseRefNo").value;
+        
         var txtLocation = document.getElementById("txtLocation").value;
         if ((txtLocation.indexOf("-")) > -1) {
             var txtLocation = txtLocation.substring(0, txtLocation.indexOf("-"));
@@ -801,17 +801,23 @@ function getLegalList() {
         var url = "erp";
         if (document.getElementById("userType").value==="Vendor"){
             var uiactionName = "getVendorLegalInvoiceInputList";
+            var courtCaseNo = document.getElementById("txtCourtCaseNo").value;
+            var pmntStatus = document.getElementById("pmntStatus").value;
         }else{
+            var caseRefNo = document.getElementById("txtCaseRefNo").value;
             var txtVendorNumber = (document.getElementById("txtVendorNumber").value);
             var uiactionName = "getAuthLegalInvoiceList";
         }
         //alert(uiactionName);
         var params = "uiActionName=" + uiactionName;
-        if (document.getElementById("userType").value!=="Vendor"){params = params + "&txtVendorNumber=" + txtVendorNumber;}
+        if (document.getElementById("userType").value!=="Vendor"){
+            params = params + "&txtVendorNumber=" + txtVendorNumber + "&caseRefNo=" + caseRefNo;}
 //            + "&txtPONumber=" + txtPONumber 
-                params = params + "&txtLocation=" + txtLocation
-                + "&caseRefNo=" + caseRefNo
-                + "&txtInvoiceNumber=" + txtInvoiceNumber           
+                params = params + "&txtLocation=" + txtLocation;
+                
+        if (document.getElementById("userType").value==="Vendor"){
+            params = params + "&courtCaseNo=" +courtCaseNo + "&pmntStatus=" + pmntStatus;}
+                params = params + "&txtInvoiceNumber=" + txtInvoiceNumber           
                 + "&txtFrmDt=" + txtFrmDt
                 + "&txtToDt=" + txtToDt
                 ;
