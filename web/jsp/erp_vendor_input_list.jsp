@@ -280,8 +280,8 @@
 
                             <!--  <table class="sub_heading_bg_blue" border="0" cellspacing="0" cellpadding="2" id="table_grid">-->
                            <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#vendorInputList"><fmt:message key='Vendor Input Invoices'/></a></li>
-                            <li ><a data-toggle="tab" href="#nonPoList"><fmt:message key='Non PO Invoices'/></a></li>
+                            <li class="active"><a style="color:#333;" data-toggle="tab" href="#vendorInputList"><fmt:message key='Vendor Input Invoices'/></a></li>
+                            <li ><a style="color:#333;" data-toggle="tab" href="#nonPoList"><fmt:message key='Non PO Invoices'/></a></li>
                          </ul>
                          <div class="tab-content">
                             <%@ include file="sort_paging_hidden_fields.jsp" %>                      

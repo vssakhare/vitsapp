@@ -34,7 +34,7 @@ public class LoadSchedulerServlet extends HttpServlet
 		try
 		{
                  //     SendSmsVendor.SendSms();
-                  // SendStatusSmsEscEmployee.SendStatusEscSms();//TEST STATUS ESCALATION SMS
+                // SendStatusSmsEscEmployee.SendStatusEscSms();//TEST STATUS ESCALATION SMS
                   //    SendStatusSmsEmployee.SendStatusSms(); //TEST STATUS SMS
               //     SendSMS.SendHigherAuthSms(); //TEST SUBMIT ESCALATION SMS
                  //  SendSubmittedSmsEmployee.SendAuthSms(); //send sms which  are not sent to employee during submission of invoice.
@@ -65,8 +65,8 @@ public class LoadSchedulerServlet extends HttpServlet
                 ReadPSFileScheduler.startScheduler(); //2.30 am read ps file
                 WriteInvSatusScheduler.startScheduler();  //10.30 pm write inv file
                 ReadRetentionResponseScheduler.startScheduler();
-                    ReadLegalInvoiceDetailsScheduler.startScheduler();*/
-                LegalVendorSmsScheduler.startScheduler();
+                    ReadLegalInvoiceDetailsScheduler.startScheduler();
+                LegalVendorSmsScheduler.startScheduler();*/
             }
 		catch(Exception ex)
 		{

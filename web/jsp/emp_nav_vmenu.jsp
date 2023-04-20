@@ -21,7 +21,7 @@
 		</div>
 		<div class="menu-inner">
 			
-			<ul>
+			<ul_menu>
 				<li id="menu1" style="align-items: center;  justify-content: center"> <a  href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" title="All Notifications">
                                 <img src="images/home.png" width="16" height="16"> <b>Home</b> </a></li>
                                  
@@ -34,7 +34,7 @@
                                        title="Your Submitted Invoices"      ><img src="images/vendor.png" width="18" height="16" style=""><b>Vendor</b>
                                     </a></div>
                                       <div id="collapseVendorInfo" class="panel-collapse collapse subMenu" style="line-height: 4;">
-                    <% if(!session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) { %> 
+                   <!--   <% /*if(!session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) {*/ %> -->
                         <div class="panel-menu" id="M1I1">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDORINPUT_LIST)%>" title="" ><img src="images/bullet.png" width="16" height="16" style="">Submit Vendor Invoice</a>
                         </div>
@@ -49,15 +49,15 @@
                         </div>
                         <div class="panel-menu" id="M1I4">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.REPORT_MSEDCL_VENDOR)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">Vendor Reports</a>
-                        </div><% } %>
-                        <% if(session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) { %> 
+                        </div> <!-- <% /*} */%>-->
+                      <!--  <% /*if(session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) {*/ %> 
                         <div class="panel-menu" id="M1I5">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST)%>" title=""><img src="images/invoice.png" width="16" height="16"><fmt:message key='Submit Legal Invoices'/></a>
                         </div>
 <!--                        <div class="panel-menu" id="M1I6">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_VIEW_VENDOR_LEGAL_INPUT_LIST)%>" title=""><fmt:message key='View Legal Invoices'/></a>
                         </div>-->
-                    <% } %></div>
+                     <!-- <% /*} */%>--></div>
                                     
                                     </div>
                                     </li>
@@ -112,7 +112,7 @@
                                       
                                       </li>
 				
-			</ul>
+			</ul_menu>
 		</div>
   
   

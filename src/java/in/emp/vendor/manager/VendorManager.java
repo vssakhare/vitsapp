@@ -28,6 +28,8 @@ import in.emp.vendor.bean.ProjBean;
 import in.emp.vendor.bean.SMSResponseBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
+
+import in.emp.sms.bean.TemplateIdBean;
 /**
  *
  * @author Prajakta
@@ -1340,7 +1342,16 @@ public class VendorManager implements VendorDelegate {
         }
         return feeTypeDtlsBean;
     }
-     
+     public TemplateIdBean getTemplateDetails(TemplateIdBean templateBeanObj) {
+         VendorDao vendorDaoObj = new OracleVendorDao();
+         try {
+         templateBeanObj=vendorDaoObj.getTemplateDetails(templateBeanObj);
+         }catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorApplFileManager :: legalInvoiceFileDelHelper() :: Exception :: " + ex);
+        }
+         
+         return  templateBeanObj;
+     }
      
      
      

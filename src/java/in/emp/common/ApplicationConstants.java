@@ -1056,8 +1056,11 @@ public class ApplicationConstants {
     public static String UIACTION_GET_SUBMIT_PLANT_DETAILS="getSubmitPlantlocation"; 
   public static String  UIACTION_GET_FORWARD_TO_OFFICECODE_DETAILS="getForwardToOfficeCode";
   public static String  VENDOR_FORWARD_TO_OFFICECODE_SESSION_DATA="getForwardToOfficeCodeSession";
-  public static String OTP_URL="https://pod1-japi.instaalerts.zone/httpapi/QueryStringReceiver?ver=1.0&key=YnHSOQP2KkEpsUlWPBNGTw==";
+  public static String OTP_URL_OLD="https://pod1-japi.instaalerts.zone/httpapi/QueryStringReceiver?ver=1.0&key=YnHSOQP2KkEpsUlWPBNGTw==";
     //public static String OTP_URL="http://pod2-japi.instaalerts.zone/failsafe/HttpLink";
+  public static String OTP_URL="https://smsdlr.mahadiscom.in/smsReq/scheduleOTP";
+  public static String OTHER_URL="https://smsdlr.mahadiscom.in/smsReq/ScheduleOtherSMS";
+  public static String VITS_URL=" https://vits.mahadiscom.in/VendorBillTracking/erp";
     public static String UIACTION_GET_PLANT_DETAILS = "fetchPlantDetails";
     public static String UIACTION_GET_COURT_CASE_DETAILS_FOR_VENDOR ="getLegalCourtCaseDetailsForVendor";
     
@@ -1085,6 +1088,21 @@ public class ApplicationConstants {
     public static String VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST="vendorLegalInvoiceAcceptedDataList";
     public static String UIACTION_GET_LEGAL_Hierarchy_LOCATION="getLegalHierarchyLocation";
     public static String UIACTION_GET_VENDOR_SEARCH_COURT_CASE = "getVendorSearchCourtCase";
+    public static String SMS_TEMPLATE_ID1 = "SMS_TEMPLATE_ID1";
+    public static String SMS_TEMPLATE_ID2 = "SMS_TEMPLATE_ID2";
+    public static String SMS_TEMPLATE_ID3 = "SMS_TEMPLATE_ID3";
+    public static String SMS_TEMPLATE_ID4 = "SMS_TEMPLATE_ID4";
+    public static String SMS_TEMPLATE_ID5 = "SMS_TEMPLATE_ID5";
+    public static String SMS_TEMPLATE_ID6 = "SMS_TEMPLATE_ID6";
+    public static String SMS_TEMPLATE_ID7 = "SMS_TEMPLATE_ID7";
+    public static String SMS_TEMPLATE_ID8 = "SMS_TEMPLATE_ID8";
+    public static String SMS_TEMPLATE_ID9 = "SMS_TEMPLATE_ID9";
+    public static String SMS_TEMPLATE_ID10 = "SMS_TEMPLATE_ID10";
+    public static String SMS_TEMPLATE_ID11 = "SMS_TEMPLATE_ID11";
+    public static String SMS_TEMPLATE_ID12 = "SMS_TEMPLATE_ID12";
+    public static String Application_Id ="22";
+    public static String SENDER_ID ="MSEDCL";
+
     
     
     /*sftp server detail code */
@@ -1097,6 +1115,7 @@ public class ApplicationConstants {
 	public static final String  SFTP_CONN_DETAILS="SFTP_CONN_CODE";
 	
 	public static final String  SFTP_ARCHIEVE_BASE="dms_s3";
+        public static final String SMS_API_KEY="SMS_API_KEY";
 	/*sftp server detail code */
     
     

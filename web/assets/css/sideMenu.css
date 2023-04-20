@@ -74,16 +74,16 @@
 			margin: 0;
 		}
 
-		ul {
+		ul_menu {
 			padding: 0;
 			list-style: none;
 			width: 80%;
 			margin-left: 10%;
 			position: absolute;
-			top: 10px;
+			top: 0px;
 		}
 
-		ul li {
+		ul_menu li {
 			color: #fff;
 			font-family: sans-serif;
 			padding: 20px 0px 0px 10px;
