@@ -194,7 +194,7 @@
         }*/
         
         for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
-        invoiceAmount+=(l.getsAmount()+"+");
+        invoiceAmount+=(ApplicationUtils.formatAmount(l.getsAmount())+"+");
         //System.out.println("invoiceAmount"+invoiceAmount);
             }
         
@@ -413,7 +413,7 @@
                                                  <div class="table-responsive" align="left" >
                                             <div class=" invoiceheadleft" style="float:left"><label>Invoice Number :  <%= InvoiceNumber %> </label>
                                                 <br><label>Invoice Date :  <%= invoiceDate %> </label>
-                                            <br><label>Invoice Amount :  <%= legalInvoiceInputBean.getInvoiceAmount() %> </label></div>
+                                            <br><label>Invoice Amount :  <%= ApplicationUtils.formatAmount(legalInvoiceInputBean.getInvoiceAmount()) %> </label></div>
                                             
                                             <div class=" invoiceheadright " style="float:right; padding-bottom: 10px">
                                                <label  style="padding-right: 10px">Vendor Name:</label> <label  ><%= VendorName %></label><br>
@@ -477,7 +477,7 @@
                                     <label>Reason for Deduction :</label>  <label><%= reasonForDeduction %> </label>
                                            </div>
                             </div>
-                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                            <!--<div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Tax Amount : </label> <label><%= taxAmount %></label>
 				</div>
 			    </div>
@@ -494,7 +494,7 @@
                                  <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>UTR No : </label> <label><%= UTR_NO %></label>
 				</div>
-			    </div>
+			    </div>-->
                             </div>
                             
                            <div class="invoicesubdiv" >
@@ -612,10 +612,10 @@
                                      <label>IGST TDS Amount: </label> <label><%= IgstTdsAmount %></label>
 				</div>
 			    </div>
-                                <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                <!--<div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Status : </label> <label><%= paymentStatus %></label>
 				</div>
-			    </div>
+			    </div>-->
                                 
                                 
 			    </div>
