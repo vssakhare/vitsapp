@@ -13,8 +13,6 @@ import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
-
-import in.emp.sms.bean.TemplateIdBean;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
 import in.emp.vendor.bean.HOBean;
@@ -144,6 +142,6 @@ public LinkedList<VendorBean> putRetentionInvoiceStatus( VendorBean vendorBeanOb
     public List getLegalHierarchyLocation(OrganizationMasterBean organizationMasterBean)throws Exception;
     
     public void updateLegalCommunicationLog(LegalCommunicationBean legalCommunicationBean) throws Exception;
-    public TemplateIdBean getTemplateDetails(TemplateIdBean templateBeanObj)  throws Exception;
+    
 }
 

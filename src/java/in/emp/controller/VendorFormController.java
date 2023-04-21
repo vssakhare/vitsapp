@@ -40,7 +40,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
-import in.emp.sms.bean.TemplateIdBean;
 /**
  *
  * @author Pooja Jadhav
@@ -101,7 +100,7 @@ public class VendorFormController {
         } catch (Exception e) {
 
         }
-         vendorRejectedSmsSendProcess(request, saveFlag); 
+        // vendorRejectedSmsSendProcess(request, saveFlag); //UNCOMMENT FOR CLOUD
         return obj;
     }
 
@@ -188,7 +187,7 @@ public class VendorFormController {
         }
 
         obj.put("Message1", "Form Verified Successfully");
-         vendorVerifiedSmsSendProcess(request, saveFlag);
+        //  vendorVerifiedSmsSendProcess(request, saveFlag); //UNCOMMENT FOR CLOUD
         return obj;
     }
 
@@ -308,16 +307,16 @@ public class VendorFormController {
             obj.put("Message1", "Form Submitted Successfully with Application ID " + vendorPrezDataObj.getVendorInputBean().getApplId());
 
             try {
-                vendorSubmitSmsSendProcess(request, vendorInputBeanObj);
+                // vendorSubmitSmsSendProcess(request, vendorInputBeanObj);//uncomment for cloud
 //invoking vendor sms send process
             } catch (Exception e) {
                 // System.out.println("in if vendorSubmitSmsSendProcess catch");
                 e.printStackTrace();
             }
             try {
-                  empSubmitSmsSendProcess(request, objSmsEmp);
+                //  empSubmitSmsSendProcess(request, objSmsEmp);//uncomment for cloud
                 if (!ApplicationUtils.getRequestParameter(request, "module_type").equals(ApplicationConstants.PROJECT_SYSTEM)) {
-                      poCreatorSubmitSmsSendProcess(request, objSmsEmp);
+                    //  poCreatorSubmitSmsSendProcess(request, objSmsEmp);//uncomment for cloud
                 }
 //invoking employee sms process
 
@@ -341,7 +340,6 @@ public class VendorFormController {
         SmsDTO objSmsVendor = new SmsDTO();
         VendorInputBean vendorInputBeanObj1 = new VendorInputBean();
         List<String> lstParams = new ArrayList<String>();
-        TemplateIdBean templateBeanObj =new TemplateIdBean();
         Date sysdate = new Date();
         SmsController sms = new SmsController();
         try {
@@ -349,10 +347,9 @@ public class VendorFormController {
 
             DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
     
-            //vendorlstcredential.add("607971");
-            //vendorlstcredential.add("mse12");
-            //vendorlstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-            vendorlstcredential.add(ApplicationConstants.OTHER_URL);
+            vendorlstcredential.add("607971");
+            vendorlstcredential.add("mse12");
+            vendorlstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             vendorInputBeanObj1.setSelectedModuleType(ApplicationUtils.getRequestParameter(request, "module_type"));
             vendorInputBeanObj1.setApplId(ApplicationUtils.getRequestParameter(request, "txtApplId"));
             vendorInputBeanObj1 = vendorMgrObj.getInvoicedetails(vendorInputBeanObj1);//get details of invoice for sending sms from xxmis_erp_vendor_input_list
@@ -382,16 +379,13 @@ public class VendorFormController {
             //vendor sms process
             lstParams.add(ApplicationUtils.getRequestParameter(request, "txtInvoiceNum"));//populating lstparams for sending sms to vendor 
             //  lstParams.add(df3.format(vendorInputBeanObj1.getVendorUpdatedDate()));
-            lstParams.add(ApplicationConstants.VITS_URL);
+            lstParams.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
             //user id password url link
             objSmsVendor.setLstParams(lstParams);
             objSmsVendor.setMobileNumber(vendorBeanObj1.getVendorContactNumber());
 //DIABLED FOR SMS 
             if (objSmsVendor.getMobileNumber() != null) {
-                templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID2);
-                 templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-                //   sms.sendSMS(objSmsVendor, "476830", vendorlstcredential); 
-                sms.sendSMS(objSmsVendor, templateBeanObj.getTemplate_Id(), vendorlstcredential);
+                //   sms.sendSMS(objSmsVendor, "476830", vendorlstcredential); //UNCOMMENT FOR CLOUD
                 vendorStatusBeanObj.setSUBMITTED_SMS_FLAG("Y");
                 vendorStatusBeanObj.setSUBMITTED_SMS_DATE(sysdate);
             } else {
@@ -430,7 +424,6 @@ public class VendorFormController {
         SmsController sms = new SmsController();
         HttpSession vendorSession = request.getSession();
         VendorInputBean vendorInputBeanObj1 = new VendorInputBean();
-         TemplateIdBean templateBeanObj =new TemplateIdBean();
         try {   //employee sms send process
             vendorInputBeanObj1.setSelectedModuleType(ApplicationUtils.getRequestParameter(request, "module_type"));
             vendorInputBeanObj1.setApplId(ApplicationUtils.getRequestParameter(request, "txtApplId"));
@@ -444,18 +437,13 @@ public class VendorFormController {
             DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
             lstParam.add(df3.format(vendorInputBeanObj1.getVendorUpdatedDate()));
             //user id password url link
-           // lstcredential.add("607971");
-           // lstcredential.add("mse12");
-            //lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-            lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             objSmsEmp.setLstParams(lstParam);
             //DIABLED FOR SMS 
             if (objSmsEmp.getMobileNumber() != null) {
-                 templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID3);
-                 templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-
-                //   sms.sendSMS(objSmsEmp, "476809",lstcredential);
-                 sms.sendSMS(objSmsEmp,templateBeanObj.getTemplate_Id(),lstcredential);
+                //   sms.sendSMS(objSmsEmp, "476809",lstcredential);//UNCOMMENT FOR CLOUD
 
                 try {
                     StringBuilder sql = new StringBuilder();
@@ -501,7 +489,7 @@ public class VendorFormController {
         List<String> lstParam = new ArrayList<String>();
         List<String> lstcredential = new ArrayList<String>();
         SmsController sms = new SmsController();
-        TemplateIdBean templateBeanObj =new TemplateIdBean();
+       
          Date sysdate = new Date();
         try {   //employee sms send process
             
@@ -514,10 +502,9 @@ public class VendorFormController {
             DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
             lstParam.add(df3.format(legalInvoiceInputBean.getInvSubmitDate()));
             //user id password url link
-           // lstcredential.add("607971");
-           // lstcredential.add("mse12");
-           // lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-           lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             objSmsEmp.setLstParams(lstParam);
             //DIABLED FOR SMS 
            
@@ -526,18 +513,12 @@ public class VendorFormController {
             {
                    LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
                 if (mailTo.equals("EMP")){
-                     templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID3);
-                     templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-                  //sms.sendSMS(objSmsEmp, "476809",lstcredential);
-                   sms.sendSMS(objSmsEmp, templateBeanObj.getTemplate_Id(),lstcredential);
+                  sms.sendSMS(objSmsEmp, "476809",lstcredential);//UNCOMMENT FOR CLOUD
                   legalCommunicationSMSBean.setRECIPIENT_TYPE("EMP");
                   legalCommunicationSMSBean.setSUBJECT("476809");
                 }
                 else if (mailTo.equals("VENDOR"))
-                     templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID2);
-                     templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-                { // sms.sendSMS(objSmsEmp, "476830", lstcredential);
-                sms.sendSMS(objSmsEmp,templateBeanObj.getTemplate_Id(),lstcredential);
+                {  sms.sendSMS(objSmsEmp, "476830", lstcredential);
                   legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
                   legalCommunicationSMSBean.setSUBJECT("476830");
                 }
@@ -619,7 +600,6 @@ public class VendorFormController {
         SmsController sms = new SmsController();
         HttpSession vendorSession = request.getSession();
         VendorInputBean vendorInputBeanObj1 = new VendorInputBean();
-         TemplateIdBean templateBeanObj =new TemplateIdBean();
         try {   //employee sms send process
             vendorInputBeanObj1.setSelectedModuleType(ApplicationUtils.getRequestParameter(request, "module_type"));
             vendorInputBeanObj1.setApplId(ApplicationUtils.getRequestParameter(request, "txtApplId"));
@@ -633,17 +613,14 @@ public class VendorFormController {
             DateFormat df3 = new SimpleDateFormat("dd-MMM-yyyy");
             lstParam.add(df3.format(vendorInputBeanObj1.getVendorUpdatedDate()));
             //user id password url link
-            //lstcredential.add("607971");
-            //lstcredential.add("mse12");
-            //lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-            lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             objSmsEmp.setLstParams(lstParam);
             //DIABLED FOR SMS 
             if (objSmsEmp.getMobileNumber() != null) {
-                templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID3);
-                templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-                //  sms.sendSMS(objSmsEmp, "476809",lstcredential);
-                    sms.sendSMS(objSmsEmp,templateBeanObj.getTemplate_Id(),lstcredential);
+                //  sms.sendSMS(objSmsEmp, "476809",lstcredential);//UNCOMMENT FOR CLOUD
+
                 try {
                     StringBuilder sql = new StringBuilder();
                     PreparedStatement psq = null;
@@ -693,7 +670,6 @@ public class VendorFormController {
         VendorDelegate vendorMgrObj = new VendorManager();
         VendorBean vendorBeanObj1 = new VendorBean();
         VendorStatuBean vendorStatusBeanObj = new VendorStatuBean();
-        TemplateIdBean templateBeanObj =new TemplateIdBean();
         HttpSession vendorSession = request.getSession();
         try {
 
@@ -706,13 +682,12 @@ public class VendorFormController {
             lstParamsRej.add(ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             lstParamsRej.add(ApplicationUtils.getRequestParameter(request, "txtReason"));
 
-            lstParamsRej.add(ApplicationConstants.VITS_URL);
+            lstParamsRej.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
             objSms.setLstParams(lstParamsRej);
             //username password and url
-            //lstcredential.add("607971");//username
-            //lstcredential.add("mse12");//password
-            //lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");//link for sms
-            lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");//username
+            lstcredential.add("mse12");//password
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");//link for sms
             try {
                 vendorBeanObj1.setVendorNumber((String) ApplicationUtils.getRequestParameter(request, "vendor_number"));
                 vendorBeanObj1.setPassword("");//password set to null to get the details of vendor number without specifying password.
@@ -745,10 +720,8 @@ public class VendorFormController {
                 vendorStatusBeanObj.setAPPL_ID(ApplicationUtils.getRequestParameter(request, "txtApplId"));
                 vendorStatusBeanObj.setSave_Flag(saveFlag);
                 if (objSms.getMobileNumber() != null) {//UNCOMMENT FOR CLOUD
-                    templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID5);
-                    templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-                //    sms.sendSMS(objSms, "476834", lstcredential);//objsms contains matter to be messaged//templateid//username passwrd link
-                    sms.sendSMS(objSms, templateBeanObj.getTemplate_Id(), lstcredential);
+                    //    sms.sendSMS(objSms, "476834", lstcredential);//objsms contains matter to be messaged//templateid//username passwrd link
+
                     vendorStatusBeanObj.setREJECTED_SMS_FLAG("Y");
                     vendorStatusBeanObj.setREJECTED_SMS_DATE(sysdate);
                 } else {
@@ -797,19 +770,18 @@ public class VendorFormController {
             Date sysdate = new Date();
             VendorDelegate vendorMgrObj = new VendorManager();
             VendorStatuBean vendorStatusBeanObj = new VendorStatuBean();
-             TemplateIdBean templateBeanObj =new TemplateIdBean();
+
             //matter in sms
             lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtInvoiceNum"));
             lstParamsAppr.add((String) ApplicationUtils.getRequestParameter(request, "vendor_number"));
 
             lstParamsAppr.add((String) ApplicationUtils.getRequestParameter(request, "vendor_name"));
             lstParamsAppr.add(ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-            lstParamsAppr.add(ApplicationConstants.VITS_URL);
+            lstParamsAppr.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
             //username password and url link
-            //lstcredential.add("607971");
-            //lstcredential.add("mse12");
-           // lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-             lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             objSms.setLstParams(lstParamsAppr);
             try {
                 vendorBeanObj1.setVendorNumber((String) ApplicationUtils.getRequestParameter(request, "vendor_number"));
@@ -843,11 +815,7 @@ public class VendorFormController {
                 vendorStatusBeanObj.setSave_Flag(saveFlag);
                 //DIABLED FOR SMS 
                 if (objSms.getMobileNumber() != null) {
-                     templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID6);
-                     templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-
-                    //   sms.sendSMS(objSms, "476833", lstcredential);
-                     sms.sendSMS(objSms,templateBeanObj.getTemplate_Id(), lstcredential);
+                    //   sms.sendSMS(objSms, "476833", lstcredential);//UNCOMMENT FOR CLOUD
                     vendorStatusBeanObj.setVERIFIED_SMS_FLAG("Y");
                     vendorStatusBeanObj.setVERIFIED_SMS_DATE(sysdate);
                 } else {
@@ -1039,7 +1007,7 @@ public class VendorFormController {
         }
 
         obj.put("Message1", "Form Verified Successfully");
-        vendorVerifiedSmsSendProcess(request, saveFlag); 
+        //  vendorVerifiedSmsSendProcess(request, saveFlag); //UNCOMMENT FOR CLOUD
         return obj;
     }
     public static JSONObject submittedClaimedRetentionDetailsFormStatus(VendorPrezData vendorPrezDataObj, HttpServletRequest request) {
@@ -1137,7 +1105,7 @@ public class VendorFormController {
                 objSmsVendor.setMobileNumber(vendorBeanObj1.getVendorContactNumber());
                 objSmsVendor.setEmailId(vendorBeanObj1.getMailId());
                 
-                  notifyLegalEmpInvSubmit(request, objSmsVendor,legalInvoiceInputBean,"VENDOR");
+                  notifyLegalEmpInvSubmit(request, objSmsVendor,legalInvoiceInputBean,"VENDOR");//uncomment for cloud
              
             } catch (Exception e) {
                 //  System.out.println("in if empSubmitSmsSendProcess catch");
@@ -1249,19 +1217,18 @@ public class VendorFormController {
             Date sysdate = new Date();
             VendorDelegate vendorMgrObj = new VendorManager();
             VendorStatuBean vendorStatusBeanObj = new VendorStatuBean();
-            TemplateIdBean templateBeanObj =new TemplateIdBean();
+
             //matter in sms
             lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtInvoiceNum"));
             lstParamsAppr.add(legalInvoiceInputBean.getVendorNumber());
 
             lstParamsAppr.add(legalInvoiceInputBean.getVendorName());
             lstParamsAppr.add(ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
-            lstParamsAppr.add(ApplicationConstants.VITS_URL);
+            lstParamsAppr.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
             //username password and url link
-            //lstcredential.add("607971");
-            //lstcredential.add("mse12");
-            //lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-            lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             objSms.setLstParams(lstParamsAppr);
             try {
                 vendorBeanObj1.setVendorNumber(legalInvoiceInputBean.getVendorNumber());
@@ -1289,11 +1256,8 @@ public class VendorFormController {
          //       vendorStatusBeanObj.setSave_Flag(saveFlag);
                 //DIABLED FOR SMS 
                 if (objSms.getMobileNumber() != null) {
-                     templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID6);
-                     templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-
-                       //sms.sendSMS(objSms, "476833", lstcredential);
-                    sms.sendSMS(objSms,templateBeanObj.getTemplate_Id(), lstcredential);
+                       sms.sendSMS(objSms, "476833", lstcredential);//UNCOMMENT FOR CLOUD   476833
+                  
                     LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
                     legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
                     legalCommunicationSMSBean.setSUBJECT("476833");
@@ -1386,7 +1350,6 @@ public class VendorFormController {
             Date sysdate = new Date();
             VendorDelegate vendorMgrObj = new VendorManager();
             VendorStatuBean vendorStatusBeanObj = new VendorStatuBean();
-             TemplateIdBean templateBeanObj =new TemplateIdBean();
 
             //matter in sms
             lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtInvoiceNum"));
@@ -1396,12 +1359,11 @@ public class VendorFormController {
             lstParamsAppr.add(ApplicationUtils.dateToString(sysdate, ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             
             lstParamsAppr.add(ApplicationUtils.getRequestParameter(request, "txtReason"));
-            lstParamsAppr.add(ApplicationConstants.VITS_URL);
+            lstParamsAppr.add(" https://vits.mahadiscom.in/VendorBillTracking/erp");
             //username password and url link
-            //lstcredential.add("607971");
-            //lstcredential.add("mse12");
-            //lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
-            lstcredential.add(ApplicationConstants.OTHER_URL);
+            lstcredential.add("607971");
+            lstcredential.add("mse12");
+            lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
             objSms.setLstParams(lstParamsAppr);
             try {
                 vendorBeanObj1.setVendorNumber(legalInvoiceInputBean.getVendorNumber());
@@ -1433,11 +1395,8 @@ public class VendorFormController {
          //       vendorStatusBeanObj.setSave_Flag(saveFlag);
                 //DIABLED FOR SMS 
                 if (objSms.getMobileNumber() != null) {
-                      templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID5);
-                      templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-
-                       //sms.sendSMS(objSms, "476834", lstcredential);
-                  sms.sendSMS(objSms, templateBeanObj.getTemplate_Id(), lstcredential);
+                       sms.sendSMS(objSms, "476834", lstcredential);//UNCOMMENT FOR CLOUD
+                  
                     LegalCommunicationBean legalCommunicationSMSBean = new LegalCommunicationBean();
                     legalCommunicationSMSBean.setRECIPIENT_TYPE("VENDOR");
                     legalCommunicationSMSBean.setSUBJECT("476834");

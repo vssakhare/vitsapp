@@ -12,7 +12,6 @@ import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
-import in.emp.sms.bean.TemplateIdBean;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.HOBean;
 import in.emp.vendor.bean.POBean;
@@ -141,10 +140,6 @@ public interface VendorDelegate {
      public FeeTypeDtlsBean saveLFeeTypeDtlsForm(FeeTypeDtlsBean feeTypeDtlsBean)throws Exception;
      
        public FeeTypeDtlsBean  feeTypeDtlDelHelper(FeeTypeDtlsBean feeTypeDtlsBean) throws Exception;
-       
-       public TemplateIdBean getTemplateDetails(TemplateIdBean TemplateBeanObj) throws Exception;
-       
-       
 
      
      

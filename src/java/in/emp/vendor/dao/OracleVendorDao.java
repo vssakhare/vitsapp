@@ -31,9 +31,6 @@ import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.FeeTypeDtlsTxnHelper;
 import in.emp.legal.dao.helper.txnhelper.updateLegalCommunicationLog;
-
-import in.emp.sms.bean.TemplateIdBean;
-import in.emp.sms.dao.helper.GetTemplateIdBeanQueryHelper;
 import in.emp.vendor.bean.ClearingDocDetails;
 import in.emp.vendor.bean.POBean;
 import in.emp.vendor.bean.HOBean;
@@ -1231,16 +1228,5 @@ try {
         }
         return feeTypeDtlsBean;
     }
-       public TemplateIdBean getTemplateDetails(TemplateIdBean templateBeanObj) throws Exception {
-      try {
-            
-            logger.log(Level.INFO, "OracleVendorDao :: getTemplateDetails() :: method called");
-           templateBeanObj = (TemplateIdBean) getDataObject(new GetTemplateIdBeanQueryHelper(templateBeanObj));
-
-        } catch (Exception ex) {
-            logger.log(Level.ERROR, "OracleVendorDao :: getTemplateDetails() :: Exception :: " + ex);
-            throw ex;
-        }
-        return templateBeanObj;
-    }
+     
 }

@@ -70,7 +70,6 @@ import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.OrganizationMasterBean;
 import in.emp.legal.common.RemoveLegalInvoiceFile;
-import in.emp.sms.bean.TemplateIdBean;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.HOBean;
 import in.emp.vendor.bean.POBean;
@@ -729,7 +728,6 @@ public class AjaxControlServlet extends HttpServlet {
         HRMSUserPrezData hrmsUserPrezDataObj = new HRMSUserPrezData();
         HRMSDelegate hrmsManagerObj = new HRMSManager();
         HttpSession vendorSession = request.getSession();
-        TemplateIdBean templateBeanObj =new TemplateIdBean();
         try {
             logger.log(Level.INFO, "AjaxControlServlet :: GetOtp() :: method called");
             uid = request.getParameter("txtUID");
@@ -792,17 +790,14 @@ public class AjaxControlServlet extends HttpServlet {
             request.getSession().setAttribute(ApplicationConstants.OTP_NUMBER, sb.toString());
             lstParams.add(uid);
             lstParams.add(sb.toString());
-            //lstcredential1.add("639748");
-            //lstcredential1.add("mse@12");
+            lstcredential1.add("639748");
+            lstcredential1.add("mse@12");
             lstcredential1.add(ApplicationConstants.OTP_URL);
             // lstcredential1.add("http://pod2-japi.instaalerts.zone/failsafe/HttpLink");
             objSms.setLstParams(lstParams);
             objSms.setMobileNumber(userContactNo);
             try {
-                templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID1);
-                templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
-               // sms.sendSMS(objSms, "5009", lstcredential1);
-               sms.sendSMS(objSms, templateBeanObj.getTemplate_Id(), lstcredential1);
+                sms.sendSMS(objSms, "5009", lstcredential1);
                 System.out.println("usercontact No:" + userContactNo);
                 obj.put("UserId", "OTP Sent Successfully on " + userContactNo.substring(0, 3) + "XXXXXX" + userContactNo.substring(7, 10));
                 //obj.put("UserId","OTP Sent Successfully  ");

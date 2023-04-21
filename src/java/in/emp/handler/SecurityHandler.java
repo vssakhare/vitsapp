@@ -16,7 +16,6 @@ import in.emp.hrms.manager.HRMSManager;
 import in.emp.ldap.LDAP;
 import in.emp.security.manager.SecurityManager;
 import in.emp.security.bean.ServerAPIBean;
-import in.emp.sms.bean.TemplateIdBean;
 import in.emp.user.bean.UserBean;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.SmsDTO;
@@ -96,7 +95,6 @@ public class SecurityHandler implements GenericFormHandler {
          SmsController sms = new SmsController();
            SmsDTO objSms = new SmsDTO();
                  HttpSession vendorSession = request.getSession();
-                TemplateIdBean templateBeanObj =new TemplateIdBean();
         try {
             logger.log(Level.INFO, "Security Handler :: resetPassword() :: method called");
             uid = request.getParameter("txtUID");
@@ -122,15 +120,14 @@ public class SecurityHandler implements GenericFormHandler {
          request.getSession().setAttribute(ApplicationConstants.PASSWORD_RESET_OTP,sb.toString());
           lstParams.add(uid);
      lstParams.add(sb.toString());
-     //lstcredential1.add("639748");
-    // lstcredential1.add("mse@12");
+     lstcredential1.add("639748");
+     lstcredential1.add("mse@12");
       lstcredential1.add(ApplicationConstants.OTP_URL);
-      templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID1);
-     templateBeanObj=vendorMgrObj.getTemplateDetails(templateBeanObj);
+     //lstcredential1.add("http://pod2-japi.instaalerts.zone/failsafe/HttpLink");
      objSms.setLstParams(lstParams);    
      objSms.setMobileNumber(userContactNo);
      try{
-     sms.sendSMS(objSms, templateBeanObj.getTemplate_Id(),lstcredential1);
+     sms.sendSMS(objSms, "5009",lstcredential1);
      
      String messageOne=  "OTP Sent Successfully on " +userContactNo.substring(0, 3)+"XXXXXX"+userContactNo.substring(7, 10);
      vendorSession.setAttribute(ApplicationConstants.RESET_PASSWORD_SESSION, messageOne);
