@@ -358,6 +358,10 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                     <th width="7%"> <fmt:message key='View'/></th> 
         </tr>
       </thead>
+    </table>
+  </div>
+      <div class="tbl-content">                                    
+                                                        <table class="table" id="table_ven_input_inv">
    
                                             <tbody>
                                          <%
