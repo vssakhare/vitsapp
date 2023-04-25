@@ -104,11 +104,15 @@ public class JasperReportServlet extends HttpServlet {
                 parameters = Vendor_Statistics_Reports(request);
             } else if (reportName.equals(ApplicationConstants.REPORT_EMPLOYEE_STATISTICS)) {
                 parameters = Employee_Statistics_Reports(request);
+            } else if (reportName.equals("dtlsofapplid")) {
+                parameters.put("reportName", reportName);
+                parameters.put("reportFileName", "dtlsofapplid");
+                parameters.put("applid", request.getParameter("applid"));
             } else if (reportName.equals("dtlsofutrno")) {
                 parameters.put("reportName", reportName);
                 parameters.put("reportFileName", "dtlsofutrno");
-                parameters.put("applid", request.getParameter("applid"));
-            }
+                parameters.put("utrno", request.getParameter("utrno"));
+            }  
 
             if (!ApplicationUtils.isBlank(parameters.get("folderName"))) {
                 folderName = (String) parameters.get("folderName");
@@ -126,7 +130,7 @@ public class JasperReportServlet extends HttpServlet {
             JasperPrint jprint = JasperFillManager.fillReport(reportFile.getAbsolutePath(), parameters, conn);
             
             System.out.println("fileType : "+ fileType);
-            System.out.println(parameters.toString());
+            //System.out.println(parameters.toString());
 
 
             if (fileType.equalsIgnoreCase("PDF")) {

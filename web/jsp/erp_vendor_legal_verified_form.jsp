@@ -411,7 +411,7 @@
                                         <tr>
                                             <td>
                                                  <div class="table-responsive" align="left" >
-                                            <div class=" invoiceheadleft" style="float:left"><label>Invoice Number :  <%= InvoiceNumber %> </label>
+                                            <div class=" invoiceheadleft" style="float:left"><label>Invoice Number : </label><label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofapplid&applid=<%= appl_ID %>&reportType=PDF');" style="background-color: orange"> <%= InvoiceNumber %> </a></label>
                                                 <br><label>Invoice Date :  <%= invoiceDate %> </label>
                                             <br><label>Invoice Amount :  <%= ApplicationUtils.formatAmount(legalInvoiceInputBean.getInvoiceAmount()) %> </label></div>
                                             
@@ -581,7 +581,7 @@
 			    </div>
                                 
                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                        <label>UTR Number : </label> <label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofutrno&applid=<%= appl_ID %>&reportType=PDF');" style="background-color: orange"><%= UTR_NO %></a></label>
+                                        <label>UTR Number : </label> <label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofutrno&utrno=<%= UTR_NO %>&reportType=PDF');" style="background-color: orange"><%= UTR_NO %></a></label>
 				</div>
 			    </div>
                                     <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">

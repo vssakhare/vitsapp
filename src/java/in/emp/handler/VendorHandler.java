@@ -1523,8 +1523,10 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             logger.log(Level.INFO, "VendorHandler :: getLegalInvoiceFile() :: method called :: ");
             if (request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION) != null) {
                 vendorapplFileBeanObj.setEmpNumber((String) request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION));
-                LegalInvoiceInputBean vendorInputBeanObj = ((LegalInvoiceInputBean) request.getSession().getAttribute("LegalVendorInputForm"));
+                if (request.getSession().getAttribute("LegalVendorInputForm") != null) {
+                    LegalInvoiceInputBean vendorInputBeanObj = ((LegalInvoiceInputBean) request.getSession().getAttribute("LegalVendorInputForm"));
                 vendorapplFileBeanObj.setApplicationId(vendorInputBeanObj.getApplId() + "");
+            }
             }
             txtPONumber = (String) request.getParameter("txtPONumber");
             vendorapplFileBeanObj.setPo_Number(txtPONumber);
