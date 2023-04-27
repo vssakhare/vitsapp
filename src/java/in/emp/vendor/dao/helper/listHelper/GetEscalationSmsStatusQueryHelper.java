@@ -70,8 +70,8 @@ public class GetEscalationSmsStatusQueryHelper implements QueryHelper {
          sql.append("    NVL(EMP_TECH_SMS_SENT,' ') EMP_TECH_SMS_SENT  ,NVL(ESC_TECH_SMS_SENT,' ') ESC_TECH_SMS_SENT  , EMP_TECH_SMS_DATE ,TECH_EMP_CPF,TECH_EMP_NAME ");
          sql.append("     FROM summary_status P,SMS_SENT_TRACKER S ");
          sql.append("    where  p.vendor_number = s.vendor_number  ");
-         sql.append("   AND TO_NUMBER(trunc(sysdate) - trunc(EMP_TECH_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS@DBLINK_HRMS(trunc(EMP_TECH_SMS_DATE),sysdate,TECH_EMP_CPF) FROM DUAL) >7 "); 
-         sql.append("    AND INV_NO=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");
+         sql.append("   AND TO_NUMBER(trunc(sysdate) - trunc(EMP_TECH_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS(trunc(EMP_TECH_SMS_DATE),sysdate,TECH_EMP_CPF) FROM DUAL) >7 "); 
+         sql.append("    AND REGEXP_REPLACE(UPPER(INV_NO ), '[^0-9A-Za-z]', '')=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");
          sql.append("   AND P.APPL_ID=S.APPL_ID AND INVOICE_STATUS='Pending With Technical'   ");
          sql.append("   and  ESC_TECH_SMS_SENT is null and EMP_TECH_SMS_SENT='Y' AND  PURCHASING_GROUP IS NOT NULL   ");
            sql.append("			UNION 																   ");
@@ -80,9 +80,9 @@ public class GetEscalationSmsStatusQueryHelper implements QueryHelper {
   sql.append("        NVL(EMP_TECH_SMS_SENT,' ') EMP_TECH_SMS_SENT  ,NVL(ESC_TECH_SMS_SENT,' ') ESC_TECH_SMS_SENT  , EMP_TECH_SMS_DATE ,TECH_EMP_CPF,TECH_EMP_NAME ");
   sql.append("         FROM summary_status P,SMS_SENT_TRACKER S ,PO_LINE_INV_DETAILS C								   ");
   sql.append("        where  p.vendor_number = s.vendor_number  												   ");
-    sql.append("   AND TO_NUMBER(trunc(sysdate) - trunc(EMP_TECH_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS@DBLINK_HRMS(trunc(EMP_TECH_SMS_DATE),sysdate,TECH_EMP_CPF) FROM DUAL) >7  "); 												  
+    sql.append("   AND TO_NUMBER(trunc(sysdate) - trunc(EMP_TECH_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS(trunc(EMP_TECH_SMS_DATE),sysdate,TECH_EMP_CPF) FROM DUAL) >7  "); 												  
 
-  sql.append("        AND INV_NO=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') 								   ");
+  sql.append("        AND REGEXP_REPLACE(UPPER(INV_NO ), '[^0-9A-Za-z]', '')=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') 								   ");
   sql.append("       AND P.APPL_ID=S.APPL_ID AND S.APPL_ID=C.APPL_ID AND INVOICE_STATUS='Pending With Technical'   						   ");
   sql.append("       and  ESC_TECH_SMS_SENT is null and EMP_TECH_SMS_SENT='Y' AND  C.PURCHASING_GROUP IS NOT NULL   	)					   ");
 
@@ -92,8 +92,8 @@ public class GetEscalationSmsStatusQueryHelper implements QueryHelper {
         sql.append("    NVL(EMP_ACC_SMS_SENT,' ') EMP_ACC_SMS_SENT   ,NVL(ESC_ACC_SMS_SENT,' ') ESC_ACC_SMS_SENT , EMP_ACC_SMS_DATE,ACC_EMP_CPF ,ACC_EMP_NAME ");
         sql.append("    FROM summary_status P,SMS_SENT_TRACKER S	");
         sql.append("    where  p.vendor_number = s.vendor_number   ");
-        sql.append("    	 AND TO_NUMBER(trunc(sysdate) - trunc(EMP_ACC_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS@DBLINK_HRMS(trunc(EMP_ACC_SMS_DATE),sysdate,ACC_EMP_CPF) FROM DUAL) >7	");
-        sql.append("    AND INV_NO=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '')	  ");
+        sql.append("    	 AND TO_NUMBER(trunc(sysdate) - trunc(EMP_ACC_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS(trunc(EMP_ACC_SMS_DATE),sysdate,ACC_EMP_CPF) FROM DUAL) >7	");
+        sql.append("    AND REGEXP_REPLACE(UPPER(INV_NO ), '[^0-9A-Za-z]', '')=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '')	  ");
         sql.append("    AND P.APPL_ID=S.APPL_ID AND INVOICE_STATUS='Pending With Accounts' ");
         sql.append("    and  ESC_ACC_SMS_SENT is null and EMP_ACC_SMS_SENT='Y' AND  PURCHASING_GROUP IS NOT NULL 	");
   sql.append("			UNION 																   ");
@@ -102,8 +102,8 @@ public class GetEscalationSmsStatusQueryHelper implements QueryHelper {
   sql.append("        NVL(EMP_TECH_SMS_SENT,' ') EMP_TECH_SMS_SENT  ,NVL(ESC_TECH_SMS_SENT,' ') ESC_TECH_SMS_SENT  , EMP_TECH_SMS_DATE ,TECH_EMP_CPF,TECH_EMP_NAME ");
   sql.append("         FROM summary_status P,SMS_SENT_TRACKER S ,PO_LINE_INV_DETAILS C								   ");
   sql.append("        where  p.vendor_number = s.vendor_number ");
-   sql.append("   	 AND TO_NUMBER(trunc(sysdate) - trunc(EMP_ACC_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS@DBLINK_HRMS(trunc(EMP_ACC_SMS_DATE),sysdate,ACC_EMP_CPF) FROM DUAL) >7 	"); 												  
-  sql.append("        AND INV_NO=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') 								   ");
+   sql.append("   	 AND TO_NUMBER(trunc(sysdate) - trunc(EMP_ACC_SMS_DATE))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS(trunc(EMP_ACC_SMS_DATE),sysdate,ACC_EMP_CPF) FROM DUAL) >7 	"); 												  
+  sql.append("        AND REGEXP_REPLACE(UPPER(INV_NO ), '[^0-9A-Za-z]', '') =REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') 								   ");
   sql.append("       AND P.APPL_ID=S.APPL_ID AND S.APPL_ID=C.APPL_ID AND INVOICE_STATUS='Pending With Accounts'   						   ");
   sql.append("       and  ESC_TECH_SMS_SENT is null and EMP_TECH_SMS_SENT='Y' AND  C.PURCHASING_GROUP IS NOT NULL   	)					   ");
 

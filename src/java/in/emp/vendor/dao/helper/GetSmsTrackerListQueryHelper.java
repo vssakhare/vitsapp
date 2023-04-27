@@ -69,7 +69,7 @@ public class GetSmsTrackerListQueryHelper implements QueryHelper {
             sql.append(" where  p.vendor_number = s.vendor_number  ");
             sql.append(" AND TO_DATE(TRUNC(NVL(P.PROC_INSERT_DATE,SYSDATE))) = TO_DATE(TRUNC(SYSDATE)) ");
             sql.append(" AND INVOICE_STATUS IN('Pending With Technical','Pending With Accounts','Pending For Payment') ");
-            sql.append(" AND INV_NO=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");//MSEDCL INV NUMBER TO MAKE SURE THAT ONLY SAP DATA IS CAPTURED FOR STATUS 
+            sql.append(" AND REGEXP_REPLACE(UPPER(INV_NO ), '[^0-9A-Za-z]', '')=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");//MSEDCL INV NUMBER TO MAKE SURE THAT ONLY SAP DATA IS CAPTURED FOR STATUS 
             sql.append(" AND P.APPL_ID=S.APPL_ID AND P.PURCHASING_GROUP IS NOT NULL ");
             sql.append("   UNION ");
             //C.PURCHASING GROUP TO FETCH PURCHASING GROUP FROM PO LINE INV DETAILS TABLE 
@@ -81,7 +81,7 @@ public class GetSmsTrackerListQueryHelper implements QueryHelper {
   sql.append("   where  p.vendor_number = s.vendor_number  ");
     sql.append(" AND TO_DATE(TRUNC(NVL(P.PROC_INSERT_DATE,SYSDATE))) = TO_DATE(TRUNC(SYSDATE)) ");
    sql.append("  AND INVOICE_STATUS IN('Pending With Technical','Pending With Accounts','Pending For Payment') ");
-  sql.append("   AND INV_NO=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");
+  sql.append("   AND REGEXP_REPLACE(UPPER(INV_NO ), '[^0-9A-Za-z]', '')=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");
  sql.append("   AND P.APPL_ID=S.APPL_ID AND P.PURCHASING_GROUP IS NOT NULL ");
   sql.append("  and S.APPL_ID=C.APPL_ID ");
          /*   sql.append(" UNION ALL ");

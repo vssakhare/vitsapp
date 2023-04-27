@@ -1056,24 +1056,29 @@ public class ApplicationConstants {
     public static String UIACTION_GET_SUBMIT_PLANT_DETAILS="getSubmitPlantlocation"; 
   public static String  UIACTION_GET_FORWARD_TO_OFFICECODE_DETAILS="getForwardToOfficeCode";
   public static String  VENDOR_FORWARD_TO_OFFICECODE_SESSION_DATA="getForwardToOfficeCodeSession";
-  public static String OTP_URL="https://pod1-japi.instaalerts.zone/httpapi/QueryStringReceiver?ver=1.0&key=YnHSOQP2KkEpsUlWPBNGTw==";
+  public static String OTP_URL_OLD="https://pod1-japi.instaalerts.zone/httpapi/QueryStringReceiver?ver=1.0&key=YnHSOQP2KkEpsUlWPBNGTw==";
     //public static String OTP_URL="http://pod2-japi.instaalerts.zone/failsafe/HttpLink";
+  public static String OTP_URL="https://smsdlr.mahadiscom.in/smsReq/scheduleOTP";
+  public static String OTHER_URL="https://smsdlr.mahadiscom.in/smsReq/ScheduleOtherSMS";
+  public static String VITS_URL=" https://vits.mahadiscom.in/VendorBillTracking/erp";
     public static String UIACTION_GET_PLANT_DETAILS = "fetchPlantDetails";
     public static String UIACTION_GET_COURT_CASE_DETAILS_FOR_VENDOR ="getLegalCourtCaseDetailsForVendor";
     
     public static String VENDOR_RETENSION_SESSION_DATA="retentionDetails";
   public static String  UIACTION_GET_LEGAL_VENDOR_INVOICE="getAuthLegalInvoiceList";
    
-    //public static    String Sftppath = "D:/Temp/";//to run locally
+    public static    String SftpLegalpath = "D:/Temp/";//to run locally
+   
+   // public static String SftpLegalpath = "/data/vpts/";             //DEV
+    public static String CONN_POOL_NAME = "ErpDev";                 //DEV
+    public static String SftpLegalFolder ="TEST_VENDOR_FILES/";     //DEV
     
-   public static String Sftppath = "/home/eportal/vpts/";//DEV
-    public static String SftpLegalpath = "/data/vpts/";//DEV
-    public static String SFTPWORKINGDIR = "/data/VPTS/TEST_VENDOR_FILES/";   //DEV
-    public static String CONN_POOL_NAME = "ErpDev";
-    
-   /*  public static String SFTPWORKINGDIR = "/data/VPTS/VENDOR_FILES/";  //PROD
-    public static String Sftppath = "/home/tomcat/vits/";     //PROD
-     public static String CONN_POOL_NAME = "ErpConn"; //Prod*/
+   /*  
+    public static String SftpLegalpath = "/home/tomcat/vits/";      //PROD
+    public static String CONN_POOL_NAME = "ErpConn";                //Prod
+     public static String  SftpLegalFolder="VENDOR_FILES/";    //Prod*/
+     
+     
     public static String UIACTION_GET_VENDOR_LEGAL_INPUT_FORM="getVendorLegalInvoiceInputForm";
     public static String UIACTION_LEGAL_INVOICE_FILE_POST = "postLegalInvoiceFile";
     public static String UIACTION_LEGAL_INVOICE_FILE_GET = "getLegalInvoiceFile";
@@ -1085,6 +1090,25 @@ public class ApplicationConstants {
     public static String VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST="vendorLegalInvoiceAcceptedDataList";
     public static String UIACTION_GET_LEGAL_Hierarchy_LOCATION="getLegalHierarchyLocation";
     public static String UIACTION_GET_VENDOR_SEARCH_COURT_CASE = "getVendorSearchCourtCase";
+    public static String SMS_TEMPLATE_ID1 = "SMS_TEMPLATE_ID1";
+    public static String SMS_TEMPLATE_ID2 = "SMS_TEMPLATE_ID2";
+    public static String SMS_TEMPLATE_ID3 = "SMS_TEMPLATE_ID3";
+    public static String SMS_TEMPLATE_ID4 = "SMS_TEMPLATE_ID4";
+    public static String SMS_TEMPLATE_ID5 = "SMS_TEMPLATE_ID5";
+    public static String SMS_TEMPLATE_ID6 = "SMS_TEMPLATE_ID6";
+    public static String SMS_TEMPLATE_ID7 = "SMS_TEMPLATE_ID7";
+    public static String SMS_TEMPLATE_ID8 = "SMS_TEMPLATE_ID8";
+    public static String SMS_TEMPLATE_ID9 = "SMS_TEMPLATE_ID9";
+    public static String SMS_TEMPLATE_ID10 = "SMS_TEMPLATE_ID10";
+    public static String SMS_TEMPLATE_ID11 = "SMS_TEMPLATE_ID11";
+    public static String SMS_TEMPLATE_ID12 = "SMS_TEMPLATE_ID12";
+    public static String Application_Id ="22";
+    public static String SENDER_ID ="MSEDCL";
+    public static String BULK_SMS_N="BULK_SMS_N";
+    public static String BULK_SMS_Y=ApplicationConstants.BULK_SMS_Y;
+    public static String STRING_VALUE_YES ="Y";
+    public static String STRING_VALUE_NO ="N";
+
     
     
     /*sftp server detail code */
@@ -1097,6 +1121,7 @@ public class ApplicationConstants {
 	public static final String  SFTP_CONN_DETAILS="SFTP_CONN_CODE";
 	
 	public static final String  SFTP_ARCHIEVE_BASE="dms_s3";
+        public static final String SMS_API_KEY="SMS_API_KEY";
 	/*sftp server detail code */
     
     

@@ -65,16 +65,16 @@ public class GetHigherContactListQueryHelper implements QueryHelper {
         sql.append(" select appl_id,po_number,invoice_number,vendor_number,vendor_name,updated_time_stamp,office_code ,parent_office_code,higher_auth_sms_sent_flag,INV_SUBMIT_EMPSMS_SENT_FLAG,AUTH_employee_name,PURCHASING_GROUP,  ");
             sql.append("  to_char(updated_time_stamp, 'yyyy-mm-dd')days_delayed ,SUBMIT_AT_LOCATION LOCATION,MODULE,module_type,  ");
             sql.append(" save_flag from xxmis_erp_vendor_dtl where save_flag='20'   ");
-          sql.append("  and TO_NUMBER(trunc(sysdate) - trunc(updated_time_stamp))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS@DBLINK_HRMS(trunc(updated_time_stamp),sysdate,AUTH_employee) FROM DUAL) >3  ");
+          sql.append("  and TO_NUMBER(trunc(sysdate) - trunc(updated_time_stamp))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS(trunc(updated_time_stamp),sysdate,AUTH_employee) FROM DUAL) >3  ");
              //sql.append(" systimestamp - updated_time_stamp > '03 00:00:00.000000' ");
-            sql.append(" and  higher_auth_sms_sent_flag is null and INV_SUBMIT_EMPSMS_SENT_FLAG='Y' ");
+          sql.append(" and  higher_auth_sms_sent_flag is null and INV_SUBMIT_EMPSMS_SENT_FLAG='Y' ");
              sql.append(" UNION ");
               sql.append(" select appl_id,PROJECT_ID,invoice_number,vendor_number,vendor_name,updated_time_stamp,office_code ,parent_office_code,higher_auth_sms_sent_flag,INV_SUBMIT_EMPSMS_SENT_FLAG,AUTH_employee_name,PURCHASING_GROUP ,  ");
             sql.append("  to_char(updated_time_stamp, 'yyyy-mm-dd')days_delayed ,LOCATION,MODULE,module_type,  ");
             sql.append(" save_flag from xxmis_erp_PS_vendor_dtl where save_flag='20'   ");
-           sql.append("  and TO_NUMBER(trunc(sysdate) - trunc(updated_time_stamp))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS@DBLINK_HRMS(trunc(updated_time_stamp),sysdate,AUTH_employee) FROM DUAL) >3  ");
+           sql.append("  and TO_NUMBER(trunc(sysdate) - trunc(updated_time_stamp))-(SELECT EMPPORTAL.XXMIS_EMP_NOOFHOLIDAYS(trunc(updated_time_stamp),sysdate,AUTH_employee) FROM DUAL) >3  ");
             // sql.append(" systimestamp - updated_time_stamp > '03 00:00:00.000000' ");
-            sql.append(" and  higher_auth_sms_sent_flag is null and INV_SUBMIT_EMPSMS_SENT_FLAG='Y' ");
+           sql.append(" and  higher_auth_sms_sent_flag is null and INV_SUBMIT_EMPSMS_SENT_FLAG='Y' ");
             logger.log(Level.INFO, "GetHigherContactLIstQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
 
             statement = connection.prepareStatement(sql.toString());

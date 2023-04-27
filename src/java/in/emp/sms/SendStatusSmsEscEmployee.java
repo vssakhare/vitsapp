@@ -9,8 +9,8 @@ package in.emp.sms;
  *
  * @author Pooja Jadhav
  */
-
 import in.emp.common.ApplicationConstants;
+import in.emp.sms.bean.TemplateIdBean;
 import in.emp.util.ApplicationUtils;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.HOBean;
@@ -55,49 +55,49 @@ public class SendStatusSmsEscEmployee {
             SmsDTO objSmsHigherEmp = new SmsDTO();
             SmsController sms = new SmsController();
             HOBean hobeanobj = new HOBean();
-POBean poBeanObj = new POBean();
+            POBean poBeanObj = new POBean();
             try {
                 FileList = vendorMgrObj.getEscStatusSmsList(vendorInputBeanObj);
             } catch (Exception ex) {
                 logger.log(Level.ERROR, "SendStatusSmsEscEmployee :: SendStatusEscSms() :: Exception :: " + ex);
-     
+
             }
             if (FileList != null) {
 
                 for (VendorInputBean v : FileList) {
                     String parent_office_code = v.getParent_Office_Code();
-                    String dept="";
+                    String dept = "";
                     String designation = "";
                     VendorInputBean vendorInputBeanObj1 = new VendorInputBean();
+                    TemplateIdBean templateBeanObj = new TemplateIdBean();
                     List<String> lstcredential = new ArrayList<String>();
                     List<String> lstParam2 = new ArrayList<String>();
-                    lstcredential.add("607971");
-                    lstcredential.add("mse12");
+                    //lstcredential.add("607971");
+                    //lstcredential.add("mse12");
                     //lstcredential.add("http://121.241.247.144:7501/failsafe/HttpTemplateLink");
-                    lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+                    //lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+                    lstcredential.add(ApplicationConstants.OTHER_URL);
+                    lstcredential.add(ApplicationConstants.BULK_SMS_Y);
                     lstParam2.add(v.getVendorInvoiceNumber());
                     lstParam2.add(v.getVendorNumber());
                     lstParam2.add(v.getVendorName());
-                     lstParam2.add(v.getDaysDelayed());
-                     lstParam2.add(v.getempName());
+                    lstParam2.add(v.getDaysDelayed());
+                    lstParam2.add(v.getempName());
                     objSmsHigherEmp.setLstParams(lstParam2);
-                     if(v.getStatus().equals("Pending With Technical") ){
-                   dept="Technical";
-                }
-                else if(v.getStatus().equals("Pending With Accounts") )
-
-                {
-                    dept="Accounts"; 
-                }
-                    if (!(parent_office_code.equals("null"))) {
-                     assignOfficeDTO = smshigheremp.LdapDepartment(parent_office_code,dept,designation);// parent office incharge and technical person 
-                vendorInputBeanObj.setempCpf(assignOfficeDTO.getOfficerCpfNo());
-                vendorInputBeanObj.setempName(assignOfficeDTO.getOfficerName());
-                vendorInputBeanObj.setDesignation(assignOfficeDTO.getOfficerDesignation());
-                vendorInputBeanObj.setContactNumber(assignOfficeDTO.getOfficerContactNo());
-                objSmsHigherEmp.setMobileNumber(assignOfficeDTO.getOfficerContactNo()); 
+                    if (v.getStatus().equals("Pending With Technical")) {
+                        dept = "Technical";
+                    } else if (v.getStatus().equals("Pending With Accounts")) {
+                        dept = "Accounts";
                     }
-                 /*      if (!ApplicationUtils.isBlank(v.getPurchasing_group())){
+                    if (!(parent_office_code.equals("null"))) {
+                        assignOfficeDTO = smshigheremp.LdapDepartment(parent_office_code, dept, designation);// parent office incharge and technical person 
+                        vendorInputBeanObj.setempCpf(assignOfficeDTO.getOfficerCpfNo());
+                        vendorInputBeanObj.setempName(assignOfficeDTO.getOfficerName());
+                        vendorInputBeanObj.setDesignation(assignOfficeDTO.getOfficerDesignation());
+                        vendorInputBeanObj.setContactNumber(assignOfficeDTO.getOfficerContactNo());
+                        objSmsHigherEmp.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
+                    }
+                    /*      if (!ApplicationUtils.isBlank(v.getPurchasing_group())){
                            
                            if ( v.getPurchasing_group().equals("Z00"))
                 {
@@ -148,51 +148,51 @@ POBean poBeanObj = new POBean();
               
                    
                        }*/
-                        
 
-                        try {
-                            StringBuilder sql = new StringBuilder();
-                            PreparedStatement psq = null;
-                            conn = ApplicationUtils.getConnection();
-                           if((v.getStatus().equals("Pending With Technical") )&& !(v.getEsc_tech_sms_flag().equals("Y")))
-             {
-             sms.sendSMS(objSmsHigherEmp, "476962", lstcredential);
-              sql.append( "UPDATE sms_sent_tracker set ESC_TECH_SMS_SENT = 'Y',ESC_TECH_EMP_NAME = ?,ESC_TECH_EMP_DESGN = ?,ESC_TECH_EMP_CPF = ?,ESC_TECH_EMP_MOB =?,ESC_TECH_SMS_DATE=SYSDATE WHERE  APPL_ID = ?" );
-             
-             }
-           else  if((v.getStatus().equals("Pending With Accounts") )&& !(v.getEsc_tech_sms_flag().equals("Y")) )
-             {
-               sms.sendSMS(objSmsHigherEmp, "476964", lstcredential);
-              sql.append( " UPDATE sms_sent_tracker set ESC_ACC_SMS_SENT = 'Y',ESC_ACC_EMP_NAME = ?,ESC_ACC_EMP_DESGN = ?,ESC_ACC_EMP_CPF = ?,ESC_ACC_EMP_MOB =?, ESC_ACC_SMS_DATE=SYSDATE WHERE  APPL_ID = ? ");
-           }
-                            psq = conn.prepareStatement(sql.toString());
+                    try {
+                        StringBuilder sql = new StringBuilder();
+                        PreparedStatement psq = null;
+                        conn = ApplicationUtils.getConnection();
+                        if ((v.getStatus().equals("Pending With Technical")) && !(v.getEsc_tech_sms_flag().equals("Y"))) {
+                            templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID10);
+                            templateBeanObj = vendorMgrObj.getTemplateDetails(templateBeanObj);
+                            //sms.sendSMS(objSmsHigherEmp, "476962", lstcredential);
+                            sms.sendSMS(objSmsHigherEmp, templateBeanObj.getTemplate_Id(), lstcredential);
+                            sql.append("UPDATE sms_sent_tracker set ESC_TECH_SMS_SENT = 'Y',ESC_TECH_EMP_NAME = ?,ESC_TECH_EMP_DESGN = ?,ESC_TECH_EMP_CPF = ?,ESC_TECH_EMP_MOB =?,ESC_TECH_SMS_DATE=SYSDATE WHERE  APPL_ID = ?");
 
-                            psq.setString(1, vendorInputBeanObj.getempName());
-                            psq.setString(2, vendorInputBeanObj.getDesignation());
-                            psq.setString(3, vendorInputBeanObj.getempCpf());
-                            psq.setString(4, vendorInputBeanObj.getContactNumber());
-                            psq.setString(5, v.getApplId());
-                            psq.executeUpdate();
-                            conn.commit();
-
-                            if (psq != null) {
-                                psq.close();
-                            }
-                        } catch (SQLException e2) {
-                            e2.printStackTrace();
+                        } else if ((v.getStatus().equals("Pending With Accounts")) && !(v.getEsc_tech_sms_flag().equals("Y"))) {
+                            templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID12);
+                            templateBeanObj = vendorMgrObj.getTemplateDetails(templateBeanObj);
+                            //sms.sendSMS(objSmsHigherEmp, "476964", lstcredential);
+                            sms.sendSMS(objSmsHigherEmp, templateBeanObj.getTemplate_Id(), lstcredential);
+                            sql.append(" UPDATE sms_sent_tracker set ESC_ACC_SMS_SENT = 'Y',ESC_ACC_EMP_NAME = ?,ESC_ACC_EMP_DESGN = ?,ESC_ACC_EMP_CPF = ?,ESC_ACC_EMP_MOB =?, ESC_ACC_SMS_DATE=SYSDATE WHERE  APPL_ID = ? ");
                         }
+                        psq = conn.prepareStatement(sql.toString());
 
-                  
-                    finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                    conn = null;
-                } catch (Exception ignored) {
+                        psq.setString(1, vendorInputBeanObj.getempName());
+                        psq.setString(2, vendorInputBeanObj.getDesignation());
+                        psq.setString(3, vendorInputBeanObj.getempCpf());
+                        psq.setString(4, vendorInputBeanObj.getContactNumber());
+                        psq.setString(5, v.getApplId());
+                        psq.executeUpdate();
+                        conn.commit();
+
+                        if (psq != null) {
+                            psq.close();
+                        }
+                    } catch (SQLException e2) {
+                        e2.printStackTrace();
+                    } finally {
+                        if (conn != null) {
+                            try {
+                                conn.close();
+                                conn = null;
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+
                 }
-            }}
-                
-            }
             }
         } catch (Exception ex) {
             logger.log(Level.ERROR, "SendSMS :: run() :: Exception .. " + ex.getMessage());

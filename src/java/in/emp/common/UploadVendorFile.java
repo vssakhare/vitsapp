@@ -41,7 +41,7 @@ public class UploadVendorFile {
         String SFTPPASS = System.getProperty("sftp.password");
 
      //   String SFTPWORKINGDIR =ApplicationConstants.SFTPWORKINGDIR+location;  
-      String SFTPWORKINGDIR =System.getProperty("sftp.file.path.linux")+ "TEST_VENDOR_FILES/" +location;
+      String SFTPWORKINGDIR =System.getProperty("sftp.file.path.linux")+ ApplicationConstants.SftpLegalFolder +location;
         // String SFTPWORKINGDIR = "/home/sap_interface/VPTS/VENDOR_FILES/"+location;
         //String SFTPHOST = "10.0.2.188";
        // String SFTPHOST = "ftp-vpts-erp.mahadiscom.in";
@@ -134,7 +134,7 @@ public class UploadVendorFile {
         String SFTPPASS = System.getProperty("sftp.password");
 
      //   String SFTPWORKINGDIR =ApplicationConstants.SFTPWORKINGDIR+location;  
-      String SFTPWORKINGDIR =System.getProperty("sftp.file.path.linux")+ "TEST_VENDOR_FILES/" +location;
+      String SFTPWORKINGDIR =System.getProperty("sftp.file.path.linux")+ ApplicationConstants.SftpLegalFolder +location;
         // String SFTPWORKINGDIR = "/home/sap_interface/VPTS/VENDOR_FILES/"+location;
         String Folder=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String InFolder = foldername;

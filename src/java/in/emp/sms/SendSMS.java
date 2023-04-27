@@ -5,6 +5,7 @@
 package in.emp.sms;
 
 import in.emp.common.ApplicationConstants;
+import in.emp.sms.bean.TemplateIdBean;
 import in.emp.util.ApplicationUtils;
 import in.emp.vendor.VendorDelegate;
 import in.emp.vendor.bean.AssignOfficeBean;
@@ -63,14 +64,16 @@ public class SendSMS {
                     String parent_office_code = v.getParent_Office_Code();
                     String office_code = v.getOffice_Code();
                     VendorInputBean vendorInputBeanObj1 = new VendorInputBean();
+                    TemplateIdBean templateBeanObj = new TemplateIdBean();
                     List<String> lstcredential = new ArrayList<String>();
                     List<String> lstParam2 = new ArrayList<String>();
-                    lstcredential.add("607971");
-                    lstcredential.add("mse12");
+                    //lstcredential.add("607971");
+                    // lstcredential.add("mse12");
                     //lstcredential.add("http://121.241.247.144:7501/failsafe/HttpTemplateLink");
-                    lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+                    // lstcredential.add("https://japi.instaalerts.zone/failsafe/HttpTemplateLink");
+                    lstcredential.add(ApplicationConstants.OTHER_URL);
+                    lstcredential.add(ApplicationConstants.BULK_SMS_Y);
                     lstParam2.add(v.getVendorInvoiceNumber());
-
                     lstParam2.add(v.getVendorNumber());
                     lstParam2.add(v.getVendorName());
                     lstParam2.add(v.getempName());
@@ -143,9 +146,12 @@ public class SendSMS {
                     objSmsHigherEmp.setMobileNumber(assignOfficeDTO.getOfficerContactNo());
                     }*/
                     try {
-
-                        sms.sendSMS(objSmsHigherEmp, "476810", lstcredential);//send sms to higher authority
-                        sms.sendSMS(objSmsEmp, "476810", lstcredential);//send same sms to auth employee.
+                        templateBeanObj.setTemplate_Id_Desc(ApplicationConstants.SMS_TEMPLATE_ID4);
+                        templateBeanObj = vendorMgrObj.getTemplateDetails(templateBeanObj);
+                        // sms.sendSMS(objSmsHigherEmp, "476810", lstcredential);//send sms to higher authority
+                        // sms.sendSMS(objSmsEmp, "476810", lstcredential);//send same sms to auth employee.
+                        sms.sendSMS(objSmsHigherEmp, templateBeanObj.getTemplate_Id(), lstcredential);
+                        sms.sendSMS(objSmsEmp, templateBeanObj.getTemplate_Id(), lstcredential);
                         try {
                             StringBuilder sql = new StringBuilder();
                             PreparedStatement psq = null;
