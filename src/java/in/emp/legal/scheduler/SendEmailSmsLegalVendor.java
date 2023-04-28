@@ -84,7 +84,7 @@ public class SendEmailSmsLegalVendor {
              
                  success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
+              {sql=" UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set CASH_SMS_EMAIL_SENT = 'Y',CASH_SMS_EMAIL_TIMESTAMP=systimestamp,SAP_STATUS='With Cash' WHERE APPL_ID = ? AND FEE_TYPE=?";}
              
              }catch(Exception e){
                  
@@ -108,7 +108,8 @@ public class SendEmailSmsLegalVendor {
              
               success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_SMS_EMAIL_SENT = 'Y',PAY_SMS_EMAIL_TIMESTAMP=systimestamp,SAP_STATUS='Payment Done',TDS_AMOUNT = ?,CGST_AMOUNT = ?,CGST_TDS_AMOUNT = ?,SGST_AMOUNT = ?,SGST_TDS_AMOUNT = ?,\n" +
+"IGST_AMOUNT = ?,IGST_TDS_AMOUNT = ? WHERE APPL_ID = ? AND FEE_TYPE=?";}
               
               }catch(Exception e){
                  
@@ -133,7 +134,7 @@ public class SendEmailSmsLegalVendor {
              
               success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_ADJ_SMS_EMAIL_SENT = 'Y',PAY_ADJ_SMS_EMAIL_TIMESTAMP=systimestamp,SAP_STATUS='Payment Adjusted' WHERE APPL_ID = ? AND FEE_TYPE=?";}
               
                }catch(Exception e){
                  
@@ -154,7 +155,7 @@ public class SendEmailSmsLegalVendor {
                   String MailMessage="For invoice no. " +InvoiceNumber+","+v.getFeeType()+" payment document has been reversed.";
                 success=SendMail.sendmail(VendorMailId,Subject,MailMessage);
               if(success==1)
-              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp WHERE APPL_ID = ? AND FEE_TYPE=?";}
+              {sql= " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set PAY_DOC_REVRSD_SMS_EMAIL_SENT = 'Y',PAY_DOC_REVRSD_SMS_EMAIL_TIMESTAMP=systimestamp,SAP_STATUS='Payment Document Reversed' WHERE APPL_ID = ? AND FEE_TYPE=?";}
              
              
              }catch(Exception e){
@@ -167,9 +168,21 @@ public class SendEmailSmsLegalVendor {
                         PreparedStatement psq = null;
                         conn = ApplicationUtils.getConnection();
                          logger.log(Level.INFO, "GetSendSmsVendorQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
-                        psq = conn.prepareStatement(sql.toString());                                                
+                        psq = conn.prepareStatement(sql);                                                
+                        if (v.getStartPostDocNo() != null && (v.getStartPostDocNo().equals("16" ))&& v.getStartPayDoneErpDoc() !=null && v.getStartPayDoneErpDoc().equals("17") && v.getPaySmsEmailSent()==null){
+                        psq.setString(1, String.valueOf(v.getTdsAmount()));
+                        psq.setString(2, String.valueOf(v.getCgstAmount()));
+                        psq.setString(3, String.valueOf(v.getCgstTdsAmount()));
+                        psq.setString(4, String.valueOf(v.getSgstAmount()));
+                        psq.setString(5, String.valueOf(v.getSgstTdsAmount()));
+                        psq.setString(6, String.valueOf(v.getIgstAmount()));
+                        psq.setString(7, String.valueOf(v.getIgstTdsAmount()));
+                        psq.setString(8, String.valueOf(v.getFeeType()));
+                        psq.setString(9, String.valueOf(v.getApplId()));
+                        } else {
                         psq.setString(1, String.valueOf(v.getApplId()));
                         psq.setString(2, String.valueOf(v.getFeeType()));
+                        }
                         psq.executeUpdate();
                         conn.commit();
 
