@@ -30,10 +30,6 @@ import in.emp.vendor.bean.VendorBean;
 import in.emp.vendor.bean.VendorInputBean;
 import in.emp.vendor.bean.VendorPrezData;
 import in.emp.vendor.manager.VendorManager;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -457,7 +453,7 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
         String ApplID = "";
         legalInvoiceInputBean.setSaveFlag(request.getParameter("status"));
         try {
-            logger.log(Level.INFO, "VendorHandler :: viewVendorLegalInvoiceDetails() :: method called :: ");
+            logger.log(Level.INFO, "VendorHandler :: getVendorLegalVerifiedForm() :: method called :: ");
             String userType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
             System.out.println("userType::" + userType);
 
@@ -1343,7 +1339,7 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
 
     private String viewVendorLegalInvoiceDetails(HttpServletRequest request) {
         String sReturnPage = ApplicationConstants.UIACTION_VIEW_VENDOR_LEGAL_INPUT_LIST;
-
+        LinkedList FileList = new LinkedList();
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
         VendorDelegate vendorMgrObj = new VendorManager();
         HttpSession session = request.getSession();
@@ -1355,7 +1351,7 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             logger.log(Level.INFO, "VendorHandler :: viewVendorLegalInvoiceDetails() :: method called :: ");
             String userType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
             System.out.println("userType::" + userType);
-
+            VendorApplFileDelegate vendorapplFileMgrObj = new VendorApplFileManager();
             VendorApplFileBean vendorapplFileBeanObj = new VendorApplFileBean();
             legalInvoiceInputBean.setCreatedByUsertype("Emp");
             legalInvoiceInputBean.setWhereClause("Emp");
@@ -1371,7 +1367,9 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
 //                    FileList = vendorapplmgrObj.getVendorLegalApplFileList(vendorapplFileBeanObj);
 //                    //FileList1 = vendorapplFileMgrObj.getVendorPOFileList(vendorapplFileBeanObj);
 //                    FileList.addAll(FileList1);
-            }
+            FileList = vendorapplFileMgrObj.getVendorLegalApplFileList(vendorapplFileBeanObj);
+        }
+            request.getSession().setAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA, FileList);
             legalInvoiceInputBean.setCreatedByUsertype(userType);
             legalInvoiceInputBeanList = (List<LegalInvoiceInputBean>) vendorMgrObj.getLegalInvoiceInputList(legalInvoiceInputBean);
             if (legalInvoiceInputBeanList != null && legalInvoiceInputBeanList.size() > 0) {

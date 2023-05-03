@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="in.emp.vendor.bean.VendorApplFileBean"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
 <%@page import="java.math.BigDecimal"%>
@@ -22,7 +25,10 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 <%
-
+    LinkedList FileList = new LinkedList();
+    if (request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA) != null) {
+        FileList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.VENDOR_FORM_FILE_SESSION_DATA);
+    }
     String recordsVar = "No Records To Display !!!";
     String uiAction = "";
 
@@ -96,7 +102,7 @@
         String SgstTdsAmount = "";
         String IgstAmount = "";
         String IgstTdsAmount = "";
-
+        String appl_ID="";
 
 //UserType="Vendor";
     if (legalInvoiceInputBean != null) {
@@ -223,9 +229,9 @@
             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getStatus())) {
                 invoiceStatus = legalInvoiceInputBean.getStatus();
             }
-            int appl_ID;
+            //int appl_ID;
             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getApplId())) {
-                appl_ID = legalInvoiceInputBean.getApplId();
+                appl_ID = legalInvoiceInputBean.getApplId()+"";
             }
             if (request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION) != null) {
                 UserType = (String) request.getSession().getAttribute(ApplicationConstants.USER_TYPE_SESSION);
@@ -334,8 +340,10 @@
                                         <tr>
                                             <td>
                                                  <div class="table-responsive" align="left" >
-                                            <div class=" invoiceheadleft" style="float:left"><label>Invoice Number :  <%= InvoiceNumber %> </label>
-                                                <br><label>Invoice Date :  <%= invoiceDate %> </label> </div>
+                                            <div class=" invoiceheadleft" style="float:left"><label>Invoice Number : </label><label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofapplid&applid=<%= appl_ID %>&reportType=PDF');" style="background-color: orange"> <%= InvoiceNumber %> </a><i class="bi bi-arrow-up-right-square"></i></label>
+                                                <br><label>Invoice Date :  <%= invoiceDate %> </label>
+                                            <br><label>Invoice Amount :  <%= invoiceAmount %> </label>
+                                            </div>
                                             
                                             <div class=" invoiceheadright " style="float:right; padding-bottom: 10px">
                                                <label  style="padding-right: 10px">Vendor Name:</label> <label  ><%= VendorName %></label><br>
@@ -407,10 +415,10 @@
                                      <label>Payment Date : </label> <label><%= paymentDate %></label>
 				</div>
 			    </div>
-                                 <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                 <!--<div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>UTR No : </label> <label><%= UTR_NO %></label>
 				</div>
-			    </div>
+			    </div>-->
                             </div>
                             
                            <div class="invoicesubdiv" >
@@ -498,7 +506,7 @@
 			    </div>
                                 
                                 <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>UTR Number : </label> <label><%= UTR_NO %></label>
+                                     <label>UTR Number : </label> <label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofutrno&utrno=<%= UTR_NO %>&reportType=PDF');" style="background-color: orange"><%= UTR_NO %></a></label>
 				</div>
 			    </div>
                                  <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
@@ -532,10 +540,55 @@
                                <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Payment Status : </label> <label><%= paymentStatus %></label>
 				</div>
-			    </div>
+			    </div>                             
+                            </div>
                                 
+                            <div class="col-sm-12 invoiceBlueHead" >   <label>Uploaded Files</label>
+                            </div>    
+                            <form  method="post" enctype="multipart/form-data">    
+                            <input type="hidden" name="view" id="view1" value="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_GET)%>"/>
+                            <input type="hidden" name="txtApplicationId" id="txtApplicationId" value="<%=appl_ID%>"/>
+                            </form>
                                 
-			    </div>
+                            <div class="table-responsive">
+                            <table class="table"  align="center">
+
+
+                                <%  
+                                    Iterator itr = FileList.iterator();
+                                    System.out.println("FileList::"+FileList);
+                                    int j = 0;
+                                    while (itr.hasNext()) {%>    
+                            <tr class="success">
+                                    
+                                    <th>#</th>                                                
+                                    <th><fmt:message key='File Name'/></th>
+                                    <th><fmt:message key='File Type'/></th>
+                                    <th><fmt:message key='Remark'/></th>
+                                    
+                                     
+                                </tr>
+                                <%   String remark = "";
+                                    String type = "";
+                                    VendorApplFileBean flb = new VendorApplFileBean();
+                                    flb = (VendorApplFileBean) itr.next();
+                                    j++; 
+                                    if (!ApplicationUtils.isBlank(flb.getRemark())) {
+                                        remark = flb.getRemark();
+                                    }
+                                    //System.out.println("flb.getOption()"+flb.getOption()); 
+                                    if (!ApplicationUtils.isBlank(flb.getOption())) {
+                                        type = flb.getOption();
+                                    }
+                                %>
+
+                                <tr class="info">
+                                <td><%=j%></td>
+                                <td class="blackfont" ><a class="blackfont" href="#nogo" onclick="viewFile('<%=flb.getId()%>', '<%=flb.getOption()%>')"> <%=(flb.getFileName() + "." + flb.getFileType())%></a></td>
+                                <td><%=type%></td>
+                                <td><%=remark%></td>    
+                                </tr><%  }%> </table>
+                           </div>    
                                 <%}%>
                            </div>
                             
