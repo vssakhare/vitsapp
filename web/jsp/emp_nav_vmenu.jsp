@@ -31,7 +31,7 @@
                                     <div>
                                         <div id="menu1">
                                     <a  id="M1" data-toggle="collapse" data-parent="#accordion" href="#collapseVendorInfo" class="collapsed"
-                                       title="Your Submitted Invoices"      ><img src="images/vendor.png" width="18" height="16" style=""><b>Vendor</b>
+                                       title="Your Submitted Invoices"      ><img src="images/invoice_icon.png" width="18" height="16" style=""><b>Invoice Details </b>
                                     </a></div>
                                       <div id="collapseVendorInfo" class="panel-collapse collapse subMenu" style="line-height: 4;">
                     <% if(!session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) { %> 
@@ -52,7 +52,7 @@
                         </div><% } %>
                         <% if(session.getAttribute(ApplicationConstants.IS_LEGAL_USER).equals("Y")) { %> 
                         <div class="panel-menu" id="M1I5">
-                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST)%>" title=""><img src="images/invoice.png" width="16" height="16"><fmt:message key='Submit Legal Invoices'/></a>
+                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_LIST)%>" title=""><img src="images/bullet.png" width="16" height="16"><fmt:message key='Submit Legal Invoices'/></a>
                         </div>
 <!--                        <div class="panel-menu" id="M1I6">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_VIEW_VENDOR_LEGAL_INPUT_LIST)%>" title=""><fmt:message key='View Legal Invoices'/></a>
@@ -68,7 +68,7 @@
                     <div id="menu1">
                       
                             <a  data-toggle="collapse" data-parent="#accordion" href="#collapseEmployeeInfo" class="collapsed" id="M2"
-                               title="Your Location's Invoices"><img src="images/vendor.png" width="18" height="16" style=""><b>Employee</b></a>
+                               title="Your Location's Invoices"><img src="images/invoice_icon.png" width="18" height="16" style=""><b>Invoice Details</b></a>
                       
                     </div>
                     <div id="collapseEmployeeInfo" class="panel-collapse collapse subMenu" style="line-height: 2; font-size:12px">
@@ -86,20 +86,47 @@
                         <div class="panel-menu" id="M2I4">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.REPORT_MSEDCL_EMP)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">MSEDCL MIS Reports</a>
                         </div> 
-                         <div class="panel-menu" id="M1I5">
+                    <!--     <div class="panel-menu" id="M1I5">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_FORM)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">Submit Vendor Legal Invoice</a>
                         </div>
                         <div class="panel-menu" id="M1I6">
                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">View Legal Invoices</a>
-                        </div>
-                    </div>           
+                        </div> -->
+                    </div>  
+                        
                    
                         
                 </div>
             </li>
             
+            <li>
+                
+                 <div id="menu1">
+                      
+                            <a  data-toggle="collapse" data-parent="#accordion" href="#collapseEmployeeInfo2" class="collapsed" id="M3"
+                               title="Your Location's Legal Invoices"><img src="images/legal_invoice.png" width="18" height="16" style=""><b>Legal Invoices</b></a>
+                      
+                    </div>
+                
+                <div id="collapseEmployeeInfo2" class="panel-collapse collapse subMenu" style="line-height: 2; font-size:12px">
+                    
+                     <div class="panel-menu" id="M1I5">
+                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_LEGAL_INPUT_FORM)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">Submit Vendor Legal Invoice</a>
+                        </div>
+                        <div class="panel-menu" id="M1I6">
+                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">View Legal Invoices</a>
+                        </div>
+                        
+                         <div class="panel-menu" id="M2I3">
+                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_LEGAL_AUTH_SUMMARY)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">Summary</a>
+                        </div>
+                    
+                </div>
+                
+            </li>
+            
            <% } %>
-                                      <li id="menu2" style="align-items: center;  justify-content: center"> 
+                                      <li id="menu1" style="align-items: center;  justify-content: center"> 
                                           
                                         <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %>  
                                           <a  href="/VendorBillTracking/pdfFiles/Vendorreportmanual.pdf" title="Downloads">

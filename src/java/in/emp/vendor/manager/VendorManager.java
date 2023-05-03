@@ -1043,6 +1043,32 @@ public class VendorManager implements VendorDelegate {
         }
         return vendorPrezDataObj;
     }
+     
+       public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) {
+    
+   
+        VendorDao vendorDaoObj = new OracleVendorDao();
+        LinkedList summaryList = new LinkedList();
+       
+        try {
+            logger.log(Level.INFO, " VendorManager :: getSummaryList() :: method called");
+
+          
+            summaryList = (LinkedList) vendorDaoObj.getLegalSummaryList(legalInvoiceInputBean);
+          
+   
+
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getSummaryList() :: Exception :: " + ex);
+
+        }
+        return summaryList;
+    
+    
+    
+}
+     
+     
  public VendorPrezData getTableList(VendorInputBean vendorInputBeanObj) {
         VendorPrezData vendorPrezDataObj = new VendorPrezData();
         VendorDao vendorDaoObj = new OracleVendorDao();

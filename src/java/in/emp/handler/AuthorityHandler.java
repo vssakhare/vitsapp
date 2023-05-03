@@ -81,7 +81,12 @@ public String execute(HttpServletRequest request) throws Exception {
                 sReturnPage = getAuthInvoiceList(request);
              }   else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_AUTH_SUMMARY)) {
                 sReturnPage = getAuthSummary(request);
-             } else if (uiActionName.equals(ApplicationConstants.REPORT_MSEDCL_EMP)) {
+                
+             } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_LEGAL_AUTH_SUMMARY)) {
+                sReturnPage = getLegalAuthSummary(request);
+                
+             }
+             else if (uiActionName.equals(ApplicationConstants.REPORT_MSEDCL_EMP)) {
                 sReturnPage = MSEDCLEmpReport(request);
              }
              else if(uiActionName.equals(ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE)) {
@@ -397,7 +402,7 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
     HttpSession session = request.getSession();        
        
         try {
-            logger.log(Level.INFO, "AuthorityHandler :: getAuthInvoiceList() :: method called :: ");
+            logger.log(Level.INFO, "AuthorityHandler :: getAuthSummary() :: method called :: ");
 
            
           if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")){
@@ -533,6 +538,47 @@ private String getAuthLegalInvoiceList(HttpServletRequest request) throws Except
         }
         return sReturnPage;
     }
+
+private String getLegalAuthSummary(HttpServletRequest request) throws Exception {
+    String sReturnPage = ApplicationConstants.UIACTION_GET_LEGAL_AUTH_SUMMARY;
+
+    //VendorBean vendorBeanObj = new VendorBean();
+      LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
+    VendorDelegate vendorMgrObj = new VendorManager();
+    LinkedList legalSummaryList = new LinkedList();
+    HttpSession session = request.getSession();        
+       
+        try {
+            logger.log(Level.INFO, "AuthorityHandler :: getLegalAuthSummary() :: method called :: ");
+
+           
+         /* if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")){
+            legalInvoiceInputBean.setCreatedByUsertype("Emp");
+            }
+          
+          if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")){
+            legalInvoiceInputBean.setCreatedByUsertype("Vendor");
+            }
+           
+          */
+       legalInvoiceInputBean.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
+       
+        if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {           
+            legalInvoiceInputBean.setLocationId("");
+        } else {
+            legalInvoiceInputBean.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+        }
+            legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBean);
+            session.setAttribute(ApplicationConstants.LEGAL_AUTHORITY_SUMMARY_SESSION_DATA, legalSummaryList);
+
+
+    } catch (Exception ex) {
+        logger.log(Level.ERROR, "AuthorityHandler :: getLegalAuthSummary() :: Exception :: " + ex);
+        //ex.printStackTrace();
+    }
+    return sReturnPage;
+}/* End of Method */
+ 
 
 }//class ends
 

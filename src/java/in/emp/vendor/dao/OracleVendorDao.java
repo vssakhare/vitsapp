@@ -26,6 +26,7 @@ import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalEmailSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalInvoiceFeeTypeDtlListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetLegalSummaryListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
@@ -156,6 +157,21 @@ public class OracleVendorDao extends BaseDao implements VendorDao {
             summaryList = (LinkedList) getObjectList(new GetSummaryListQueryHelper(vendorBeanObj));
         } catch (Exception ex) {
             logger.log(Level.ERROR, "OracleVendorDao ::: getSummaryList() :: Exception :: " + ex);
+            //ex.printStackTrace();
+            throw ex;
+        }
+        return summaryList;
+    }
+
+    
+        public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) throws Exception {
+        LinkedList summaryList = null;
+        try {
+            logger.log(Level.INFO, "OracleVendorDao ::: getLegalSummaryList() :: method called ::");
+
+            summaryList = (LinkedList) getObjectList(new GetLegalSummaryListQueryHelper(legalInvoiceInputBean));
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "OracleVendorDao ::: getLegalSummaryList() :: Exception :: " + ex);
             //ex.printStackTrace();
             throw ex;
         }

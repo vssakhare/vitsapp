@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Rikma Rai
  */
-public class LegalInvoiceInputBean implements java.io.Serializable{
+public class LegalInvoiceInputBean extends LegalSummaryBean implements java.io.Serializable{
     	private Integer applId  ;
 	private String vendorNumber ;  
 	private String vendorName   ;
