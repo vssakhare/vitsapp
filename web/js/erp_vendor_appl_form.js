@@ -150,3 +150,15 @@ function dateVal()
           }
           return true;
     }
+    
+function viewFile(id, option) {
+    var AppId = document.getElementById("txtApplicationId").value;
+    var view = document.getElementById("view1").value;
+//var txtPONumber = txtPONumber.substring(0, txtPONumber.indexOf("-"));
+    var url = view + "&AppId=" + AppId
+            + "&FId=" + id
+            + "&Option=" + option;
+
+    window.open(url, 'Attachment', 'toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=yes,resizable=yes,width=1200,height=1200');
+
+}    

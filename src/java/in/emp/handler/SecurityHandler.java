@@ -353,7 +353,7 @@ public class SecurityHandler implements GenericFormHandler {
             //vendorPrezDataObj = vendorMgrObj.getTableList( vendorInputBeanObj);
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
-             vendorPrezDataObj = vendorMgrObj.getLegalSummaryList(vendorBeanObj);
+          //   vendorPrezDataObj = vendorMgrObj.getLegalSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObj);
         } catch (Exception ex) {
             logger.log(Level.ERROR, "SecurityHandler :: getLogin() :: Exception :: " + ex);

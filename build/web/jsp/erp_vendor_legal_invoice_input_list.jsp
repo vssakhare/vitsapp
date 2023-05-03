@@ -114,7 +114,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                 <!-- /. NAV TOP  -->
                 <%@ include file="emp_nav_vmenu.jsp"%>
                 <!-- /. NAV SIDE  -->
-                <div id="page-wrapper" >
+                <div id="page-wrapper" style="width:100%;padding-left:15%;font-weight:Normal;" >
 
                     <div id="page-inner" style="min-height:500px;">
 
@@ -176,7 +176,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                     
                         <%@ include file="navJs.jsp"%>
                         <!-- Ends header content -->
-                        <div class="content_container">
+                       
 
                             <table width="100%" border="0" cellspacing="0" cellpadding="0"> <!-- Start of Network Search results table -->
                                 <tr>
@@ -361,7 +361,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
     </table>
   </div>
       <div class="tbl-content">                                    
-                                                        <table class="table" id="table_ven_input_inv">
+                                                        <table class="table" id="tableinputinvoices">
    
                                             <tbody>
                                          <%
@@ -551,7 +551,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                             </div>
                     <!-- /. PAGE wrapper  -->
                          </div>
-                        </div></div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.  wrapper  -->                                   

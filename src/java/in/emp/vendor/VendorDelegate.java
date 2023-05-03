@@ -36,7 +36,11 @@ public interface VendorDelegate {
     public VendorPrezData getVendorList(VendorBean vendorBeanObj) throws Exception;
        public VendorPrezData  getVendorVerifiedList(VendorBean vendorBeanObj) throws Exception;
     public VendorPrezData getSummaryList(VendorBean vendorBeanObj) throws Exception;
-     public VendorPrezData getLegalSummaryList(VendorBean vendorBeanObj) throws Exception;
+
+  
+
+      public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) throws Exception;
+
     public VendorPrezData getTableList(VendorInputBean vendorInputBeanObj) throws Exception;
     public VendorPrezData getPOList(POBean poBeanObj) throws Exception;
      public LinkedList getPONumberList(POBean poBeanObj) throws Exception;

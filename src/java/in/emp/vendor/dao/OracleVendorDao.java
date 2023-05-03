@@ -26,6 +26,7 @@ import in.emp.legal.dao.helper.queryHelper.GetHOLegalSmsEmailQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalEmailSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalInvoiceFeeTypeDtlListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetLegalSummaryListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
@@ -98,7 +99,7 @@ import in.emp.vendor.dao.helper.txnHelper.getSmsResponseTrackerTxnHelper;
 import in.emp.vendor.dao.helper.formHelper.getVendorVerifiedFormQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.GetAuthContactListQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.GetEscalationSmsStatusQueryHelper;
-import in.emp.vendor.dao.helper.listHelper.GetLegalSummaryListQueryHelper;
+
 import in.emp.vendor.dao.helper.listHelper.GetPOLocationQueryHelper;
 import in.emp.vendor.dao.helper.listHelper.getPlantDetailsQueryHelper;
 import in.emp.vendor.dao.helper.psHelper.GetPartialRetentionDetailsQueryHelper;
@@ -162,19 +163,28 @@ public class OracleVendorDao extends BaseDao implements VendorDao {
         }
         return summaryList;
     }
-   public LinkedList getLegalSummaryList(VendorBean vendorBeanObj) throws Exception {
+   public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) throws Exception {
         LinkedList legalSummaryList = null;
         try {
             logger.log(Level.INFO, "OracleVendorDao ::: getLegalSummaryList() :: method called ::");
 
-            legalSummaryList = (LinkedList) getObjectList(new GetLegalSummaryListQueryHelper(vendorBeanObj));
+
+            legalSummaryList = (LinkedList) getObjectList(new GetLegalSummaryListQueryHelper(legalInvoiceInputBean));
+
+    
+
         } catch (Exception ex) {
             logger.log(Level.ERROR, "OracleVendorDao ::: getLegalSummaryList() :: Exception :: " + ex);
             //ex.printStackTrace();
             throw ex;
         }
+
         return legalSummaryList;
     }
+
+
+
+
     public LinkedList getPOList(POBean poBeanObj) throws Exception {
         LinkedList POList = null;
         try {

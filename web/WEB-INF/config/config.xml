@@ -382,7 +382,12 @@
                 <success-page>/jsp/erp_auth_summary.jsp</success-page>
                 <error-page>/jsp/erp_auth_summary.jsp</error-page>
             </uiaction>  
-            <uiaction>
+              <uiaction>
+                <action-name>getLegalAuthSummary</action-name>
+                <success-page>/jsp/erp_legal_auth_summary.jsp</success-page>
+                <error-page>/jsp/erp_legal_auth_summary.jsp</error-page>
+            </uiaction>  
+            <uiaction>1
                 <action-name>Employee_detail_reports</action-name>
                 <success-page>/jsp/erp_emp_report.jsp</success-page>
                 <error-page>/jsp/erp_emp_report.jsp</error-page>

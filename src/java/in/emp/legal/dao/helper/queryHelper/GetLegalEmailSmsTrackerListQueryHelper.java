@@ -6,6 +6,7 @@ package in.emp.legal.dao.helper.queryHelper;
 
 import in.emp.dao.QueryHelper;
 import in.emp.legal.bean.LegalInvoiceInputBean;
+import in.emp.util.TaxAmountDisplayFromSap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,6 +84,16 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             logger.log(Level.ERROR, "GetLegalSmsTrackerListQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
         }
+        
+                     if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")&& legalInvoiceInputBean.getStatus().equalsIgnoreCase("Payment Done")) {
+                try {
+                    legalInvoiceInputBean = TaxAmountDisplayFromSap.consumeSapWebservice(legalInvoiceInputBean);
+                } catch (Exception ex) {
+                    logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() ::consumeSapWebservice Exception :: " + ex);
+                    
+                }
+        
+                     }
         return legalInvoiceInputBean;
     }
 

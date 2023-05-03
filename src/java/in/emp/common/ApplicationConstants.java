@@ -966,6 +966,7 @@ public class ApplicationConstants {
     
     public static String AUTHORITY_LIST_SESSION_DATA = "authorityListSessionData";
     public static String AUTHORITY_FORM_SESSION_DATA = "authorityFormSessionData";
+     
     
     public static String UIACTION_EMP_REPORTS_GET = "getEmpReports";
     
@@ -1001,7 +1002,12 @@ public class ApplicationConstants {
     
     public static String UIACTION_GET_AUTH_SUMMARY = "getAuthSummary";
     public static String AUTHORITY_SUMMARY_SESSION_DATA = "authSummarySessionData";
+
    public static String AUTHORITY_LEGAL_SUMMARY_SESSION_DATA= "authLegalSummarySessionData";
+
+     public static String UIACTION_GET_LEGAL_AUTH_SUMMARY = "getLegalAuthSummary";
+     public static String LEGAL_AUTHORITY_SUMMARY_SESSION_DATA = "LegalAuthSummarySessionData";
+
 
     public static String USER_LOGIN_MSG_SESSION= "loginMesage";
         public static String RESET_PASSWORD_SESSION= "resetpwdMesage";
