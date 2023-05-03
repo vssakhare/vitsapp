@@ -96,7 +96,7 @@ LinkedList summaryList = new LinkedList();
   <div class="col-sm-6 col-lg-3">
         <div class="card text-black bg-danger">
             <div class="card-body pb-0">
-                <div class="text-value"><center><fmt:message key='Invoices Submitted By Vendor'/></center></div>
+                <div class="text-value"><center><fmt:message key='non legal Invoices Submitted By Vendor'/></center></div>
             </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:20%;"><div class="chartjs-size-monitor" style="left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; visibility: hidden; position: absolute; z-index: -1; pointer-events: none;">
                 <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>

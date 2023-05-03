@@ -418,6 +418,8 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
         }
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
+             vendorPrezDataObj = vendorMgrObj.getLegalSummaryList(vendorBeanObj);
+            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObj);
 
 
     } catch (Exception ex) {

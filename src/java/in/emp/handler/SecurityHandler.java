@@ -48,7 +48,9 @@ public class SecurityHandler implements GenericFormHandler {
             if (!ApplicationUtils.isBlank(uiActionName)) {
                 if (uiActionName.equals(ApplicationConstants.UIACTION_HOME_GET)) {
                     sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
-
+                }else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)) {
+                     sReturnPage =ApplicationConstants.UIACTION_LEGALDASHBOARD_GET;
+                
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_LOGIN_GET)) {
                      sReturnPage =getLogin(request);
                 } 
@@ -351,6 +353,8 @@ public class SecurityHandler implements GenericFormHandler {
             //vendorPrezDataObj = vendorMgrObj.getTableList( vendorInputBeanObj);
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
+             vendorPrezDataObj = vendorMgrObj.getLegalSummaryList(vendorBeanObj);
+            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObj);
         } catch (Exception ex) {
             logger.log(Level.ERROR, "SecurityHandler :: getLogin() :: Exception :: " + ex);
             String msgThree = "Invalid Login! Please try again";

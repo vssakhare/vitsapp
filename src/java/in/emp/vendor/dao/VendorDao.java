@@ -41,6 +41,7 @@ public interface VendorDao {
     public LinkedList getVendorList(VendorBean vendorBeanObj) throws Exception;
      public LinkedList getVendorVerifiedList(VendorBean vendorBeanObj) throws Exception;
     public LinkedList getSummaryList(VendorBean vendorBeanObj) throws Exception;
+    public LinkedList getLegalSummaryList(VendorBean vendorBeanObj) throws Exception;
      public LinkedList getTableList(VendorInputBean vendorInputBeanObj) throws Exception;
     public LinkedList getPOList(POBean poBeanObj) throws Exception; 
      public LinkedList getzoneList(POBean poBeanObj) throws Exception; 

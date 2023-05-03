@@ -253,6 +253,7 @@ public class ApplicationConstants {
      public static String SEARCH_DEFAULT_SORT_ORDER = "ASC" ; */
     // -- Default Constants
     public static String UIACTION_HOME_GET = "defaulthome";
+     public static String UIACTION_LEGALDASHBOARD_GET = "legaldashboard";
     //public static String UIACTION_REDIRECT_LINK = "redirectLink";
     public static String UIACTION_REDIRECT_LINK = "/jsp/emp_login_page.jsp";
     public static String DEFAULT_SORT_ORDER_ASC = "ASC";
@@ -1000,6 +1001,7 @@ public class ApplicationConstants {
     
     public static String UIACTION_GET_AUTH_SUMMARY = "getAuthSummary";
     public static String AUTHORITY_SUMMARY_SESSION_DATA = "authSummarySessionData";
+   public static String AUTHORITY_LEGAL_SUMMARY_SESSION_DATA= "authLegalSummarySessionData";
 
     public static String USER_LOGIN_MSG_SESSION= "loginMesage";
         public static String RESET_PASSWORD_SESSION= "resetpwdMesage";
