@@ -71,7 +71,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setPayDoneErpDoc(result.getString("ZZPAY_DONE_ERP_DOC"));
             legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
             legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
-            
+            legalInvoiceInputBean.setStartPayDoneErpDoc1(result.getString("start_pay_done_erp_doc1"));
             legalInvoiceInputBean.setMobileNo(result.getString("MOBILE_NO"));
             legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
             legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
@@ -85,7 +85,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             throw ex;
         }
         
-                     if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")&& legalInvoiceInputBean.getStatus().equalsIgnoreCase("Payment Done")) {
+                     if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")&& legalInvoiceInputBean.getStatus()!=null && legalInvoiceInputBean.getStatus().equalsIgnoreCase("Payment Done")) {
                 try {
                     legalInvoiceInputBean = TaxAmountDisplayFromSap.consumeSapWebservice(legalInvoiceInputBean);
                 } catch (Exception ex) {
@@ -102,7 +102,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
         StringBuilder sql = new StringBuilder();
         ResultSet rs = null;
         try {
-            sql.append(" SELECT ftd.*,zf.*,ld.*,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc "
+            sql.append(" SELECT ftd.*,zf.*,ld.*,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc,substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1 "
                     + " FROM zhrt_legal_fee zf, XXMIS_ERP_LEGAL_INVOICE_DETAILS ld, XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS ftd\n" +
 "where LD.CASE_REF_NO=zf.caserefno\n" +
 "and LD.INVOICE_NUMBER=zf.invoice_legal\n" +
