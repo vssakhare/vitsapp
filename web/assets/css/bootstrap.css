@@ -2188,6 +2188,39 @@ table th[class*="col-"] {
   background-color: 	#6F8FAF;
   color: #FFFFFF;
 }
+.table > thead > tr > td.summary1,
+.table > tbody > tr > td.summary1,
+.table > tfoot > tr > td.summary1,
+.table > thead > tr > th.summary1,
+.table > tbody > tr > th.summary1,
+.table > tfoot > tr > th.summary1,
+.table > thead > tr.summary1 > td,
+.table > tbody > tr.summary1 > td,
+.table > tfoot > tr.summary1 > td,
+.table > thead > tr.summary1 > th,
+.table > tbody > tr.summary1 > th,
+.table > tfoot > tr.summary1 > th {
+  background-color: 	#5F9EA0;
+  color: #FFFFFF;
+}
+
+.table > thead > tr > td.summary2,
+.table > tbody > tr > td.summary2,
+.table > tfoot > tr > td.summary2,
+.table > thead > tr > th.summary2,
+.table > tbody > tr > th.summary2,
+.table > tfoot > tr > th.summary2,
+.table > thead > tr.summary2 > td,
+.table > tbody > tr.summary2 > td,
+.table > tfoot > tr.summary2 > td,
+.table > thead > tr.summary2 > th,
+.table > tbody > tr.summary2 > th,
+.table > tfoot > tr.summary2 > th {
+  background-color: 	#8FBC8F;
+  color: #FFFFFF;
+}
+
+	
 .table-hover > tbody > tr > td.success:hover,
 .table-hover > tbody > tr > th.success:hover,
 .table-hover > tbody > tr.success:hover > td,
@@ -2209,7 +2242,99 @@ table th[class*="col-"] {
 .table > tfoot > tr.info > th {
   background-color:#ffffff;
   boder-color:#4682B4;
+  color:#696969;
 }
+
+.table > thead > tr > td.info1,
+.table > tbody > tr > td.info1,
+.table > tfoot > tr > td.info1,
+.table > thead > tr > th.info1,
+.table > tbody > tr > th.info1,
+.table > tfoot > tr > th.info1 {
+  background-color:#E9967A;
+  boder-color:#4682B4;
+  color:	#FFF8DC;
+  font-size: 14px;
+  
+}
+
+.table > thead > tr > td.info,
+.table > tbody > tr > td.info,
+.table > tfoot > tr > td.info,
+.table > thead > tr > th.info,
+.table > tbody > tr > th.info,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > td.more30,
+.table > tbody > tr.info > td.more30,
+.table > tfoot > tr.info > td.more30,
+.table > thead > tr.info > th.more30,
+.table > tbody > tr.info > th.more30,
+.table > tfoot > tr.info > th.more30
+ {
+  background-color:#ffffff;
+  boder-color:#4682B4;
+  color: red;
+    border-left: 1px solid #ddd;
+}
+
+.table > thead > tr > td.info,
+.table > tbody > tr > td.info,
+.table > tfoot > tr > td.info,
+.table > thead > tr > th.info,
+.table > tbody > tr > th.info,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > td.less30,
+.table > tbody > tr.info > td.less30,
+.table > tfoot > tr.info > td.less30,
+.table > thead > tr.info > th.less30,
+.table > tbody > tr.info > th.less30,
+.table > tfoot > tr.info > th.less30
+ {
+  background-color:#ffffff;
+  boder-color:#4682B4;
+  color: 	#FF8C00;
+}
+
+.table > thead > tr > td.info,
+.table > tbody > tr > td.info,
+.table > tfoot > tr > td.info,
+.table > thead > tr > th.info,
+.table > tbody > tr > th.info,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > td.paid,
+.table > tbody > tr.info > td.paid,
+.table > tfoot > tr.info > td.paid,
+.table > thead > tr.info > th.paid,
+.table > tbody > tr.info > th.paid,
+.table > tfoot > tr.info > th.paid
+ {
+  background-color:#ffffff;
+  boder-color:#4682B4;
+  color: 	#008000;
+  border-left: 1px solid #ddd;
+}
+
+.table > thead > tr > td.info,
+.table > tbody > tr > td.info,
+.table > tfoot > tr > td.info,
+.table > thead > tr > th.info,
+.table > tbody > tr > th.info,
+.table > tfoot > tr > th.info,
+.table > thead > tr.info > td.totpend,
+.table > tbody > tr.info > td.totpend,
+.table > tfoot > tr.info > td.totpend,
+.table > thead > tr.info > th.totpend,
+.table > tbody > tr.info > th.totpend,
+.table > tfoot > tr.info > th.totpend
+ {
+  background-color:#ffffff;
+  boder-color:#4682B4;
+  color: 	#0000FF;
+  border-left: 1px solid #ddd;
+   border-right: 1px solid #ddd;
+}
+
+
 .table-hover > tbody > tr > td.info:hover,
 .table-hover > tbody > tr > th.info:hover,
 .table-hover > tbody > tr.info:hover > td,

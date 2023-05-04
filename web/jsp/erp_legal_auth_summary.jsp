@@ -55,10 +55,17 @@
         <script src="<%=ApplicationConstants.JS_PATH%>html5shiv.js?v=<%=System.getProperty("VERSION")%>"></script> <!-- <script src="http://html5shim.googlecode.com/svn/trunk/html5.js?v=<%=System.getProperty("VERSION")%>"></script>-->
         <script src="<%=ApplicationConstants.JS_PATH%>respond.js?v=<%=System.getProperty("VERSION")%>"></script> <!--<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js?v=<%=System.getProperty("VERSION")%>"></script>-->
         <jsp:include page="nav_jscss.jsp" />
-        <script type='text/javascript' src="<%=ApplicationConstants.JS_PATH%>emp_biometricAttend.js?v=<%=System.getProperty("VERSION")%>"></script>
-        
+     
+          <script type='text/javascript' src="<%=ApplicationConstants.JS_PATH%>legalSummary.js"></script>
+        <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+			integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
     </head>
     <body>
+ 
 
         <div id="wrapper">
             <%@ include file="nav_emp_header.jsp"%>
@@ -87,14 +94,14 @@
                         <div class="content_container_sub">  <!-- Start of  content_container_sub div  -->
                             <div class="row">                
                                <div class="col-lg-12 col-md-12">
-                                  <div class="table-responsive">
+                                  <div class="table-responsive" id="tab">
                                        <%
                                            if (summaryList != null) {
                                        %>   
                                   
                                         
                                          <div class="col-md-12 text-center"><h3>Summary of Legal Invoices</h3>  <div >&nbsp;</div></div>
-                                        <table class="table">
+                                        <table class="table" id="tabrr" >
                                             <thead>
                                                 <tr class="success">                                                                                       
                                                     <th class="text-center">#</th> 
@@ -104,7 +111,7 @@
                                                   
                                                     <th class="text-center" id="hdr1" colspan="9"><fmt:message key='Status'/></th>                                                    
                                                </tr>
-                                                <tr class="success">
+                                                <tr class="summary1">
                                                     <th colspan="5"></th>
                                                     <th colspan="2" class="text-center" headers="hdr1"><fmt:message key='Invoices Pending at Technical'/></th>                                                    
                                                     <th colspan="2" class="text-center" headers="hdr1"><fmt:message key='Invoices Pending at Accounts'/></th>                                                                                                       
@@ -112,7 +119,7 @@
                                                   <th colspan="1" class="text-center" headers="hdr1"><fmt:message key='Paid Invoices'/></th>
                                                    <th colspan="1"></th>
                                                 </tr>
-                                                 <tr class="success">
+                                                 <tr class="summary2">
                                                     <th colspan="4"></th>
                                                       <th class="text-center"><fmt:message key='Submitted By Vendor'/></th>
                                                     <th class="text-center" headers="hdr1"><fmt:message key='Pending more than 30 Days'/></th>                                                    
@@ -122,7 +129,7 @@
                                                      <th class="text-center" headers="hdr1"><fmt:message key='Pending more than 30 Days'/></th>                                                    
                                                     <th class="text-center" headers="hdr1"><fmt:message key='Pending less than 30 Days'/></th> 
                                                         <th colspan="1"></th>
-                                                    <th class="text-center"><fmt:message key='Total'/></th> 
+                                                    <th class="text-center">Total Pending</th> 
                                                 </tr>
                                             </thead>
                                          <%
@@ -193,49 +200,60 @@
                                        
 
                                           
-                                            <tbody>
-                                            <tr class="info" >
-                                           
+                                            <tbody style="font-color:#ddd">
+                                            <tr class="info" style="border-bottom: 1px solid #ddd;border-left: 1px solid #ddd;" >
+                                                
                                             <% if(j<k){ %>
                                                
                                                   <% if(!Zone.contains("TOTAL")) { %>
                                                  
-                                                  <td><%=j%></td>
-                                                       <td class="text-center"><%=Zone%></td>
+                                                  <td style=" border-left: 1px solid #ddd;"><%=j%></td>
+                                                       <td class="text-center"  style="border-left: 1px solid #ddd; border-right: 1px solid #ddd;"><%=Zone%></td>
                                                   <% } else { %>
-                                                  <th><%=j%></th>
-                                                       <th class="text-center"><%=Zone%></th>
+                                                  <th style="border-left: 1px solid #ddd; border-right: 1px solid #ddd;font-weight:normal"><%=j%></th>
+                                                       <th class="text-center" ><%=Zone%></th>
                                                   <% } %>
                                             <td class="text-center"><%=Circle%></td>
                                             <td class="text-center"><%=Division%></td>
                                              <% } else {%>
-                                             <td></td>
-                                              <td></td>
-                                              <td></td>
-                                             <th class="text-center"><fmt:message key='GRAND TOTAL'/></th>                                          
+                                             <td class="info1" ></td>
+                                              <td class="info1"></td>
+                                              <td class="info1"></td>
+                                             <th class="text-center info1" style=""><fmt:message key='GRAND TOTAL'/></th>                                          
                                            <% }  %>
                                            <% if(!Zone.contains("TOTAL") & !(k==j) ) { %>
                                             <td align="center"><%=vSubmit%></td>
-                                            <td align="center"><%=pTech_more%></td>
-                                             <td align="center"><%=pTech_less%></td>
-                                            <td align="center"><%=pAcc_more%></td>
-                                             <td align="center"><%=pAcc_less%></td>
-                                            <td align="center"><%=pCash_more%></td>
-                                                    <td align="center"><%=pCash_less%></td>
-                                                    <td align="center"><%=paid%></td>  
-                                            <td align="center"><%=pTotal%></td>  
+                                            <td align="center" class="more30"><%=pTech_more%></td>
+                                             <td align="center" class="less30"><%=pTech_less%></td>
+                                            <td align="center" class="more30"><%=pAcc_more%></td>
+                                             <td align="center"  class="less30"><%=pAcc_less%></td>
+                                            <td align="center" class="more30"><%=pCash_more%></td>
+                                                    <td align="center"  class="less30"><%=pCash_less%></td>
+                                                    <td align="center" class="paid"><%=paid%></td>  
+                                            <td align="center"  class="totpend"><%=pTotal%></td>  
+                                             <% } else if ( k==j){ %>
+                                            <th class="text-center info1 "><%=vSubmit%> </th>
+                                            <th class="text-center info1" ><%=pTech_more%> </th>                                           
+                                            <th class="text-center info1" ><%=pTech_less%></th>
+                                            <th class="text-center info1"><%=pAcc_more%></th> 
+                                            <th class="text-center info1"><%=pAcc_less%></th> 
+                                            <th class="text-center info1"><%=pCash_more%></th> 
+                                            <th class="text-center info1"><%=pCash_less%></th> 
+                                               <th class="text-center info1"><%=paid%></th>  
+                                            <th class="text-center info1"><%=pTotal%></th>
+                                             
                                              <% } else { %>
-                                            <th class="text-center"><%=vSubmit%></th>
-                                            <th class="text-center"><%=pTech_more%></th>                                           
-                                            <th class="text-center"><%=pTech_less%></th>
-                                            <th class="text-center"><%=pAcc_more%></th> 
-                                            <th class="text-center"><%=pAcc_less%></th> 
-                                            <th class="text-center"><%=pCash_more%></th> 
-                                            <th class="text-center"><%=pCash_less%></th> 
-                                               <th class="text-center"><%=paid%></th>  
-                                            <th class="text-center"><%=pTotal%></th>
+                                            <th class="text-center"><%=vSubmit%> </th>
+                                            <th class="text-center more30" ><%=pTech_more%> </th>                                           
+                                            <th class="text-center less30" ><%=pTech_less%></th>
+                                            <th class="text-center more30"><%=pAcc_more%></th> 
+                                            <th class="text-center less30"><%=pAcc_less%></th> 
+                                            <th class="text-center more30"><%=pCash_more%></th> 
+                                            <th class="text-center less30"><%=pCash_less%></th> 
+                                               <th class="text-center paid"><%=paid%></th>  
+                                            <th class="text-center totpend"><%=pTotal%></th>
                                               <% } %>
-                                          
+                                             
                                              </tr>
                                            <% } %>
                                             </tbody>
@@ -248,7 +266,7 @@
                             <%  } else {%>
                             <div class="row">                
                                 <div class="col-lg-12 col-md-12">                        
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" id="tab">
                                         <div class="col-md-12 text-center"><h3><fmt:message key='Summary of Invoices'/></h3></div>
                                         <table class="table">
                                              <thead>
@@ -292,6 +310,12 @@
                                                
                                                
                                         </td>
+                                           <td class="">
+                                               
+                                           <a href="" class="btn btn-primary"  onclick="createPDF();" >Print</a>
+                                       
+                                               
+                                        </td>
                               </tr>
                            
                             
@@ -327,7 +351,36 @@
         <script src="assets/js/bootstrap.min.js?v=<%=System.getProperty("VERSION")%>"></script>
         <!-- CUSTOM SCRIPTS -->
         <script src="assets/js/custom.js?v=<%=System.getProperty("VERSION")%>"></script>
+        
+<script>
+    function createPDF() {
+        var sTable = document.getElementById('tab').innerHTML;
 
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }
+</script>
+        
+    
+    
     </body>
 </html>
 
