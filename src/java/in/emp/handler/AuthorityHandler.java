@@ -397,8 +397,9 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
     String sReturnPage = ApplicationConstants.UIACTION_GET_AUTH_SUMMARY;
     VendorPrezData vendorPrezDataObj = new VendorPrezData();    
     VendorBean vendorBeanObj = new VendorBean();
+    LegalInvoiceInputBean legalInvoiceInputBeanObj = new LegalInvoiceInputBean();
     VendorDelegate vendorMgrObj = new VendorManager();
-    //LinkedList SummaryList = new LinkedList();
+    LinkedList legalSummaryList = new LinkedList();
     HttpSession session = request.getSession();        
        
         try {
@@ -407,24 +408,29 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
            
           if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")){
             vendorBeanObj.setUserType("Emp");
+            
+            legalInvoiceInputBeanObj.setUserType("Emp");
             }
           
           if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")){
             vendorBeanObj.setUserType("Vendor");
+            legalInvoiceInputBeanObj.setUserType("Emp");
             }
            
           
        vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
-       
+       legalInvoiceInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
         if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {           
             vendorBeanObj.setLocationId("");
+            legalInvoiceInputBeanObj.setLocationId("");
         } else {
             vendorBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+            legalInvoiceInputBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         }
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
-            // vendorPrezDataObj = vendorMgrObj.getLegalSummaryList(vendorBeanObj);
-            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObj);
+             legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBeanObj);
+            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, legalSummaryList);
 
 
     } catch (Exception ex) {
@@ -554,15 +560,15 @@ private String getLegalAuthSummary(HttpServletRequest request) throws Exception 
             logger.log(Level.INFO, "AuthorityHandler :: getLegalAuthSummary() :: method called :: ");
 
            
-         /* if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")){
-            legalInvoiceInputBean.setCreatedByUsertype("Emp");
+         if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")){
+            legalInvoiceInputBean.setUserType("Emp");
             }
           
           if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")){
-            legalInvoiceInputBean.setCreatedByUsertype("Vendor");
+            legalInvoiceInputBean.setUserType("Vendor");
             }
            
-          */
+          
        legalInvoiceInputBean.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
        
         if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {           
@@ -571,7 +577,7 @@ private String getLegalAuthSummary(HttpServletRequest request) throws Exception 
             legalInvoiceInputBean.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         }
             legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBean);
-            session.setAttribute(ApplicationConstants.LEGAL_AUTHORITY_SUMMARY_SESSION_DATA, legalSummaryList);
+            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, legalSummaryList);
 
 
     } catch (Exception ex) {

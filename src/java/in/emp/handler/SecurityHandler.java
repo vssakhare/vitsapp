@@ -14,6 +14,7 @@ import in.emp.hrms.bean.HRMSUserBean;
 import in.emp.hrms.bean.HRMSUserPrezData;
 import in.emp.hrms.manager.HRMSManager;
 import in.emp.ldap.LDAP;
+import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.security.manager.SecurityManager;
 import in.emp.security.bean.ServerAPIBean;
 import in.emp.sms.bean.TemplateIdBean;
@@ -172,6 +173,8 @@ public class SecurityHandler implements GenericFormHandler {
         PersonalInfoHandler piHandlerObj = new PersonalInfoHandler();
         AssignOfficeDTO assignOfficeDTO = new AssignOfficeDTO();
         LDAP ldap = new LDAP();
+        LinkedList legalSummaryList = new LinkedList();
+         LegalInvoiceInputBean legalInvoiceInputBeanObj = new LegalInvoiceInputBean();
         try {
             logger.log(Level.INFO, "SecurityHandler :: getLogin() :: method called");
 
@@ -192,16 +195,18 @@ public class SecurityHandler implements GenericFormHandler {
             if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) {
                 vendorBeanObj.setUserType("Emp");
                 vendorInputBeanObj.setUserType("Emp");
+                legalInvoiceInputBeanObj.setUserType("Emp");
             }
 
             if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) {
                 vendorBeanObj.setUserType("Vendor");
-                
-              vendorInputBeanObj.setUserType("Vendor");
+                legalInvoiceInputBeanObj.setUserType("Vendor");
+                vendorInputBeanObj.setUserType("Vendor");
                 vendorBeanObj.setVendorNumber(ApplicationUtils.getRequestParameter(request, "txtUID"));
                 vendorBeanObj.setPassword(pa);
+                legalInvoiceInputBeanObj.setVendorNumber(ApplicationUtils.getRequestParameter(request, "txtUID"));
                 vendorBeanObjOne = vendorMgrObj.getContactNumber(vendorBeanObj);
-               
+
                 System.out.println("Vendor contact number :" +vendorBeanObjOne.getVendorContactNumber());
             }
             hrmsUserBeanObj.setEmpNumber(uid);
@@ -232,6 +237,7 @@ public class SecurityHandler implements GenericFormHandler {
                         session.setAttribute(ApplicationConstants.USER_NAME_SESSION, String.valueOf(hrmsUserBeanObj.getEmpNumber()));
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, hrmsUserBeanObj.getEmpName());
                         vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
+                        legalInvoiceInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         vendorInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         session.setAttribute(ApplicationConstants.IS_LEGAL_USER, String.valueOf(hrmsUserBeanObj.getIsLegal()));
                     }
@@ -253,6 +259,7 @@ public class SecurityHandler implements GenericFormHandler {
                         session.setAttribute(ApplicationConstants.USER_NAME_SESSION, String.valueOf(hrmsUserBeanObj.getEmpNumber()));
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, hrmsUserBeanObj.getEmpName());
                         vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
+                        legalInvoiceInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         vendorInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         session.setAttribute(ApplicationConstants.IS_LEGAL_USER, String.valueOf(hrmsUserBeanObj.getIsLegal()));
                     }
@@ -300,6 +307,7 @@ public class SecurityHandler implements GenericFormHandler {
                         session.setAttribute(ApplicationConstants.USER_NAME_SESSION, String.valueOf(uid));
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, userName);
                          vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
+                         legalInvoiceInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                          vendorInputBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         session.setAttribute(ApplicationConstants.DESIGNATION_SESSION, userDesig);
                         session.setAttribute(ApplicationConstants.OFFICE_NAME_SESSION, userOfficeName);
@@ -307,6 +315,7 @@ public class SecurityHandler implements GenericFormHandler {
                         vendorInputBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
                         session.setAttribute(ApplicationConstants.OFFICE_TYPE_ID_SESSION, userOfficeTypeId);
                         vendorBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+                        legalInvoiceInputBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
 
 
                         System.out.println("-----USER ID : " + session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
@@ -353,8 +362,8 @@ public class SecurityHandler implements GenericFormHandler {
             //vendorPrezDataObj = vendorMgrObj.getTableList( vendorInputBeanObj);
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
-          //   vendorPrezDataObj = vendorMgrObj.getLegalSummaryList(vendorBeanObj);
-            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObj);
+             legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBeanObj);
+            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, legalSummaryList);
         } catch (Exception ex) {
             logger.log(Level.ERROR, "SecurityHandler :: getLogin() :: Exception :: " + ex);
             String msgThree = "Invalid Login! Please try again";

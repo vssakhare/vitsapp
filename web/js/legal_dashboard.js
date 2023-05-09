@@ -63,7 +63,7 @@ $(document).ready(function () {
         }
 
     }
-     for (i = 1; i <= l; i++) {
+ /*    for (i = 1; i <= l; i++) {
        
         {
             zoneFeeType.push($('#zoneFeeType' + i).val());
@@ -108,7 +108,7 @@ var inchartdatasets = [];
 	for (var i = 0; i <= uniqueNames.length; i++) {
             
             
-        }
+        }*/
 
 
 
@@ -333,7 +333,6 @@ var inchartdatasets = [];
     }
     window.myPie_cons1 = new Chart(cardchart1, {//pending for payment
         type: "bar",
-
         animationEnabled: true,
         data: newDataset_cons1,
         options: {
@@ -479,7 +478,7 @@ var inchartdatasets = [];
                             lineWidth: 1
                         }
                     }]
-            },
+            }
       /*      onClick:function(e){
         var activePoints = window.myPie_cons4.getElementsAtEvent(e);
       if (activePoints[0]) {
@@ -515,8 +514,8 @@ setTimeout(function() {
 
 function hide() {
     var u = window.location.href;
-    if (u.indexOf("defaulthome") === -1) {
-        var uiActionName = "defaulthome";
+    if (u.indexOf("legaldashboard") === -1) {
+        var uiActionName = "legaldashboard";
         var action = "home";
         var url = "erp";
         var params = "uiActionName=" + encodeURIComponent(uiActionName)

@@ -23,8 +23,8 @@
             </uiaction>
             <uiaction>
                 <action-name>defaulthome</action-name>
-                <success-page>/jsp/legal_dashboard.jsp</success-page>
-                <error-page>/jsp/legal_dashboard.jsp</error-page>
+                <success-page>/jsp/emp_home.jsp</success-page>
+                <error-page>/jsp/emp_home.jsp</error-page>
             </uiaction>
              <uiaction>
                 <action-name>legaldashboard</action-name>

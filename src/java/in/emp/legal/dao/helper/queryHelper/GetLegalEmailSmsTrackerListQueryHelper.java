@@ -21,7 +21,9 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
 
     private static Logger logger = Logger.getLogger(GetLegalSmsTrackerListQueryHelper.class);
     private LegalInvoiceInputBean lvendorInputBeanObj;
+    public GetLegalEmailSmsTrackerListQueryHelper() {
 
+    }
     public GetLegalEmailSmsTrackerListQueryHelper(LegalInvoiceInputBean lvendorInputBeanObj) {
         this.lvendorInputBeanObj = lvendorInputBeanObj;
     }
@@ -30,8 +32,29 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
         try {
             logger.log(Level.INFO, "GetLegalSmsTrackerListQueryHelper ::: getDataObject() :: method called ::");
-
+            legalInvoiceInputBean.setInvoiceNumber(result.getString("INVOICE_NUMBER"));
+            legalInvoiceInputBean.setMobileNo(result.getString("MOBILE_NO"));
+            legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
+            legalInvoiceInputBean.setStatusFee(result.getString("STATUS_FEE"));
+            legalInvoiceInputBean.setParkPostDocNo(result.getString("ZZPARK_POST_DOC_NO"));
+            legalInvoiceInputBean.setPayDoneErpDoc(result.getString("ZZPAY_DONE_ERP_DOC"));
+            legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
+            legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
+            legalInvoiceInputBean.setStartPayDoneErpDoc1(result.getString("start_pay_done_erp_doc1"));
+            
+            legalInvoiceInputBean.setCashSmsEmailSent(result.getString("CASH_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setPaySmsEmailSent(result.getString("PAY_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setPayAdjSmsEmailSent(result.getString("PAY_ADJ_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setPayDocSmsEmailSent(result.getString("PAY_DOC_REVRSD_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setFeeType(result.getString("sFee_type"));
             legalInvoiceInputBean.setApplId(result.getInt("APPL_ID"));
+            legalInvoiceInputBean.setTechnicalUpdated(result.getString("TECHNICAL_UPDATED"));
+            legalInvoiceInputBean.setAccSmsEmailSent(result.getString("ACC_SMS_EMAIL_SENT"));
+            legalInvoiceInputBean.setFiscalYear(result.getString("ZZPOST_FISCAL"));
+           
+           /* 
+            legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
+            legalInvoiceInputBean.setPaymentDate(result.getString("ZZFEE_DT_OF_PAYMENT"));
             legalInvoiceInputBean.setVendorNumber(result.getString("VENDOR_NUMBER"));
             legalInvoiceInputBean.setVendorName(result.getString("VENDOR_NAME"));
             legalInvoiceInputBean.setCourtCaseNo(result.getString("COURT_CASE_NO"));
@@ -43,7 +66,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setPartyNames(result.getString("PARTY_NAMES"));
             legalInvoiceInputBean.setVsPartyNames(result.getString("VS_PARTY_NAMES"));
             legalInvoiceInputBean.setCaseTypeDesc(result.getString("CASE_TYPE_DESC"));
-            legalInvoiceInputBean.setInvoiceNumber(result.getString("INVOICE_NUMBER"));
+            
             legalInvoiceInputBean.setInvoiceDate(result.getDate("INVOICE_DATE"));
             legalInvoiceInputBean.setInvoiceAmount(result.getInt("INVOICE_AMOUNT"));
             legalInvoiceInputBean.setVendorInvDate(result.getDate("VENDOR_INV_DATE"));
@@ -59,41 +82,20 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setUpdatedTimeStamp(result.getDate("UPDATED_TIME_STAMP"));
             legalInvoiceInputBean.setStatus(result.getString("STATUS"));
             legalInvoiceInputBean.setVendorInwardDate(result.getDate("VENDOR_INWARD_DT"));
-            legalInvoiceInputBean.setFeeType(result.getString("ADV_FEE_TYPE"));
+            
             legalInvoiceInputBean.setRejectReason(result.getString("REASON"));
             legalInvoiceInputBean.setIsWithCourtCaseNo(result.getString("IS_WITH_COURT_CASE_NO"));
             legalInvoiceInputBean.setCorporateOffice(result.getString("CORPORATE_OFFICE"));
             legalInvoiceInputBean.setZoneText(result.getString("ZONE"));
             legalInvoiceInputBean.setDivisionText(result.getString("DIVISION"));            
             
-            legalInvoiceInputBean.setStatusFee(result.getString("STATUS_FEE"));
-            legalInvoiceInputBean.setParkPostDocNo(result.getString("ZZPARK_POST_DOC_NO"));
-            legalInvoiceInputBean.setPayDoneErpDoc(result.getString("ZZPAY_DONE_ERP_DOC"));
-            legalInvoiceInputBean.setStartPostDocNo(result.getString("start_post_doc_no"));
-            legalInvoiceInputBean.setStartPayDoneErpDoc(result.getString("start_pay_done_erp_doc"));
-            
-            legalInvoiceInputBean.setMobileNo(result.getString("MOBILE_NO"));
-            legalInvoiceInputBean.setEmailId(result.getString("EMAIL_ID"));
-            legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
-            legalInvoiceInputBean.setPaymentDate(result.getString("ZZFEE_DT_OF_PAYMENT"));
-            legalInvoiceInputBean.setCashSmsEmailSent(result.getString("CASH_SMS_EMAIL_SENT"));
-            legalInvoiceInputBean.setPaySmsEmailSent(result.getString("PAY_SMS_EMAIL_SENT"));
-            legalInvoiceInputBean.setPayAdjSmsEmailSent(result.getString("PAY_ADJ_SMS_EMAIL_SENT"));
-            legalInvoiceInputBean.setPayDocSmsEmailSent(result.getString("PAY_DOC_REVRSD_SMS_EMAIL_SENT"));
+            */
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetLegalSmsTrackerListQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
         }
         
-                     if (legalInvoiceInputBean.getSaveFlag()!=null && legalInvoiceInputBean.getSaveFlag().equalsIgnoreCase("Accepted")&& legalInvoiceInputBean.getStatus().equalsIgnoreCase("Payment Done")) {
-                try {
-                    legalInvoiceInputBean = TaxAmountDisplayFromSap.consumeSapWebservice(legalInvoiceInputBean);
-                } catch (Exception ex) {
-                    logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() ::consumeSapWebservice Exception :: " + ex);
-                    
-                }
-        
-                     }
+                 
         return legalInvoiceInputBean;
     }
 
@@ -102,31 +104,23 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
         StringBuilder sql = new StringBuilder();
         ResultSet rs = null;
         try {
-            sql.append(" SELECT ftd.*,zf.*,ld.*,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc "
-                    + " FROM zhrt_legal_fee zf, XXMIS_ERP_LEGAL_INVOICE_DETAILS ld, XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS ftd\n" +
-"where LD.CASE_REF_NO=zf.caserefno\n" +
-"and LD.INVOICE_NUMBER=zf.invoice_legal\n" +
-"and LD.INVOICE_DATE=zf.invoice_date and ld.appl_id=ftd.appl_id and zf.adv_fee_type=ftd.fee_type\n");
-         /*   sql.append(" UNION ALL ");
-            sql.append("  SELECT distinct SUBMIT_AT_LOCATION,LOCATION,OFFICE_CODE,S.APPL_ID,P.PURCHASING_GROUP ,P.VENDOR_NUMBER,P.VENDOR_NAME,S.VENDOR_EMAILID,VENDOR_CONTACT_NO,VENDOR_INVOICE_NUMBER,VENDOR_INV_NO,INV_CREATIONDATE ");
-            sql.append("  ,(CASE WHEN acc_date LIKE '01-01-01' THEN NULL ELSE acc_date end )acc_date, ");
-            sql.append(" (invoice_approval_date+1)invoice_approval_date,INVOICE_STATUS,NVL(TECHNICAL_SMS_SENT,' ') TECHNICAL_SMS_SENT ,NVL(ACCOUNTS_SMS_SENT,' ')ACCOUNTS_SMS_SENT, NVL(CASHIER_SMS_SENT ,' ')CASHIER_SMS_SENT,    ");
-            sql.append(" NVL(EMP_TECH_SMS_SENT,' ') EMP_TECH_SMS_SENT ,NVL(EMP_ACC_SMS_SENT,' ')EMP_ACC_SMS_SENT, NVL(EMP_PAYM_SMS_SENT ,' ')EMP_PAYM_SMS_SENT     ");
-            sql.append(" FROM PS_VENDOR_VERIFIED_INPUT_LIST P,SMS_SENT_TRACKER S  ");
-            sql.append("  where  p.vendor_number = s.vendor_number   ");
-            sql.append("     AND TO_DATE(TRUNC(NVL(P.PROC_INSERT_DATE,SYSDATE))) = TO_DATE(TRUNC(SYSDATE))  ");
-                         sql.append(" AND INVOICE_STATUS IN('Pending With Technical','Pending With Accounts','Pending For Payment') ");
-
-            sql.append("     AND REGEXP_REPLACE(UPPER(VENDOR_INV_NO ), '[^0-9A-Za-z]', '')=REGEXP_REPLACE(UPPER(s.vendor_invoice_number ), '[^0-9A-Za-z]', '') ");
-            sql.append("  AND   P.APPL_ID=S.APPL_ID ");*/
-            logger.log(Level.INFO, "GetSmsTrackerListQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
+            sql.append("    select x.*,zf.STATUS_FEE,zf.ZZPOST_FISCAL,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc,substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1 \n" +
+                     "    from  (SELECT	LD.APPL_ID,ld.MOBILE_NO,ld.EMAIL_ID, ld.INVOICE_DATE,ld.INVOICE_NUMBER,ld.CASE_REF_NO,ld.VENDOR_NUMBER,f.FEE_TYPE as sFee_type 	,f.SAP_STATUS	SAP_STATUS,f.TECHNICAL_UPDATED,f.ACC_SMS_EMAIL_SENT,\n" +
+                    "  CASH_SMS_EMAIL_SENT,PAY_SMS_EMAIL_SENT,PAY_ADJ_SMS_EMAIL_SENT,PAY_DOC_REVRSD_SMS_EMAIL_SENT \n" +
+                    "   from xxmis_erp_legal_invoice_details LD join   xxmis_erp_legal_invoice_fee_type_dtls  f on  \n" +
+                    " f.APPL_ID=LD.APPL_ID,xxmis_organization_master OM  where nvl(LD.dealing_office_code,261)=OM.organization_id  	\n" +																		
+                    "  and ld.SAVE_FLAG='Accepted')x LEFT JOIN zhrt_legal_fee zf \n" +
+                    " ON to_number(x.vendor_number) = zf.vendor AND  x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND \n" +
+                    " x.invoice_date = zf.invoice_date  AND x.sFee_type = zf.adv_fee_type\n");
+     
+            logger.log(Level.INFO, "GetLegalEmailSmsTrackerListQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
 
             statement = connection.prepareStatement(sql.toString());
 
             rs = statement.executeQuery();
 
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "GetSmsTrackerListQueryHelper :: getQueryResults() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "GetLegalEmailSmsTrackerListQueryHelper :: getQueryResults() :: Exception :: " + ex);
             throw ex;
         }
         return rs;

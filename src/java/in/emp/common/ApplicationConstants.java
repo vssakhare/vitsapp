@@ -1006,7 +1006,7 @@ public class ApplicationConstants {
    public static String AUTHORITY_LEGAL_SUMMARY_SESSION_DATA= "authLegalSummarySessionData";
 
      public static String UIACTION_GET_LEGAL_AUTH_SUMMARY = "getLegalAuthSummary";
-     public static String LEGAL_AUTHORITY_SUMMARY_SESSION_DATA = "LegalAuthSummarySessionData";
+   
 
 
     public static String USER_LOGIN_MSG_SESSION= "loginMesage";

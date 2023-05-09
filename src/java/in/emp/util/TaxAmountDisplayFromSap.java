@@ -34,7 +34,7 @@ public class TaxAmountDisplayFromSap {
         try {
             Z_FI_DOCUMENT_READStub stub = new Z_FI_DOCUMENT_READStub();
             FI_DOCUMENT_READ req = new FI_DOCUMENT_READ();
-            createRecovery(legalInvoiceInputBean, req);
+            fetchTaxDetails(legalInvoiceInputBean, req);
             stub = setAuthenticator(stub);
             Z_FI_DOCUMENT_READStub.FI_DOCUMENT_READResponse responseObj = null;
             try {
@@ -105,9 +105,10 @@ return legalInvoiceInputBean;
         }
 return legalInvoiceInputBean;
     }
-   private static void createRecovery(LegalInvoiceInputBean legalInvoiceInputBean, FI_DOCUMENT_READ req) throws Exception{
+   private static void fetchTaxDetails(LegalInvoiceInputBean legalInvoiceInputBean, FI_DOCUMENT_READ req) throws Exception{
      Z_FI_DOCUMENT_READStub.Char10 docNoComm = new Z_FI_DOCUMENT_READStub.Char10();
-        docNoComm.setChar10(legalInvoiceInputBean.getLiabilityDocNo());
+      //  docNoComm.setChar10(legalInvoiceInputBean.getLiabilityDocNo());
+        docNoComm.setChar10(legalInvoiceInputBean.getParkPostDocNo());
         //docNoComm.setChar10("1600026100");
         req.setI_BELNR(docNoComm);
         

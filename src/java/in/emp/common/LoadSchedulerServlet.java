@@ -11,6 +11,7 @@ package in.emp.common;
 
 import in.emp.legal.scheduler.LegalVendorSmsScheduler;
 import in.emp.legal.scheduler.ReadLegalInvoiceDetailsScheduler;
+import in.emp.legal.scheduler.SendEmailSmsLegalVendor;
 import in.emp.sms.EmployeeStatusSmsScheduler;
 import in.emp.sms.EscEmpStatusSmsScheduler;
 import in.emp.sms.SendSMS;
@@ -33,6 +34,7 @@ public class LoadSchedulerServlet extends HttpServlet
 	{
 		try
 		{
+                    SendEmailSmsLegalVendor.SendEmailSms();
                  //     SendSmsVendor.SendSms();
                   // SendStatusSmsEscEmployee.SendStatusEscSms();//TEST STATUS ESCALATION SMS
                   //    SendStatusSmsEmployee.SendStatusSms(); //TEST STATUS SMS

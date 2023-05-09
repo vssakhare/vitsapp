@@ -642,18 +642,7 @@ LinkedList PlantList = null;
         return fileList;
     }
     
-    public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception {
-              LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
-        try {
-            logger.log(Level.INFO, " OracleVendorDao :: getLegalSmsTrackerList() :: method called");
-
-            fileList = (LinkedList<LegalInvoiceInputBean>) getObjectList(new GetLegalEmailSmsTrackerListQueryHelper(legalInvoiceInputBeanObj));
-        } catch (Exception ex) {
-            logger.log(Level.ERROR, " OracleVendorDao :: getSmsTrackerList() :: Exception :: " + ex);
-            //ex.printStackTrace();
-        }
-        return fileList;
-    } 
+  
      
     public VendorInputBean getInvoicedetails(VendorInputBean vendorInputBeanObj) throws Exception {
         try {
@@ -893,11 +882,11 @@ LinkedList PlantList = null;
     public LinkedList getTableList(VendorInputBean vendorInputBeanObj) throws Exception {
         LinkedList tableList = null;
         try {
-            logger.log(Level.INFO, "OracleVendorDao ::: getSummaryList() :: method called ::");
+            logger.log(Level.INFO, "OracleVendorDao ::: getTableList() :: method called ::");
 
             tableList = (LinkedList) getObjectList(new GetTableListQueryHelper(vendorInputBeanObj));
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "OracleVendorDao ::: getSummaryList() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "OracleVendorDao ::: getTableList() :: Exception :: " + ex);
             //ex.printStackTrace();
             throw ex;
         }
@@ -1149,6 +1138,24 @@ try {
         }
         return list;
      }
+       public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList() throws Exception {
+              LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
+        try {
+            logger.log(Level.INFO, " OracleVendorDao :: getLegalSmsTrackerList() :: method called");
+
+            fileList = (LinkedList<LegalInvoiceInputBean>) getObjectList(new GetLegalEmailSmsTrackerListQueryHelper());
+         /*for (int i = 0; i < list.size(); i++) {
+                 LegalInvoiceInputBean lBean=fileList.get(i);
+           String sapStatus=getLegalInvoiceStatusFromSAP(lBean);
+           
+           fileList.get(i).setStatus(sapStatus);
+         }*/
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " OracleVendorDao :: getSmsTrackerList() :: Exception :: " + ex);
+            //ex.printStackTrace();
+        }
+        return fileList;
+    } 
      
      
      private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){

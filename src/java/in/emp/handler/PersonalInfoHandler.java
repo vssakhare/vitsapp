@@ -101,7 +101,9 @@ public class PersonalInfoHandler implements GenericFormHandler {
                     sReturnPage = getCorrectionFormHR(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_PI_UPDATION_FORM_GET)) {
                     sReturnPage = getPiUpdationForm(request);
-                } else {
+                } else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)) {
+                    sReturnPage = getLegalDashboard(request);
+                }  else {
                     sReturnPage = getHome(request);
                 }
             }
@@ -166,6 +168,17 @@ public class PersonalInfoHandler implements GenericFormHandler {
         }
         return sReturnPage;
     }
+     public String getLegalDashboard(HttpServletRequest request) throws Exception {
+        String sReturnPage = ApplicationConstants.UIACTION_LEGALDASHBOARD_GET;
+     
+        try {
+            logger.log(Level.INFO, "PersonalInfoHandler :: getLegalDashboard() :: method called :: ");
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "PersonalInfoHandler :: getLegalDashboard() :: Exception :: " + ex);
+        }
+        return sReturnPage;
+    }
+    
 
     private String getCorrectionFormList(HttpServletRequest request) {
         String sReturnPage = ApplicationConstants.UIACTION_CORRECTION_APPLICATION_GET;
