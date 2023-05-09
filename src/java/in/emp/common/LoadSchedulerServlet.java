@@ -34,7 +34,7 @@ public class LoadSchedulerServlet extends HttpServlet
 	{
 		try
 		{
-                    SendEmailSmsLegalVendor.SendEmailSms();
+                    //SendEmailSmsLegalVendor.SendEmailSms();
                  //     SendSmsVendor.SendSms();
                   // SendStatusSmsEscEmployee.SendStatusEscSms();//TEST STATUS ESCALATION SMS
                   //    SendStatusSmsEmployee.SendStatusSms(); //TEST STATUS SMS

@@ -297,7 +297,7 @@ public class SmsController {
             logger.log(Level.INFO, "Time - " + sdf.format(new Date()) + "  smsData - " + smsData);
             System.out.println("Time - " + sdf.format(new Date()) + "smsdata is :" + smsData);
 
-            //out.write(smsData);
+            out.write(smsData);
             System.out.println("Time - " + sdf.format(new Date()) + "smsdata is send :" + smsData);
             out.close();
 

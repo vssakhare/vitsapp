@@ -94,7 +94,7 @@ public class SendEmailSmsLegalVendor {
                                 String MailMessage = "For invoice no. " + InvoiceNumber + "," + v.getFeeType() + " payment has been done.";
 
                                 success = SendMail.sendmail(VendorMailId, Subject, MailMessage);
-                             //   if (success == 1) 
+                                if (success == 1) 
                              {
                                    
                                         try {
