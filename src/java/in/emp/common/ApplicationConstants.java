@@ -261,6 +261,8 @@ public class ApplicationConstants {
     //public static String WORKFLOW_DEFAULT_SORT_COLUMN = "LOC.LOCATION_DESC";
     public static int DEFAULT_LOCATION_TYPE = 1;
     
+    public static String  UIACTION_PRINT_LEGAL_SUMMARY ="printLegalSummary";
+    
     public static String UIACTION_HOME_DASHBOARD = "dashboardhome";
     //-- Search Constants
     public static String UIACTION_SEARCH_GET = "getSearch";

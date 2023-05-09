@@ -89,14 +89,15 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setZoneText(result.getString("ZONE"));
             legalInvoiceInputBean.setDivisionText(result.getString("DIVISION"));            
             
+
             */
+
         } catch (Exception ex) {
             logger.log(Level.ERROR, "GetLegalSmsTrackerListQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
         }
         
-                 
-        return legalInvoiceInputBean;
+   return legalInvoiceInputBean;
     }
 
     public ResultSet getQueryResults(Connection connection) throws Exception {
@@ -104,6 +105,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
         StringBuilder sql = new StringBuilder();
         ResultSet rs = null;
         try {
+
             sql.append("    select x.*,zf.STATUS_FEE,zf.ZZPOST_FISCAL,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc,substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1 \n" +
                      "    from  (SELECT	LD.APPL_ID,ld.MOBILE_NO,ld.EMAIL_ID, ld.INVOICE_DATE,ld.INVOICE_NUMBER,ld.CASE_REF_NO,ld.VENDOR_NUMBER,f.FEE_TYPE as sFee_type 	,f.SAP_STATUS	SAP_STATUS,f.TECHNICAL_UPDATED,f.ACC_SMS_EMAIL_SENT,\n" +
                     "  CASH_SMS_EMAIL_SENT,PAY_SMS_EMAIL_SENT,PAY_ADJ_SMS_EMAIL_SENT,PAY_DOC_REVRSD_SMS_EMAIL_SENT \n" +
@@ -114,6 +116,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
                     " x.invoice_date = zf.invoice_date  AND x.sFee_type = zf.adv_fee_type\n");
      
             logger.log(Level.INFO, "GetLegalEmailSmsTrackerListQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
+
 
             statement = connection.prepareStatement(sql.toString());
 
