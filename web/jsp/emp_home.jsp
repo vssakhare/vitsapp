@@ -66,6 +66,9 @@ LinkedList summaryList = new LinkedList();
        
           
             <!-- /. NAV SIDE  -->
+            <div style="margin-top: 102px;float: left; margin-left: 70px;">
+                <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>" 
+                 data-wahfont="14"  style="color: #000;text-decoration: underline;font-size: 13"><strong>Legal<br> Dashboard</strong></a></div>
             <div id="page-wrapper" style="min-height:80%;" >
 
                 <div id="page-inner ">

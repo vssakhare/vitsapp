@@ -513,7 +513,7 @@ setTimeout(function() {
 
 
 function hide() {
-    var u = window.location.href;
+    var u = window.location.href ;
     if (u.indexOf("legaldashboard") === -1) {
         var uiActionName = "legaldashboard";
         var action = "home";

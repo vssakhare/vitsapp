@@ -59,6 +59,9 @@ LinkedList legalSummaryList = new LinkedList();
              <%@ include file="navJs.jsp"%>
           
                       <%@ include file="emp_nav_vmenu.jsp"%>
+           <div style="margin-top: 102px;float: left; margin-left: 70px;">
+                <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" 
+                   style="color: #000;text-decoration: underline;font-size: 13"><strong>Non Legal<br> Dashboard</strong></a></div>
           
             <div id="page-wrapper" style="min-height:80%;" >
 
