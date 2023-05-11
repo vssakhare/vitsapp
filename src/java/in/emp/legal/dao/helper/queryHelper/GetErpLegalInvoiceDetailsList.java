@@ -143,7 +143,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
          if (status != null && status.equalsIgnoreCase("Accepted")){
              sql.append(" select LD.*,OM.*,f.fee_type as sFee_type,f.amount as sAmount,zf.STATUS_FEE ,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC ,zf.ZZPOST_FISCAL,zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT,zf.ZZPARK_POST_DOC_NO,zf.ZZPARK_POST_DATE,zf.ZZPARK_DOC_AMT,zf.ZZPAY_DOC_AMT,zf.ZZPOST_DATE," +
              //sql.append(" select LD.*,OM.*,zf.* ," +
-"  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc , substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1,(LD.INVOICE_AMOUNT-zf.FEE_RECOMMENDED)DEDUCTION_AMOUNT, zf.REASON_FOR_DEDUCTION"
+"  substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc , substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1,(zf.INVOICE_AMOUNT-zf.FEE_RECOMMENDED)DEDUCTION_AMOUNT, zf.REASON_FOR_DEDUCTION"
                      + " from xxmis_erp_legal_invoice_details LD  join   xxmis_erp_legal_invoice_fee_type_dtls  f on     f.APPL_ID=LD.APPL_ID,xxmis_organization_master OM , zhrt_legal_fee zf ");
             sql.append(" where LD.dealing_office_code=OM.organization_id "
                     + " and TO_NUMBER(LD.VENDOR_NUMBER)=zf.vendor" +
@@ -202,7 +202,7 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 
          else{
             sql.append("SELECT * FROM (select zf.ZZUTR_NO,zf.ZZFEE_DT_OF_PAYMENT,zf.ZZPARK_POST_DOC_NO,zf.ZZPARK_POST_DATE,zf.ZZPARK_DOC_AMT,zf.ZZPAY_DOC_AMT,zf.ZZPOST_DATE, x.*, zf.status_fee, zf.zzpay_done_erp_doc,zf.ZZPOST_FISCAL ,   substr(zf.zzpark_post_doc_no,1,2) AS start_post_doc_no," +
-"    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc,    substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1,(x.INVOICE_AMOUNT-zf.FEE_RECOMMENDED)DEDUCTION_AMOUNT, zf.REASON_FOR_DEDUCTION    from (" +
+"    substr(zf.zzpay_done_erp_doc,1,2) AS start_pay_done_erp_doc,    substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1,(zf.INVOICE_AMOUNT-zf.FEE_RECOMMENDED)DEDUCTION_AMOUNT, zf.REASON_FOR_DEDUCTION    from (" +
 "SELECT ld.*, om.ID,om.ORGANIZATION_NAME ,om.ORGANIZATION_ID,om.ORG_ID_SAP,om.OFFICE_TYPE,om.OFFICE_LEVEL,om.ADDRESS_LINE01,om.ADDRESS_LINE02,om.ADDRESS_LINE03,om.CITY," +
 "om.STATE,om.PIN_CODE,om.COUNTRY,om.PERSONAL_AREA,om.PERSONAL_AREA_NAME,om.PERSONAL_SUBAREA ,om.PERSONAL_SUBAREA_NAME ,om.REGION_ID,om.REGION_ID_SAP," +
 "om.REGION_NAME,om.ZONE_ID,om.ZONE_ID_SAP,om.ZONE_NAME,om.CIRCLE_ID,om.CIRCLE_ID_SAP,om.CIRCLE_NAME,om.DIVISION_ID,om.DIVISION_ID_SAP,om.DIVISION_NAME," +
