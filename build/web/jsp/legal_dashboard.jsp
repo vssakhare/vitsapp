@@ -4,8 +4,8 @@
 <%@page import="in.emp.common.ApplicationConstants"%>
 <%@page import="in.emp.util.ApplicationUtils"%>
 <%@page import="java.util.*"%>
-<%@page import="in.emp.vendor.bean.VendorBean"%>
-<%@page import="in.emp.vendor.bean.VendorPrezData"%>
+<%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="java.sql.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
@@ -13,15 +13,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     
     <%
+        
+        
          if (!ApplicationUtils.isBlank(request.getParameter("uiActionName"))) {
         String uiAction = request.getParameter("uiActionName");
     }
-VendorPrezData vendorPrezDataObj = new VendorPrezData();
 LinkedList legalSummaryList = new LinkedList();
         if (request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA) != null) {
-        vendorPrezDataObj = (VendorPrezData) request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA);        
-       legalSummaryList = (LinkedList) vendorPrezDataObj.getLegalSummaryList();
-            
+        legalSummaryList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA);        
+       
   }  %>
     <head>
 
@@ -59,6 +59,9 @@ LinkedList legalSummaryList = new LinkedList();
              <%@ include file="navJs.jsp"%>
           
                       <%@ include file="emp_nav_vmenu.jsp"%>
+           <div style="margin-top: 102px;float: left; margin-left: 70px;">
+                <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" 
+                   style="color: #000;text-decoration: underline;font-size: 13"><strong>Non Legal<br> Dashboard</strong></a></div>
           
             <div id="page-wrapper" style="min-height:80%;" >
 
@@ -151,8 +154,8 @@ LinkedList legalSummaryList = new LinkedList();
                                         int j = 0;int i=0;
                                      int k = legalSummaryList.size();
                                       int max = 0; 
-                                    for (VendorBean vendorBean : (LinkedList<VendorBean>) legalSummaryList) {
-                                       if(vendorBean.getFeeType()==null) {
+                                    for (LegalInvoiceInputBean legalInvoiceInputBeanObj : (LinkedList<LegalInvoiceInputBean>) legalSummaryList) {
+                                      // if(legalInvoiceInputBeanObj.getFeeType()==null) {
                                                     j++;
                                     String Zone = "";
                                     String Circle ="";
@@ -169,43 +172,43 @@ LinkedList legalSummaryList = new LinkedList();
                                     String paid="";
                                     
                                     
-                                     if (!ApplicationUtils.isBlank(vendorBean.getZone())) {
-                                       Zone = vendorBean.getZone();
+                                     if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getZone())) {
+                                       Zone = legalInvoiceInputBeanObj.getZone();
                                        String[] split = Zone.split("ZONE TOTAL");
                                         firstSubString = split[0];
                                      } 
-                                     if (!ApplicationUtils.isBlank(vendorBean.getP_Tech_MORE_THAN30DAYS())) {
-                                       pTech_more = vendorBean.getP_Tech_MORE_THAN30DAYS();
+                                     if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Tech_MORE_THAN30DAYS())) {
+                                       pTech_more = legalInvoiceInputBeanObj.getP_Tech_MORE_THAN30DAYS();
                                      }
                                       
-                                      if (!ApplicationUtils.isBlank(vendorBean.getP_TechLESSTHAN30DAYS())) {
-                                       pTech_less = vendorBean.getP_TechLESSTHAN30DAYS();
+                                      if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_TechLESSTHAN30DAYS())) {
+                                       pTech_less = legalInvoiceInputBeanObj.getP_TechLESSTHAN30DAYS();
                                      }
                                      
-                                      if (!ApplicationUtils.isBlank(vendorBean.getP_Cash_MORE_THAN30DAYS())) {
-                                       pCash_more = vendorBean.getP_Cash_MORE_THAN30DAYS();
+                                      if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Cash_MORE_THAN30DAYS())) {
+                                       pCash_more = legalInvoiceInputBeanObj.getP_Cash_MORE_THAN30DAYS();
                                      }
-                                       if (!ApplicationUtils.isBlank(vendorBean.getP_Cash_LESS_THAN30DAYS())) {
-                                       pCash_less = vendorBean.getP_Cash_LESS_THAN30DAYS();
+                                       if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Cash_LESS_THAN30DAYS())) {
+                                       pCash_less = legalInvoiceInputBeanObj.getP_Cash_LESS_THAN30DAYS();
                                      }
-                                        if (!ApplicationUtils.isBlank(vendorBean.getP_Acc_MORETHAN30DAYS())) {
-                                       pAcc_more = vendorBean.getP_Acc_MORETHAN30DAYS();
+                                        if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Acc_MORETHAN30DAYS())) {
+                                       pAcc_more = legalInvoiceInputBeanObj.getP_Acc_MORETHAN30DAYS();
                                      }
-                                         if (!ApplicationUtils.isBlank(vendorBean.getP_Acc_LESSTHAN30DAYS())) {
-                                       pAcc_less = vendorBean.getP_Acc_LESSTHAN30DAYS();
+                                         if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Acc_LESSTHAN30DAYS())) {
+                                       pAcc_less = legalInvoiceInputBeanObj.getP_Acc_LESSTHAN30DAYS();
                                      }
-                                       if (!ApplicationUtils.isBlank(vendorBean.getPaid())) {
-                                    paid = vendorBean.getPaid();
+                                       if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getPaid())) {
+                                    paid = legalInvoiceInputBeanObj.getPaid();
                                      }
                                    
-                                       if (!ApplicationUtils.isBlank(vendorBean.getpTot())) {
-                                    pTotal = vendorBean.getpTot();
+                                       if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getpTot())) {
+                                    pTotal = legalInvoiceInputBeanObj.getpTot();
                                      }
                                      
-                                    if (!ApplicationUtils.isBlank(vendorBean.getvSubmit())) {
-                                       vSubmit = vendorBean.getvSubmit();
-                                       if (!ApplicationUtils.isBlank(vendorBean.getZone())) {
-                                         Zone = vendorBean.getZone();
+                                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getUNPAID_SUBMITTED())) {
+                                       vSubmit = legalInvoiceInputBeanObj.getUNPAID_SUBMITTED();
+                                       if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getZone())) {
+                                         Zone = legalInvoiceInputBeanObj.getZone();
                                      if (Zone.contains("TOTAL")) {
                                        int vSubmitmax=Integer.parseInt(vSubmit);  
                                       if (max < vSubmitmax) 
@@ -235,31 +238,31 @@ LinkedList legalSummaryList = new LinkedList();
 
 <% }%> 
   <% }%>   
-   <% }else{
+   <% /*}else{
                     
                     i++;
                     String ZonefeeType = "";
                     String vSubmitFeeType = "";
                     String feeType = "";
-                    if (!ApplicationUtils.isBlank(vendorBean.getZone())) {
-                        ZonefeeType = vendorBean.getZone();
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getZone())) {
+                        ZonefeeType = legalInvoiceInputBeanObj.getZone();
 
                     }
-                    if (!ApplicationUtils.isBlank(vendorBean.getV_submit_FeeType())) {
-                        vSubmitFeeType = vendorBean.getV_submit_FeeType();
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getV_submit_FeeType())) {
+                        vSubmitFeeType = legalInvoiceInputBeanObj.getV_submit_FeeType();
                     }
 
-                    if (!ApplicationUtils.isBlank(vendorBean.getFeeType())) {
-                        feeType = vendorBean.getFeeType();
-                    }
+                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getFeeType())) {
+                        feeType = legalInvoiceInputBeanObj.getFeeType();
+                    }*/
 %>
    
- <input type="hidden" name="vSubmitFeeType<%=i%>" id="vSubmitFeeType<%=i%>" value="<%=vSubmitFeeType%>">
-  <input type="hidden" name="feeType<%=i%>" id="feeType<%=i%>" value="<%=feeType%>">
-  <input type="hidden" name="zoneFeeType<%=i%>" id="zoneFeeType<%=i%>" value="<%=ZonefeeType%>">
+ <!--<input type="hidden" name="vSubmitFeeType<%//=i%>" id="vSubmitFeeType<//%=i%>" value="<%//=vSubmitFeeType%>">
+  <input type="hidden" name="feeType<%=i%>" id="feeType<%=i%>" value="<%//=feeType%>">
+  <input type="hidden" name="zoneFeeType<%=i%>" id="zoneFeeType<%=i%>" value="<%//=ZonefeeType%>">-->
 
 
-<% }%>
+<% //}%>
   <% }%> 
     <input type="hidden" name="vSubmitmax" id="vSubmitmax" value="<%=max%>">  
     <input type="hidden" name="j" id="j" value="<%=j%>">  
