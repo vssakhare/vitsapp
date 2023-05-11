@@ -36,7 +36,11 @@ public interface VendorDelegate {
     public VendorPrezData getVendorList(VendorBean vendorBeanObj) throws Exception;
        public VendorPrezData  getVendorVerifiedList(VendorBean vendorBeanObj) throws Exception;
     public VendorPrezData getSummaryList(VendorBean vendorBeanObj) throws Exception;
+
+  
+
       public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) throws Exception;
+
     public VendorPrezData getTableList(VendorInputBean vendorInputBeanObj) throws Exception;
     public VendorPrezData getPOList(POBean poBeanObj) throws Exception;
      public LinkedList getPONumberList(POBean poBeanObj) throws Exception;
@@ -98,7 +102,7 @@ public interface VendorDelegate {
 
  public LinkedList<VendorInputBean> getSmsTrackerList(VendorInputBean VendorInputBeanObj) throws Exception;
  public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean vendorInputBeanObj) throws Exception;
- public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList(LegalInvoiceInputBean vendorInputBeanObj) throws Exception;
+ public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList() throws Exception;
        public List getPOStatus(List lstErpToVitsFileFormat) throws Exception;
               public void getPOStatusProcedure() throws Exception;
 

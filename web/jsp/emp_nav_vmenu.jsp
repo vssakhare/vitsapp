@@ -22,10 +22,24 @@
 		<div class="menu-inner">
 			
 			<ul>
-				<li id="menu1" style="align-items: center;  justify-content: center"> <a  href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" title="All Notifications">
-                                <img src="images/home.png" width="16" height="16"> <b>Home</b> </a></li>
-                                 
-                                
+                            <li>  <div>
+                                    <div id="menu1">
+                                         <a  id="M1" data-toggle="collapse" data-parent="#accordion" href="#collapseHomeInfo" class="collapsed"
+                                       title="dashboard"      ><img src="images/vendor.png" width="18" height="16" style=""><b>Home</b>
+                                    </a>
+                                    </div> 
+                                    <div id="collapseHomeInfo" class="panel-collapse collapse subMenu" style="line-height: 4;">
+                                        <div class="panel-menu" id="M1I1">
+                                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" title="" ><img src="images/bullet.png" width="16" height="16" style="">Dashboard</a>
+                                        </div>
+                                        <div class="panel-menu" id="M1I2">
+                                            <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>" title=""><img src="images/bullet.png" width="16" height="16" style="">Legal Dashboard</a>
+                                        </div>  
+                                    </div>
+                                </div>    
+                            </li>
+
+                                            
                                    <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %>
 				<li   > 
                                     <div>

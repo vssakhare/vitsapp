@@ -289,12 +289,13 @@
             liabilityDocDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("yyyy-mm-dd").parse(legalInvoiceInputBean.getLiabilityDocDate()));
         }
         
-       if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
+       /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLiabilityDocAmt())) {
             liabilityDocAmt = legalInvoiceInputBean.getLiabilityDocAmt();
-        }
+        }*/
         
         for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
-        liabilityDocAmt+=(l.getLiabilityDocAmt()+"+");
+        liabilityDocAmt+=(ApplicationUtils.formatAmount(Double.valueOf(l.getLiabilityDocAmt()))+"+");
+        
         //System.out.println("liabilityDocAmt"+liabilityDocAmt);
             }
         
@@ -346,10 +347,15 @@
              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getReasonForDeduction())) {
                  reasonForDeduction = legalInvoiceInputBean.getReasonForDeduction();
              }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeductionAmount())) {
+             /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeductionAmount())) {
                  deductionAmount = legalInvoiceInputBean.getDeductionAmount();
                  deductionAmount = ApplicationUtils.formatAmount(Double.valueOf(deductionAmount));
-             }
+             }*/
+             
+             for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+        deductionAmount+=(ApplicationUtils.formatAmount(Double.valueOf(l.getDeductionAmount()))+"+");
+        //System.out.println("feeType"+feeType);
+            }
                if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getPaidAmount())) {
                 paidAmount = legalInvoiceInputBean.getPaidAmount();
                 paidAmount = ApplicationUtils.formatAmount(Double.valueOf(paidAmount));
@@ -468,7 +474,7 @@
                                 
                                 <div class="col-sm-3">
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Deduction Amount :</label>  <label><%= deductionAmount %></label>
+                                    <label>Deduction Amount :</label>  <label><%= deductionAmount.replaceAll("[\\+]+$", "") %></label>
                                 </div>
                             </div>
                             
@@ -572,7 +578,8 @@
                             <%}%>
                             <div class="col-sm-4">
                                            <div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Payment Document Amount :</label>  <label><%= paidAmount %> </label>
+                                    <!--<label>Payment Document Amount :</label>  <label><%//= paidAmount %> </label>-->
+                                    <label>Payment Amount :</label>  <label><%= liabilityDocAmt.replaceAll("[\\+]+$", "") %> </label>
                                            </div>
                             </div>
                             <div class="col-sm-4"><div class="styled-input" style="font-size:12px;padding-top:10px">

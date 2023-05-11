@@ -83,6 +83,9 @@ var $content = $('#page-inner');
                     <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>FAQ</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Terms & Condition</a></li>                     
                 </ul>
+                 <c:if test="${!empty language}">
+    <fmt:setLocale value="${language}" scope="session" />
+</c:if>
                    <div class="clearfix"></div> 
             <form class="navbar-form pull-center navbarright" style="align-items: center">
                    <label class="mahadiscom">Maharashtra State Electricity Distribution Co. Ltd</label>
@@ -91,7 +94,51 @@ var $content = $('#page-inner');
                        <!--  <span class="input-group-btn">
                             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                         </span> -->
-                    </div>                                       
+                    </div>  
+                      <div class="headerWidget" >
+  <c:choose>
+    <c:when test="${empty sessionScope['javax.servlet.jsp.jstl.fmt.locale.session']}">
+      <c:choose>
+        <c:when test="${pageContext.request.locale.language ne 'mr'}"><div style="font-weight:bold;">English</div></c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="en"/>
+          </c:url>
+          <div class="bubble link"><a href="${url}" style="color: #000">English</a></div>
+        </c:otherwise>
+      </c:choose><div> |</div>
+      <c:choose>
+        <c:when test="${pageContext.request.locale.language eq 'mr'}"><div style="font-weight:bold;">मराठी</div></c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="mr"/>
+          </c:url>
+          <div class="bubble link"><a href="${url}" style="color: #000">मराठी</a></div>
+        </c:otherwise>
+      </c:choose>
+    </c:when>
+    <c:otherwise>
+      <c:choose>
+        <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] ne 'mr'}"><div style="font-weight:bold;">English</div></c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="en"/>
+          </c:url>
+          <div class="bubble link"><a href="${url}" style="color: #000">English</a></div>
+        </c:otherwise>
+      </c:choose> <div>|</div>
+      <c:choose>
+        <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] eq 'mr'}"><div style="font-weight:bold;">मराठी</div></c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="mr"/>
+          </c:url>
+          <div class="bubble link"><a href="${url}" style="color: #000">मराठी</a></div>
+        </c:otherwise>
+      </c:choose>
+    </c:otherwise>
+  </c:choose>
+</div>
                 </form>
               <div class="clearfix"></div> 
               <div id="slidemenu" data-hover="dropdown" data-animations="fadeIn">

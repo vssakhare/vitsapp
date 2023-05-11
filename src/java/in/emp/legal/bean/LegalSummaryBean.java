@@ -22,6 +22,42 @@ public class LegalSummaryBean  implements java.io.Serializable {
    private String P_Cash_LESS_THAN30DAYS  ;
  private String pTot;
     private String vSubmit;
+    private String zone;
+     private String circle;
+     private String division;
+   private String V_submit_FeeType;
+    public String getV_submit_FeeType() {
+        return V_submit_FeeType;
+    }
+
+    public void setV_submit_FeeType(String V_submit_FeeType) {
+        this.V_submit_FeeType = V_submit_FeeType;
+    }
+   
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public String getCircle() {
+        return circle;
+    }
+
+    public void setCircle(String circle) {
+        this.circle = circle;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
 
     public String getPaid() {
         return Paid;

@@ -109,22 +109,9 @@ private String liabilityDocNo ;
     private String igstTdsAmount;
     private String DeductionAmount;
     private String reasonForDeduction  ;    
-
-    public String getDeductionAmount() {
-        return DeductionAmount;
-    }
-
-    public void setDeductionAmount(String DeductionAmount) {
-        this.DeductionAmount = DeductionAmount;
-    }
-
-    public String getReasonForDeduction() {
-        return reasonForDeduction;
-    }
-
-    public void setReasonForDeduction(String reasonForDeduction) {
-        this.reasonForDeduction = reasonForDeduction;
-    }
+    private String  userType;
+    private String accSmsEmailSent;
+    private String technicalUpdated;
     public String getTdsAmount() {
         return tdsAmount;
     }
@@ -180,9 +167,50 @@ private String liabilityDocNo ;
     public void setIgstTdsAmount(String igstTdsAmount) {
         this.igstTdsAmount = igstTdsAmount;
     }
-   
 
+   
+    public String getTechnicalUpdated() {
+        return technicalUpdated;
+    }
+
+    public void setTechnicalUpdated(String technicalUpdated) {
+        this.technicalUpdated = technicalUpdated;
+    }
     
+    public String getAccSmsEmailSent() {
+        return accSmsEmailSent;
+    }
+
+    public void setAccSmsEmailSent(String accSmsEmailSent) {
+        this.accSmsEmailSent = accSmsEmailSent;
+    }
+  
+    
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+ 
+
+    public String getDeductionAmount() {
+        return DeductionAmount;
+    }
+
+    public void setDeductionAmount(String DeductionAmount) {
+        this.DeductionAmount = DeductionAmount;
+    }
+
+    public String getReasonForDeduction() {
+        return reasonForDeduction;
+    }
+
+    public void setReasonForDeduction(String reasonForDeduction) {
+        this.reasonForDeduction = reasonForDeduction;
+    }
+  
     public String getFiscalYear() {
         return fiscalYear;
     }

@@ -1882,6 +1882,9 @@ public class ApplicationUtils {
         }
         return val;
     }
+    public static double parseStringToDouble(String value) {
+    return value == null || value.isEmpty() ? 0.0 : Double.parseDouble(value);
+}
 
     public static long minsToMilliSecs(long mins) {
         return (mins * 60 * 1000);

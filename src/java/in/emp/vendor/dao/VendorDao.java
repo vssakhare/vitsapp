@@ -41,7 +41,9 @@ public interface VendorDao {
     public LinkedList getVendorList(VendorBean vendorBeanObj) throws Exception;
      public LinkedList getVendorVerifiedList(VendorBean vendorBeanObj) throws Exception;
     public LinkedList getSummaryList(VendorBean vendorBeanObj) throws Exception;
+
     public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) throws Exception;
+
      public LinkedList getTableList(VendorInputBean vendorInputBeanObj) throws Exception;
     public LinkedList getPOList(POBean poBeanObj) throws Exception; 
      public LinkedList getzoneList(POBean poBeanObj) throws Exception; 
@@ -107,7 +109,7 @@ public interface VendorDao {
     
     public LinkedList<VendorInputBean> getSmsTrackerList(VendorInputBean vendorInputBeanObj) throws Exception;
      public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception;
-    public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception; 
+    public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList() throws Exception; 
     public List getPOStatus(List lstErpToVitsFileFormat) throws Exception;
      public void getPOStatusProcedure() throws Exception;
       public List getPOLineStatus(List lstErpToVitsFileFormat) throws Exception;

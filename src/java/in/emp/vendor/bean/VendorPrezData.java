@@ -45,6 +45,15 @@ private LinkedList sesList;
 private LinkedList migoList;
 private LinkedList invList;
 private LinkedList paymentList;
+private LinkedList legalSummaryList;
+
+    public LinkedList getLegalSummaryList() {
+        return legalSummaryList;
+    }
+
+    public void setLegalSummaryList(LinkedList legalSummaryList) {
+        this.legalSummaryList = legalSummaryList;
+    }
 
   public LinkedList getPoLineDetails() {
         return poLineDetails;

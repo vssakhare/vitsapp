@@ -4,8 +4,8 @@
     Author     : Ithelpdesk
 --%>
 
-<%@page import="in.emp.vendor.bean.VendorBean"%>
-<%@page import="in.emp.vendor.bean.VendorPrezData"%>
+<%@page import="in.emp.legal.bean.LegalInvoiceInputBean"%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="in.emp.home.biometric.bean.BiometricAttendADataBean"%>
 <%@page import="in.emp.home.biometric.bean.BiometricAttendDataBean"%>
 <%@page import="in.emp.home.biometric.bean.BiometricAttendDataReportBean"%>
@@ -17,23 +17,15 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 <%
-   
-    LinkedList summaryList = new LinkedList();
-    String uiAction = "";
-    if (!ApplicationUtils.isBlank(request.getParameter("uiActionName"))) {
-        uiAction = request.getParameter("uiActionName");
-    }
     String recordsVar = "No Records To Display !!!";
-    
-    VendorPrezData vendorPrezDataObj = new VendorPrezData();
-   
-
-    if (request.getSession().getAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA) != null) {
-        vendorPrezDataObj = (VendorPrezData) request.getSession().getAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA);        
-        summaryList = (LinkedList) vendorPrezDataObj.getSummaryList();
-            
+     if (!ApplicationUtils.isBlank(request.getParameter("uiActionName"))) {
+        String uiAction = request.getParameter("uiActionName");
     }
-
+LinkedList legalSummaryList = new LinkedList();
+        if (request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA) != null) {
+        legalSummaryList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA);        
+       
+  }  
 
 %>
 
@@ -96,7 +88,7 @@
                                <div class="col-lg-12 col-md-12">
                                   <div class="table-responsive" id="tab">
                                        <%
-                                           if (summaryList != null) {
+                                           if (legalSummaryList != null) {
                                        %>   
                                   
                                         
@@ -135,9 +127,9 @@
                                          <%
                                 
                                      int j = 0;
-                                     int k = summaryList.size();
+                                     int k = legalSummaryList.size();
                                     
-                                    for (VendorBean vendorBean : (LinkedList<VendorBean>) summaryList) {
+                                   for (LegalInvoiceInputBean legalInvoiceInputBeanObj : (LinkedList<LegalInvoiceInputBean>) legalSummaryList) {
                                                     j++;
                                     String Zone = "";
                                     String Circle ="";
@@ -153,47 +145,47 @@
                                     String vSubmit = "";
                                     
                                     
-                                     if (!ApplicationUtils.isBlank(vendorBean.getZone())) {
-                                       Zone = vendorBean.getZone();
+                                     if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getZone())) {
+                                       Zone = legalInvoiceInputBeanObj.getZone();
                                      } 
                                     
-                                     if (!ApplicationUtils.isBlank(vendorBean.getCircle())) {
-                                       Circle = vendorBean.getCircle();
+                                     if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getCircle())) {
+                                       Circle = legalInvoiceInputBeanObj.getCircle();
                                      }
                                      
-                                     if (!ApplicationUtils.isBlank(vendorBean.getDivision())) {
-                                       Division = vendorBean.getDivision();
+                                     if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getDivision())) {
+                                       Division = legalInvoiceInputBeanObj.getDivision();
                                      }
                                      
-                                      if (!ApplicationUtils.isBlank(vendorBean.getP_Tech_MORE_THAN30DAYS())) {
-                                       pTech_more = vendorBean.getP_Tech_MORE_THAN30DAYS();
+                                      if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Tech_MORE_THAN30DAYS())) {
+                                       pTech_more = legalInvoiceInputBeanObj.getP_Tech_MORE_THAN30DAYS();
                                      }
                                       
-                                      if (!ApplicationUtils.isBlank(vendorBean.getP_TechLESSTHAN30DAYS())) {
-                                       pTech_less = vendorBean.getP_TechLESSTHAN30DAYS();
+                                      if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_TechLESSTHAN30DAYS())) {
+                                       pTech_less = legalInvoiceInputBeanObj.getP_TechLESSTHAN30DAYS();
                                      }
                                      
-                                      if (!ApplicationUtils.isBlank(vendorBean.getP_Cash_MORE_THAN30DAYS())) {
-                                       pCash_more = vendorBean.getP_Cash_MORE_THAN30DAYS();
+                                      if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Cash_MORE_THAN30DAYS())) {
+                                       pCash_more = legalInvoiceInputBeanObj.getP_Cash_MORE_THAN30DAYS();
                                      }
-                                       if (!ApplicationUtils.isBlank(vendorBean.getP_Cash_LESS_THAN30DAYS())) {
-                                       pCash_less = vendorBean.getP_Cash_LESS_THAN30DAYS();
+                                       if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Cash_LESS_THAN30DAYS())) {
+                                       pCash_less = legalInvoiceInputBeanObj.getP_Cash_LESS_THAN30DAYS();
                                      }
-                                        if (!ApplicationUtils.isBlank(vendorBean.getP_Acc_MORETHAN30DAYS())) {
-                                       pAcc_more = vendorBean.getP_Acc_MORETHAN30DAYS();
+                                        if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Acc_MORETHAN30DAYS())) {
+                                       pAcc_more = legalInvoiceInputBeanObj.getP_Acc_MORETHAN30DAYS();
                                      }
-                                         if (!ApplicationUtils.isBlank(vendorBean.getP_Acc_LESSTHAN30DAYS())) {
-                                       pAcc_less = vendorBean.getP_Acc_LESSTHAN30DAYS();
+                                         if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getP_Acc_LESSTHAN30DAYS())) {
+                                       pAcc_less = legalInvoiceInputBeanObj.getP_Acc_LESSTHAN30DAYS();
                                      }
-                                         if (!ApplicationUtils.isBlank(vendorBean.getPaid())) {
-                                       paid = vendorBean.getPaid();
+                                         if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getPaid())) {
+                                       paid = legalInvoiceInputBeanObj.getPaid();
                                      }
-                                       if (!ApplicationUtils.isBlank(vendorBean.getpTot())) {
-                                       pTotal = vendorBean.getpTot();
+                                       if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getpTot())) {
+                                       pTotal = legalInvoiceInputBeanObj.getpTot();
                                      }
                                        
-                                    if (!ApplicationUtils.isBlank(vendorBean.getvSubmit())) {
-                                       vSubmit = vendorBean.getvSubmit();
+                                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getUNPAID_SUBMITTED())) {
+                                       vSubmit = legalInvoiceInputBeanObj.getUNPAID_SUBMITTED();
                                      }
                             %>
 

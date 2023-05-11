@@ -13,15 +13,33 @@ import java.util.Date;
  */
 public class SummaryBean extends AuthorityBean implements java.io.Serializable {
 
-   
-      private String   P_Tech_MORE_THAN30DAYS ;
-   private String  P_TechLESSTHAN30DAYS	;
-  private String  P_Acc_MORETHAN30DAYS	 ;
-  private String  P_Acc_LESSTHAN30DAYS;
-   private String P_Cash_MORE_THAN30DAYS ;
-   private String P_Cash_LESS_THAN30DAYS  ;
- private String pTot;
+    private String P_Tech_MORE_THAN30DAYS;
+    private String P_TechLESSTHAN30DAYS;
+    private String P_Acc_MORETHAN30DAYS;
+    private String P_Acc_LESSTHAN30DAYS;
+    private String P_Cash_MORE_THAN30DAYS;
+    private String P_Cash_LESS_THAN30DAYS;
+    private String pTot;
     private String vSubmit;
+    private String V_submit_FeeType;
+    private String feeType;
+
+    public String getFeeType() {
+        return feeType;
+    }
+
+    public void setFeeType(String feeType) {
+        this.feeType = feeType;
+    }
+
+    public String getV_submit_FeeType() {
+        return V_submit_FeeType;
+    }
+
+    public void setV_submit_FeeType(String V_submit_FeeType) {
+        this.V_submit_FeeType = V_submit_FeeType;
+    }
+
     public String getP_Tech_MORE_THAN30DAYS() {
         return P_Tech_MORE_THAN30DAYS;
     }
@@ -69,11 +87,7 @@ public class SummaryBean extends AuthorityBean implements java.io.Serializable {
     public void setP_Cash_LESS_THAN30DAYS(String P_Cash_LESS_THAN30DAYS) {
         this.P_Cash_LESS_THAN30DAYS = P_Cash_LESS_THAN30DAYS;
     }
-   
 
-   
-
-   
     public String getpTot() {
         return pTot;
     }
@@ -89,6 +103,5 @@ public class SummaryBean extends AuthorityBean implements java.io.Serializable {
     public void setvSubmit(String vSubmit) {
         this.vSubmit = vSubmit;
     }
-    
-    
+
 }

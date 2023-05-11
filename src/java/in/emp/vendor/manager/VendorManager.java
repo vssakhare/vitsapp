@@ -532,13 +532,13 @@ public class VendorManager implements VendorDelegate {
         }
         return fileList;
     }
-   public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception {
+   public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList() throws Exception {
        VendorDao vendorDaoObj = new OracleVendorDao();
         LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
         try {
             logger.log(Level.INFO, " VendorManager :: getSmsTrackerList() :: method called");
 
-            fileList = vendorDaoObj.getLegalEmailSmsTrackerList(legalInvoiceInputBeanObj);
+            fileList = vendorDaoObj.getLegalEmailSmsTrackerList();
         } catch (Exception ex) {
             logger.log(Level.ERROR, " VendorManager :: getSmsTrackerList() :: Exception :: " + ex);
         }
@@ -1044,6 +1044,7 @@ public class VendorManager implements VendorDelegate {
         return vendorPrezDataObj;
     }
      
+
        public LinkedList getLegalSummaryList(LegalInvoiceInputBean legalInvoiceInputBean) {
     
    
@@ -1069,6 +1070,7 @@ public class VendorManager implements VendorDelegate {
 }
      
      
+
  public VendorPrezData getTableList(VendorInputBean vendorInputBeanObj) {
         VendorPrezData vendorPrezDataObj = new VendorPrezData();
         VendorDao vendorDaoObj = new OracleVendorDao();
