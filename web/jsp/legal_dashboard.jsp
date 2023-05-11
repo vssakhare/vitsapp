@@ -59,9 +59,17 @@ LinkedList legalSummaryList = new LinkedList();
              <%@ include file="navJs.jsp"%>
           
                       <%@ include file="emp_nav_vmenu.jsp"%>
-           <div style="margin-top: 102px;float: left; margin-left: 70px;">
-                <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" 
-                   style="color: #000;text-decoration: underline;font-size: 13"><strong>Non Legal<br> Dashboard</strong></a></div>
+                      <div style="margin-top: 102px;float: left; margin-left: 70px;">
+                          <div>
+               <input type="radio" id="non-legal" name="brand" value="non-legal" onclick="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>">
+                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" 
+                                style="color: #000;font-size: 12"><strong>Non Legal Dashboard</strong></a></div>
+                   <div> 
+                   <input type="radio" id="legal" name="brand" value="legal" checked onclick="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>">
+                             <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>" 
+                 data-wahfont="14"  style="color: #000;font-size: 12"><strong>Legal Dashboard</strong></a>
+           </div>
+                   </div>
           
             <div id="page-wrapper" style="min-height:80%;" >
 

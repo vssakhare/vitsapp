@@ -91,6 +91,15 @@
                         border-color: #fff;
                         
 		}
+                
+                ul li div {
+			color: #fff;
+			font-family: sans-serif;
+			
+                      
+                        
+		}
+
 
 		h2 {
 			position: absolute;
