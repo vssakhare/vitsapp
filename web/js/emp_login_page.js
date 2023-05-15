@@ -17,10 +17,12 @@ $(document).ready(function () {
        ctx.fillStyle = pattern;
        ctx.fillRect(0, 0, c.width, c.height);
        ctx.font="30px Roboto Slab";
-       ctx.fillStyle = '#ccc';
+       ctx.fillStyle = '#000';
        ctx.textAlign = 'center';
+       ctx.textBaseline=
+       
        //ctx.setTransform (1, -0.12, 0, 1, 0, 15);
-       ctx.fillText(captcha,x,c.height/2);
+       ctx.fillText(captcha,x+40,c.height/2+10);
    }
         }
     };
@@ -79,10 +81,10 @@ function updateCaptcha(){
        ctx.fillStyle = pattern;
        ctx.fillRect(0, 0, c.width, c.height);
        ctx.font="30px Roboto Slab";
-       ctx.fillStyle = '#ccc';
+       ctx.fillStyle = '#000';
        ctx.textAlign = 'center';
        //ctx.setTransform (1, -0.12, 0, 1, 0, 15);
-       ctx.fillText(captcha,x,c.height/2);
+       ctx.fillText(captcha,x+40,c.height/2+10);
    }
         }
     };
