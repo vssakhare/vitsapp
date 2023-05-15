@@ -1,6 +1,7 @@
 package in.emp.common;
 
 // java imports--
+
 import in.emp.vendor.VendorApplFileDelegate;
 import in.emp.vendor.bean.VendorApplFileBean;
 import in.emp.vendor.bean.VendorApplFilePrezData;
@@ -81,12 +82,17 @@ import in.emp.vendor.bean.VendorInputBean;
 import in.emp.vendor.bean.VendorPrezData;
 import in.emp.vendor.manager.VendorManager;
 import in.emp.vendor.bean.SmsDTO;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.*;
 import java.util.List;
 import javaldapapp.AssignOfficeDTO;
+import javax.imageio.ImageIO;
 
 
 /* public Class AjaxServlet extends Http Servlet to validate the login information of the user */
@@ -234,7 +240,9 @@ public class AjaxControlServlet extends HttpServlet {
                     responseString = getLegalHierarchyLocation(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FEE_TYPE_DELETE)) {
                     responseString = deleteFeeTypeDtl(request);
-                }
+                }else if (uiActionName.equals(ApplicationConstants.UIACTION_OTP_CAPTCHA)) {
+                  responseString = getCaptcha(request);
+                } 
 //                else if (uiActionName.equals(ApplicationConstants.UIACTION_POST_VENDOR_LIST)) {
 //                    responseString = postVendorList(request);
 //                }
@@ -255,7 +263,7 @@ public class AjaxControlServlet extends HttpServlet {
                 response.getWriter().write(responseString);
             } catch (Exception ex) {
                 logger.log(Level.ERROR, "AjaxControlServlet :: finally :: Exception :: " + ex);
-                //ex.printStackTrace();
+                ex.printStackTrace();
             }
         }
         return responseString;
@@ -2677,4 +2685,22 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
         return obj.toString();
     }
 
+            private  String getCaptcha(HttpServletRequest request) throws Exception {
+            
+            String captchaStr=ApplicationUtils.generateCaptchatMethod2(6); 
+            
+            JSONObject obj = new JSONObject();
+            HttpSession session = request.getSession();
+            try {
+                
+                
+                session.setAttribute(ApplicationConstants.CAPTCHA_CODE, captchaStr);
+             
+                  obj.put("CAPTCHA", captchaStr);
+                        
+            } catch (Exception e) {
+                    e.printStackTrace();
+            }
+             return obj.toString();
+            }
 }

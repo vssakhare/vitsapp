@@ -52,6 +52,7 @@ public class SendEmailSmsLegalVendor {
                     VendorMailId = v.getEmailId();
                     InvoiceNumber = v.getInvoiceNumber();
                     int success = 0;
+                    if (v.getSaveFlag().equalsIgnoreCase("Accepted")){
                     if (v.getStatusFee() != null && v.getStatusFee().equalsIgnoreCase("Submitted") && v.getParkPostDocNo() == null) {
                         //sapStatus="With Accounts";
                         if (v.getAccSmsEmailSent() == null) {
@@ -154,6 +155,10 @@ public class SendEmailSmsLegalVendor {
                             sql = " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set TECHNICAL_UPDATED = 'Y',TECHNICAL_UPDATED_TIMESTAMP=systimestamp,SAP_STATUS='With Technical' WHERE APPL_ID = ? AND FEE_TYPE=?";
                         }
 
+                    }
+                    }
+                    else{
+                         sql = " UPDATE XXMIS_ERP_LEGAL_INVOICE_FEE_TYPE_DTLS set SAP_STATUS='"+v.getSaveFlag()+"' WHERE APPL_ID = ? AND FEE_TYPE=?";
                     }
                     try {
                         if (sql != null && sql != "") {

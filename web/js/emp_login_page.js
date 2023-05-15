@@ -2,7 +2,38 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+$(document).ready(function () {
+      var out = {
+        response: function validation(info) {
+            var jsonObj = JSON.parse(info);
+           var captcha = jsonObj.CAPTCHA; 
+           var c = document.getElementById("CapCode"),
+       ctx=c.getContext("2d"),
+       x = c.width / 2,
+       img = new Image();
+       img.src = $('#imgSrc').val();
+       img.onload = function () {
+       var pattern = ctx.createPattern(img, "repeat");
+       ctx.fillStyle = pattern;
+       ctx.fillRect(0, 0, c.width, c.height);
+       ctx.font="30px Roboto Slab";
+       ctx.fillStyle = '#ccc';
+       ctx.textAlign = 'center';
+       //ctx.setTransform (1, -0.12, 0, 1, 0, 15);
+       ctx.fillText(captcha,x,c.height/2);
+   }
+        }
+    };
+    var url = "ajax";
+    var uiactionName = "getCaptcha";
+    var params = "uiaction=" + uiactionName
+             ;
 
+       callAjax("POST", url, params, false, out.response); 
+       
+   
+    
+});
 
 function bsc() {
     $.reject({
@@ -32,6 +63,35 @@ function bsc() {
     });
 
     return false;
+}
+function updateCaptcha(){
+     var out = {
+        response: function validation(info) {
+            var jsonObj = JSON.parse(info);
+           var captcha = jsonObj.CAPTCHA; 
+           var c = document.getElementById("CapCode"),
+       ctx=c.getContext("2d"),
+       x = c.width / 2,
+       img = new Image();
+       img.src = $('#imgSrc').val();
+       img.onload = function () {
+       var pattern = ctx.createPattern(img, "repeat");
+       ctx.fillStyle = pattern;
+       ctx.fillRect(0, 0, c.width, c.height);
+       ctx.font="30px Roboto Slab";
+       ctx.fillStyle = '#ccc';
+       ctx.textAlign = 'center';
+       //ctx.setTransform (1, -0.12, 0, 1, 0, 15);
+       ctx.fillText(captcha,x,c.height/2);
+   }
+        }
+    };
+     var url = "ajax";
+    var uiactionName = "getCaptcha";
+    var params = "uiaction=" + uiactionName
+             ;
+
+       callAjax("POST", url, params, false, out.response); 
 }
 function generateOTP()
 { var txtUID = document.getElementById("txtUID").value;
@@ -117,11 +177,21 @@ function disableOtpButton()
 
 
 function login() {
-     var Otp = document.getElementById("Otp").value;
-    var txtUID = document.getElementById("txtUID").value;
-    var txtP = document.getElementById("txtP").value;
-    var uiActionName = document.getElementById("uiActionName").value;
+    var Otp="";
+    var captchaCode="";
     
+  if($('#captchaYN').val()!='Y') 
+  { 
+      Otp = document.getElementById("Otp").value;
+  }
+  else
+  {
+       captchaCode= document.getElementById("captchaCode").value;
+  }
+var txtUID = document.getElementById("txtUID").value;
+var txtP = document.getElementById("txtP").value;
+var uiActionName = document.getElementById("uiActionName").value;
+    if($('#captchaYN').val()!='Y') {
     if(document.getElementById("Otp").value===null || document.getElementById("Otp").value==="")
         {
                     alert("Please Enter OTP");
@@ -129,6 +199,15 @@ function login() {
 
 
         }
+    }else{
+         if(document.getElementById("captchaCode").value===null || document.getElementById("captchaCode").value==="")
+        {
+                    alert("Please Enter CAPTCHA");
+                            return false;
+
+
+        }
+    }
     if (document.getElementById("rad_VendorOpt").checked)
     {
         UserOpt = "Vendor";
@@ -149,8 +228,10 @@ function login() {
     var params = "uiActionName=" + uiActionName
             + "&txtUID=" + encodeURIComponent(txtUID)
             + "&txtP=" + encodeURIComponent(txtP)
-            + "&UserOpt=" + encodeURIComponent(UserOpt)
-    +"&Otp=" + encodeURIComponent(Otp);
+         +"&Otp=" + encodeURIComponent(Otp)
+        +"&captchaCode="  + encodeURIComponent(captchaCode)
+       + "&UserOpt=" + encodeURIComponent(UserOpt);
+            
 
     postForm(url, params, "post");
 }

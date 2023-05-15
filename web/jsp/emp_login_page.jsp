@@ -11,6 +11,8 @@
 <%@page import="in.emp.util.ApplicationUtils"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+<%@taglib prefix="botDetect" uri="https://captcha.com/java/jsp"%>
+<%@page import="com.captcha.botdetect.web.servlet.Captcha"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8"/>
@@ -195,7 +197,12 @@ var $content = $('#page-inner');
                         <div class="text-center">
                             <h3 class="loginheading"><b>Login</b></h3></div>
                               <% //System.out.println("-----Login Message : "+ session.getAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION));
-                        String msg=null;
+                         String captchaYN    =   "N";
+            if(System.getProperty("captchaYN") != null)
+            {
+               captchaYN    = System.getProperty("captchaYN");
+            }
+                                  String msg=null;
                         if(!ApplicationUtils.isBlank(session.getAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION))){
                             msg = (String) session.getAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION);
                         }
@@ -203,7 +210,8 @@ var $content = $('#page-inner');
                      %>
         
                     <input type="hidden" id="<%=ApplicationConstants.UIACTION_NAME%>" name="<%=ApplicationConstants.UIACTION_NAME%>" value="getlogin" />
-
+                    <input type="hidden" name="captchaYN" id="captchaYN" value="<%=captchaYN%>" />
+                    <input type="hidden" name="imgSrc" id="imgSrc" value="<%=ApplicationConstants.IMAGE_PATH%>captcha-bg-pattern.jpg" />
                         <form id="ajax-login-form" action="login" method="post" role="form" autocomplete="off">
                              
                                         
@@ -219,39 +227,61 @@ var $content = $('#page-inner');
                              
                             <td class="Label_login"><fmt:message key='User Name'/></td>
                             
-                            <td class="" style="padding-right: 20px" >  <div class=""><input style="text-align: center ;float: left; width: 100%;margin: 1rem 0 0rem; position: relative;"    name="txtUID" id="txtUID" value="" type="text"  /> </div></td>
+                            <td style="padding-right: 20px">  <div><input style="text-align: center ;float: left; width: 100%;margin: 1rem 0 0rem; position: relative;"    name="txtUID" id="txtUID" value="" type="text"  /> </div></td>
                             
                         </tr>
                            
                         <tr>
                             
-                            <td class="Label_login"><fmt:message key='Password'/></td>
+                            <td class="Label_login" ><fmt:message key='Password'/></td>
                            
-                            <td class="" style="padding-right: 20px">  <div class=""><input style="text-align: center ;float: left; width: 100%;margin: 1rem 0 0rem; position: relative;"  class="" name="txtP"  id="txtP" value="" type="password"  /></div></td>
+                            <td style="padding-right: 20px">  <div><input style="text-align: center ;float: left; width: 100%;margin: 1rem 0 0rem; position: relative;"  class="" name="txtP"  id="txtP" value="" type="password"  /></div></td>
                         
                         </tr>
-                            
-                            <tr> 
+                             <% if(captchaYN.equals(ApplicationConstants.STRING_VALUE_YES))
+                    {
+                     //System.out.println("captchaYN jsp :"+captchaYN);   
+                        %> <tr> 
+                            <td></td>
+                            <td style="padding-right: 20px">
+                                <canvas id="CapCode" style="text-align: center ;float: right; margin: 1rem 0 0rem; position: relative;" height="50"></canvas></td>
+                              <td >  
+                              <button type ="button" class = "btn btn-default" height="50" OnClick="updateCaptcha()">
+                                    <strong><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></strong></button></td>
+                           
+                        </tr>
+                          <tr> 
+                            <td class="Label_login">Captcha</td>
+                            <td style="padding-right: 20px">
+                                 <input name="captchaCode" input style="text-align: center ;float: right; margin: 1rem 0 0rem; position: relative;"  type="text" id="captchaCode" value="" />
+                             </td>
+                        </tr>  
+                   
+                    <%} else {%>
+                          <tr> 
                                 
                                 <td class="Label_login"><fmt:message key='OTP'/></td>
-                              <td class="" style="padding-right: 20px"><div class=""><input style="text-align: center ;float: left; width: 100%;margin: 1rem 0 0rem; position: relative;"  name="Otp"  id="Otp" type="text" required></input>
+                              <td style="padding-right: 20px"><div class=""><input style="text-align: center ;float: left; width: 100%;margin: 1rem 0 0rem; position: relative;"  name="Otp"  id="Otp" type="text" required></input>
                             </td>
                               
                                 
-                        </tr>
-                               <tr> 
+                        </tr> 
+                              <tr> 
                                 
                                 <td class="Label_login"></td>
-                              <td style="padding-left: 50px" class=""><div class="">
+                              <td style="padding-left: 50px" class=""><div>
                               <button   class="form-control btn btn-default" id="loginOtp" style="width:70%;height:34px;float:center;margin: 1rem 0 0rem;" onclick="generateOTP()"><fmt:message key='Generate OTP'/></button>  </div>
                               </td>
                               
                                 
-                        </tr>
+                        </tr> 
+                     <%}%> 
+                        
+                             
                               <tr> 
                                 
                                   <td class="Label_login"><label></label></td>
-                              <td  class="">
+                              <td>
                               </td>
                               
                                 
@@ -259,7 +289,7 @@ var $content = $('#page-inner');
                          <tr>
                              <td class="Label_login"    ><fmt:message key='Vendor'/><input type="radio" class="form-control" name="rad_UserOpt" id="rad_VendorOpt" value="Vendor" checked="checked"/>
                                </td>
-                               <td class="Label_login"><fmt:message key='Employee'/><input type="radio" class="form-control" name="rad_UserOpt" id="rad_EmployeeOpt" value="Emp" checked="checked"/>
+                               <td class="Label_login" ><fmt:message key='Employee'/><input type="radio" class="form-control" name="rad_UserOpt" id="rad_EmployeeOpt" value="Emp" checked="checked"/>
                                </td>
                         </tr>
                                </tbody>

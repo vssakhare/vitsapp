@@ -1,5 +1,6 @@
 package in.emp.handler;
 
+import com.captcha.botdetect.web.servlet.Captcha;
 import javax.servlet.http.*;
 import java.util.*;
 import in.emp.arch.GenericFormHandler;
@@ -159,6 +160,7 @@ public class SecurityHandler implements GenericFormHandler {
         String pa = "";
         String userType = "";
         String otp_received = "";
+        String  captchaCodeReceived= "";
         VendorPrezData vendorPrezDataObj = new VendorPrezData();
         VendorPrezData vendorPrezDataObjOne = new VendorPrezData();
         VendorPrezData vendorPrezDataObjtwo = new VendorPrezData();
@@ -182,6 +184,7 @@ public class SecurityHandler implements GenericFormHandler {
             pa = request.getParameter("txtP");
             userType = request.getParameter("UserOpt");
             otp_received = request.getParameter("Otp");
+            captchaCodeReceived = request.getParameter("captchaCode");
             String userName = "";
             String userDesig = "";
             String userOfficeName = "";
@@ -189,6 +192,23 @@ public class SecurityHandler implements GenericFormHandler {
             String userOfficeTypeId = "";
             String userContactNo = "";
             String otp = "";
+            String captchaCode="";
+            boolean isHuman = false;
+             String result = "";
+             String captchaYN = "N";
+             captchaYN = System.getProperty("captchaYN");
+             if (captchaYN.equals(ApplicationConstants.STRING_VALUE_YES)) {
+                if (request.getSession().getAttribute(ApplicationConstants.CAPTCHA_CODE) != null) {
+                    if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.CAPTCHA_CODE))) {
+                        captchaCode = (String) request.getSession().getAttribute(ApplicationConstants.CAPTCHA_CODE);
+
+                        if (captchaCode.equals(captchaCodeReceived)) {
+                            isHuman = true;
+                        }
+                    }
+                }
+            }
+        
             session.setAttribute(ApplicationConstants.USER_TYPE_SESSION, userType);
             
             System.out.println("-----USER TYPE : " + session.getAttribute(ApplicationConstants.USER_TYPE_SESSION));
@@ -220,19 +240,31 @@ public class SecurityHandler implements GenericFormHandler {
                 // hrmsRespBeanObj = hrmsUserPrezDataObj.getHrmsRespBeanObj();
                 if (!ApplicationUtils.isBlank(hrmsUserBeanObj.getValLogin())) {
                     if (hrmsUserBeanObj.getValLogin().equals("NEW")) {
-                         if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER)))
-                         {
-                         otp=(String) request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER);
-                         }
+              
                         
-                        if(otp.equals(otp_received)){
-                        
-                        sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_LOGIN;}
-                        else
-                        {
-                           String msgFive = "OTP Mismatch!Please Regenerate OTP and enter again ";
-                    session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
-                    sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST; 
+                        if (captchaYN.equals(ApplicationConstants.STRING_VALUE_YES)) {
+                            if (isHuman) {
+                                sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_LOGIN;
+                                
+                            } else {
+                                String msgFive = "Captcha Is Invalid.";
+                                session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
+                                sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST;
+                            }
+                        } else {
+
+                            if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER))) {
+                                otp = (String) request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER);
+
+                                if (otp.equals(otp_received)) {
+
+                                    sReturnPage = ApplicationConstants.UIACTION_GET_VENDOR_LOGIN;
+                                } else {
+                                    String msgFive = "OTP Mismatch!Please Regenerate OTP and enter again ";
+                                    session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
+                                    sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST;
+                                }
+                            }
                         }
                         session.setAttribute(ApplicationConstants.USER_NAME_SESSION, String.valueOf(hrmsUserBeanObj.getEmpNumber()));
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, hrmsUserBeanObj.getEmpName());
@@ -243,19 +275,30 @@ public class SecurityHandler implements GenericFormHandler {
                     }
 
                     if (hrmsUserBeanObj.getValLogin().equals("OLD")) {
-                         if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER)))
-                         {
-                         otp=(String)request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER);
-                         }
-                        if(otp.equals(otp_received)){
-                        sReturnPage = ApplicationConstants.UIACTION_HOME_GET;}//for VITS
-//                        sReturnPage = ApplicationConstants.REPORT_MSEDCL_VENDOR;}// for LEgal vits
-                        else
-                        {
-                           String msgFive = "OTP Mismatch!Please regenerate OTP and enter again";
-                    session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
-                    sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST; 
+                          
+                        if (captchaYN.equals(ApplicationConstants.STRING_VALUE_YES)) {
+                            if (isHuman) {
+                                sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
+                              } else {
+                                String msgFive = "Captcha Is Invalid.";
+                                session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
+                                sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST;
+                            }
+                        } else {
+
+                            if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER))) {
+                                otp = (String) request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER);
+
+                                if (otp.equals(otp_received)) {
+                                    sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
+                                } else {
+                                    String msgFive = "OTP Mismatch!Please Regenerate OTP and enter again ";
+                                    session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
+                                    sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST;
+                                }
+                            }
                         }
+                         
                         session.setAttribute(ApplicationConstants.USER_NAME_SESSION, String.valueOf(hrmsUserBeanObj.getEmpNumber()));
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, hrmsUserBeanObj.getEmpName());
                         vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
@@ -328,20 +371,29 @@ public class SecurityHandler implements GenericFormHandler {
                         System.out.println("-----USER TYPE : " + session.getAttribute(ApplicationConstants.USER_TYPE_SESSION));
 
 
-                        if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER)))
-                         {
-                         otp=(String)request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER);
-                         }
-                        if(otp.equals(otp_received)){
-                        sReturnPage = ApplicationConstants.UIACTION_HOME_GET;//FOR VITS
-//                            sReturnPage = ApplicationConstants.REPORT_MSEDCL_EMP;//FOR LEGAL VITS
+                       
+                        if (captchaYN.equals(ApplicationConstants.STRING_VALUE_YES)) {
+                            if (isHuman) {
+                                sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
+                             } else {
+                                String msgFive = "Captcha Is Invalid.";
+                                session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
+                                sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST;
+                            }
+                        } else {
 
-                        }
-                        else
-                        {
-                           String msgFive = "OTP Mismatch!Please regenerate OTP and enter again";
-                    session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
-                    sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST; 
+                            if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER))) {
+                                otp = (String) request.getSession().getAttribute(ApplicationConstants.OTP_NUMBER);
+
+                                if (otp.equals(otp_received)) {
+
+                                    sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
+                                } else {
+                                    String msgFive = "OTP Mismatch!Please Regenerate OTP and enter again ";
+                                    session.setAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION, msgFive);
+                                    sReturnPage = ApplicationConstants.UIACTION_LOGIN_POST;
+                                }
+                            }
                         }
 
 
@@ -359,6 +411,8 @@ public class SecurityHandler implements GenericFormHandler {
                 }
 
             }//employee login ends
+            
+       
             //vendorPrezDataObj = vendorMgrObj.getTableList( vendorInputBeanObj);
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
