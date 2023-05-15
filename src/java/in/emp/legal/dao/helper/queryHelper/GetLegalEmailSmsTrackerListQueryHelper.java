@@ -51,7 +51,7 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
             legalInvoiceInputBean.setTechnicalUpdated(result.getString("TECHNICAL_UPDATED"));
             legalInvoiceInputBean.setAccSmsEmailSent(result.getString("ACC_SMS_EMAIL_SENT"));
             legalInvoiceInputBean.setFiscalYear(result.getString("ZZPOST_FISCAL"));
-           
+            legalInvoiceInputBean.setSaveFlag(result.getString("SAVE_FLAG"));
            /* 
             legalInvoiceInputBean.setUTR_NO(result.getString("ZZUTR_NO"));
             legalInvoiceInputBean.setPaymentDate(result.getString("ZZFEE_DT_OF_PAYMENT"));
@@ -107,11 +107,11 @@ public class GetLegalEmailSmsTrackerListQueryHelper implements QueryHelper {
         try {
 
             sql.append("    select x.*,zf.STATUS_FEE,zf.ZZPOST_FISCAL,zf.ZZPARK_POST_DOC_NO,zf.ZZPAY_DONE_ERP_DOC,substr(zf.ZZPARK_POST_DOC_NO,1,2) as start_post_doc_no, substr(zf.ZZPAY_DONE_ERP_DOC,1,2) as start_pay_done_erp_doc,substr(zf.zzpay_done_erp_doc,1,3) AS start_pay_done_erp_doc1 \n" +
-                     "    from  (SELECT	LD.APPL_ID,ld.MOBILE_NO,ld.EMAIL_ID, ld.INVOICE_DATE,ld.INVOICE_NUMBER,ld.CASE_REF_NO,ld.VENDOR_NUMBER,f.FEE_TYPE as sFee_type 	,f.SAP_STATUS	SAP_STATUS,f.TECHNICAL_UPDATED,f.ACC_SMS_EMAIL_SENT,\n" +
+                     "    from  (SELECT	LD.APPL_ID,LD.SAVE_FLAG,ld.MOBILE_NO,ld.EMAIL_ID, ld.INVOICE_DATE,ld.INVOICE_NUMBER,ld.CASE_REF_NO,ld.VENDOR_NUMBER,f.FEE_TYPE as sFee_type 	,f.SAP_STATUS	SAP_STATUS,f.TECHNICAL_UPDATED,f.ACC_SMS_EMAIL_SENT,\n" +
                     "  CASH_SMS_EMAIL_SENT,PAY_SMS_EMAIL_SENT,PAY_ADJ_SMS_EMAIL_SENT,PAY_DOC_REVRSD_SMS_EMAIL_SENT \n" +
                     "   from xxmis_erp_legal_invoice_details LD join   xxmis_erp_legal_invoice_fee_type_dtls  f on  \n" +
                     " f.APPL_ID=LD.APPL_ID,xxmis_organization_master OM  where nvl(LD.dealing_office_code,261)=OM.organization_id  	\n" +																		
-                    "  and ld.SAVE_FLAG='Accepted')x LEFT JOIN zhrt_legal_fee zf \n" +
+                    "  )x LEFT JOIN zhrt_legal_fee zf \n" +
                     " ON to_number(x.vendor_number) = zf.vendor AND  x.case_ref_no = zf.caserefno  AND x.invoice_number = zf.invoice_legal AND \n" +
                     " x.invoice_date = zf.invoice_date  AND x.sFee_type = zf.adv_fee_type\n");
      
