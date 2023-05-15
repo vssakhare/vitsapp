@@ -2910,8 +2910,12 @@ fieldset[disabled] .btn {
   opacity: .65;
 }
 .btn-default {
-  color: #fff;
+ /* color: #fff;
   background-color: #2066a1;
+  border-color: #ccc;*/
+  
+  color: #333;
+  background-color: #fff;
   border-color: #ccc;
 }
 .btn-default:hover,

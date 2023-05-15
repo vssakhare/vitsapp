@@ -1118,7 +1118,8 @@ public class ApplicationConstants {
     public static String BULK_SMS_Y=ApplicationConstants.BULK_SMS_Y;
     public static String STRING_VALUE_YES ="Y";
     public static String STRING_VALUE_NO ="N";
-
+    public static String  UIACTION_OTP_CAPTCHA="getCaptcha";
+    public static String CAPTCHA_CODE="CAPTCHA_CODE" ;
     
     
     /*sftp server detail code */

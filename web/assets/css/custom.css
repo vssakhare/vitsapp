@@ -404,8 +404,12 @@ td.loc label {
     width: 25%;
 }
 .login_screen tr td:nth-child(2) {
-    width: 60%;
+    width: 70%;
 }
+.login_screen tr td:nth-child(3) {
+    width: 10%;
+}
+
 .poDetail_list{
   width: 70%;
   margin: auto;
