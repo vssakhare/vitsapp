@@ -329,7 +329,7 @@
                                 <td class="bg_inv">  <!-- Start of Network Search Results td -->
                                     <!--<div class="form">-->  <!-- Start of  div  form -->
                                     <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
-                                        <div style="padding-top:20px" ><h  style="font-size: 30px;color:#FFFFFF;font-weight: bold " >INVOICE </h>
+                                        <div style="" ><h  style="font-size: 30px;color:#FFFFFF;font-weight: bold " >INVOICE </h>
                                           
                                         </div>
                                       
@@ -345,7 +345,7 @@
                                             <br><label>Invoice Amount :  <%= invoiceAmount %> </label>
                                             </div>
                                             
-                                            <div class=" invoiceheadright " style="float:right; padding-bottom: 10px">
+                                            <div class=" invoiceheadright " style="float:right; ">
                                                <label  style="padding-right: 10px">Vendor Name:</label> <label  ><%= VendorName %></label><br>
                                              
                                                 <label  style="padding-right: 10px">Vendor no:</label><label> <%= VENDOR_NUMBER %></label><br>
@@ -443,14 +443,15 @@
 				</div>
 			    </div>
                                 
-                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>Case Desc. : </label> <label><%= caseDesc %></label>
-				</div>
-			    </div>
+                            
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Party Name : </label> <label><%= partyNames %></label>
 				</div>
-			    </div>    
+			    </div>   
+                                <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Case Desc. : <%= caseDesc %></label>
+				</div>
+			    </div>
                                 <div class="col-sm-8"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Location : </label> <label><%= subStation %> <%= section %>  <%= subdiv %> <%= Division %> <%= Circle %> <%= Zone %></label>
 				</div>
@@ -558,17 +559,8 @@
                                     Iterator itr = FileList.iterator();
                                     System.out.println("FileList::"+FileList);
                                     int j = 0;
-                                    while (itr.hasNext()) {%>    
-                            <tr class="success">
-                                    
-                                    <th>#</th>                                                
-                                    <th><fmt:message key='File Name'/></th>
-                                    <th><fmt:message key='File Type'/></th>
-                                    <th><fmt:message key='Remark'/></th>
-                                    
-                                     
-                                </tr>
-                                <%   String remark = "";
+                                    while (itr.hasNext()) {
+                                        String remark = "";
                                     String type = "";
                                     VendorApplFileBean flb = new VendorApplFileBean();
                                     flb = (VendorApplFileBean) itr.next();
@@ -582,9 +574,9 @@
                                     }
                                 %>
 
-                                <tr class="info">
+                                <tr class="info" style="font-weight: bold;font-size:12px">
                                 <td><%=j%></td>
-                                <td class="blackfont" ><a class="blackfont" href="#nogo" onclick="viewFile('<%=flb.getId()%>', '<%=flb.getOption()%>')"> <%=(flb.getFileName() + "." + flb.getFileType())%></a></td>
+                                <td class="blackfont"  style="color:blue"><a class="blackfont" href="#nogo" onclick="viewFile('<%=flb.getId()%>', '<%=flb.getOption()%>')"> <%=(flb.getFileName() + "." + flb.getFileType())%></a></td>
                                 <td><%=type%></td>
                                 <td><%=remark%></td>    
                                 </tr><%  }%> </table>

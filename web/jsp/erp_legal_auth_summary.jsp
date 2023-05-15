@@ -108,20 +108,23 @@ LinkedList legalSummaryList = new LinkedList();
                                                     <th colspan="2" class="text-center" headers="hdr1"><fmt:message key='Invoices Pending at Technical'/></th>                                                    
                                                     <th colspan="2" class="text-center" headers="hdr1"><fmt:message key='Invoices Pending at Accounts'/></th>                                                                                                       
                                                     <th colspan="2" class="text-center" headers="hdr1"><fmt:message key='Invoices Pending For Payment'/></th>
-                                                  <th colspan="1" class="text-center" headers="hdr1"><fmt:message key='Paid Invoices'/></th>
-                                                   <th colspan="1"></th>
+                                                    <th colspan="1"></th>
+                                                    <th colspan="1" class="text-center" headers="hdr1"><fmt:message key='Paid Invoices'/></th>
+                                                 
                                                 </tr>
                                                  <tr class="summary2">
                                                     <th colspan="4"></th>
                                                       <th class="text-center"><fmt:message key='Submitted By Vendor'/></th>
+                                                      <th class="text-center" headers="hdr1"><fmt:message key='Pending less than 30 Days'/></th>     
                                                     <th class="text-center" headers="hdr1"><fmt:message key='Pending more than 30 Days'/></th>                                                    
-                                                    <th class="text-center" headers="hdr1"><fmt:message key='Pending less than 30 Days'/></th>                                                                                                       
-                                                     <th class="text-center" headers="hdr1"><fmt:message key='Pending more than 30 Days'/></th>                                                    
-                                                    <th class="text-center" headers="hdr1"><fmt:message key='Pending less than 30 Days'/></th>  
+                                                        <th class="text-center" headers="hdr1"><fmt:message key='Pending less than 30 Days'/></th>                                                                                                 
                                                      <th class="text-center" headers="hdr1"><fmt:message key='Pending more than 30 Days'/></th>                                                    
                                                     <th class="text-center" headers="hdr1"><fmt:message key='Pending less than 30 Days'/></th> 
-                                                        <th colspan="1"></th>
+                                                     <th class="text-center" headers="hdr1"><fmt:message key='Pending more than 30 Days'/></th>                                                    
+                                                   
+                                                        
                                                     <th class="text-center">Total Pending</th> 
+                                                    <th colspan="1"></th>
                                                 </tr>
                                             </thead>
                                          <%
@@ -184,8 +187,8 @@ LinkedList legalSummaryList = new LinkedList();
                                        pTotal = legalInvoiceInputBeanObj.getpTot();
                                      }
                                        
-                                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getUNPAID_SUBMITTED())) {
-                                       vSubmit = legalInvoiceInputBeanObj.getUNPAID_SUBMITTED();
+                                    if (!ApplicationUtils.isBlank(legalInvoiceInputBeanObj.getvSubmit())) {
+                                       vSubmit = legalInvoiceInputBeanObj.getvSubmit();
                                      }
                             %>
 
@@ -215,35 +218,39 @@ LinkedList legalSummaryList = new LinkedList();
                                            <% }  %>
                                            <% if(!Zone.contains("TOTAL") & !(k==j) ) { %>
                                             <td align="center"><%=vSubmit%></td>
+                                              <td align="center" class="less30"><%=pTech_less%></td>
                                             <td align="center" class="more30"><%=pTech_more%></td>
-                                             <td align="center" class="less30"><%=pTech_less%></td>
+                                           <td align="center"  class="less30"><%=pAcc_less%></td>
                                             <td align="center" class="more30"><%=pAcc_more%></td>
-                                             <td align="center"  class="less30"><%=pAcc_less%></td>
+                                                <td align="center"  class="less30"><%=pCash_less%></td>
                                             <td align="center" class="more30"><%=pCash_more%></td>
-                                                    <td align="center"  class="less30"><%=pCash_less%></td>
+                                                  <td align="center"  class="totpend"><%=pTotal%></td> 
                                                     <td align="center" class="paid"><%=paid%></td>  
-                                            <td align="center"  class="totpend"><%=pTotal%></td>  
+                                            
                                              <% } else if ( k==j){ %>
                                             <th class="text-center info1 "><%=vSubmit%> </th>
+                                             <th class="text-center info1" ><%=pTech_less%></th>
                                             <th class="text-center info1" ><%=pTech_more%> </th>                                           
-                                            <th class="text-center info1" ><%=pTech_less%></th>
-                                            <th class="text-center info1"><%=pAcc_more%></th> 
                                             <th class="text-center info1"><%=pAcc_less%></th> 
+                                            <th class="text-center info1"><%=pAcc_more%></th> 
+                                              <th class="text-center info1"><%=pCash_less%></th> 
                                             <th class="text-center info1"><%=pCash_more%></th> 
-                                            <th class="text-center info1"><%=pCash_less%></th> 
+                                           <th class="text-center info1"><%=pTotal%></th>
                                                <th class="text-center info1"><%=paid%></th>  
-                                            <th class="text-center info1"><%=pTotal%></th>
+                                          
                                              
                                              <% } else { %>
                                             <th class="text-center"><%=vSubmit%> </th>
+                                              <th class="text-center less30" ><%=pTech_less%></th>
                                             <th class="text-center more30" ><%=pTech_more%> </th>                                           
-                                            <th class="text-center less30" ><%=pTech_less%></th>
+                                             <th class="text-center less30"><%=pAcc_less%></th> 
                                             <th class="text-center more30"><%=pAcc_more%></th> 
-                                            <th class="text-center less30"><%=pAcc_less%></th> 
+                                           <th class="text-center less30"><%=pCash_less%></th> 
                                             <th class="text-center more30"><%=pCash_more%></th> 
-                                            <th class="text-center less30"><%=pCash_less%></th> 
-                                               <th class="text-center paid"><%=paid%></th>  
+                                          
+                                            
                                             <th class="text-center totpend"><%=pTotal%></th>
+                                        <th class="text-center paid"><%=paid%></th>  
                                               <% } %>
                                              
                                              </tr>
