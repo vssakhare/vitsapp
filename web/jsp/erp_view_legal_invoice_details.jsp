@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.List"%>
 <%@page import="in.emp.vendor.bean.VendorApplFileBean"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.Iterator"%>
@@ -37,13 +38,15 @@
     }
 
     LegalInvoiceInputBean legalInvoiceInputBean=null;
+    List<LegalInvoiceInputBean> legalInvoiceInputBeanList=null;
     String SaveFlag = "";
     int flag = 0;
 
     if (request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA) != null) {
         legalInvoiceInputBean = (LegalInvoiceInputBean) request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA);
-    }
     
+        legalInvoiceInputBeanList = (List<LegalInvoiceInputBean>)(request.getSession().getAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST));
+    }
         String Zone = "";
         String Circle = "";
         String Division = "";
@@ -131,11 +134,16 @@
             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
                 InvoiceNumber = legalInvoiceInputBean.getInvoiceNumber();
             }
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
+            /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceAmount())) {
                 invoiceAmount = legalInvoiceInputBean.getInvoiceAmount().toString();
                 invoiceAmount = ApplicationUtils.formatAmount(Double.valueOf(invoiceAmount));
-            }
+            }*/
 
+            for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+        invoiceAmount+=(ApplicationUtils.formatAmount(l.getsAmount())+"+");
+        //System.out.println("invoiceAmount"+invoiceAmount);
+            }
+            
             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCreatedTimeStamp())) {
                 CREATION_DATE = ApplicationUtils.dateToString(legalInvoiceInputBean.getCreatedTimeStamp(), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT);
             }
@@ -284,10 +292,15 @@
              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getReasonForDeduction())) {
                  reasonForDeduction = legalInvoiceInputBean.getReasonForDeduction();
              }
-             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeductionAmount())) {
+             /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getDeductionAmount())) {
                  deductionAmount = legalInvoiceInputBean.getDeductionAmount();
                  deductionAmount = ApplicationUtils.formatAmount(Double.valueOf(deductionAmount));
-             }
+             }*/
+             
+             for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+        deductionAmount+=(ApplicationUtils.formatAmount(Double.valueOf(l.getDeductionAmount()))+"+");
+        //System.out.println("feeType"+feeType);
+            }
                
         }
 %>
@@ -342,7 +355,7 @@
                                                  <div class="table-responsive" align="left" >
                                             <div class=" invoiceheadleft" style="float:left"><label>Invoice Number : </label><label><a href="#nogo" onclick="postForm('Reports','reportName=dtlsofapplid&applid=<%= appl_ID %>&reportType=PDF');" style="background-color: orange"> <%= InvoiceNumber %> </a><i class="bi bi-arrow-up-right-square"></i></label>
                                                 <br><label>Invoice Date :  <%= invoiceDate %> </label>
-                                            <br><label>Invoice Amount :  <%= invoiceAmount %> </label>
+                                            <br><label>Invoice Amount :  <%= ApplicationUtils.formatAmount(legalInvoiceInputBean.getInvoiceAmount()) %> </label>
                                             </div>
                                             
                                             <div class=" invoiceheadright " style="float:right; ">
@@ -386,13 +399,13 @@
                             </div>
                                            
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
-                                     <label>Invoice Amount : </label> <label><%= invoiceAmount %></label>
+                                     <label>Invoice Amount : </label> <label><%= invoiceAmount.replaceAll("[\\+]+$", "") %></label>
 				</div>
 			    </div>                
                                                                        
                             <div class="col-sm-3">
 				<div class="styled-input" style="font-size:12px;padding-top:10px">
-                                    <label>Deduction Amount :</label>  <label><%= deductionAmount %></label>
+                                    <label>Deduction Amount :</label>  <label><%= deductionAmount.replaceAll("[\\+]+$", "") %></label>
                                 </div>
                             </div>
                             
