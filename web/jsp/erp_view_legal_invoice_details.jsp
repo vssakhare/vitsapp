@@ -202,9 +202,14 @@
                 partyNames = legalInvoiceInputBean.getPartyNames();
             }
 
-            if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
+            /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getFeeType())) {
                 feeType = legalInvoiceInputBean.getFeeType();
+            }*/
+            
+            for (LegalInvoiceInputBean l : legalInvoiceInputBeanList){  
+            feeType+=(l.getsFeeType()+"+");        
             }
+            
             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getVendorName())) {
                 VendorName = legalInvoiceInputBean.getVendorName();
             }
@@ -397,6 +402,11 @@
                                     <label>Status :</label>  <label><%= invoiceStatus %> </label>
                                            </div>
                             </div>
+                                           
+                            <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
+                                     <label>Fee Type : </label> <label><%= feeType.replaceAll("[\\+]+$", "") %></label>
+				</div>
+			    </div>
                                            
                             <div class="col-sm-3"><div class="styled-input" style="font-size:12px;padding-top:10px">
                                      <label>Invoice Amount : </label> <label><%= invoiceAmount.replaceAll("[\\+]+$", "") %></label>
