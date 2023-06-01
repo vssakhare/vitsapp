@@ -292,7 +292,31 @@ div {
     background-color:#FFFFFF;
     text-align: center;
 }
+.Label_loginReset{
+    font-size:12px;
+    font-weight:bold;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    alignment-adjust: auto;
+    width: fit-content;
+    color:#2066a1;
+    text-align: center;
+}
 
+
+
+#resetpwd a{
+    font-size:12px;
+    font-weight:bold;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    alignment-adjust: auto;
+    width: fit-content;
+    color:#2066a1;
+    text-align: center;
+}
+ #resetpwd a:hover, a:focus
+ {  text-decoration: underline;
+  cursor : pointer;
+}
 .Label_login_H{
 
     font-family: Verdana,Arial,Helvetica,sans-serif;

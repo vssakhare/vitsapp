@@ -193,7 +193,7 @@ var $content = $('#page-inner');
             <div class="col-sm-4" >
                 <div >
  					
-                    <div class="card padding20" height="100%">
+                    <div class="card padding15" height="100%">
                         <div class="text-center">
                             <h3 class="loginheading"><b>Login</b></h3></div>
                               <% //System.out.println("-----Login Message : "+ session.getAttribute(ApplicationConstants.USER_LOGIN_MSG_SESSION));
@@ -301,12 +301,12 @@ var $content = $('#page-inner');
                                 <tbody width="100%">
                         <tr width="100%">
                            
-                            <td  align="center" class="Label_login" style="padding-top: 15px"><input type="button" value=<fmt:message key='Login'/> name="ButtonLogin" id="ButtonLogin" class="btn btn-default" onclick="login()"/></td>
+                            <td  align="center" class="Label_login" style="padding-top: 5px"><input type="button" value=<fmt:message key='Login'/> name="ButtonLogin" id="ButtonLogin" class="btn btn-default" onclick="login()"/></td>
                             
                         </tr>
                             
                                <tr>
-                               <td class="Label_login"><a onclick="resetPassword();" title="Click here to Reset your password.">Reset Password?</a></td></tr>
+                               <td class="Label_loginReset" style="padding-top: 5px" id="resetpwd" name="resetpwd"><a   class="" onclick="resetPassword();" title="Click here to Reset your password.">Reset Password?</a></td></tr>
                               </tbody>  </table>    <!-- End of  table_content table  -->
                   
                         </form>
