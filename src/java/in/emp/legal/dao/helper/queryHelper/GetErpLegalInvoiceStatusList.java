@@ -57,6 +57,8 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 legalInvoiceBean.setOfficeName((result.getString("OFFICE_NAME")));
                 legalInvoiceBean.setMsedclPartyName(result.getString("MSEDCL_PARTY_NAME"));
                 legalInvoiceBean.setVsPartyName(result.getString("VS_PARTY_NAME"));
+                legalInvoiceBean.setOfficeType((result.getString("OFFICE_TYPE")));
+                legalInvoiceBean.setRegionId((result.getString("REGION_ID")));
             } else {//System.out.println("in else now...");
                 logger.log(Level.INFO, "GetErpLegalInvoiceStatusList ::: getDataObject() :: method called ::");
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
@@ -120,6 +122,8 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
 //            legalInvoiceBean.setCreatedBy(result.getString("Created_By"));
                 legalInvoiceBean.setOfficeCode((result.getString("OFFICE_CODE")));
                 legalInvoiceBean.setOfficeName((result.getString("OFFICE_NAME")));
+                legalInvoiceBean.setOfficeType((result.getString("OFFICE_TYPE")));
+                legalInvoiceBean.setRegionId((result.getString("REGION_ID")));
                 legalInvoiceBean.setMsedclPartyName(result.getString("MSEDCL_PARTY_NAME"));
                 legalInvoiceBean.setVsPartyName(result.getString("VS_PARTY_NAME"));
             }
@@ -222,7 +226,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append(" ZLH.division_btrtl_text, ZLH.subdiv_btrtl, ZLH.subdiv_btrtl_text, ");
                 sql.append(" ZLH.section_btrtl, ZLH.section_btrtl_text, ZLH.substation, ZLH.substation_text, ");
                 sql.append(" orgm.organization_name OFFICE_NAME,");
-                sql.append(" orgm.organization_id OFFICE_CODE, ");
+                sql.append(" orgm.organization_id OFFICE_CODE,orgm.OFFICE_TYPE,orgm.REGION_ID, ");
                 sql.append(" ZLH.dsd, ");
                 sql.append(" (CASE WHEN ZLH.CASETYPE=0 THEN 60 ELSE ZLH.CASETYPE END)casetype,");
                 sql.append(" ZLCT.casetypedesc, ");
@@ -282,7 +286,7 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                     sql.append(" select distinct ZLH.caserefno, ZLH.dof_lc, ");
                 sql.append(" ZLH.caseno, ZLH.casenocourt, ");
                 sql.append(" nvl(CORTN.COURTNAMEDESC,'N.A.') courtname, orgm.organization_name OFFICE_NAME,");
-                sql.append(" orgm.organization_id OFFICE_CODE, ");                
+                sql.append(" orgm.organization_id OFFICE_CODE,orgm.OFFICE_TYPE,orgm.REGION_ID, ");                
                 sql.append(" (CASE WHEN ZLH.CASETYPE=0 THEN 60 ELSE ZLH.CASETYPE END)casetype,");
                 sql.append(" ZLCT.casetypedesc, ");
                 sql.append(" ZLH.casedet,nvl(zmprt.MSEDCL_PARTY_NAME,'N.A.') MSEDCL_PARTY_NAME,");

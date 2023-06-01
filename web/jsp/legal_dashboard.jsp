@@ -1,4 +1,5 @@
 
+<%@page import="in.emp.vendor.bean.VendorPrezData"%>
 <%@page import="in.emp.home.notifications.bean.NotificationsBean"%>
 <%@page import="in.emp.home.notifications.bean.NotificationsPrezData"%>
 <%@page import="in.emp.common.ApplicationConstants"%>
@@ -14,15 +15,20 @@
     
     <%
         
-        
+         VendorPrezData vendorPrezDataObj = new VendorPrezData();
          if (!ApplicationUtils.isBlank(request.getParameter("uiActionName"))) {
         String uiAction = request.getParameter("uiActionName");
     }
 LinkedList legalSummaryList = new LinkedList();
-        if (request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA) != null) {
-        legalSummaryList = (LinkedList) request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA);        
-       
-  }  %>
+         if (request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA) != null) {
+          vendorPrezDataObj = (VendorPrezData) request.getSession().getAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA);        
+        
+        legalSummaryList = (LinkedList) vendorPrezDataObj.getLegalSummaryList();
+        
+        
+        
+        
+    } %>
     <head>
 
         <meta charset="utf-8" />
@@ -63,11 +69,11 @@ LinkedList legalSummaryList = new LinkedList();
                           <div>
                <input type="radio" id="non-legal" name="brand" value="non-legal" onclick="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>">
                              <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" 
-                                style="color: #000;font-size: 12"><strong>Non Legal Dashboard</strong></a></div>
+                                style="color: #000;font-size: 12"><strong>Vendor Invoice Dashboard</strong></a></div>
                    <div> 
                    <input type="radio" id="legal" name="brand" value="legal" checked onclick="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>">
                              <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>" 
-                 data-wahfont="14"  style="color: #000;font-size: 12"><strong>Legal Dashboard</strong></a>
+                 data-wahfont="14"  style="color: #000;font-size: 12"><strong>Legal Vendor Invoice Dashboard</strong></a>
            </div>
                    </div>
           
@@ -87,7 +93,7 @@ LinkedList legalSummaryList = new LinkedList();
   <div class="col-sm-6 col-lg-3">
         <div class="card text-black bg-danger">
             <div class="card-body pb-0">
-                <div class="text-value"><center><fmt:message key='legal Invoices Submitted By Vendor'/></center></div>
+                <div class="text-value"><center><fmt:message key='Total Pending Legal Invoices'/></center></div>
             </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:20%;"><div class="chartjs-size-monitor" style="left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; visibility: hidden; position: absolute; z-index: -1; pointer-events: none;">
                 <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
@@ -98,7 +104,7 @@ LinkedList legalSummaryList = new LinkedList();
       <div class="col-sm-6 col-lg-3">
         <div class="card text-white bg-warning">
             <div class="card-body pb-0">
-                <div class="text-value"><center><fmt:message key='Invoices Pending at Technical'/></center></div>
+                <div class="text-value"><center><fmt:message key='Invoices Pending at Department'/></center></div>
             </div>
         <div class="chart-wrapper mt-3" style="height:20%;">
             <div class="chartjs-size-monitor" style="left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; visibility: hidden; position: absolute; z-index: -1; pointer-events: none;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>

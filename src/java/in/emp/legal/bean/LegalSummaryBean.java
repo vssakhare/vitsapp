@@ -11,21 +11,79 @@ import java.util.Date;
  *
  * @author Prajakta
  */
-public class LegalSummaryBean  implements java.io.Serializable {
+public class LegalSummaryBean implements java.io.Serializable {
 
-   
-      private String   P_Tech_MORE_THAN30DAYS ;
-   private String  P_TechLESSTHAN30DAYS	;
-  private String  P_Acc_MORETHAN30DAYS	 ;
-  private String  P_Acc_LESSTHAN30DAYS;
-   private String P_Cash_MORE_THAN30DAYS ;
-   private String P_Cash_LESS_THAN30DAYS  ;
- private String pTot;
+    private String P_Tech_MORE_THAN30DAYS;
+    private String P_TechLESSTHAN30DAYS;
+    private String P_Acc_MORETHAN30DAYS;
+    private String P_Acc_LESSTHAN30DAYS;
+    private String P_Cash_MORE_THAN30DAYS;
+    private String P_Cash_LESS_THAN30DAYS;
+    private String pTot;
     private String vSubmit;
     private String zone;
-     private String circle;
-     private String division;
-   private String V_submit_FeeType;
+    private String circle;
+    private String division;
+    private String V_submit_FeeType;
+    private String subdiv;
+    private String status_dtl;
+    private String locationId;
+   private Date InvoiceFromDate;
+    private Date InvoiceToDate;
+private String dept;
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+    
+    public Date getInvoiceFromDate() {
+        return InvoiceFromDate;
+    }
+
+    public void setInvoiceFromDate(Date InvoiceFromDate) {
+        this.InvoiceFromDate = InvoiceFromDate;
+    }
+
+    public Date getInvoiceToDate() {
+        return InvoiceToDate;
+    }
+
+    public void setInvoiceToDate(Date InvoiceToDate) {
+        this.InvoiceToDate = InvoiceToDate;
+    }
+ 
+
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+    
+   
+    
+
+    public String getSubdiv() {
+        return subdiv;
+    }
+
+    public void setSubdiv(String subdiv) {
+        this.subdiv = subdiv;
+    }
+
+    public String getStatus_dtl() {
+        return status_dtl;
+    }
+
+    public void setStatus_dtl(String status_dtl) {
+        this.status_dtl = status_dtl;
+    }
+
     public String getV_submit_FeeType() {
         return V_submit_FeeType;
     }
@@ -33,7 +91,6 @@ public class LegalSummaryBean  implements java.io.Serializable {
     public void setV_submit_FeeType(String V_submit_FeeType) {
         this.V_submit_FeeType = V_submit_FeeType;
     }
-   
 
     public String getZone() {
         return zone;
@@ -74,8 +131,9 @@ public class LegalSummaryBean  implements java.io.Serializable {
     public void setUNPAID_SUBMITTED(String UNPAID_SUBMITTED) {
         this.UNPAID_SUBMITTED = UNPAID_SUBMITTED;
     }
-     private String Paid;
-     private String   UNPAID_SUBMITTED;
+    private String Paid;
+    private String UNPAID_SUBMITTED;
+
     public String getP_Tech_MORE_THAN30DAYS() {
         return P_Tech_MORE_THAN30DAYS;
     }
@@ -123,11 +181,7 @@ public class LegalSummaryBean  implements java.io.Serializable {
     public void setP_Cash_LESS_THAN30DAYS(String P_Cash_LESS_THAN30DAYS) {
         this.P_Cash_LESS_THAN30DAYS = P_Cash_LESS_THAN30DAYS;
     }
-   
 
-   
-
-   
     public String getpTot() {
         return pTot;
     }
@@ -143,6 +197,5 @@ public class LegalSummaryBean  implements java.io.Serializable {
     public void setvSubmit(String vSubmit) {
         this.vSubmit = vSubmit;
     }
-    
-    
+
 }

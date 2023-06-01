@@ -89,6 +89,9 @@ public String execute(HttpServletRequest request) throws Exception {
              else if (uiActionName.equals(ApplicationConstants.REPORT_MSEDCL_EMP)) {
                 sReturnPage = MSEDCLEmpReport(request);
              }
+              else if (uiActionName.equals(ApplicationConstants.REPORT_MSEDCL_LEGAL_EMP)) {
+                sReturnPage = MSEDCLEmpLegalReport(request);
+             }
              else if(uiActionName.equals(ApplicationConstants.UIACTION_GET_LEGAL_VENDOR_INVOICE)) {
                   sReturnPage=  getAuthLegalInvoiceList(request);
                 }
@@ -395,7 +398,7 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
 
  private String getAuthSummary(HttpServletRequest request) throws Exception {
     String sReturnPage = ApplicationConstants.UIACTION_GET_AUTH_SUMMARY;
-    VendorPrezData vendorPrezDataObj = new VendorPrezData();    
+    VendorPrezData vendorPrezDataObj = new VendorPrezData();   
     VendorBean vendorBeanObj = new VendorBean();
     LegalInvoiceInputBean legalInvoiceInputBeanObj = new LegalInvoiceInputBean();
     VendorDelegate vendorMgrObj = new VendorManager();
@@ -430,8 +433,7 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
              legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBeanObj);
-            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, legalSummaryList);
-
+            
 
     } catch (Exception ex) {
         logger.log(Level.ERROR, "AuthorityHandler :: getAuthSummary() :: Exception :: " + ex);
@@ -440,7 +442,10 @@ private String getAuthPOList(HttpServletRequest request) throws Exception {
     return sReturnPage;
 }/* End of Method */
  
-
+private String MSEDCLEmpLegalReport(HttpServletRequest request) throws Exception {
+     String sReturnPage = ApplicationConstants.REPORT_MSEDCL_LEGAL_EMP;
+     return sReturnPage;
+}
 private String MSEDCLEmpReport(HttpServletRequest request) throws Exception {
     String sReturnPage = ApplicationConstants.REPORT_MSEDCL_EMP;
     VendorPrezData vendorPrezDataObj = new VendorPrezData();
@@ -554,7 +559,8 @@ private String getLegalAuthSummary(HttpServletRequest request) throws Exception 
       LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
     VendorDelegate vendorMgrObj = new VendorManager();
     LinkedList legalSummaryList = new LinkedList();
-    HttpSession session = request.getSession();        
+    HttpSession session = request.getSession();   
+    VendorPrezData vendorPrezDataObj = new VendorPrezData(); 
        
         try {
             logger.log(Level.INFO, "AuthorityHandler :: getLegalAuthSummary() :: method called :: ");
@@ -568,7 +574,12 @@ private String getLegalAuthSummary(HttpServletRequest request) throws Exception 
             legalInvoiceInputBean.setUserType("Vendor");
             }
            
-          
+           if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+             legalInvoiceInputBean.setInvoiceFromDate(ApplicationUtils.stringToDate((String) request.getParameter("txtFrmDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+            legalInvoiceInputBean.setInvoiceToDate(ApplicationUtils.stringToDate((String) request.getParameter("txtToDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            } 
        legalInvoiceInputBean.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
        
         if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {           
@@ -576,8 +587,13 @@ private String getLegalAuthSummary(HttpServletRequest request) throws Exception 
         } else {
             legalInvoiceInputBean.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         }
+        
             legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBean);
-            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, legalSummaryList);
+            
+             vendorPrezDataObj.setLegalSummaryBean(legalInvoiceInputBean);
+             vendorPrezDataObj.setLegalSummaryList(legalSummaryList);
+              session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObj);
+
 
 
     } catch (Exception ex) {

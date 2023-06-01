@@ -59,7 +59,7 @@ public class SendMail {
                     return success;
                 }
             }
-
+            success=1;
            return success ;
         } catch (MessagingException e) {
             e.printStackTrace();

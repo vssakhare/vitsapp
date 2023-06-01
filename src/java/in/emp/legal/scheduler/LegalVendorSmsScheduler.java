@@ -23,7 +23,7 @@ public class LegalVendorSmsScheduler extends TimerTask
 {
    private static Timer timer;
     private static TimerTask timerTask;
-    private final static long FREQUENCY = 1000*60*60*24;
+    private final static long FREQUENCY = 1000*60*60*6;
     private static int MAHAONLINE_EXECUTION_HH = 20;
     private static int MAHAONLINE_EXECUTION_MM = 30;
    public static void startScheduler() throws Exception {

@@ -14,6 +14,7 @@ import in.emp.common.FileBean;
 import in.emp.common.UploadVendorFile;
 import in.emp.legal.bean.FeeTypeDtlsBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
+import in.emp.legal.bean.LegalSummaryBean;
 import in.emp.system.dao.helpers.MultipartRequestParser;
 //import in.emp.vendor.VendorDelegate;
 //import in.emp.vendor.bean.VendorBean;
@@ -127,7 +128,11 @@ public class VendorHandler implements GenericFormHandler {
                 } else if (uiActionName.equals(ApplicationConstants.REPORT_MSEDCL_VENDOR)) {
                     sReturnPage = MSEDCLVendorReport(request);
                     //ruchira
-                } else if (uiActionName.equals(ApplicationConstants.UIACTION_NONPO_VENDOR_INPUT_FORM)) {
+                } else if (uiActionName.equals(ApplicationConstants.REPORT_MSEDCL_LEGAL_VENDOR)) {
+                    sReturnPage = MSEDCLVendorLegalReport(request);
+                    //ruchira
+                } 
+                else if (uiActionName.equals(ApplicationConstants.UIACTION_NONPO_VENDOR_INPUT_FORM)) {
                     sReturnPage = getnonPoVendorList(request);
                 } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_VENDOR_VERIFIED_FORM)) {
                     sReturnPage = getVendorVerifiedForm(request);
@@ -150,6 +155,8 @@ public class VendorHandler implements GenericFormHandler {
                 
                  else if (uiActionName.equals(ApplicationConstants.UIACTION_LEGAL_INVOICE_FILE_GET)) {
                     sReturnPage = getLegalInvoiceFile(request);
+                } else if (uiActionName.equals(ApplicationConstants.UIACTION_GET_SUMMARY_LIST_DETAILS)) {
+                    sReturnPage = viewSummaryListDetails(request);
                 }
                 else {
                     sReturnPage = ApplicationConstants.UIACTION_HOME_GET;
@@ -249,7 +256,54 @@ public class VendorHandler implements GenericFormHandler {
         }
         return sReturnPage;
     }
-
+private String viewSummaryListDetails(HttpServletRequest request) throws Exception {
+        String sReturnPage = ApplicationConstants.UIACTION_GET_SUMMARY_LIST_DETAILS;
+        HttpSession session = request.getSession();
+        VendorDelegate vendorMgrObj = new VendorManager();
+        LegalSummaryBean legalSummaryBeanObj = new LegalSummaryBean();
+         LinkedList SummaryDetailList = new LinkedList();
+        try {
+            logger.log(Level.INFO, "VendorHandler :: viewSummaryListDetails() :: method called :: ");
+             if (session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {           
+            legalSummaryBeanObj.setLocationId("");
+        } else {
+            legalSummaryBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+        }
+            if (!ApplicationUtils.isBlank((request.getParameter("status_dtl")))) {
+                legalSummaryBeanObj.setStatus_dtl(ApplicationUtils.getRequestParameter(request, "status_dtl"));
+            }
+              if (!ApplicationUtils.isBlank((request.getParameter("zone")))) {
+                legalSummaryBeanObj.setZone(ApplicationUtils.getRequestParameter(request, "zone"));
+            }
+                if (!ApplicationUtils.isBlank((request.getParameter("circle")))) {
+                legalSummaryBeanObj.setCircle(ApplicationUtils.getRequestParameter(request, "circle"));
+            }
+                  if (!ApplicationUtils.isBlank((request.getParameter("division")))) {
+                legalSummaryBeanObj.setDivision(ApplicationUtils.getRequestParameter(request, "division"));
+            }
+                    if (!ApplicationUtils.isBlank((request.getParameter("subdiv")))) {
+                legalSummaryBeanObj.setSubdiv(ApplicationUtils.getRequestParameter(request, "subdiv"));
+            }
+                      if (!ApplicationUtils.isBlank((request.getParameter("deptName")))) {
+                legalSummaryBeanObj.setDept(ApplicationUtils.getRequestParameter(request, "deptName"));
+            }
+                    
+                  if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+             legalSummaryBeanObj.setInvoiceFromDate(ApplicationUtils.stringToDate((String) request.getParameter("txtFrmDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+            legalSummaryBeanObj.setInvoiceToDate(ApplicationUtils.stringToDate((String) request.getParameter("txtToDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
+            }      
+            SummaryDetailList = vendorMgrObj.getSummaryListDetails(legalSummaryBeanObj);
+            
+            session.setAttribute(ApplicationConstants.VIEW_SUMMARYLIST_SESSION_DATA, SummaryDetailList);
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, "VendorHandler :: viewSummaryListDetails() :: Exception :: " + ex);
+            // //ex.printStackTrace();
+        }
+        return sReturnPage;
+    }
+      
     private String getPOList(HttpServletRequest request) throws Exception {
         String sReturnPage = ApplicationConstants.UIACTION_GET_PO_LIST;
         VendorPrezData vendorPrezDataObj = new VendorPrezData();
@@ -1337,7 +1391,7 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
         return sReturnPage;
     }
 
-    private String viewVendorLegalInvoiceDetails(HttpServletRequest request) {
+   private String viewVendorLegalInvoiceDetails(HttpServletRequest request) {
         String sReturnPage = ApplicationConstants.UIACTION_VIEW_VENDOR_LEGAL_INPUT_LIST;
         LinkedList FileList = new LinkedList();
         LegalInvoiceInputBean legalInvoiceInputBean = new LegalInvoiceInputBean();
@@ -1385,6 +1439,7 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
             }
             
             session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA, legalInvoiceInputBean);
+            session.setAttribute(ApplicationConstants.VENDOR_LEGAL_INVOICE_ACCEPTED_DATA_LIST, legalInvoiceInputBeanList);
 
         } catch (Exception ex) {
             logger.log(Level.ERROR, "VendorHandler :: viewVendorLegalInvoiceDetails() :: Exception :: " + ex);
@@ -1572,5 +1627,9 @@ private String getVendorVerifiedForm(HttpServletRequest request) throws Exceptio
         //System.out.println("::---------getCourtCaseSearch---------::");
         return ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE;
     }
+    private String MSEDCLVendorLegalReport(HttpServletRequest request) throws Exception {
+     String sReturnPage = ApplicationConstants.REPORT_MSEDCL_LEGAL_VENDOR;
+     return sReturnPage;
+}
 }//class ends
 

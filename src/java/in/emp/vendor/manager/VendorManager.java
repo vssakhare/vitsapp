@@ -28,6 +28,7 @@ import in.emp.vendor.bean.ProjBean;
 import in.emp.vendor.bean.SMSResponseBean;
 import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
+import in.emp.legal.bean.LegalSummaryBean;
 
 import in.emp.sms.bean.TemplateIdBean;
 /**
@@ -243,6 +244,18 @@ public class VendorManager implements VendorDelegate {
             logger.log(Level.ERROR, " VendorManager :: getClearingDocDetails() :: Exception :: " + ex);
         }
         return vendorPrezDataObj;
+    }
+    public LinkedList getSummaryListDetails(LegalSummaryBean legalSummaryBeanObj) {
+        VendorDao vendorDaoObj = new OracleVendorDao();
+       LinkedList summaryListDetails = new LinkedList();
+        try {
+            logger.log(Level.INFO, " VendorManager :: getSummaryListDetails() :: method called");
+            summaryListDetails = (LinkedList) vendorDaoObj.getSummaryListDetails(legalSummaryBeanObj);
+            
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getSummaryListDetails() :: Exception :: " + ex);
+        }
+        return summaryListDetails;
     }
        public LinkedList getPOLineDetails(PoLineStatusBean poLineStatusBeanObj) {
         VendorDao vendorDaoObj = new OracleVendorDao();
@@ -1270,13 +1283,13 @@ public class VendorManager implements VendorDelegate {
         
 
         try {
-            logger.log(Level.INFO, " VendorManager :: saveRetentionDetailsResponse() :: method called");
+            logger.log(Level.INFO, " VendorManager :: getLegalInvoiceInputList() :: method called");
 
           
                 list=vendorDaoObj.getLegalInvoiceInputList(legalInvoiceInputBean);
            
         }catch (Exception ex) {
-            logger.log(Level.ERROR, " VendorManager :: saveRetentionDetailsResponse() :: Exception :: " + ex);
+            logger.log(Level.ERROR, " VendorManager :: getLegalInvoiceInputList() :: Exception :: " + ex);
         }
    return list;
     }

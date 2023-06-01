@@ -18,7 +18,9 @@ import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
+import in.emp.legal.bean.LegalSummaryBean;
 import in.emp.legal.bean.OrganizationMasterBean;
+import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvDetailsSummaryList;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceDetailsList;
 import in.emp.legal.dao.helper.queryHelper.GetErpLegalInvoiceStatusList;
 import in.emp.legal.dao.helper.queryHelper.GetFeeTypeList;
@@ -286,7 +288,25 @@ public LinkedList getSubmitAtList(PoLineStatusBean poLinestatusbeanobj) throws E
         }
         return clearingDocDetails;
     }
-
+public LinkedList getSummaryListDetails(LegalSummaryBean legalSummaryBeanObj) {
+       
+         LinkedList<LegalInvoiceInputBean> summaryListDetails=null;
+        try {
+            logger.log(Level.INFO, " VendorManager :: getSummaryListDetails() :: method called");
+            summaryListDetails = (LinkedList) getObjectList(new GetErpLegalInvDetailsSummaryList(legalSummaryBeanObj));
+        for (int i = 0; i < summaryListDetails.size(); i++) {
+                 LegalInvoiceInputBean lBean=summaryListDetails.get(i);
+           String sapStatus=getLegalInvoiceStatusFromSAP(lBean);
+           
+           summaryListDetails.get(i).setStatus(sapStatus);
+   
+           
+        }
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getSummaryListDetails() :: Exception :: " + ex);
+        }
+        return summaryListDetails;
+    }
     public LinkedList getPOLineDetails(PoLineStatusBean poLineStatusBeanObj) {
         VendorDao vendorDaoObj = new OracleVendorDao();
         LinkedList poLineDetails = new LinkedList();

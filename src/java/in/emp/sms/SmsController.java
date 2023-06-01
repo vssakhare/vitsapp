@@ -74,16 +74,13 @@ public class SmsController {
                 if (smsdtoNew.getTemplateId() != null) {
                     smsdto.setTemplateId(smsdtoNew.getTemplateId());
                 }
-                if (lstcredential.get(0).toString() == ApplicationConstants.OTP_URL) {
-                    sendSMS(smsdtoNew.getUrl(), smsData, smsdto, lstcredential);
-                } else {
                     String enableSmsEmail = System.getProperty("ENABLE_SMS_EMAIL");
                     if (ApplicationUtils.validateString(enableSmsEmail)) {
                         if (enableSmsEmail.equalsIgnoreCase("true")) {
                             sendSMS(smsdtoNew.getUrl(), smsData, smsdto, lstcredential);
                         }
                     }
-                }
+                
             }
         }
     }

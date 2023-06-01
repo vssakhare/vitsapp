@@ -68,7 +68,7 @@ public class LoadSchedulerServlet extends HttpServlet
                 WriteInvSatusScheduler.startScheduler();  //10.30 pm write inv file
                 ReadRetentionResponseScheduler.startScheduler();
                     ReadLegalInvoiceDetailsScheduler.startScheduler();*/
-                //LegalVendorSmsScheduler.startScheduler();
+               LegalVendorSmsScheduler.startScheduler();  //on prod disable success=1 in sendmail.java
             }
 		catch(Exception ex)
 		{
