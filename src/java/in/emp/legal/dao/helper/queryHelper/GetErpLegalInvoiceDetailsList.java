@@ -229,7 +229,9 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                     }
                              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
                     sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
+
                     sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?) OR (organization_id = ? AND OFFICE_TYPE='DEPT')) ");                     }
+
                                 
                              /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
                         sql.append(" AND CASE_REF_NO = ?  ");*/

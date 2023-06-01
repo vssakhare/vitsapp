@@ -211,7 +211,7 @@ var $content = $('#page-inner');
         
                     <input type="hidden" id="<%=ApplicationConstants.UIACTION_NAME%>" name="<%=ApplicationConstants.UIACTION_NAME%>" value="getlogin" />
                     <input type="hidden" name="captchaYN" id="captchaYN" value="<%=captchaYN%>" />
-                    <input type="hidden" name="imgSrc" id="imgSrc" value="<%=ApplicationConstants.IMAGE_PATH%>captcha-bg-pattern.jpg" />
+                    <input type="hidden" name="imgSrc" id="imgSrc" value="<%=ApplicationConstants.IMAGE_PATH%>captcha-bg-pattern.jfif" />
                         <form id="ajax-login-form" action="login" method="post" role="form" autocomplete="off">
                              
                                         
@@ -219,7 +219,7 @@ var $content = $('#page-inner');
                             <tbody style="border: 1px solid #bce8f1;">  <% if(!ApplicationUtils.isBlank(msg)) { %>
                           <tr>
                               <td colspan="2">
-                                  <input style="text-align: center" class="form-control-err-msg" name="txtMsg" id="txtMsg" value="<%=msg%>" type="text" readonly="true"  />
+                                  <input style="text-align: center ;" class="form-control-err-msg" name="txtMsg" id="txtMsg" value="<%=msg%>" type="text" readonly="true"  />
                               </td>
                         </tr>
                        <% } %>
@@ -244,8 +244,11 @@ var $content = $('#page-inner');
                         %> <tr> 
                             <td></td>
                             <td style="padding-right: 20px">
-                                <canvas id="CapCode" style="text-align: center ;float: right; margin: 1rem 0 0rem; position: relative;" height="50"></canvas></td>
-                              <td >  
+                               
+                                <canvas id="CapCode" style="text-align: center ;float: right; margin: 1rem 0 0rem; position: relative;" height="50"></canvas>
+                               
+                            </td>
+                              <td style="padding-right: 10px;padding-top: 10px;" >  
                               <button type ="button" class = "btn btn-default" height="50" OnClick="updateCaptcha()">
                                     <strong><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></strong></button></td>
                            
