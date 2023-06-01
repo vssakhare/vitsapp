@@ -176,7 +176,12 @@
                 <action-name>viewClearingDetails</action-name>
                 <success-page>/jsp/erp_vendor_clearing_details.jsp</success-page>
                 <error-page>/jsp/erp_vendor_clearing_details.jsp</error-page>
-            </uiaction>         
+            </uiaction>   
+            <uiaction>
+                <action-name>viewSummaryListDetails</action-name>
+                <success-page>/jsp/erp_summary_list_details.jsp</success-page>
+                <error-page>/jsp/erp_summary_list_details.jsp</error-page>
+            </uiaction>       
             <uiaction>
                 <action-name>getPOList</action-name>
                 <success-page>/jsp/erp_vendor_appl_list.jsp</success-page>
@@ -292,6 +297,11 @@
                 <success-page>/jsp/erp_vendor_report.jsp</success-page>
                 <error-page>/jsp/erp_vendor_report.jsp</error-page>
             </uiaction>
+              <uiaction>
+                <action-name>MSEDCLVendorLegalReport</action-name>
+                <success-page>/jsp/erp_vendor_legal_report.jsp</success-page>
+                <error-page>/jsp/erp_vendor_legal_report.jsp</error-page>
+            </uiaction> 
             <uiaction>
                 <action-name>getVendorLegalInvoiceInputList</action-name>
                 <success-page>/jsp/erp_vendor_legal_invoice_input_list.jsp</success-page>
@@ -377,6 +387,12 @@
                 <success-page>/jsp/erp_emp_report.jsp</success-page>
                 <error-page>/jsp/erp_emp_report.jsp</error-page>
             </uiaction> 
+            <uiaction>
+                <action-name>MSEDCLEmpLegalReport</action-name>
+                <success-page>/jsp/erp_emp_legal_report.jsp</success-page>
+                <error-page>/jsp/erp_emp_legal_report.jsp</error-page>
+            </uiaction> 
+            
             <uiaction>
                 <action-name>getAuthSummary</action-name>
                 <success-page>/jsp/erp_auth_summary.jsp</success-page>

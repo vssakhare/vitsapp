@@ -2435,6 +2435,12 @@ legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, 
              legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, "corpSection").substring(ApplicationUtils.getRequestParameter(request, "corpSection").indexOf("-")+1));
              //legalInvoiceInputBean.setDeptName("Testing");                 
             }}
+            if (ApplicationUtils.getRequestParameter(request, "office_type").equals("DEPT") && ApplicationUtils.getRequestParameter(request, "region_id").equals(ApplicationConstants.HO_OFFICE_CODE)) {
+                if (ApplicationUtils.getRequestParameter(request, "corpSection") == null || ApplicationUtils.getRequestParameter(request, "corpSection").isEmpty()) {
+                    legalInvoiceInputBean.setDeptCode(ApplicationUtils.getRequestParameter(request, "selectedOffieCode"));
+                    legalInvoiceInputBean.setDeptName(ApplicationUtils.getRequestParameter(request, "txtDealingOffice").substring(ApplicationUtils.getRequestParameter(request, "txtDealingOffice").indexOf("-") + 1));
+                }
+            }
             /* if (!ApplicationUtils.isBlank(request.getParameter("txtModule"))) {//used for sms escalation
                    vendorInputBeanObj.setSelectedModule(ApplicationUtils.getRequestParameter(request, "txtModule"));
               

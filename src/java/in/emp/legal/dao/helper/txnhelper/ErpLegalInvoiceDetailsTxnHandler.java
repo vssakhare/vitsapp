@@ -208,17 +208,19 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
              }
              // if (count == 0)
             //legalInvoiceBean.setApplId("");
-//            if (count > 0)
-//            {
-//                  System.out.println("Calling Procedure PROC_SUMMARY_UPD BEFORE changes");
-//                 String  appl_id=vendorInputBeanObj.getApplId();
-//                 int appl_id1=Integer.parseInt(appl_id);  
-//               proc_stmt = conn.prepareCall("{ call PROC_SUMMARY_UPD_PS(?) }");
-//               proc_stmt.setString(1, vendorInputBeanObj.getApplId());
-//                proc_stmt.executeQuery();
-//                  System.out.println(" Calling Procedure PROC_SUMMARY_UPD AFTER changes ");
-//                 conn.commit();
-//            }
+           if (count > 0)
+           {
+                 System.out.println("Calling Procedure PROC_FEETYPE_DETAILS_UPD BEFORE changes");
+                 
+               if(legalInvoiceBean.getSaveFlag().equals("Accepted")) { 
+               proc_stmt = conn.prepareCall("{ call PROC_FEETYPE_DETAILS_UPD(?) }");
+              proc_stmt.setInt(1, legalInvoiceBean.getApplId());
+              
+                proc_stmt.executeQuery();
+                System.out.println(" Calling Procedure PROC_FEETYPE_DETAILS_UPD AFTER changes ");
+                 
+               }
+            }
            conn.commit();
     }
               catch (Exception ex) {

@@ -335,11 +335,14 @@
                     <input type="hidden"  id="mobileNO" name="mobileNO" value="<%= legalInvoiceInputBean.getMobileNo()%>"  /> 
                     <input type="hidden"  id="emailID" name="emailID"  value="<%= legalInvoiceInputBean.getEmailId()%>" /> 
                     <input type="hidden"  id="isWithCourtCaseNo" name="isWithCourtCaseNo" value="<%=isWithCourtCaseNo%>"  /> 
+                     <input type="hidden" name="office_type" id="office_type" value=""/>
+                        <input type="hidden" name="region_id" id="region_id" value=""/>
+                        
 
                     <div class="content_container">
 
                         <div class="table-responsive" align="center" >  <!-- Start of  content_container_sub div  -->
-                            <div class="col-md-12"><h3>Legal Invoice Form</h3></div>
+                            <div class="col-md-12"><h3><fmt:message key='Legal Invoice Form'/></h3></div>
                             <div >&nbsp;</div>
                         </div>
                         <!-- End of Network Search results table -->
@@ -348,9 +351,9 @@
                             <%if (UserType.equalsIgnoreCase("Vendor") && Status == "") {%>
                             <table class="table" border="0" cellspacing="0" cellpadding="1"  id="withOrWithoutCourtCaseRadio" style="width:100%">
                                 <tr>
-                                    <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" checked onclick="showWithOrWithoutCourtCaseFields()">&nbsp;With Court Case No
+                                    <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" checked onclick="showWithOrWithoutCourtCaseFields()">&nbsp;<fmt:message key='With Court Case No'/>
                                     </td>
-                                    <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withoutCourtCase" value="withoutCourtCase" onclick="showWithOrWithoutCourtCaseFields()">&nbsp;Without Court Case No
+                                    <td class="Label_login"><input type="radio"  name="rad_courtCase" id="rad_withoutCourtCase" value="withoutCourtCase" onclick="showWithOrWithoutCourtCaseFields()">&nbsp;<fmt:message key='Without Court Case No'/>
                                     </td>
                                 </tr>
                             </table>
@@ -358,53 +361,53 @@
                             
                             <table class="table" border="0px" cellspacing="0" cellpadding="1"  id="withOrWithoutCourtCaseRadio" style="width:100%">
                                 <tr style="border-top: 0px">
-                                    <td class="Label_login" style="border-top: 0px"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" <%=checkedValueCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled >&nbsp;With Court Case No
+                                    <td class="Label_login" style="border-top: 0px"><input type="radio"  name="rad_courtCase" id="rad_withCourtCase" value="withCourtCase" <%=checkedValueCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled >&nbsp;<fmt:message key='With Court Case No'/>
                                     </td>
-                                    <td class="Label_login" style="border-top: 0px"><input type="radio"  name="rad_courtCase" id="rad_withoutCourtCase" value="withoutCourtCase" <%=checkedValueWithoutCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled> &nbsp;Without Court Case No
+                                    <td class="Label_login" style="border-top: 0px"><input type="radio"  name="rad_courtCase" id="rad_withoutCourtCase" value="withoutCourtCase" <%=checkedValueWithoutCaseNo%> onclick="showWithOrWithoutCourtCaseFields()" disabled> &nbsp;<fmt:message key='Without Court Case No'/>
                                     </td>
                                 </tr>
                             </table>
                             <%}%>
                             <table class="table" border="0" cellspacing="0" cellpadding="2" id="table_content"> <!-- Start of  table_content table  -->
                                 <tr >
-                                    <td class="text-right h5">Application Id</td>
+                                    <td class="text-right h5"><fmt:message key='Application ID'/></td>
                                     <td>
 
                                         <input type="text" class="form-control text-left" name="txtApplicationId" id="txtApplicationId"  style="width: 100%"  value="<%= ApplId%>" readonly/> 
                                     </td>
-                                    <td colspan="2" class="text-right h5">Status</td>
+                                    <td colspan="2" class="text-right h5"><fmt:message key='Status'/></td>
                                     <td ><input type="text" name="txtStatus" id="txtStatus" style="width: 100%" value ="<%= Status%>" class="form-control text-left" readonly="readonly" >
                                     </td>
                                 </tr>
                                 <%  if (!UserType.equals("Emp")) {%>
                                 <tr>
-                                    <td class="text-right h5">Vendor Code.</td>
+                                    <td class="text-right h5"><fmt:message key='Vendor Code.'/></td>
                                     <td>
                                         <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%"  readonly value="<%= legalInvoiceInputBean.getVendorNumber()%>" >
                                     </td>
-                                    <td colspan="2" class="text-right h5">Vendor Name</td>
+                                    <td colspan="2" class="text-right h5"><fmt:message key='Vendor Name'/></td>
                                     <td >
                                         <input type="text" class="form-control"   size="20" style="width: 100%" id="txtVendorName" name="txtVendorName" value="<%= legalInvoiceInputBean.getVendorName()%>" readonly>
                                     </td>
                                 </tr>
                                 <% } else if (UserType.equals("Emp") && (Status.equals("Submitted") || Status.equals("Saved"))) {%>
                                 <tr>
-                                    <td class="text-right h5">Vendor Code.</td>
+                                    <td class="text-right h5"><fmt:message key='Vendor Code.'/></td>
                                     <td>
                                         <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode"  style="width: 100%" value="<%= legalInvoiceInputBean.getVendorNumber()%>" readonly /> 
                                     </td>
-                                    <td colspan="2" class="text-right h5">Vendor Name</td>
+                                    <td colspan="2" class="text-right h5"><fmt:message key='Vendor Name'/></td>
                                     <td >
                                         <input type="text" class="form-control"   size="20" style="width: 100%" id="txtVendorName" name="txtVendorName" value="<%= legalInvoiceInputBean.getVendorName()%>" readonly/>
                                     </td>
                                 </tr>
                                 <% } else if (UserType.equals("Emp") && Status.equals("")) {%>
                                 <tr>
-                                    <td class="text-right h5">Vendor Code.</td>
+                                    <td class="text-right h5"><fmt:message key='Vendor Code.'/></td>
                                     <td>
                                         <input type="text" class="form-control text-left" name="txtVendorCode" id="txtVendorCode" onblur="populateAllVendors()" style="width: 100%"  title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> /> 
                                     </td>
-                                    <td colspan="2" class="text-right h5">Vendor Name</td>
+                                    <td colspan="2" class="text-right h5"><fmt:message key='Vendor Name'/></td>
                                     <td >
                                         <input type="text" class="form-control"   size="20" style="width: 100%" id="txtVendorName" name="txtVendorName" value="" readonly>
                                     </td>
@@ -415,10 +418,10 @@
                                
                                 <tbody id="withCourtCaseNoBody">
                                     <tr>
-                                        <td class="text-right h5">Court Case No.</td>
+                                        <td class="text-right h5"><fmt:message key='Court Case No.'/></td>
                                         <td   class="text-right h5 ">
                                             <% if (!UserType.equals("Emp")){%>
-                                            <table width="100%"><tr><td>   <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%; float:left" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo() == null ? "" : legalInvoiceInputBean.getCourtCaseNo())%>" 
+                                            <table width="100%"><tr><td>   <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%; float:left" placeholder=<fmt:message key='"Type & click Search button"'/> value="<%= (legalInvoiceInputBean.getCourtCaseNo() == null ? "" : legalInvoiceInputBean.getCourtCaseNo())%>" 
                                                   <% if (Status == "" || Status.equals("Saved")) {
                                                 } else {
                                                     out.print("disabled='true'");
@@ -431,33 +434,33 @@
                                                             <%}%>
 
                                             <% if (UserType.equals ("Emp")){%>
-                                            <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder="Type & click Search button" value="<%= (legalInvoiceInputBean.getCourtCaseNo() == null ? "" : legalInvoiceInputBean.getCourtCaseNo())%>" onblur="openSearcher('<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')" <% if (Status == "" || Status.equals("Saved")) {
+                                            <input type="text" name="txtCourtCaseNo" class="form-control" title="Type & click Search button" id="txtCourtCaseNo" style="width: 100%;" placeholder=<fmt:message key='"Type & click Search button"'/> value="<%= (legalInvoiceInputBean.getCourtCaseNo() == null ? "" : legalInvoiceInputBean.getCourtCaseNo())%>" onblur="openSearcher('<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_VENDOR_SEARCH_COURT_CASE)%>')" <% if (Status == "" || Status.equals("Saved")) {
                                                 } else {
                                                     out.print("disabled='true'");
                                                 }%> />
                                             <% }%>
                                         </td>
 
-                                        <td colspan="2" class="text-right h5">Case Reference No.</td>
+                                        <td colspan="2" class="text-right h5"><fmt:message key='Case Reference No.'/></td>
                                         <td> 
                                             <input name="txtCaseRefNo" id="txtCaseRefNo" type="text"  value ="<%= caseRefNo%>" size="20" class="form-control" maxlength="15" readonly />
                                         </td> 
 
 
                                     </tr><tr>
-                                        <td class="text-right h5" >Court Name</td>
+                                        <td class="text-right h5" ><fmt:message key='Court Name'/></td>
                                         <td>
                                             <input type="text" class="form-control text-left" name="txtCourtName" id="txtCourtName" style="width: 100%;" readonly value ="<%= courtName%>" /> 
                                         </td>
 
-                                        <td class="text-right h5" colspan="2">Case Description</td>
+                                        <td class="text-right h5" colspan="2"><fmt:message key='Case Description'/></td>
                                         <td > 
                                             <input name="txtCaseDescription" id="txtCaseDescription" type="text" class="form-control" size="20" style="width: 100%;"   readonly value ="<%= caseDescription%>"/> 
                                         </td>
 
                                     </tr>
                                     <tr>
-                                        <td class="text-right h5" >Dealing Office</td>
+                                        <td class="text-right h5" ><fmt:message key='Dealing Office'/></td>
                                         <%  if (!UserType.equals ("Emp")) {%>
                                         <td>
                                             <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;" readonly value ="<%= dealingOffice%>"/> 
@@ -468,10 +471,10 @@
                                             <%}else{%>
                                         <td>
                                             <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;"  title="Type and search or use space-bar" 
-                                                   placeholder="Type and search or use space-bar" onblur="populateDealingOffice();" /> </td>
+                                                   placeholder=<fmt:message key='"Type and search or use space-bar"'/> onblur="populateDealingOffice();" /> </td>
                                             <%}%>
 
-                                        <td class="text-right h5" colspan="2">Case Type</td>
+                                        <td class="text-right h5" colspan="2"><fmt:message key='Case Type'/></td>
                                         <td > 
                                             <input name="txtCaseType" id="txtCaseType" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= caseTypeDesc%>"/> 
                                         </td>
@@ -479,12 +482,12 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="text-right h5" >Party Name</td>
+                                        <td class="text-right h5" ><fmt:message key='Party Name'/></td>
                                         <td>
                                             <input type="text" class="form-control text-left" name="txtPartyNames" id="txtPartyNames" style="width: 100%;" readonly value ="<%= partyNames%>" /> 
                                         </td>
 
-                                        <td class="text-right h5" colspan="2">v/s Party Name</td>
+                                        <td class="text-right h5" colspan="2"><fmt:message key='v/s Party Name'/></td>
                                         <td > 
                                             <input name="txtVsPartyNames" id="txtVsPartyNames" type="text" class="form-control" size="20" style="width: 100%;"   readonly value ="<%= vsPartyNames%>"/> 
                                         </td>
@@ -492,7 +495,7 @@
 
                                     <tr>
 
-                                        <td  class="text-right h5">Invoice Entry Date </td>
+                                        <td  class="text-right h5"><fmt:message key='Invoice Entry Date'/> </td>
                                         <td> 
 
                                             <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
@@ -518,11 +521,11 @@
                                 <%if (UserType.equals("Emp")) {%>
                                 <tr>
 
-                                    <td class="text-right h5">Case Reference No.</td>
+                                    <td class="text-right h5"><fmt:message key='Case Reference No.'/></td>
                                     <td> 
-                                        <input name="txtCaseRefNoWithout" id="txtCaseRefNoWithout" type="text"    class="form-control"  title="Type and search or use space-bar" placeholder="Type and search or use space-bar"  onblur="populateCaseRefDetails();"/>
+                                        <input name="txtCaseRefNoWithout" id="txtCaseRefNoWithout" type="text"    class="form-control"  title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/>  onblur="populateCaseRefDetails();"/>
                                     </td> 
-                                    <td class="text-right h5" colspan="2" >Court Case No.</td>
+                                    <td class="text-right h5" colspan="2" ><fmt:message key='Court Case No.'/></td>
                                     <td  class="text-right h5">
                                         <input autocomplete="off" type="text" name="txtCourtCaseNoWithout" id="txtCourtCaseNoWithout" style="width: 100%;" value="<%= courtCaseNo%>"  class="form-control"  placeholder=<fmt:message key='"Type and search or use space-bar"'/> 
                                                <% if (Status == "" || Status.equals ("Saved")) {
@@ -531,26 +534,26 @@
                                             }%> /> </td>
                                                 </tr>
                                                 <tr>
-                                               <td class="text-right h5" >Court Name</td>
+                                               <td class="text-right h5" ><fmt:message key='Court Name'/></td>
                                     <td>
                                         <input type="text" class="form-control text-left" name="txtCourtNameWithout" id="txtCourtNameWithout" style="width: 100%;" readonly value ="<%= courtName%>" /> 
                                     </td>
 
-                                    <td class="text-right h5" colspan="2">Case Description</td>
+                                    <td class="text-right h5" colspan="2"><fmt:message key='Case Description'/></td>
                                     <td > 
                                         <input name="txtCaseDescriptionWithout" id="txtCaseDescriptionWithout" type="text" class="form-control" size="20" style="width: 100%;"   readonly value ="<%= caseDescription%>"/> 
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <td class="text-right h5" >Dealing Office</td>
+                                    <td class="text-right h5" ><fmt:message key='Dealing Office'/></td>
 
                                     <td>
                                         <input type="text" class="form-control text-left" name="txtDealingOfficeWithout" id="txtDealingOfficeWithout" style="width: 100%;" readonly value ="<%= dealingOffice%>"/> 
                                     </td>
 
 
-                                    <td class="text-right h5" colspan="2">Party Names</td>
+                                    <td class="text-right h5" colspan="2"><fmt:message key='Party Names'/></td>
                                     <td > 
                                         <input name="txtPartyNamesWithout" id="txtPartyNamesWithout" type="text" class="form-control" size="20" style="width: 100%;"  readonly  value ="<%= partyNames%>"/> 
                                     </td>
@@ -560,12 +563,12 @@
                                 <tr>
 
 
-                                    <td class="text-right h5" ><label id="mydrop_down_label">Region</label>.</td>
+                                    <td class="text-right h5" ><label id="mydrop_down_label"><fmt:message key='Region'/></label>.</td>
 
                                     <td>
                                         <% if(Status == "") { %>
                                         <select class="form-control text-left" id="txtRegion"   onchange="getLegalHierarchyLocation(this, 'ZON')" >
-                                            <option value ="">Select</option>
+                                            <option value =""><fmt:message key='Select'/></option>
                                         </select>
                                         <%
                                             } else {%>
@@ -578,14 +581,14 @@
                                         </select>
                                         <%}%>
                                     </td>
-                                    <td  class="text-right h5" colspan="2">Zone.</td>
+                                    <td  class="text-right h5" colspan="2"><fmt:message key='Zone.'/></td>
                                     <td>
                                         <% if (Status == "") {
                                         %>
 
 
                                         <select class="form-control text-left" id="txtZone"    onchange="getLegalHierarchyLocation(this, 'CIR')" >
-                                            <option value ='' selected >Select</option>
+                                            <option value ='' selected ><fmt:message key='Select'/></option>
                                         </select>
                                         <%
                                             } else {%>
@@ -601,7 +604,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right h5" >Circle</td>
+                                    <td class="text-right h5" ><fmt:message key='Circle'/></td>
                                     <td>
                                         <% if (Status == "") {%>
                                         <select class="form-control text-left" id="txtCircle"    onchange="getLegalHierarchyLocation(this, 'DIV')" >
@@ -617,7 +620,7 @@
                                         <%}%>
                                     </td>
 
-                                    <td class="text-right h5 " colspan="2">Division</td>
+                                    <td class="text-right h5 " colspan="2"><fmt:message key='Division'/></td>
                                     <td > 
                                         <% if (Status == "") {%>
                                         <select class="form-control text-left" id="txtDivision"    onchange="getLegalHierarchyLocation(this, 'SUB')" >
@@ -636,7 +639,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td class="text-right h5" >Sub-Division</td>
+                                    <td class="text-right h5" ><fmt:message key='Sub-Division'/></td>
                                     <td > 
                                         <% if (Status == "") {%>
                                         <select class="form-control text-left" id="txtSubDivision"    onchange="getLegalHierarchyLocation(this, 'SUB-DIV')" >
@@ -651,18 +654,18 @@
                                         </select>
                                         <%}%>
                                     </td>
-                                    <td class="text-right h5" colspan="2">Dealing Office</td>
+                                    <td class="text-right h5" colspan="2"><fmt:message key='Dealing Office'/></td>
                                     <td>
                                         <input type="text" class="form-control text-left" name="txtDealingOffice" id="txtDealingOffice" style="width: 100%;" readonly value ="<%= dealingOffice %>"/> 
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td class="text-right h5">Corporate Office</td>
+                                    <td class="text-right h5"><fmt:message key='Corporate Office'/></td>
                                     <td>
                                         <% if (Status == "") {%>
                                         <select class="form-control text-left" id="txtCorporateOffice"   onchange="disableOtherLocation(this.value);getLegalHierarchyLocation(this, 'DEPT')"  >
-                                            <option value ="Select">Select</option>
+                                            <option value ="Select"><fmt:message key='Select'/></option>
                                             <option value ="261-Corporate Office">261-Corporate Office</option>
                                         </select>
                                         <%} else {%>
@@ -671,11 +674,11 @@
                                         </select>
                                         <%}%>
                                     </td>
-                                    <td class="text-right h5" colspan="2">Section</td>
+                                    <td class="text-right h5" colspan="2"><fmt:message key='Section'/></td>
                                     <td> 
                                         <% if (Status == "") { %>
                                         <select class="form-control text-left" id="txtCorpSection" >
-                                            <option value ="">Select</option>
+                                            <option value =""><fmt:message key='Select'/></option>
                                         </select>
                                         <%} else {%>
                                         <select class="form-control text-left" id="txtCorpSection" readonly >
@@ -689,7 +692,7 @@
 
 
 
-                                    <td class="text-right h5">Invoice Entry Date </td>
+                                    <td class="text-right h5"><fmt:message key='Invoice Entry Date'/> </td>
                                     <td > 
 
                                         <input name="txtVendorInwardDt" id="txtVendorInwardDt" type="text" size="20" class="form-control text-left"  value="<%=VendorInwardDate%>" maxlength="15" readonly />
@@ -744,7 +747,7 @@
                                 <%}%>
 
                                 <tr> 
-                                    <td  class="text-right h5">Invoice Date </td>
+                                    <td  class="text-right h5"><fmt:message key='Invoice Date'/></td>
                                     <td width="20%"> 
                                         <% if (flag == 2) {%>
                                         <input name="" id="txtVendorInvoiceDate" type="text" readonly size="20" class="datefield" value="<%=InvoiceDate%>" maxlength="15" 
@@ -765,7 +768,7 @@
                                 </tr>
                                 <%if(Status.equals("Returned")){%>
                                 <tr>
-                                    <td class="text-right h5">Reason</td>
+                                    <td class="text-right h5"><fmt:message key='Reason'/></td>
                                     <td>
                                         <input type="text" class="form-control text-right" name="txtInwardNum" id="txtInwardNum" value="<%=rejectReason%>" readonly style="width: 100%" />
                                     </td>
@@ -814,11 +817,11 @@
                             <div    class="row">
                                 <div class="col-lg-2 col-md-2"  border=""> </div>
                                 <div class="col-lg-8 col-md-8"  align="center"  border="0">
-                                    <label><h4>Add Fee Type Details</h4></label>
+                                    <label><h4><fmt:message key='Add Fee Type Details'/></h4></label>
                                     <br>
                                     <div align="left">
                                         <%if(Status!=null && Status.equals("") || Status.equals("Saved")){ %>
-                                        <input type="button" name="addRowBtn" id="addRowBtn" value='Add Row'class="btn btn-success" onclick="addRow('feeTypeDtlTbl')"/> 
+                                        <input type="button" name="addRowBtn" id="addRowBtn" class="btn btn-success" onclick="addRow('feeTypeDtlTbl')" value='Add Row'/> 
                                         <% } %>
                                     </div>
                                     <table class="table" border="0" id="feeTypeDtlTbl"  name="feeTypeDtlTbl" >
@@ -826,11 +829,11 @@
                                             <tr class="success">
 
                                                 <th>#</th>                                                
-                                                <th><b>Fee Type</b></th>
-                                                <th><b>Invoice Amount (Incl. Taxes)</b></th>
-                                                <th><b>Remark</b></th>
+                                                <th><b><fmt:message key='Fee Type'/></b></th>
+                                                <th><b><fmt:message key='Invoice Amount (Incl. Taxes)'/></b></th>
+                                                <th><b><fmt:message key='Remark'/></b></th>
 
-                                                <th><b>Remove</b></th> 
+                                                <th><b><fmt:message key='Remove'/></b></th> 
 
 
                                             </tr>   
@@ -892,7 +895,7 @@
                                         </tbody>  
                                         <tfoot>
                                         <td></td>
-                                        <td class=""> <b>Total Invoice Amount: </b>
+                                        <td class=""> <b><fmt:message key='Total Invoice Amount:'/> </b>
                                         </td>
                                         <td align="right" ><label  id='totalInvAmtLbl'></label>
                                             <input type="hidden" id ='totalInvAmt'></td>  
@@ -1420,7 +1423,9 @@
                                                                                                             $('#txtDealingOffice').val(data.DealingOffice);
                                                                                                             $("#selectedOffieCode").val(data.selectedOffieCode);
                                                                                                             $("#feeTypeSelect").html(data.feeTypeList);
-                                                                                                        },
+                                                                                                            $("#office_type").val(data.officeType);
+                                                                                                            $("#region_id").val(data.regionId);
+                                                                                                            },
                                                                                                         error: function (jqXHR, textStatus, errorThrown) {
                                                                                                             console.log(textStatus);
                                                                                                         }

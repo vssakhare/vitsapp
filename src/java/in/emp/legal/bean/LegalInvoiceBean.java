@@ -77,6 +77,25 @@ public class LegalInvoiceBean implements java.io.Serializable{
         private String locationId;
         private String msedclPartyName;
         private String vsPartyName;
+private String OfficeType;
+        private String RegionId;
+    public String getOfficeType() {
+        return OfficeType;
+    }
+
+    public void setOfficeType(String OfficeType) {
+        this.OfficeType = OfficeType;
+    }
+
+    public String getRegionId() {
+        return RegionId;
+    }
+
+    public void setRegionId(String RegionId) {
+        this.RegionId = RegionId;
+    }
+
+   
 
     public String getMsedclPartyName() {
         return msedclPartyName;

@@ -24,6 +24,7 @@ $(document).ready(function(){
             
             
             var intstepValue = Math.round( vstepSize );
+             vSubmitmax= Math.round(vSubmitmax)+ Math.round(intstepValue);
             var k= $('#k').val();
             var pTotal = [];
             var zone = [];
@@ -59,6 +60,66 @@ $(document).ready(function(){
               
             }
 
+ var myoption = {legend: {
+                display: false
+            },
+
+            scales: {
+                xAxes: [{maxBarThickness: 15,
+                        
+                       
+                        ticks: {
+                            display: false //this will remove only the label
+                        },
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                    }],
+                yAxes: [{gridlines: {count: -1},
+                        ticks: {precision: 0,
+                            beginAtZero: true, max: vSubmitmax, stepSize: intstepValue,
+                            callback: function (value) {
+                                if (value % 1 === 0) {
+                                    return value;
+                                }
+                            }
+                        },
+                        gridLines: {
+                            drawOnChartArea: false,
+                            lineWidth: 1
+                        }
+                    }]
+            },
+     
+        
+            tooltips: {
+                enabled: true
+            },
+            hover: {
+                animationDuration: 1
+            },
+            animation: {
+            duration: 1,
+            onComplete: function () {
+                var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+                    ctx.textBaseline = 'bottom';
+
+                    // Loop through each data in the datasets
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+
+                        });
+                    });
+                }
+            }
+        };
           var newDataset_cons1 = {  
               
               labels: zone,
@@ -168,14 +229,14 @@ $(document).ready(function(){
   for (var i =0; i<zone.length ; i++){
    
  
-	graphDatum.pLess.dataPoints.push({label: $.trim(zone[i]),y:pLessTotal[i] })	
+	graphDatum.pLess.dataPoints.push({indexLabel:"{y}",label: $.trim(zone[i]),y:pLessTotal[i] })	
 
 }
 console.log(graphDatum.pLess.dataPoints);
 for (var j =0; j<zone.length ; j++){
    
    
-	graphDatum.pMore.dataPoints.push({label: $.trim(zone[j]),y:pMoreTotal[j] })	
+	graphDatum.pMore.dataPoints.push({indexLabel:"{y}",label: $.trim(zone[j]),y:pMoreTotal[j] })	
 
 }          
    window.myPie_cons = new CanvasJS.Chart("columnChart",  {
@@ -259,138 +320,34 @@ function toggleDataSeries(e) {
 }
       window.myPie_cons1 = new Chart(cardchart1, {//pending for payment
         type: "bar",
-          
         animationEnabled: true,
         data: newDataset_cons1,
-        options:{
-                      legend:{
-                          display:false
-                      },
-                      scales: {
-            xAxes: [{maxBarThickness:15,
-                     gridLines: {
-                            drawOnChartArea: false,
-                            dislay:false,
-                            lineWidth: 1
-                                },
-                ticks: {
-                    display: false //this will remove only the label
-                }
-            }],
-        yAxes: [{
-            ticks: {
-                beginAtZero: true,
-                precision: 0,
-              max: vSubmitmax,  stepSize:intstepValue,
-                callback: function(value) {if (value % 1 === 0) {return value;}}
-                
-                },
-                gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                                }
-        }]
-        }
-                    }
-        
-        
-      });
-      window.myPie_cons2 = new Chart(cardchart2, {//pending at accounts
+        options:myoption
+
+
+    });
+    window.myPie_cons2 = new Chart(cardchart2, {//pending at accounts
         type: "bar",
         animationEnabled: true,
         data: newDataset_cons2,
-               options: {legend:{
-                          display:false
-                      },
-    scales: {
-        xAxes: [{maxBarThickness:15,ticks: {
-                    display: false //this will remove only the label
-                },
-        gridLines: {
-          drawOnChartArea: false
-        }
-      }],
-        yAxes: [{
-            ticks: {
-                beginAtZero: true,
-                drawOnChartArea: false,
-            max: vSubmitmax,
-            
-            stepSize:intstepValue,
-                callback: function(value) {if (value % 1 === 0) {return value;}}
-            },
-                gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                                }
-        }]
-    }
-}
-        
-        
-      });
-     window.myPie_cons3 = new Chart(cardchart3, {//pending at technical
-        type: "bar",
-        animationEnabled: true,
-        data: newDataset_cons3 ,
-       
-        options: {legend:{
-                          display:false
-                      },
-    scales: {
-        xAxes: [{maxBarThickness:15,ticks: {
-                    display: false //this will remove only the label
-                },
-        gridLines: {
-          drawOnChartArea: false
-        }
-      }],
-        yAxes: [{ gridlines: { count: -1},
-            ticks: {
-                
-                beginAtZero: true,
-                precision: 0,
-                max: vSubmitmax,  stepSize:intstepValue,
-                callback: function(value) {if (value % 1 === 0) {return value;}}
-            },
-                gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                                }
-        }]
-    }
-}
-      });
-      window.myPie_cons4 = new Chart(cardchart4, {//submitted by vendor
-        type: "bar",
-        animationEnabled: true,
-        data: newDataset_cons4  ,
-        options: {legend:{
-                          display:false
-                      },
-    scales: {
-        xAxes: [{ maxBarThickness:15,
+        options: myoption
 
-                ticks: {
-                    display: false //this will remove only the label
-                },
-        gridLines: {
-          drawOnChartArea: false
-        }
-      }],
-        yAxes: [{gridlines: { count: -1},
-            ticks: { precision: 0,
-                beginAtZero: true,max: vSubmitmax,  stepSize:intstepValue,
-                        callback: function(value) {if (value % 1 === 0) {return value;}}
-            },
-                gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                                }
-        }]
-    }
-}
-      });
+
+    });
+    window.myPie_cons3 = new Chart(cardchart3, {//pending at technical
+        type: "bar",
+        animationEnabled: true,
+        data: newDataset_cons3,
+
+        options:myoption
+    });
+    window.myPie_cons4 = new Chart(cardchart4, {//submitted by vendor
+        
+        type: "bar",
+        animationEnabled: true,
+        data: newDataset_cons4,
+        options: myoption
+    });
                
           
            });   

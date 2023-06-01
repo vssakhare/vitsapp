@@ -14,6 +14,7 @@ $(document).ready(function () {
     var cardchart3 = document.getElementById('card-chart3').getContext('2d');
     var cardchart4 = document.getElementById('card-chart4').getContext('2d');
     var vSubmitmax = document.getElementById('vSubmitmax').value;
+    
     if (vSubmitmax === 0)
     {
         vstepSize = vSubmitmax;
@@ -23,6 +24,7 @@ $(document).ready(function () {
 
 
     var intstepValue = Math.round(vstepSize);
+    vSubmitmax= Math.round(vSubmitmax)+ Math.round(intstepValue);
     var k = $('#j').val();
     var l = $('#i').val();
     var pTotal = [];
@@ -110,8 +112,66 @@ var inchartdatasets = [];
             
         }*/
 
+ var myoption = {legend: {
+                display: false
+            },
 
+            scales: {
+                xAxes: [{maxBarThickness: 15,
+                        
+                       
+                        ticks: {
+                            display: false //this will remove only the label
+                        },
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                    }],
+                yAxes: [{gridlines: {count: -1},
+                        ticks: {precision: 0,
+                            beginAtZero: true, max: vSubmitmax, stepSize: intstepValue,
+                            callback: function (value) {
+                                if (value % 1 === 0) {
+                                    return value;
+                                }
+                            }
+                        },
+                        gridLines: {
+                            drawOnChartArea: false,
+                            lineWidth: 1
+                        }
+                    }]
+            },
+     
+        
+            tooltips: {
+                enabled: true
+            },
+            hover: {
+                animationDuration: 1
+            },
+            animation: {
+            duration: 1,
+            onComplete: function () {
+                var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+                    ctx.textBaseline = 'bottom';
 
+                    // Loop through each data in the datasets
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+
+                        });
+                    });
+                }
+            }
+        };
     var newDataset_cons1 = {
 
         labels: zone,
@@ -228,17 +288,18 @@ var inchartdatasets = [];
     for (var i = 0; i < zone.length; i++) {
 
 
-        graphDatum.pLess.dataPoints.push({label: $.trim(zone[i]), y: pLessTotal[i]})
+        graphDatum.pLess.dataPoints.push({indexLabel:"{y}",label: $.trim(zone[i]), y: pLessTotal[i]})
 
     }
     //console.log(graphDatum.pLess.dataPoints);
     for (var j = 0; j < zone.length; j++) {
 
 
-        graphDatum.pMore.dataPoints.push({label: $.trim(zone[j]), y: pMoreTotal[j]})
+        graphDatum.pMore.dataPoints.push({indexLabel:"{y}",label: $.trim(zone[j]), y: pMoreTotal[j]})
 
     }
     window.myPie_cons = new CanvasJS.Chart("columnChart", {
+       
         animationEnabled: true,
         backgroundColor: "#eee",
         dataPointWidth: 35,
@@ -298,6 +359,8 @@ var inchartdatasets = [];
 
         },
         data: [{type: "column",
+                
+          
                 color: 'rgba(54, 162, 235, 1)',
                 name: "Total Pending Invoices less than 30 days",
                 legendText: "Total Pending Invoices less than 30 days",
@@ -305,6 +368,7 @@ var inchartdatasets = [];
                 dataPoints: graphDatum.pLess.dataPoints
             },
             {type: "column",
+                
                 name: "Total Pending Invoices more than 30 days",
                 legendText: "Total Pending Invoices more than 30 days",
 
@@ -335,40 +399,7 @@ var inchartdatasets = [];
         type: "bar",
         animationEnabled: true,
         data: newDataset_cons1,
-        options: {
-            legend: {
-                display: false
-            },
-            scales: {
-                xAxes: [{maxBarThickness: 15,
-                        gridLines: {
-                            drawOnChartArea: false,
-                            dislay: false,
-                            lineWidth: 1
-                        },
-                        ticks: {
-                            display: false //this will remove only the label
-                        }
-                    }],
-                yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            precision: 0,
-                            max: vSubmitmax, stepSize: intstepValue,
-                            callback: function (value) {
-                                if (value % 1 === 0) {
-                                    return value;
-                                }
-                            }
-
-                        },
-                        gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                        }
-                    }]
-            }
-        }
+        options:myoption
 
 
     });
@@ -376,37 +407,7 @@ var inchartdatasets = [];
         type: "bar",
         animationEnabled: true,
         data: newDataset_cons2,
-        options: {legend: {
-                display: false
-            },
-            scales: {
-                xAxes: [{maxBarThickness: 15, ticks: {
-                            display: false //this will remove only the label
-                        },
-                        gridLines: {
-                            drawOnChartArea: false
-                        }
-                    }],
-                yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            drawOnChartArea: false,
-                            max: vSubmitmax,
-
-                            stepSize: intstepValue,
-                            callback: function (value) {
-                                if (value % 1 === 0) {
-                                    return value;
-                                }
-                            }
-                        },
-                        gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                        }
-                    }]
-            }
-        }
+        options: myoption
 
 
     });
@@ -415,99 +416,17 @@ var inchartdatasets = [];
         animationEnabled: true,
         data: newDataset_cons3,
 
-        options: {legend: {
-                display: false
-            },
-            scales: {
-                xAxes: [{maxBarThickness: 15, ticks: {
-                            display: false //this will remove only the label
-                        },
-                        gridLines: {
-                            drawOnChartArea: false
-                        }
-                    }],
-                yAxes: [{gridlines: {count: -1},
-                        ticks: {
-
-                            beginAtZero: true,
-                            precision: 0,
-                            max: vSubmitmax, stepSize: intstepValue,
-                            callback: function (value) {
-                                if (value % 1 === 0) {
-                                    return value;
-                                }
-                            }
-                        },
-                        gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                        }
-                    }]
-            }
-        }
+        options:myoption
     });
     window.myPie_cons4 = new Chart(cardchart4, {//submitted by vendor
+        
         type: "bar",
         animationEnabled: true,
         data: newDataset_cons4,
-        options: {legend: {
-                display: false
-            },
-            scales: {
-                xAxes: [{maxBarThickness: 15,
-                        
-                       
-                        ticks: {
-                            display: false //this will remove only the label
-                        },
-                        gridLines: {
-                            drawOnChartArea: false
-                        }
-                    }],
-                yAxes: [{gridlines: {count: -1},
-                        ticks: {precision: 0,
-                            beginAtZero: true, max: vSubmitmax, stepSize: intstepValue,
-                            callback: function (value) {
-                                if (value % 1 === 0) {
-                                    return value;
-                                }
-                            }
-                        },
-                        gridLines: {
-                            drawOnChartArea: false,
-                            lineWidth: 1
-                        }
-                    }]
-            }
-      /*      onClick:function(e){
-        var activePoints = window.myPie_cons4.getElementsAtEvent(e);
-      if (activePoints[0]) {
-         var chartData = activePoints[0]['_chart'].config.data;
-         var idx = activePoints[0]['_index'];
-
-         var label = chartData.labels[idx];
-         var value = chartData.datasets[0].data[idx];
-       //  var color = chartData.datasets[0].backgroundColor[idx]; //Or any other data you wish to take from the clicked slice
-
-         alert(label + ' ' + value ); //Or any other function you want to execute. I sent the data to the server, and used the response i got from the server to create a new chart in a Bootstrap modal.
-       }
-      }*/
-        }
+        options: myoption
     });
     
-/*function addData(chart, label, color, data) {
-		chart.data.datasets.push({
-	    label: label,
-      backgroundColor: color,
-      data: data
-    });
-    chart.update();
-}
 
-// inserting the new dataset after 3 seconds
-setTimeout(function() {
-	addData(window.myPie_cons4, '# of Votes 2017', '#ff0000', vSubmit);
-}, 3000);*/
 
 });
 

@@ -12,6 +12,7 @@ import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
+import in.emp.legal.bean.LegalSummaryBean;
 import in.emp.legal.bean.OrganizationMasterBean;
 
 import in.emp.sms.bean.TemplateIdBean;
@@ -51,7 +52,8 @@ public interface VendorDao {
        public LinkedList getSubmitAtList(PoLineStatusBean poLinestatusbeanobj) throws Exception; 
        public LinkedList getdivisionList(POBean poBeanObj) throws Exception; 
               public LinkedList getsubdivisionList(POBean poBeanObj) throws Exception; 
-  public LinkedList getClearingDocDetails(ClearingDocDetails clearingDocDetailsObj) throws Exception;  
+  public LinkedList getClearingDocDetails(ClearingDocDetails clearingDocDetailsObj) throws Exception; 
+  public LinkedList getSummaryListDetails(LegalSummaryBean legalSummaryBeanObj) throws Exception; 
    public LinkedList getPOLineDetails(PoLineStatusBean poLineStatusBeanObj) throws Exception; 
     public LinkedList getProjList(ProjBean projBeanObj) throws Exception; 
     public POBean getPOLocationList(POBean poBeanObj) throws Exception;

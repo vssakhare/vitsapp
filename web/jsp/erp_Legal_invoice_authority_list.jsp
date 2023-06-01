@@ -262,6 +262,8 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
         <script src="<%=ApplicationConstants.JS_PATH%>respond.js"></script> <!--<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>-->
         <jsp:include page="nav_jscss.jsp" />
         <script type="text/javascript" language="JavaScript" src="<%=ApplicationConstants.JS_PATH%>erp_vendor_legal_input_form.js"></script>
+        <script type="text/javascript" language="JavaScript" src="<%=ApplicationConstants.JS_PATH%>erp_legal_invoice_authority_list.js"></script>
+        
 
     </head>
     
@@ -286,6 +288,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                         <input type="hidden" name="redirInput" id="redirInput" value="<%=ApplicationConstants.UIACTION_GET_VENDOR_INPUT_FORM%>"/>
                         <input type="hidden" name="deleteAction" id="deleteAction" value="<%=ApplicationConstants.UIACTION_POST_VENDOR_LIST%>"/>
                         <input type="hidden" name="deleteRedirect" id="deleteRedirect" value="<%=ApplicationConstants.UIACTION_GET_AUTHORITY_LIST%>"/>
+                       
                         <input type="hidden" name="poOptions" id="poOptions" value='[<% if(!ApplicationUtils.isBlank(POList)) {
                                                     //out.print('[' );
                                                     int i=0;
@@ -411,13 +414,13 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                           
                                           </tr>
                                           <tr>
-                                         <td class="text-right h5">Invoice No.</td>
+                                         <td class="text-right h5"><fmt:message key='Invoice No.'/></td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
                                                 <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
-                                          <td class="text-right h5" colspan="2">Case Ref No.</td>
+                                          <td class="text-right h5" colspan="2"><fmt:message key='Case Ref No.'/></td>
                                            <td id="myDropdownThree">
                                             <div class="autocomplete" style="width:300px;">
                                                 <input type="text" name="txtCaseRefNo" id="txtCaseRefNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
@@ -509,25 +512,24 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
         <th width="2%">#</th> 
                                                     <th width="5%"><fmt:message key='Appl ID'/></th> 
                                                     <th width="7%"><fmt:message key='Application Date'/></th> 
-                                                   
-                                                    <th width="10%">Vendor No. <br>& Name</th>
-                                                    <th width="8%">Court Case No</th>  
-                                                      <th width="5%">Case Ref. No</th>  
-                                                      <th width="11%">Court Name</th>
-                                                      <th width="9%">Fee Type</th>
-                                                      <th width="8%">Dealing Office</th>
+                                                   <th width="10%"><fmt:message key='Vendor No.'/> <br><fmt:message key='& Name'/></th>
+                                                    <th width="8%"><fmt:message key='Court Case No.'/></th>  
+                                                      <th width="5%"><fmt:message key='Case Ref No.'/></th>  
+                                                      <th width="11%"><fmt:message key='Court Name'/></th>
+                                                      <th width="9%"><fmt:message key='Fee Type'/></th>
+                                                      <th width="8%"><fmt:message key='Dealing Office'/></th>
+                                                      <th width="8%">Department</th>
+                                                      
                                                     <th width="8%"><fmt:message key='Invoice Number'/></th>  
                                                     <th width="7%"><fmt:message key='Invoice Date'/></th> 
-                                                    <th width="7%">Invoice Amount (Incl. Taxes)</th> 
+                                                    <th width="7%"><fmt:message key='Invoice Amount (Incl. Taxes)'/></th> 
                                                     <th width="8%"><fmt:message key='Status'/></th> 
-                                                   
                                                     <th width="7%"> <fmt:message key='View'/></th> 
         </tr>
       </thead>
-    </table>
-  </div>
-        <div class="tbl-content">
-            <table class="table" id="tableinputinvoices">
+    
+
+            
                                           
                                             <tbody>
                                          <%
@@ -552,6 +554,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                     String courtName = "";
                                      String feeType = "";
                                     String dealingOffice="";
+                                    String department="";
                                     //String InvoiceFrmDate = "";
                                     //String InvoiceToDate = "";
                                     String Status = "";
@@ -621,6 +624,9 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                      }
                                        if (!ApplicationUtils.isBlank(vendorInputBean.getStatus())) {
                                        Invoice_Status = vendorInputBean.getStatus();
+                                     }   if (!ApplicationUtils.isBlank(vendorInputBean.getDeptCode()) && !ApplicationUtils.isBlank(vendorInputBean.getDeptName())) {
+                                       
+                                       department = vendorInputBean.getDeptCode()+" "+vendorInputBean.getDeptName();
                                      }
                                       
 //                                       if (!ApplicationUtils.isBlank(vendorInputBean.getPendingSince())) {
@@ -645,6 +651,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                             <td width="11%"><%=courtName %></td>
                                             <td width="9%"><%=feeType %></td>
                                             <td width="8%"><%=dealingOffice %></td>
+                                            <td width="8%"><%=department%></td>
                                             <td width="8%"><%=InvoiceNum %></td>
                                             <td width="7%"><%= InvoiceDate %></td>                                           
                                             <td width="7%"><%=InvoiceAmt%></td>                                            
@@ -707,11 +714,11 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                     <th><fmt:message key='Appl ID'/></th> 
                                                     <th><fmt:message key='Application Date'/></th> 
                                                    <!--  <th><fmt:message key='Module Type'/></th> -->
-                                                    <th>Court Case No</th>  
-                                                      <th>Case Reference No</th>  
-                                                      <th>Court Name</th>
-                                                      <th>Fee Type</th>
-                                                      <th>Dealing Office</th>
+                                                    <th><fmt:message key='Court Case No'/></th>  
+                                                      <th><fmt:message key='Case Reference No'/></th>  
+                                                      <th><fmt:message key='Court Name'/></th>
+                                                      <th><fmt:message key='Fee Type'/></th>
+                                                      <th><fmt:message key='Dealing Office'/></th>
                                                     <th><fmt:message key='Vendor Invoice Number'/></th>  
                                                     <th><fmt:message key='Vendor Invoice Date'/></th> 
                                                     <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 

@@ -342,6 +342,8 @@ function saveLegalInvoice(action,feetypeDtlArray) {
     var txtStatus = document.getElementById("txtStatus").value;
     
     var txtFeeType ="";
+    var office_type=document.getElementById("office_type").value;
+    var region_id =document.getElementById("region_id").value;
     
   /*  if (WithOrWithoutCourtCase === 'withCourtCase') {
         var sel = document.getElementById("feeTypeSelect");
@@ -507,6 +509,8 @@ function saveLegalInvoice(action,feetypeDtlArray) {
             + "&corporateOffice=" + encodeURIComponent(corporateOffice)
             + "&corpSection=" + encodeURIComponent(corpSection)
             + "&feetypeDtlArray=" + encodeURIComponent(JSON.stringify(feetypeDtlArray))
+    + "&office_type=" + encodeURIComponent(office_type)
+    + "&region_id=" + encodeURIComponent(region_id)
 //            + "&txtResubmitDt= " + encodeURIComponent(txtResubmitDt)
 //            + "&vendor_number=" + encodeURIComponent(vendor_number)
 //            + "&ForwardToPlant=" + encodeURIComponent(ForwardToPlant)

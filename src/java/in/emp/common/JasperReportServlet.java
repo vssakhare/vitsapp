@@ -21,9 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -112,7 +115,15 @@ public class JasperReportServlet extends HttpServlet {
                 parameters.put("reportName", reportName);
                 parameters.put("reportFileName", "dtlsofutrno");
                 parameters.put("utrno", request.getParameter("utrno"));
-            }  
+            } else if (reportName.equals(ApplicationConstants.REPORT_EMPLOYEE_LEGAL_SUBMITTED)) {
+                parameters = Employee_Legal_Submitted_Reports(request);
+            } else if (reportName.equals(ApplicationConstants.REPORT_EMPLOYEE_LEGAL_RETURNED)) {
+                parameters = Employee_Legal_Returned_Reports(request);
+            } else if (reportName.equals(ApplicationConstants.REPORT_VENDOR_LEGAL_SUBMITTED)) {
+                parameters = Vendor_Legal_Submitted_Reports(request);
+            } else if (reportName.equals(ApplicationConstants.REPORT_VENDOR_LEGAL_RETURNED)) {
+                parameters = Vendor_Legal_Returned_Reports(request);
+            } 
 
             if (!ApplicationUtils.isBlank(parameters.get("folderName"))) {
                 folderName = (String) parameters.get("folderName");
@@ -135,13 +146,27 @@ public class JasperReportServlet extends HttpServlet {
 
             if (fileType.equalsIgnoreCase("PDF")) {
                 bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conn);
-            } else {
-                JRXlsxExporter exporter = new JRXlsxExporter();
+            } else if(fileType.equalsIgnoreCase("XLSX")){
+               JRXlsxExporter exporter = new JRXlsxExporter();
+exporter.setExporterInput(new SimpleExporterInput(jprint));
+
+exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(baos));
+SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration(); 
+configuration.setDetectCellType(true);//Set configuration as you like it!!
+configuration.setCollapseRowSpan(false);
+configuration.setWhitePageBackground(false);
+exporter.setConfiguration(configuration);
+exporter.exportReport();
+ bytes = baos.toByteArray();
+                /*JRXlsxExporter exporter = new JRXlsxExporter();
 
                 exporter.setExporterInput(new SimpleExporterInput(jprint));
                 exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(baos));
+                
                 exporter.exportReport();
-                bytes = baos.toByteArray();
+                bytes = baos.toByteArray();*/
+                
+
             }
 
             //-- Setting response headers
@@ -885,4 +910,298 @@ if (!ApplicationUtils.isBlank((request.getParameter("txtPONumber")))) {
             return parameters;
         }
     }
+     private Map Employee_Legal_Returned_Reports(HttpServletRequest request) {
+       Map parameters = new HashMap();
+
+        String reportName = "";
+        String fName2 = "";
+        String reportFileName = ApplicationConstants.REPORT_EMPLOYEE_LEGAL_RETURNED;
+        String folderName = ApplicationConstants.REPORT_MSEDCL_LEGAL_EMP;
+        String imagePath = "";
+
+        String officeCode = "";
+        String txtFrmDate = "";
+        String txtToDate = "";
+        String txtVendorNumber = "";
+        
+
+        try {
+            logger.log(Level.INFO, " JasperReportServlet :: Employee_Legal_Submitted_Reports() :: method called");
+
+           
+            reportName = request.getParameter("reportName");
+
+
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+                txtFrmDate = (String) request.getParameter("txtFrmDt");
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+                
+                txtToDate = (String) request.getParameter("txtToDt");
+                
+            }
+
+          
+            if (!ApplicationUtils.isBlank((request.getParameter("txtVendorNumber")))) {
+                txtVendorNumber = (String) request.getParameter("txtVendorNumber");
+                if(txtVendorNumber.equals("ALL")){
+                txtVendorNumber="%";
+            }
+            }
+            
+          
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtLocation")))) {
+                officeCode = (String) request.getParameter("txtLocation");
+                if(officeCode.equals("ALL")){
+                    officeCode="%";
+                }
+            }
+
+
+            imagePath = this.getServletContext().getRealPath("/images/");
+            imagePath += "/";
+            
+            fName2 = "_" + new SimpleDateFormat(ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT_HRS_MIN_FD).format(new Date());
+            reportName = reportName + "_" + fName2;
+
+            parameters.put("reportName", reportName);
+            parameters.put("reportFileName", reportFileName);
+
+            parameters.put("FROM_DATE", txtFrmDate);
+            parameters.put("TO_DATE", txtToDate);
+            parameters.put("LOCATION_ID", officeCode);
+            parameters.put("VENDOR_NUMBER", txtVendorNumber);
+            parameters.put("folderName", folderName);
+            parameters.put("IMAGE_DIR", imagePath);
+
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            logger.log(Level.ERROR, " JasperReportServlet :: Employee_detail_reports() :: Exception :: " + ex);
+        } finally {
+            return parameters;
+        }
+    }  
+     
+            private Map Employee_Legal_Submitted_Reports(HttpServletRequest request) {
+        Map parameters = new HashMap();
+
+        String reportName = "";
+        String fName2 = "";
+        String reportFileName = ApplicationConstants.REPORT_EMPLOYEE_LEGAL_SUBMITTED;
+        String folderName = ApplicationConstants.REPORT_MSEDCL_LEGAL_EMP;
+        String imagePath = "";
+
+        String officeCode = "";
+        String txtFrmDate = "";
+        String txtToDate = "";
+        String txtVendorNumber = "";
+    
+
+        try {
+            logger.log(Level.INFO, " JasperReportServlet :: Employee_Legal_Submitted_Reports() :: method called");
+
+            reportName = request.getParameter("reportName");
+
+
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+                txtFrmDate = (String) request.getParameter("txtFrmDt");
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+                
+                txtToDate = (String) request.getParameter("txtToDt");
+                
+            }
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtVendorNumber")))) {
+                txtVendorNumber = (String) request.getParameter("txtVendorNumber");
+                if(txtVendorNumber.equals("ALL")){
+                txtVendorNumber="%";
+            }
+            }
+          
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtLocation")))) {
+                officeCode = (String) request.getParameter("txtLocation");
+                if(officeCode.equals("ALL")){
+                    officeCode="%";
+                }
+            }
+
+
+            imagePath = this.getServletContext().getRealPath("/images/");
+            imagePath += "/";
+            
+            fName2 = "_" + new SimpleDateFormat(ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT_HRS_MIN_FD).format(new Date());
+            reportName = reportName + "_" + fName2;
+
+            parameters.put("reportName", reportName);
+            parameters.put("reportFileName", reportFileName);
+
+            parameters.put("FROM_DATE", txtFrmDate);
+            parameters.put("TO_DATE", txtToDate);
+            parameters.put("LOCATION_ID", officeCode);
+            parameters.put("VENDOR_NUMBER", txtVendorNumber);
+            parameters.put("folderName", folderName);
+            parameters.put("IMAGE_DIR", imagePath);
+
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            logger.log(Level.ERROR, " JasperReportServlet :: Employee_Legal_Submitted_Reports() :: Exception :: " + ex);
+        } finally {
+            return parameters;
+        }
+    }
+              private Map Vendor_Legal_Returned_Reports(HttpServletRequest request) {
+       Map parameters = new HashMap();
+
+        String reportName = "";
+        String fName2 = "";
+        String reportFileName = ApplicationConstants.REPORT_VENDOR_LEGAL_RETURNED;
+        String folderName = ApplicationConstants.REPORT_MSEDCL_LEGAL_VENDOR;
+        String imagePath = "";
+
+        String officeCode = "";
+        String txtFrmDate = "";
+        String txtToDate = "";
+        String txtVendorNumber = "";
+        
+        String txtInvNo="";
+
+        try {
+            logger.log(Level.INFO, " JasperReportServlet :: Vendor_Legal_Returned_Reports() :: method called");
+
+           
+            reportName = request.getParameter("reportName");
+
+            if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION))) {
+                txtVendorNumber = (String) request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION);
+            }
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+                txtFrmDate = (String) request.getParameter("txtFrmDt");
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+                
+                txtToDate = (String) request.getParameter("txtToDt");
+                
+            }
+
+          
+            if (!ApplicationUtils.isBlank((request.getParameter("txtInvNo")))) {
+                txtInvNo = (String) request.getParameter("txtInvNo");
+                if(txtInvNo.equals("ALL")){
+                txtInvNo="%";
+            }
+            }
+            
+          
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtLocation")))) {
+                officeCode = (String) request.getParameter("txtLocation");
+                if(officeCode.equals("ALL")){
+                    officeCode="%";
+                }
+            }
+
+
+            imagePath = this.getServletContext().getRealPath("/images/");
+            imagePath += "/";
+            
+            fName2 = "_" + new SimpleDateFormat(ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT_HRS_MIN_FD).format(new Date());
+            reportName = reportName + "_" + fName2;
+
+            parameters.put("reportName", reportName);
+            parameters.put("reportFileName", reportFileName);
+            parameters.put("VENDOR_NUMBER", txtVendorNumber);
+            parameters.put("FROM_DATE", txtFrmDate);
+            parameters.put("TO_DATE", txtToDate);
+            parameters.put("LOCATION_ID", officeCode);
+            parameters.put("INVOICE_NO", txtInvNo);
+            parameters.put("folderName", folderName);
+            parameters.put("IMAGE_DIR", imagePath);
+
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            logger.log(Level.ERROR, " JasperReportServlet :: Vendor_Legal_Returned_Reports() :: Exception :: " + ex);
+        } finally {
+            return parameters;
+        }
+    }  
+     
+            private Map Vendor_Legal_Submitted_Reports(HttpServletRequest request) {
+        Map parameters = new HashMap();
+
+        String reportName = "";
+        String fName2 = "";
+        String reportFileName = ApplicationConstants.REPORT_VENDOR_LEGAL_SUBMITTED;
+        String folderName = ApplicationConstants.REPORT_MSEDCL_LEGAL_VENDOR;
+        String imagePath = "";
+
+        String officeCode = "";
+        String txtFrmDate = "";
+        String txtToDate = "";
+        String txtVendorNumber = "";
+        String txtInvNo="";
+
+        try {
+            logger.log(Level.INFO, " JasperReportServlet :: Vendor_Legal_Submitted_Reports() :: method called");
+
+            reportName = request.getParameter("reportName");
+            if (!ApplicationUtils.isBlank(request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION))) {
+                txtVendorNumber = (String) request.getSession().getAttribute(ApplicationConstants.USER_NAME_SESSION);
+            }
+
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+                txtFrmDate = (String) request.getParameter("txtFrmDt");
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+                
+                txtToDate = (String) request.getParameter("txtToDt");
+                
+            }
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtInvNo")))) {
+                txtInvNo = (String) request.getParameter("txtInvNo");
+                if(txtInvNo.equals("ALL")){
+                txtInvNo="%";
+            }
+            }
+          
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtLocation")))) {
+                officeCode = (String) request.getParameter("txtLocation");
+                if(officeCode.equals("ALL")){
+                    officeCode="%";
+                }
+            }
+
+
+            imagePath = this.getServletContext().getRealPath("/images/");
+            imagePath += "/";
+            
+            fName2 = "_" + new SimpleDateFormat(ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT_HRS_MIN_FD).format(new Date());
+            reportName = reportName + "_" + fName2;
+
+            parameters.put("reportName", reportName);
+            parameters.put("reportFileName", reportFileName);
+            parameters.put("VENDOR_NUMBER", txtVendorNumber);
+            parameters.put("FROM_DATE", txtFrmDate);
+            parameters.put("TO_DATE", txtToDate);
+            parameters.put("LOCATION_ID", officeCode);
+            parameters.put("INVOICE_NO", txtInvNo);
+            parameters.put("folderName", folderName);
+            parameters.put("IMAGE_DIR", imagePath);
+
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            logger.log(Level.ERROR, " JasperReportServlet :: Vendor_Legal_Submitted_Reports() :: Exception :: " + ex);
+        } finally {
+            return parameters;
+        }
+    }
+
 }

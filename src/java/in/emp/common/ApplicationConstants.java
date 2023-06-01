@@ -974,6 +974,8 @@ public class ApplicationConstants {
     
     public static String REPORT_MSEDCL_EMP = "MSEDCLEmpReport";
     
+   
+    
     public static String VENDOR_POLIST_SESSION_DATA = "vendorPOListSessionData";
     
     public static String UIACTION_INVOICE_FILE_GET = "getInvoiceFile";
@@ -1022,6 +1024,8 @@ public class ApplicationConstants {
     public static String REPORT_VENDOR_STATISTICS = "Vendor_Statistics_Reports";
     
     public static String REPORT_EMPLOYEE_STATISTICS = "Employee_Statistics_Reports";
+    
+    
     
     public static String VENDOR_REPORT_SESSION_DATA = "vendorReportSessionData";
     
@@ -1120,8 +1124,18 @@ public class ApplicationConstants {
     public static String STRING_VALUE_NO ="N";
     public static String  UIACTION_OTP_CAPTCHA="getCaptcha";
     public static String CAPTCHA_CODE="CAPTCHA_CODE" ;
+    public static String  UIACTION_GET_SUMMARY_LIST_DETAILS="viewSummaryListDetails";
+     public static String  VIEW_SUMMARYLIST_SESSION_DATA="getSummaryListDetails";
+   //legal report
+    public static String REPORT_MSEDCL_LEGAL_EMP ="MSEDCLEmpLegalReport";
+    public static String REPORT_EMPLOYEE_LEGAL_SUBMITTED = "Employee_Submitted_Reports";
+    public static String REPORT_MSEDCL_EMP_LEGAL_MENU="MSEDCLEmpLegalReport";
+    public static String REPORT_EMPLOYEE_LEGAL_RETURNED = "Employee_Returned_Reports";
     
-    
+    public static String REPORT_MSEDCL_VENDOR_LEGAL_MENU="MSEDCLVendorLegalReport";
+      public static String REPORT_MSEDCL_LEGAL_VENDOR = "MSEDCLVendorLegalReport";
+     public static String REPORT_VENDOR_LEGAL_SUBMITTED = "Vendor_Submitted_Reports";
+      public static String REPORT_VENDOR_LEGAL_RETURNED = "Vendor_Returned_Reports";
     /*sftp server detail code */
 	public static final String  SFTP_FILE_SEPERATOR="/";
 	public static final String  SFTP_PATH="sftp.file.path.linux";

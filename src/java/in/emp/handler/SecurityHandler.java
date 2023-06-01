@@ -417,7 +417,8 @@ public class SecurityHandler implements GenericFormHandler {
             vendorPrezDataObj = vendorMgrObj.getSummaryList(vendorBeanObj);
             session.setAttribute(ApplicationConstants.AUTHORITY_SUMMARY_SESSION_DATA, vendorPrezDataObj);
              legalSummaryList = vendorMgrObj.getLegalSummaryList(legalInvoiceInputBeanObj);
-            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, legalSummaryList);
+             vendorPrezDataObjOne.setLegalSummaryList(legalSummaryList);
+            session.setAttribute(ApplicationConstants.AUTHORITY_LEGAL_SUMMARY_SESSION_DATA, vendorPrezDataObjOne);
         } catch (Exception ex) {
             logger.log(Level.ERROR, "SecurityHandler :: getLogin() :: Exception :: " + ex);
             String msgThree = "Invalid Login! Please try again";

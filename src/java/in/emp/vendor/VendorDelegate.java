@@ -11,6 +11,7 @@ import in.emp.legal.bean.HOSectionMatrixBean;
 import in.emp.legal.bean.LegalCommunicationBean;
 import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.legal.bean.LegalInvoiceInputBean;
+import in.emp.legal.bean.LegalSummaryBean;
 import in.emp.legal.bean.OrganizationMasterBean;
 import in.emp.sms.bean.TemplateIdBean;
 import in.emp.vendor.bean.ClearingDocDetails;
@@ -68,7 +69,7 @@ public interface VendorDelegate {
     public VendorPrezData getVendorDtlList(POBean poBeanObj) throws Exception;
 
     public VendorPrezData getClearingDocDetails(ClearingDocDetails clearingDocDetailsObj) throws Exception;
-
+    public LinkedList getSummaryListDetails(LegalSummaryBean legalSummaryBeanObj) throws Exception; 
     public LinkedList getPOLineDetails(PoLineStatusBean poLineStatusBeanObj) throws Exception;
 
     public VendorPrezData getlocationList(POBean poBeanObj) throws Exception;

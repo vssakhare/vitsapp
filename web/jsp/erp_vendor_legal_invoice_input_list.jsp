@@ -218,31 +218,32 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                 
                                 <table  class="table" style="width:100%" id="tblone1" border="0" cellspacing="0" cellpadding="1" >                                
                                     <tr>
-                                         <td class="text-right h5">Court Case No.</td>
+                                         <td class="text-right h5"><fmt:message key='Court Case No.'/></td>
                                          <td>
                                             <div class="autocomplete" style="width:300px;">
                                                 <input type="text" name="txtCourtCaseNo" id="txtCourtCaseNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
                                               </div>        
                                           </td> 
-                                          <td class="text-right h5" colspan="2">Payment Status</td>
+                                          <td class="text-right h5" colspan="2"><fmt:message key='Payment Status'/></td>
                                            <td>
                                             <div class="autocomplete" style="width:300px;">
                                                 <select class="form-control text-left" name="pmntStatus" id="pmntStatus" style="width: 100%">
                                                 <option value="">All</option>    
-                                                <option value="With Accounts">With Accounts</option>
-                                                <option value="With Cash">With Cash</option>
-                                                <option value="Payment Done">Payment Done</option>                                                                              <option value="Payment Adjusted">Payment Adjusted</option>
-                                                <option value="Payment Document Reversed">Payment Doc. Reversed</option>
-                                                <option value="With Technical">With Technical</option>
-                                                <option value="Saved">Saved</option>
-                                                <option value="Submitted">Submitted</option>
-                                                <option value="Returned">Returned</option>
+                                                <option value="With Accounts"><fmt:message key='With Accounts'/></option>
+                                                <option value="With Cash"><fmt:message key='With Cash'/></option>
+                                                <option value="Payment Done"><fmt:message key='Payment Done'/></option> 
+                                                <option value="Payment Adjusted"><fmt:message key='Payment Adjusted'/></option>
+                                                <option value="Payment Document Reversed"><fmt:message key='Payment Doc. Reversed'/></option>
+                                                <option value="With Technical"><fmt:message key='With Technical'/></option>
+                                                <option value="Saved"><fmt:message key='Saved'/></option>
+                                                <option value="Submitted"><fmt:message key='Submitted'/></option>
+                                                <option value="Returned"><fmt:message key='Returned'/></option>
                                                 </select>    
                                               </div>        
                                           </td>                                          
                                           </tr>    
                                     <tr>
-                                         <td class="text-right h5">Invoice No.</td>
+                                         <td class="text-right h5"><fmt:message key='Invoice No.'/></td>
                                          <td id="myDropdownTwo">
                                             <div class="autocomplete" style="width:300px;">
                                                 <input type="text" name="txtInvNo" id="txtInvNo" style="width: 100%" value ="" title="Type and search or use space-bar" placeholder=<fmt:message key='"Type and search or use space-bar"'/> class="form-control" />
@@ -299,7 +300,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                      </td>-->
               
                                                  &nbsp;&nbsp;&nbsp;
-                                                 <td colspan="6" align="center"><input type="button" name="btnFile" id="btnFile" value=<fmt:message key='Search'/>  class="btn btn-success" style="height:30px;width:70px" onclick="getLegalList()"/> </td> 
+                                                 <td colspan="6" align="center"><input type="button" name="btnFile" id="btnFile" class="btn btn-success" style="height:30px;width:70px"  value=<fmt:message key='Search'/>  onclick="getLegalList()"/> </td> 
                                                  
                                                </tr>
                                                
@@ -345,14 +346,15 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                     <th width="5%"><fmt:message key='Appl ID'/></th> 
                                                     <th width="5%"><fmt:message key='Application Date'/></th> 
                                                  
-                                                    <th width="10%">Court Case No</th>  
-                                                       <th width="7%">Case Reference No</th>  
-                                                      <th width="13%">Court Name</th>
-                                                     <th width="11%">Fee Type</th>
-                                                      <th width="10%">Dealing Office</th>
+                                                    <th width="10%"><fmt:message key='Court Case No.'/></th>  
+                                                       <th width="7%"><fmt:message key='Case Ref No.'/></th>  
+                                                      <th width="13%"><fmt:message key='Court Name'/></th>
+                                                     <th width="11%"><fmt:message key='Fee Type'/></th>
+                                                      <th width="10%"><fmt:message key='Dealing Office'/></th>
+                                                      <th width="8%">Department</th>
                                                      <th width="8%"><fmt:message key='Invoice Number'/></th>  
                                                     <th width="7%"><fmt:message key='Invoice Date'/></th> 
-                                                    <th width="7%">Invoice Amount (Incl. Taxes)</th> 
+                                                    <th width="7%"><fmt:message key='Invoice Amount (Incl. Taxes)'/></th> 
                                                     <th width="8%"><fmt:message key='Status'/></th> 
                                                    
                                                     <th width="7%"> <fmt:message key='View'/></th> 
@@ -389,6 +391,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                     String PendingSince ="";
                                     String InvoiceType = "";
                                     String feeType = "";
+                                    String department= "";
                                      if (!ApplicationUtils.isBlank(vendorInputBean.getApplId())) {
                                        ApplId = vendorInputBean.getApplId().toString();
                                      } 
@@ -448,7 +451,10 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                        if (!ApplicationUtils.isBlank(vendorInputBean.getStatus())) {
                                        Invoice_Status = vendorInputBean.getStatus();
                                      }
-                                      
+                                      if (!ApplicationUtils.isBlank(vendorInputBean.getDeptCode()) && !ApplicationUtils.isBlank(vendorInputBean.getDeptName())) {
+                                       
+                                       department = vendorInputBean.getDeptCode()+" "+vendorInputBean.getDeptName();
+                                     }
 //                                       if (!ApplicationUtils.isBlank(vendorInputBean.getPendingSince())) {
 //                                       PendingSince = vendorInputBean.getPendingSince();
 //                                     }
@@ -470,6 +476,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                            <td width="13%"><%=courtName %></td>
                                             <td width="11%"><%=feeType%></td>
                                             <td width="10%"><%=dealingOffice %></td>
+                                             <td width="10%"><%=department %></td>
                                             <td width="8%"><%=InvoiceNum %></td>
                                             <td width="7%"><%=InvoiceDate%></td>                                           
                                             <td width="7%"><%=InvoiceAmt%></td>                                            
@@ -513,10 +520,10 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                     <th><fmt:message key='Appl ID'/></th> 
                                                     <th><fmt:message key='Application Date'/></th> 
                                                    <!--  <th><fmt:message key='Module Type'/></th> -->
-                                                    <th>Court Case No</th>  
-                                                      <th>Case Reference No</th>  
-                                                      <th>Court Name</th>
-                                                      <th>Dealing Office</th>
+                                                    <th><fmt:message key='Location'/>Court Case No</th>  
+                                                      <th><fmt:message key='Location'/>Case Reference No</th>  
+                                                      <th><fmt:message key='Location'/>Court Name</th>
+                                                      <th><fmt:message key='Location'/>Dealing Office</th>
                                                     <th><fmt:message key='Vendor Invoice Number'/></th>  
                                                     <th><fmt:message key='Vendor Invoice Date'/></th> 
                                                     <th><fmt:message key='Vendor Invoice Amount (Incl. Taxes)'/></th> 

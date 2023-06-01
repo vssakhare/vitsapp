@@ -129,6 +129,8 @@ public class LegalServlet extends HttpServlet {
             jSONObject.put("VsPartyNames", legalInvoiceBeanList.get(0).getVsPartyName());
             jSONObject.put("DealingOffice", legalInvoiceBeanList.get(0).getOfficeCode() + "-" + legalInvoiceBeanList.get(0).getOfficeName());
             jSONObject.put("selectedOffieCode", legalInvoiceBeanList.get(0).getOfficeCode());
+            jSONObject.put("officeType", legalInvoiceBeanList.get(0).getOfficeType());
+            jSONObject.put("regionId", legalInvoiceBeanList.get(0).getRegionId());
             FeeTypeBean bean = new FeeTypeBean();
             bean.setCaseType(Integer.parseInt(legalInvoiceBeanList.get(0).getCASETYPE()));
             try {

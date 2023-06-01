@@ -4,6 +4,7 @@
  */
 package in.emp.vendor.bean;
 
+import in.emp.legal.bean.LegalSummaryBean;
 import java.util.LinkedList;
 
 /**
@@ -46,6 +47,15 @@ private LinkedList migoList;
 private LinkedList invList;
 private LinkedList paymentList;
 private LinkedList legalSummaryList;
+private LegalSummaryBean legalSummaryBean;
+    public LegalSummaryBean getLegalSummaryBean() {
+        return legalSummaryBean;
+    }
+
+    public void setLegalSummaryBean(LegalSummaryBean legalSummaryBean) {
+        this.legalSummaryBean = legalSummaryBean;
+    }
+
 
     public LinkedList getLegalSummaryList() {
         return legalSummaryList;
