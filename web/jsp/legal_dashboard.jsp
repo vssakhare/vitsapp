@@ -65,20 +65,23 @@ LinkedList legalSummaryList = new LinkedList();
              <%@ include file="navJs.jsp"%>
           
                       <%@ include file="emp_nav_vmenu.jsp"%>
-                      <div style="margin-top: 102px;float: left; margin-left: 70px;">
+                     
+          
+            <div id="page-wrapper" style="min-height:80%;" >
+ <div  style="margin-bottom:20px;margin-top:20px" >
+                       <table width="100%">  <tr> <td>
                           <div>
                <input type="radio" id="non-legal" name="brand" value="non-legal" onclick="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>">
                              <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_HOME_GET)%>" 
-                                style="color: #000;font-size: 12"><strong>Vendor Invoice Dashboard</strong></a></div>
+                                style="color: #000;font-size: 12"><strong>Vendor Invoice Dashboard</strong></a></div></td>
+                                <td>
                    <div> 
                    <input type="radio" id="legal" name="brand" value="legal" checked onclick="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>">
                              <a href="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_LEGALDASHBOARD_GET)%>" 
                  data-wahfont="14"  style="color: #000;font-size: 12"><strong>Legal Vendor Invoice Dashboard</strong></a>
-           </div>
+           </div></td></tr>
+                       </table>
                    </div>
-          
-            <div id="page-wrapper" style="min-height:80%;" >
-
                 <div id="page-inner ">
  
                    

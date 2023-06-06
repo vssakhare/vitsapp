@@ -440,28 +440,36 @@ table#tableinputinvoices th, table#tableinputinvoices td {
     padding: 4px;
 }
 table#tableinputinvoices .sorting, table#tableinputinvoices .sorting_asc, table#tableinputinvoices .sorting_desc {
-    background: #dff0d8;
+    background: #6F8FAF;
 }
 table#tablependinginvoices th, table#tablependinginvoices td {
     padding: 4px;
 }
 table#tablependinginvoices .sorting, table#tablependinginvoices .sorting_asc, table#tablependinginvoices .sorting_desc {
-    background: #dff0d8;
+    background: #6F8FAF;
 }
 
 table#table_ven_input_inv th, table#table_ven_input_inv td {
     padding: 4px;
 }
 table#table_ven_input_inv .sorting, table#table_ven_input_inv .sorting_asc,table#table_ven_input_inv .sorting_desc {
-    background: #dff0d8;
+    background: #6F8FAF;
 }
 table#tablenonpoinvoices th, table#tablenonpoinvoices td {
     padding: 4px;
 }
 table#tablenonpoinvoices .sorting, table#tablenonpoinvoices .sorting_asc,table#tablenonpoinvoices .sorting_desc {
-    background: #dff0d8;
+    background: #6F8FAF;
 }
 
+
+.dataTables_wrapper .dataTables_length .labelhead {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 12px;
+}
 /*==============================================
     MEDIA QUERIES     
     =============================================*/

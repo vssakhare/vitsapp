@@ -267,7 +267,9 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
 
     </head>
     
+  <style>
   
+</style>
    
     <body>          
         <form name="searchform" method="post" action="<%=ApplicationUtils.getActionURL(request)%>">
