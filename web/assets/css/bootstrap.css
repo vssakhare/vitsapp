@@ -6199,6 +6199,90 @@ font-size: 14px;
  font-family: inherit; 
       color:#00A36C;
 }
+.dataTables_length {
+    white-space:nowrap;
+}
+
+.dataTables_length label, .dataTables_filter select {
+    display: inline-block;
+    font-family: Arial;
+    font-size:14px;
+    color:#696969
+}
+
+.dataTables_length label select {
+    display: inline-block;
+    font-family: Arial;
+    font-size:14px;
+    color:#696969;
+     border:1px solid #ddd;
+    background-color:#fff;
+}
+
+
+.dataTables_filter {
+    white-space:nowrap;
+     font-size:14px;
+     height:25px;
+      margin-bottom:5px;
+}
+
+.dataTables_filter label, .dataTables_filter input {
+    display: inline-block;
+    font-family: Arial;
+    font-size:14px;
+    color:#696969;
+   
+     height:25px;
+}
+
+
+.dataTables_info {
+    white-space:nowrap;
+}
+.dataTables_info ,dataTables_paginate {
+    display: none;
+    font-family: Arial;
+    font-size:14px;
+    color:#696969
+}
+
+.dataTables_paginate {
+    display: inline-block;
+    font-family: Arial;
+    font-size:14px;
+    color:#696969
+}
+
+.paginate_button{
+    color: blue;
+   font-size:14px;
+  border-color: #708090;
+  font-family: Arial;
+
+}
+
+
+ .next{
+    color:blue;
+   font-size:14px;
+  border-color: #708090;
+  font-family: Arial;
+  font-weight:bold;
+   border:1px solid #ddd;
+
+}
+.previous{
+     color:blue;
+   font-size:14px;
+  border-color: #708090;
+  font-family: Arial;
+  font-weight:bold;
+   border:1px solid #ddd;
+
+}    
+
+
 
 .bg_inv {
     background-color:#4682B4;

@@ -97,7 +97,7 @@
                         <div class="content_container_sub">  <!-- Start of  content_container_sub div  -->
                             <div class="row">                
                                 <div class="col-lg-12 col-md-12">
-                                    <div class="table-responsive" id="tab">
+                                    <div class="table-responsive" id="tabdiv">
                                                   <table class="table" border="0" cellspacing="0" cellpadding="2" id="table_content"> 
                                               
                                 <tr>
@@ -139,11 +139,11 @@
                                             if (legalSummaryList != null) {
                                         %>   
 
-
+                                        <div  id="tab">
                                         <div class="col-md-12 text-center"><h3>Summary of Legal Invoices</h3>  <div >&nbsp;</div></div>
                                         <input type="hidden" name="viewList" id="viewList" value="<%=ApplicationUtils.getRenderURL(request, ApplicationConstants.UIACTION_NAME, ApplicationConstants.UIACTION_GET_SUMMARY_LIST_DETAILS)%>"/>
                                         <input type="hidden" name="viewStat" id="viewStat" value="<%=ApplicationConstants.UIACTION_GET_LEGAL_AUTH_SUMMARY%>"/>
-                                        <table class="table" id="tabrr" >
+                                        <table class="table" id="tabtbl" >
                                             <thead>
                                                 <tr class="success">                                                                                       
                                                     <th class="text-center">#</th> 
@@ -315,6 +315,7 @@
                                                 <% } %>
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
 
                                 </div>

@@ -85,7 +85,7 @@
 
 		ul li {
 			color: #fff;
-			font-family: sans-serif;
+			font-family: math;
 			padding: 20px 0px 0px 10px;
                         border-bottom: 1px;
                         border-color: #fff;
@@ -94,7 +94,7 @@
                 
                 ul li div {
 			color: #fff;
-			font-family: sans-serif;
+			font-family: math;
 			
                       
                         
@@ -107,7 +107,7 @@
       color: #fff;
 			margin: 0;
       font-size: 16px;
-      font-family: sans-serif;
+      font-family: math;
       font-weight: 100;
 		}
  #menu1  a:hover { 
