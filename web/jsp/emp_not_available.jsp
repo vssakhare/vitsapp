@@ -17,7 +17,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vendor Payment Tracking System - Facility Not available</title>
+        <title>Employee Portal - Facility Not available</title>
         <!-- BOOTSTRAP STYLES-->
         <link href="assets/css/bootstrap.css" rel="stylesheet" />
         <!-- FONTAWESOME STYLES-->
