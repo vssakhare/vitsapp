@@ -260,7 +260,11 @@
             VendorInwardDate = new SimpleDateFormat("dd-MMM-yyyy").format(legalInvoiceInputBean.getVendorInwardDate());
         }
     }
-
+String LEGALINVOICE_FILESIZE_LIMIT  ="0";
+            if(System.getProperty("LEGALINVOICE_FILESIZE_LIMIT") != null)
+            {
+               LEGALINVOICE_FILESIZE_LIMIT    = System.getProperty("LEGALINVOICE_FILESIZE_LIMIT");
+            }
 %>
 
 <style> 
@@ -335,9 +339,9 @@
                     <input type="hidden"  id="mobileNO" name="mobileNO" value="<%= legalInvoiceInputBean.getMobileNo()%>"  /> 
                     <input type="hidden"  id="emailID" name="emailID"  value="<%= legalInvoiceInputBean.getEmailId()%>" /> 
                     <input type="hidden"  id="isWithCourtCaseNo" name="isWithCourtCaseNo" value="<%=isWithCourtCaseNo%>"  /> 
-                     <input type="hidden" name="office_type" id="office_type" value=""/>
-                        <input type="hidden" name="region_id" id="region_id" value=""/>
-                        
+                    <input type="hidden" name="office_type" id="office_type" value=""/>
+                    <input type="hidden" name="region_id" id="region_id" value=""/>
+                    <input type="hidden"  id="LEGALINVOICE_FILESIZE_LIMIT" name="LEGALINVOICE_FILESIZE_LIMIT" value="<%=LEGALINVOICE_FILESIZE_LIMIT%>"  />
 
                     <div class="content_container">
 
@@ -946,7 +950,7 @@
 
                                                     <% if (((Status != null) && (Status.equals("Saved")) )) {%>
                                                     <div class="form-control-err-msg"><fmt:message key='File Format should be either of jpg, jpeg, png or pdf'/>.</div>
-                                                    <div class="form-control-err-msg"><fmt:message key='Max File size should be 1024 kb'/>.</div>
+                                                    <div class="form-control-err-msg">Max File size should be 1024 kb </div>
                                                     <%  }%>
                                                 </td> </tr>
 

@@ -1053,7 +1053,7 @@ function removeFile(id, option, filename) {
 
 function verifyFileUpload() {
     var valid = true;
-
+var INVOICE_FILESIZE_LIMIT = document.getElementById('INVOICE_FILESIZE_LIMIT').value;
     if (document.getElementById('inpFile').value === "")
 
     {
@@ -1065,6 +1065,7 @@ function verifyFileUpload() {
     var fileName = file.name;
     var extension = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
     var validExtensions = ["jpg", "jpeg", "png", "pdf"];
+   // alert(file.size);
     var fileSizeInKb = Math.round(file.size / 1024);
 
     if (fileName.length > 0)
@@ -1072,7 +1073,7 @@ function verifyFileUpload() {
         if (validExtensions.indexOf(extension) === -1) {
             alert('Invalid file Format. Only ' + validExtensions.join(', ') + ' are allowed.');
             valid = false;
-        } else if (fileSizeInKb > 1025) {
+        } else if (fileSizeInKb > INVOICE_FILESIZE_LIMIT) {
             alert(file.name + " has size " + fileSizeInKb + " KB. Please upload a file within 1MB.");
             valid = false;
         }

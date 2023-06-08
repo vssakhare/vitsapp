@@ -140,11 +140,11 @@
                                       <li id="menu1" style="align-items: center;  justify-content: center"> 
                                           
                                         <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor")) { %>  
-                                          <a  href="/VendorBillTracking/pdfFiles/Vendorreportmanual.pdf" title="Downloads">
+                                          <a  href="/lvits/pdfFiles/Vendorreportmanual.pdf" title="Downloads">
                                 <img src="images/download.png" width="16" height="16"> <b><fmt:message key='Download Manual'/></b> </a>
                                       <% } %>
                                     <% if(session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Emp")) { %>   
-                                 <a  href="/VendorBillTracking/pdfFiles/EmployeeReportManual.pdf" title="Downloads">
+                                 <a  href="/lvits/pdfFiles/EmployeeReportManual.pdf" title="Downloads">
                                 <img src="images/download.png" width="16" height="16"> <b><fmt:message key='Download Manual'/></b> </a>     
                                       <% } %>
                                       

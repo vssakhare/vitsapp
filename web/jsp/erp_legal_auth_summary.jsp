@@ -61,16 +61,11 @@
         <script src="assets/js/jquery-1.10.2.js?v=<%=System.getProperty("VERSION")%>"></script>
         <script src="<%=ApplicationConstants.JS_PATH%>html5shiv.js?v=<%=System.getProperty("VERSION")%>"></script> <!-- <script src="http://html5shim.googlecode.com/svn/trunk/html5.js?v=<%=System.getProperty("VERSION")%>"></script>-->
         <script src="<%=ApplicationConstants.JS_PATH%>respond.js?v=<%=System.getProperty("VERSION")%>"></script> <!--<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js?v=<%=System.getProperty("VERSION")%>"></script>-->
-        <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
-        <jsp:include page="nav_jscss.jsp" />
+       <jsp:include page="nav_jscss.jsp" />
 <script type="text/javascript" language="JavaScript" src="<%=ApplicationConstants.JS_PATH%>erp_legal_auth_summary.js"></script>
-
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-            integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+ 
     </head>
     <body>
 
@@ -379,7 +374,7 @@
 
                                 </td><td>
                                     
-                                    <button id="exportBtn1">Export To Excel</button><br><br>
+                                    <button id="exportBtn1">Export To PDF</button><br><br>
                                 </td></tr>
 
 
@@ -418,30 +413,7 @@
                 <script src="assets/js/custom.js?v=<%=System.getProperty("VERSION")%>"></script>
         
                 <script>
-                                        function createPDF() {
-                                            var sTable = document.getElementById('tab').innerHTML;
-
-                                            var style = "<style>";
-                                            style = style + "table {width: 100%;font: 17px Calibri;}";
-                                            style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
-                                            style = style + "padding: 2px 3px;text-align: center;}";
-                                            style = style + "</style>";
-
-                                            // CREATE A WINDOW OBJECT.
-                                            var win = window.open('', '', 'height=700,width=700');
-
-                                            win.document.write('<html><head>');
-                                            win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
-                                            win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
-                                            win.document.write('</head>');
-                                            win.document.write('<body>');
-                                            win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
-                                            win.document.write('</body></html>');
-
-                                            win.document.close(); 	// CLOSE THE CURRENT WINDOW.
-
-                                            win.print();    // PRINT THE CONTENTS.
-                                        }
+                                        
                 </script>
 
 

@@ -334,7 +334,11 @@
     if ((vendorInputBean.getDivision() != null)) {
         division = vendorInputBean.getDivision();
     }*/
-
+String INVOICE_FILESIZE_LIMIT  ="0";
+            if(System.getProperty("INVOICE_FILESIZE_LIMIT") != null)
+            {
+               INVOICE_FILESIZE_LIMIT    = System.getProperty("INVOICE_FILESIZE_LIMIT");
+            }
 
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -402,6 +406,8 @@
                     <input type="hidden"  id="userType" name="userType" value = "<%=UserType%>"  /> 
                     <input type="hidden"  id="txtpobal" name="txtpobal"   value="<%=Total_Bal_amt%>"  /> 
                      <input type="hidden"  id="selectedPlant" name="selectedPlant"   /> 
+                     <input type="hidden"  id="INVOICE_FILESIZE_LIMIT" name="INVOICE_FILESIZE_LIMIT" value="<%=INVOICE_FILESIZE_LIMIT%>"  />
+
                      <input type="hidden" name="poOptions" id="poOptions" value='[<% if (!ApplicationUtils.isBlank(POList)) {
                             int i = 0;
                             for (POBean pBean : (LinkedList<POBean>) POList) {
@@ -950,7 +956,7 @@
 
                                                             <% if (((Status != null) && (Status.equals("Saved")))) {%>
                                                             <div class="form-control-err-msg"><fmt:message key='File Format should be either of jpg, jpeg, png or pdf'/>.</div>
-                                                            <div class="form-control-err-msg"><fmt:message key='Max File size should be 1024 kb'/>.</div>
+                                                            <div class="form-control-err-msg">Max File size should be <%=INVOICE_FILESIZE_LIMIT%> kb</div>
                                                             <%  }%>
                                                         </td> </tr>
 

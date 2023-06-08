@@ -1081,9 +1081,9 @@ public class ApplicationConstants {
     public static String VENDOR_RETENSION_SESSION_DATA="retentionDetails";
   public static String  UIACTION_GET_LEGAL_VENDOR_INVOICE="getAuthLegalInvoiceList";
    
-    public static    String SftpLegalpath = "D:/Temp/";//to run locally
+   // public static    String SftpLegalpath = "D:/Temp/";//to run locally
    
-   // public static String SftpLegalpath = "/data/vpts/";             //DEV
+    public static String SftpLegalpath = "/data/vpts/";             //DEV
     public static String CONN_POOL_NAME = "ErpDev";                 //DEV
     public static String SftpLegalFolder ="TEST_VENDOR_FILES/";     //DEV
     

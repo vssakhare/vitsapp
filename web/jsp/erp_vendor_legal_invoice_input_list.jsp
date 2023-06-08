@@ -360,10 +360,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                     <th width="7%"> <fmt:message key='View'/></th> 
         </tr>
       </thead>
-    </table>
-  </div>
-      <div class="tbl-content">                                    
-                                                        <table class="table" id="tableinputinvoices">
+   
    
                                             <tbody>
                                          <%
@@ -660,6 +657,36 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
             });
         }
     });
+    
+jQuery(document).ready(function() {
+
+	var inputinvoicestable =	jQuery('#tableinputinvoices').DataTable(
+							{
+							"order": [[ 0, "asc" ]],
+							
+							language: { search: "",searchPlaceholder: "Search..." }
+							}
+	);
+
+
+	jQuery('#txtSearchStatus').on('change', function() {
+		if (jQuery("#txtSearchStatus").val()==="ALL" || jQuery("#txtSearchStatus").val()==="-SELECT STATUS-")
+			{
+				jQuery.fn.dataTable.ext.search.pop();
+				inputinvoicestable.draw();
+			}
+		else
+			{
+				jQuery.fn.dataTable.ext.search.pop();
+				jQuery.fn.dataTable.ext.search.push(
+				  function(settings, data, dataIndex) {
+					  return jQuery(table.row(dataIndex).node()).attr('data-type') === jQuery("#txtSearchStatus").val();
+					}
+				);
+				inputinvoicestable.draw();
+			}
+	});
+        });
 </script>
     
 </html>

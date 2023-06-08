@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+
+
 function saveLegalInvoiceButton() {
     
     var inputFile=document.getElementById('inpFile');
@@ -910,7 +912,7 @@ function validFinalFile() {
 
 function verifyFileUpload() {
     var valid = true;
-
+var LEGALINVOICE_FILESIZE_LIMIT = document.getElementById('LEGALINVOICE_FILESIZE_LIMIT').value;
     if (document.getElementById('inpFile').value === "")
 
     {
@@ -929,7 +931,7 @@ function verifyFileUpload() {
         if (validExtensions.indexOf(extension) === -1) {
             alert('Invalid file Format. Only ' + validExtensions.join(', ') + ' are allowed.');
             valid = false;
-        } else if (fileSizeInKb > 1025) {
+        } else if (fileSizeInKb > LEGALINVOICE_FILESIZE_LIMIT) {
             alert(file.name + " has size " + fileSizeInKb + " KB. Please upload a file within 1MB.");
             valid = false;
         }

@@ -18,7 +18,7 @@
 <%@page import="in.emp.util.ApplicationUtils"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
-<script type="text/javascript" language="JavaScript" src="<%=ApplicationConstants.JS_PATH%>erp_vendor_legal_input_form.js"></script>
+<script type="text/javascript" language="JavaScript" src="<%=ApplicationConstants.JS_PATH%>erp_summary_list_details.js"></script>
 <%
      LinkedList vendorInputList = new LinkedList();
 List<LegalInvoiceInputBean> legalInvoiceInputBeanList=null;
@@ -86,7 +86,7 @@ String uiAction = "";
                             %>   
                            <div class="row">                
                                 <div class="col-lg-12 col-md-12" align="center">                        
-                                    <div class="table-responsive" style="padding-bottom:15px">
+                                    <div class="table-responsive" id="tab" style="padding-bottom:15px">
                                       <section>
   <!--for demo wrap-->
   <div class="text-center " stye="padding-bottom:20px">
@@ -253,6 +253,7 @@ String uiAction = "";
                                              <% } %>
 
                                              </tr>
+                                           
                                            <% } %>
                                             </tbody>
                                         </table>
@@ -267,10 +268,19 @@ String uiAction = "";
                             </div>  
                                             
 
-                            <%  }%>
+                            <%  }%>   <tr>                                      
+                                <td class="text-centre h5">
+
+
+                                    <a href="" class="btn btn-primary"  onclick="createPDF();" >Print</a>
+
+
+                                </td></tr>
                        </div>
                     </div>
                 </div>
             </div>
           </div>
-                                            
+                                  <script>
+  
+                                         </script>
