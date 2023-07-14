@@ -226,11 +226,15 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                              
                              if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getInvoiceNumber())) {
                         sql.append(" AND INVOICE_NUMBER = ?  ");
-                    }
-                             if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
+                    } //if(legalInvoiceInputBean.getBusinessCategory()!=null) {
+                       // sql.append("and DEPT_NAME like ?");   
+                     // }
+                   // else  {
+                        if(!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())){
                     sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
 
                     sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?) OR (organization_id = ? AND OFFICE_TYPE='DEPT')) ");                     }
+                  //  }         
 
                                 
                              /*if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getCaseRefNo())) {
@@ -257,15 +261,15 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
 //                        sql.append(" WHERE APPL_ID=?  ");
                         sql.append(" AND LD.APPL_ID=?  ");
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
+
+                    if(legalInvoiceInputBean.getBusinessCategory()!=null) {
+                    sql.append("and DEPT_NAME like ?");
+                    }
+                    else{ 
                         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
-//                            sql.append(" WHERE DEALING_OFFICE_CODE  IN (select h.organization_id from hr_all_organization_units h, ");
-//                            sql.append("          hr_all_organization_units h1, hri_org_hrchy_summary hr ");
-//                            sql.append("          where h.organization_id=hr.sub_organization_id and hr.org_structure_version_id='61' ");
-//                            sql.append("          and hr.organization_id =?  and h1.organization_id=hr.organization_id )  ");
-//sql.append(" where dealing_office_code in(select organization_id from xxmis_organization_master m ");
                         sql.append(" AND dealing_office_code in(select organization_id from xxmis_organization_master m ");
                         sql.append(" where (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=?)) ");
-                                                    sql.append(" AND (SAVE_FLAG in ('Submitted','Accepted','Returned') OR  (SAVE_FLAG='Saved' AND CREATED_BY_USERTYPE='Emp'))");
+}                       sql.append(" AND (SAVE_FLAG in ('Submitted','Accepted','Returned') OR  (SAVE_FLAG='Saved' AND CREATED_BY_USERTYPE='Emp'))");
                         }
                     }
                     
@@ -351,12 +355,16 @@ public class GetErpLegalInvoiceDetailsList implements QueryHelper {
                     if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("applId")) {
                         statement.setInt(i++, legalInvoiceInputBean.getApplId());
                     } else if (legalInvoiceInputBean.getWhereClause().equalsIgnoreCase("Emp")) {
+                        if(legalInvoiceInputBean.getBusinessCategory()!=null){
+                              statement.setString(i++, legalInvoiceInputBean.getBusinessCategory());
+                        }else{
                         if (!ApplicationUtils.isBlank(legalInvoiceInputBean.getLocationId())) {
                             statement.setString(i++, legalInvoiceInputBean.getLocationId());
                             statement.setString(i++, legalInvoiceInputBean.getLocationId());
                             statement.setString(i++, legalInvoiceInputBean.getLocationId());
                             statement.setString(i++, legalInvoiceInputBean.getLocationId());
                             statement.setString(i++, legalInvoiceInputBean.getLocationId());
+                        }
                         }
                     }
                     if (legalInvoiceInputBean.getCreatedByUsertype().equalsIgnoreCase("Emp")) {

@@ -9,7 +9,7 @@ import in.emp.dao.QueryHelper;
 import in.emp.util.ApplicationUtils;
 import in.emp.vendor.bean.VendorBean;
 import in.emp.vendor.bean.VendorPrezData;
-import in.emp.vendor.dao.helper.formHelper.GetVendorFormDataQueryHelper;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,7 +110,7 @@ public class GetRetentionDetailsQueryHelper implements QueryHelper{
             
 
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "GetVendorFormDataQueryHelper :: getDataObject() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "GetRetentionDetailsQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
         }
         return vendorbean;

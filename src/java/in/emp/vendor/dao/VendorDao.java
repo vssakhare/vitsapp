@@ -112,6 +112,7 @@ public interface VendorDao {
     public LinkedList<VendorInputBean> getSmsTrackerList(VendorInputBean vendorInputBeanObj) throws Exception;
      public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean legalInvoiceInputBeanObj) throws Exception;
     public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList() throws Exception; 
+       public LinkedList<LegalInvoiceInputBean> getZhrtLegalFeeReport() throws Exception; 
     public List getPOStatus(List lstErpToVitsFileFormat) throws Exception;
      public void getPOStatusProcedure() throws Exception;
       public List getPOLineStatus(List lstErpToVitsFileFormat) throws Exception;
@@ -130,9 +131,9 @@ public LinkedList<VendorBean> putRetentionInvoiceStatus( VendorBean vendorBeanOb
     public VendorInputBean getVendorRetentionInputFormData(VendorInputBean vendorInputBeanObj)throws Exception;
 
     public List saveRetentionDetailsResponse(List<VendorInputBean> listErpToVitsFileFormat)throws Exception;
-
+ public void saveZhrtLegalFeeTaxDetails(List<LegalInvoiceInputBean> legalInvoiceInputList) throws Exception;
     public void updateRetentionDetailsResponseProcedure()throws Exception;
-
+public void updateZhrtLegalFeeReportProcedure()throws Exception;
     public LinkedList getPartialRetentionDetails(VendorBean vendorBean)throws Exception;
 
     public List saveLegalInvoiceStatus(List<LegalInvoiceBean> listErpToVitsFileFormat)throws Exception;

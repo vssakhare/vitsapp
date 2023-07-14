@@ -4,7 +4,10 @@
  */
 package in.emp.common;
 
+import in.emp.legal.bean.LegalInvoiceBean;
 import in.emp.util.ApplicationUtils;
+import in.emp.vendor.VendorDelegate;
+import in.emp.vendor.manager.VendorManager;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest  ;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -37,7 +41,7 @@ import org.apache.log4j.Logger;
 public class JasperReportServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(JasperReportServlet.class);
-
+   private VendorDelegate vendorMgrObj = new VendorManager();
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -123,7 +127,9 @@ public class JasperReportServlet extends HttpServlet {
                 parameters = Vendor_Legal_Submitted_Reports(request);
             } else if (reportName.equals(ApplicationConstants.REPORT_VENDOR_LEGAL_RETURNED)) {
                 parameters = Vendor_Legal_Returned_Reports(request);
-            } 
+            } else if (reportName.equals(ApplicationConstants.REPORT_EMPLOYEE_ALL_LEGAL_INVOICES)) {
+                parameters = Employee_All_Legal_Invoices_Reports(request);
+            }
 
             if (!ApplicationUtils.isBlank(parameters.get("folderName"))) {
                 folderName = (String) parameters.get("folderName");
@@ -1203,5 +1209,92 @@ if (!ApplicationUtils.isBlank((request.getParameter("txtPONumber")))) {
             return parameters;
         }
     }
+             private Map Employee_All_Legal_Invoices_Reports(HttpServletRequest request) {
+       Map parameters = new HashMap();
+
+        String reportName = "";
+        String fName2 = "";
+        String reportFileName = ApplicationConstants.REPORT_EMPLOYEE_ALL_LEGAL_INVOICES;
+        String folderName = ApplicationConstants.REPORT_MSEDCL_LEGAL_EMP;
+        String imagePath = "";
+
+        String officeCode = "";
+        String txtFrmDate = "";
+        String txtToDate = "";
+        String txtVendorNumber = "";
+        
+      //  String txtInvNo="";
+
+        try {
+            logger.log(Level.INFO, " JasperReportServlet :: Employee_All_Legal_Invoices_Reports() :: method called");
+
+           LegalInvoiceBean legalInvoiceBean = new LegalInvoiceBean();
+            reportName = request.getParameter("reportName");
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtVendorNumber")))) {
+                txtVendorNumber = (String) request.getParameter("txtVendorNumber");
+                if(txtVendorNumber.equals("ALL")){
+                txtVendorNumber="%";
+            }
+            }
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
+                txtFrmDate = (String) request.getParameter("txtFrmDt");
+            }
+            if (!ApplicationUtils.isBlank((request.getParameter("txtToDt")))) {
+                
+                txtToDate = (String) request.getParameter("txtToDt");
+                
+            }
+
+          
+       /*     if (!ApplicationUtils.isBlank((request.getParameter("txtInvNo")))) {
+                txtInvNo = (String) request.getParameter("txtInvNo");
+                if(txtInvNo.equals("ALL")){
+                txtInvNo="%";
+            }
+            }*/
+            
+          
+
+            if (!ApplicationUtils.isBlank((request.getParameter("txtLocation")))) {
+                officeCode = (String) request.getParameter("txtLocation");
+                if(officeCode.equals("ALL")){
+                    officeCode="%";
+                }else{
+                 //    List<LegalInvoiceBean> legalInvoiceBeanList = null;
+                    legalInvoiceBean.setWhereClause("fetchSapLocn");
+                    legalInvoiceBean.setOfficeCode(officeCode);
+                    legalInvoiceBean.setLocationId((String) request.getSession().getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
+                   List<LegalInvoiceBean>  legalInvoiceBeanList=vendorMgrObj.getCourtCaseDetailsForVendor(legalInvoiceBean);
+                    officeCode=legalInvoiceBeanList.get(0).getSapAreaCode();
+                }
+            }
+
+
+            imagePath = this.getServletContext().getRealPath("/images/");
+            imagePath += "/";
+            
+            fName2 = "_" + new SimpleDateFormat(ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT_HRS_MIN_FD).format(new Date());
+            reportName = reportName + "_" + fName2;
+
+            parameters.put("reportName", reportName);
+            parameters.put("reportFileName", reportFileName);
+            parameters.put("VENDOR_NUMBER", txtVendorNumber);
+            parameters.put("FROM_DATE", txtFrmDate);
+            parameters.put("TO_DATE", txtToDate);
+            parameters.put("LOCATION_ID", officeCode);
+          //  parameters.put("INVOICE_NO", txtInvNo);
+            parameters.put("folderName", folderName);
+            parameters.put("IMAGE_DIR", imagePath);
+
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            logger.log(Level.ERROR, " JasperReportServlet :: Employee_All_Legal_Invoices_Reports() :: Exception :: " + ex);
+        } finally {
+            return parameters;
+        }
+    }  
+     
 
 }

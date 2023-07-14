@@ -12,6 +12,7 @@ package in.emp.common;
 import in.emp.legal.scheduler.LegalVendorSmsScheduler;
 import in.emp.legal.scheduler.ReadLegalInvoiceDetailsScheduler;
 import in.emp.legal.scheduler.SendEmailSmsLegalVendor;
+import in.emp.legal.scheduler.UpdateTaxDetailsZhrtLegalFee;
 import in.emp.sms.EmployeeStatusSmsScheduler;
 import in.emp.sms.EscEmpStatusSmsScheduler;
 import in.emp.sms.SendSMS;
@@ -22,11 +23,11 @@ import in.emp.sms.SendSubmittedSmsEmployee;
 import in.emp.sms.VendorSmsScheduler;
 import in.emp.sms.SmsScheduler;
 import javaldapapp.AssignOfficeDTO;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest  ;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class LoadSchedulerServlet extends HttpServlet
 {
@@ -34,30 +35,33 @@ public class LoadSchedulerServlet extends HttpServlet
 	{
 		try
 		{
+                 // UpdateTaxDetailsZhrtLegalFee.UpdateTaxDetails();
+                   //  ReadRetentionResponseStatus v=new ReadRetentionResponseStatus();
+                  //   v.readRetentionInvoiceFile();
                     //SendEmailSmsLegalVendor.SendEmailSms();
                  //     SendSmsVendor.SendSms();
                   // SendStatusSmsEscEmployee.SendStatusEscSms();//TEST STATUS ESCALATION SMS
                   //    SendStatusSmsEmployee.SendStatusSms(); //TEST STATUS SMS
               //     SendSMS.SendHigherAuthSms(); //TEST SUBMIT ESCALATION SMS
                  //  SendSubmittedSmsEmployee.SendAuthSms(); //send sms which  are not sent to employee during submission of invoice.
-              //   ReadPOLineStatus rp = new ReadPOLineStatus();//load po line file
-              //    rp.readPOLineFile();
-              //  WriteInvoiceStatus wi=new WriteInvoiceStatus();
+            //    ReadPOLineStatus rp = new ReadPOLineStatus();//load po line file
+            //     rp.readPOLineFile();
+             //  WriteInvoiceStatus wi=new WriteInvoiceStatus();
        //  wi.WriteInvoiceFile();  
-       //  ReadPOStatus po=new ReadPOStatus();//load po file
+      //  ReadPOStatus po=new ReadPOStatus();//load po file
                    //Comment this line before deploy.
-         //  po.readPOFile();
+       //    po.readPOFile();
        //     ReadPsStatus ps=new ReadPsStatus();//load ps file
                    //Comment this line before deploy.
         //     ps.readPsFile();
-               //  ReadVendorStatus v=new ReadVendorStatus();//load vendor file
+              //   ReadVendorStatus v=new ReadVendorStatus();//load vendor file
                   //Comment this line before deploy.
-              // v.readVendorFile();
+             //  v.readVendorFile();
                    // SendMail.Sendmail("pooja0319@gmail.com","hi","test mail");
                     
          
                 
-            /*    SmsScheduler.startScheduler();//9 am higher authority regarding non processing of invoice.
+          /*   SmsScheduler.startScheduler();//9 am higher authority regarding non processing of invoice.
                 VendorSmsScheduler.startScheduler();//8.30 pm sap invoice status to vendor
                 EmployeeStatusSmsScheduler.startScheduler();//9.15 am sap invoice status to employee
                 EscEmpStatusSmsScheduler.startScheduler();//9.30 am sap invoice status to employee on no processing  of invoice.
@@ -68,7 +72,7 @@ public class LoadSchedulerServlet extends HttpServlet
                 WriteInvSatusScheduler.startScheduler();  //10.30 pm write inv file
                 ReadRetentionResponseScheduler.startScheduler();
                     ReadLegalInvoiceDetailsScheduler.startScheduler();*/
-               LegalVendorSmsScheduler.startScheduler();  //on prod disable success=1 in sendmail.java
+             // LegalVendorSmsScheduler.startScheduler();  //on prod disable success=1 in sendmail.java
             }
 		catch(Exception ex)
 		{

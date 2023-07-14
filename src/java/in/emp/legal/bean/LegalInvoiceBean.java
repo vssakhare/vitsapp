@@ -79,6 +79,15 @@ public class LegalInvoiceBean implements java.io.Serializable{
         private String vsPartyName;
 private String OfficeType;
         private String RegionId;
+private String SapAreaCode;
+    public String getSapAreaCode() {
+        return SapAreaCode;
+    }
+
+    public void setSapAreaCode(String SapAreaCode) {
+        this.SapAreaCode = SapAreaCode;
+    }
+        
     public String getOfficeType() {
         return OfficeType;
     }

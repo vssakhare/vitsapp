@@ -1463,6 +1463,10 @@ String LEGALINVOICE_FILESIZE_LIMIT  ="0";
                                                                                                             $('#txtPartyNamesWithout').val(data.PartyNames);
                                                                                                             $('#txtDealingOfficeWithout').val(data.DealingOffice);
                                                                                                             $("#selectedOffieCodeWithout").val(data.selectedOffieCode);
+                                                                                                            
+                                                                                                            $("#txtCorpSection").append("<option value='" + $("#txtDealingOfficeWithout").val()  + "'>" + $("#txtDealingOfficeWithout").val() + "</option>");
+                                                                                                            $("#txtCorpSection").val(data.DealingOffice);
+                                                                                                            
                                                                                                             $("#txtFeeTypeWithout").val(data.feeTypeList);
                                                                                                         },
                                                                                                         error: function (jqXHR, textStatus, errorThrown) {

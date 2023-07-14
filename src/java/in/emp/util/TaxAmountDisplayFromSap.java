@@ -41,7 +41,7 @@ public class TaxAmountDisplayFromSap {
                 responseObj =  stub.fI_DOCUMENT_READ(req);
                } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+               // e.printStackTrace();
             }
             Z_FI_DOCUMENT_READStub.TABLE_OF_BKPF table_Of_ZFI_BKPF_RETURN_MSG = responseObj.getT_BKPF();
             Z_FI_DOCUMENT_READStub.TABLE_OF_BSEG table_Of_ZFI_BSEG_RETURN_MSG = responseObj.getT_BSEG();
@@ -55,7 +55,7 @@ public class TaxAmountDisplayFromSap {
             
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+          //  e.printStackTrace();
              throw new Exception("Exception Occurred During Web Service Call");
         }
 return legalInvoiceInputBean;
@@ -92,7 +92,7 @@ return legalInvoiceInputBean;
                 legalInvoiceInputBean.setIgstTdsAmount(sapIgstTdsAmount.getCurr132().toString()); 
             }
         }
-            System.out.println("TdsAmount::::::::::" + legalInvoiceInputBean.getTdsAmount());
+           System.out.println("TdsAmount::::::::::" + legalInvoiceInputBean.getTdsAmount());
             System.out.println("CgstAmount::::::::::" + legalInvoiceInputBean.getCgstAmount());
             System.out.println("SgstAmount::::::::::" + legalInvoiceInputBean.getSgstAmount());
             System.out.println("CgstTdsAmount::::::::::" + legalInvoiceInputBean.getCgstTdsAmount());
@@ -126,7 +126,7 @@ return legalInvoiceInputBean;
        }
 
    private static Z_FI_DOCUMENT_READStub setAuthenticator(Z_FI_DOCUMENT_READStub stub) throws Exception {
-        System.out.println("SetAuthenticator");
+      //  System.out.println("SetAuthenticator");
         HttpTransportProperties.Authenticator basicAuthenticator = new HttpTransportProperties.Authenticator();
         List<String> authSchemes = new ArrayList<String>();
         authSchemes.add(Authenticator.BASIC);

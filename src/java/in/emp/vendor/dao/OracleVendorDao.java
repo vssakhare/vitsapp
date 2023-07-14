@@ -29,6 +29,7 @@ import in.emp.legal.dao.helper.queryHelper.GetLegalEmailSmsTrackerListQueryHelpe
 import in.emp.legal.dao.helper.queryHelper.GetLegalInvoiceFeeTypeDtlListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSmsTrackerListQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.GetLegalSummaryListQueryHelper;
+import in.emp.legal.dao.helper.queryHelper.GetZhrtLegalFeeReportQueryHelper;
 import in.emp.legal.dao.helper.queryHelper.OrganizatonMasterQueryHelper;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceDetailsTxnHandler;
 import in.emp.legal.dao.helper.txnhelper.ErpLegalInvoiceStatusTxnHelper;
@@ -108,6 +109,7 @@ import in.emp.vendor.dao.helper.psHelper.GetPartialRetentionDetailsQueryHelper;
 import in.emp.vendor.dao.helper.psHelper.GetProjectDetailsQueryHelper;
 import in.emp.vendor.dao.helper.psHelper.GetRetentionDetailsQueryHelper;
 import in.emp.vendor.dao.helper.txnHelper.SaveVendorRetentionDetailsResponseTxnHelper;
+import in.emp.vendor.dao.helper.txnHelper.SaveZhrtLegalFeeTaxDetailsTxnHelper;
 import in.emp.vendor.dao.helper.txnHelper.VendorRetentionTxnHelper;
 
 /**
@@ -1051,6 +1053,22 @@ LinkedList PlantList = null;
         }
         return listErpToVitsFileFormat;
      }
+          public void saveZhrtLegalFeeTaxDetails(List<LegalInvoiceInputBean> legalInvoiceInputList) throws Exception {
+        VendorDao vendorDaoObj = new OracleVendorDao();
+        
+        
+
+        try {
+            logger.log(Level.INFO, " OracleVendorDao :: saveZhrtLegalFeeTaxDetails() :: method called");
+
+          
+                createObject(new SaveZhrtLegalFeeTaxDetailsTxnHelper(legalInvoiceInputList));
+           
+        }catch (Exception ex) {
+            logger.log(Level.ERROR, " OracleVendorDao :: saveZhrtLegalFeeTaxDetails() :: Exception :: " + ex);
+        }
+
+    }
      public void updateRetentionDetailsResponseProcedure()throws Exception{
          try {
             logger.log(Level.INFO, " VendorManager :: getVendorStatus() :: method called");
@@ -1061,7 +1079,16 @@ LinkedList PlantList = null;
             logger.log(Level.ERROR, " VendorManager :: getVendorStatus() :: Exception :: " + ex);
         }
      }
-     
+     public void updateZhrtLegalFeeReportProcedure()throws Exception{
+         try {
+            logger.log(Level.INFO, " VendorManager :: getVendorStatus() :: method called");
+              updateObject(new SaveZhrtLegalFeeTaxDetailsTxnHelper());
+          //  vendorDaoObj.getPOStatusProcedure();
+           
+        }catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getVendorStatus() :: Exception :: " + ex);
+        }
+     }
      public LinkedList getPartialRetentionDetails(VendorBean vendorBean)throws Exception{
          LinkedList<VendorBean> list = new LinkedList<VendorBean>();
         try {
@@ -1176,7 +1203,19 @@ try {
         }
         return fileList;
     } 
-     
+      public LinkedList<LegalInvoiceInputBean> getZhrtLegalFeeReport() throws Exception {
+              LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
+        try {
+            logger.log(Level.INFO, " OracleVendorDao :: getZhrtLegalFeeReport() :: method called");
+
+            fileList = (LinkedList<LegalInvoiceInputBean>) getObjectList(new GetZhrtLegalFeeReportQueryHelper());
+         
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " OracleVendorDao :: getZhrtLegalFeeReport() :: Exception :: " + ex);
+          
+        }
+        return fileList;
+    } 
      
      private String getLegalInvoiceStatusFromSAP(LegalInvoiceInputBean liBean){
     String sapStatus="";

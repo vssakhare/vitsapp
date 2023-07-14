@@ -4,7 +4,7 @@
  */
 package in.emp.vendor.dao.helper.formHelper;
 
-import in.emp.vendor.dao.helper.formHelper.GetVendorFormDataQueryHelper;
+
 import in.emp.common.ApplicationConstants;
 import in.emp.dao.QueryHelper;
 import in.emp.vendor.bean.VendorBean;
@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class GetEmpPsFormDataQueryHelper implements QueryHelper {
 
-    private static Logger logger = Logger.getLogger(GetVendorFormDataQueryHelper.class);
+    private static Logger logger = Logger.getLogger(GetEmpPsFormDataQueryHelper.class);
     private VendorBean vendorBeanObj;
     private VendorPrezData vendorPrezDataObj;
 
@@ -143,7 +143,7 @@ public class GetEmpPsFormDataQueryHelper implements QueryHelper {
             vendorBeanObj.setOTIGST_TX(results.getString("OTIGST_TX"));
 
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "GetVendorFormDataQueryHelper :: getDataObject() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "GetEmpPsFormDataQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
         }
         return vendorBeanObj;
@@ -185,7 +185,7 @@ public class GetEmpPsFormDataQueryHelper implements QueryHelper {
                 sql.append(" AND APPL_ID = ? ");
             }
 
-            logger.log(Level.INFO, "GetVendorFormDataQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
+            logger.log(Level.INFO, "GetEmpPsFormDataQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
 
             statement = connection.prepareStatement(sql.toString());
 
@@ -202,7 +202,7 @@ public class GetEmpPsFormDataQueryHelper implements QueryHelper {
 
             rs = statement.executeQuery();
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "GetVendorFormDataQueryHelper :: getQueryResults() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "GetEmpPsFormDataQueryHelper :: getQueryResults() :: Exception :: " + ex);
             throw ex;
         }
         return rs;

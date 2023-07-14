@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
+
 <%@page import="in.emp.common.ApplicationConstants"%>
 <%@page import="in.emp.util.ApplicationUtils"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
@@ -99,7 +100,7 @@ var $content = $('#page-inner');
                     </div>  
                       <div class="headerWidget" >
   <c:choose>
-    <c:when test="${empty sessionScope['javax.servlet.jsp.jstl.fmt.locale.session']}">
+    <c:when test="${empty sessionScope['jakarta.servlet.jsp.jstl.fmt.locale.session']}">
       <c:choose>
         <c:when test="${pageContext.request.locale.language ne 'mr'}"><div style="font-weight:bold;">English</div></c:when>
         <c:otherwise>
@@ -121,7 +122,7 @@ var $content = $('#page-inner');
     </c:when>
     <c:otherwise>
       <c:choose>
-        <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] ne 'mr'}"><div style="font-weight:bold;">English</div></c:when>
+        <c:when test="${sessionScope['jakarta.servlet.jsp.jstl.fmt.locale.session'] ne 'mr'}"><div style="font-weight:bold;">English</div></c:when>
         <c:otherwise>
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="en"/>
@@ -130,7 +131,7 @@ var $content = $('#page-inner');
         </c:otherwise>
       </c:choose> <div>|</div>
       <c:choose>
-        <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] eq 'mr'}"><div style="font-weight:bold;">मराठी</div></c:when>
+        <c:when test="${sessionScope['jakarta.servlet.jsp.jstl.fmt.locale.session'] eq 'mr'}"><div style="font-weight:bold;">मराठी</div></c:when>
         <c:otherwise>
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="mr"/>

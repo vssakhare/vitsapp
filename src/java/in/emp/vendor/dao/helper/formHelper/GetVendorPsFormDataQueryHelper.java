@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  */
 public class GetVendorPsFormDataQueryHelper implements QueryHelper {
 
-    private static Logger logger = Logger.getLogger(GetVendorFormDataQueryHelper.class);
+    private static Logger logger = Logger.getLogger(GetVendorPsFormDataQueryHelper.class);
     private VendorBean vendorBeanObj;
     private VendorPrezData vendorPrezDataObj;
 
@@ -117,7 +117,7 @@ public class GetVendorPsFormDataQueryHelper implements QueryHelper {
             vendorBeanObj.setCRPST(results.getString("CRPST"));
 
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "GetVendorFormDataQueryHelper :: getDataObject() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "GetVendorPsFormDataQueryHelper :: getDataObject() :: Exception :: " + ex);
             throw ex;
         }
         return vendorBeanObj;
@@ -151,7 +151,7 @@ public class GetVendorPsFormDataQueryHelper implements QueryHelper {
                 sql.append(" AND msedcl_inv_no = ? ");
             }
 
-            logger.log(Level.INFO, "GetVendorFormDataQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
+            logger.log(Level.INFO, "GetVendorPsFormDataQueryHelper :: getQueryResults() :: SQL :: " + sql.toString());
 
             statement = connection.prepareStatement(sql.toString());
 
@@ -162,7 +162,7 @@ public class GetVendorPsFormDataQueryHelper implements QueryHelper {
 
             rs = statement.executeQuery();
         } catch (Exception ex) {
-            logger.log(Level.ERROR, "GetVendorFormDataQueryHelper :: getQueryResults() :: Exception :: " + ex);
+            logger.log(Level.ERROR, "GetVendorPsFormDataQueryHelper :: getQueryResults() :: Exception :: " + ex);
             throw ex;
         }
         return rs;

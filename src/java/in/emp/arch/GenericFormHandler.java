@@ -1,6 +1,6 @@
 package in.emp.arch;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest  ;
 
 /**
  * Handler interface for GenericForm

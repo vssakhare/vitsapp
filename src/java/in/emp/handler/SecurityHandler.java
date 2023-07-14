@@ -1,7 +1,7 @@
 package in.emp.handler;
 
 import com.captcha.botdetect.web.servlet.Captcha;
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 import java.util.*;
 import in.emp.arch.GenericFormHandler;
 import in.emp.util.ApplicationUtils;
@@ -191,6 +191,7 @@ public class SecurityHandler implements GenericFormHandler {
             String userOfficeId = "";
             String userOfficeTypeId = "";
             String userContactNo = "";
+            String businessCategory="";
             String otp = "";
             String captchaCode="";
             boolean isHuman = false;
@@ -341,12 +342,14 @@ public class SecurityHandler implements GenericFormHandler {
                         System.out.println("-----getOfficerCpfNo : " + assignOfficeDTO.getOfficerCpfNo());
                         System.out.println("-----getOfficerRef : " + assignOfficeDTO.getOfficerRef());
                         System.out.println("-----getOfficerContactNo:" + assignOfficeDTO.getOfficerContactNo());
+                         System.out.println("-----getbusinessCategory:" + assignOfficeDTO.getBusinessCategory());
                         userName = assignOfficeDTO.getOfficerName();
                         userDesig = assignOfficeDTO.getOfficerDesignation();
                         userOfficeName = assignOfficeDTO.getOfficeName();
                         userOfficeId = assignOfficeDTO.getOfficeCode();
                         userOfficeTypeId = assignOfficeDTO.getOfficeTypeId();
                         userContactNo = assignOfficeDTO.getOfficerContactNo();
+                        businessCategory = assignOfficeDTO.getBusinessCategory();
                         session.setAttribute(ApplicationConstants.USER_NAME_SESSION, String.valueOf(uid));
                         session.setAttribute(ApplicationConstants.DISPLAY_NAME_SESSION, userName);
                          vendorBeanObj.setVendorNumber((String) session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
@@ -355,12 +358,14 @@ public class SecurityHandler implements GenericFormHandler {
                         session.setAttribute(ApplicationConstants.DESIGNATION_SESSION, userDesig);
                         session.setAttribute(ApplicationConstants.OFFICE_NAME_SESSION, userOfficeName);
                         session.setAttribute(ApplicationConstants.OFFICE_CODE_SESSION, userOfficeId);
+                      //  session.setAttribute(ApplicationConstants.OFFICE_BUSINESS_CATEGORY_SESSION, businessCategory);
                         vendorInputBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
                         session.setAttribute(ApplicationConstants.OFFICE_TYPE_ID_SESSION, userOfficeTypeId);
                         vendorBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
                         legalInvoiceInputBeanObj.setLocationId((String) session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
-
-
+                       // if(legalInvoiceInputBeanObj.getLocationId().equals(ApplicationConstants.HO_OFFICE_CODE)){
+                       // legalInvoiceInputBeanObj.setBusinessCategory((String)session.getAttribute(ApplicationConstants.OFFICE_BUSINESS_CATEGORY_SESSION));
+                       // }
                         System.out.println("-----USER ID : " + session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
                         System.out.println("-----USER NAME : " + session.getAttribute(ApplicationConstants.DISPLAY_NAME_SESSION));
 

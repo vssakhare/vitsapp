@@ -112,6 +112,15 @@ private String liabilityDocNo ;
     private String  userType;
     private String accSmsEmailSent;
     private String technicalUpdated;
+    private String businessCategory;
+    public String getBusinessCategory() {
+        return businessCategory;
+    }
+
+    public void setBusinessCategory(String businessCategory) {
+        this.businessCategory = businessCategory;
+    }
+    
     public String getTdsAmount() {
         return tdsAmount;
     }

@@ -92,7 +92,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
                                                                 <select name="txtReportName" id="txtReportName" class="form-control" onchange="changeFields();">
                                                                     <option value="<%=ApplicationConstants.REPORT_EMPLOYEE_LEGAL_SUBMITTED%>">Invoices Submitted Report</option>  
                                                                     <option value="<%=ApplicationConstants.REPORT_EMPLOYEE_LEGAL_RETURNED%>">Invoices Returned Report</option>
-                                                                 
+                                                                  <option value="<%=ApplicationConstants.REPORT_EMPLOYEE_ALL_LEGAL_INVOICES%>">All Legal Invoices Report</option>
                                                                 </select>
                                                             </td>
                                                  <td></td><td></td>
@@ -192,7 +192,7 @@ if (session.getAttribute(ApplicationConstants.USER_TYPE_SESSION).equals("Vendor"
 //      source: availableTags
         source: function(request, response) {
             $.ajax({
-                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=locn",
+                url: "${pageContext.request.contextPath}"+"/LegalServlet?actionName=autocomplete&autoCompleteParam=allLocn",
                 dataType: "json",
                 data: request,
                 success: function( data, textStatus, jqXHR) {

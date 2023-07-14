@@ -61,13 +61,10 @@ private static Logger logger = Logger.getLogger(ReadVendorStatus.class);
             ChannelSftp sftpChannel = (ChannelSftp) channel;
               String sapToVitsFullFilePath = new SimpleDateFormat("ddMMyyyy'.txt'").format(new Date());
 
-InputStream stream=null; //comment on cloud
-             try {
-                 stream = sftpChannel.get("/data/VPTS/Retention/EV/Retention_Claim_FIDoc_"+sapToVitsFullFilePath); //uncomment on cloud
-//                 stream = new FileInputStream("E:/Retention_Claim_FIDoc_"+sapToVitsFullFilePath);//comment on cloud
-             } catch (Exception ex) {
-                 java.util.logging.Logger.getLogger(ReadRetentionResponseStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-             }
+//InputStream stream=null; 
+             InputStream    stream = sftpChannel.get("/data/VPTS/Retention/EV/Retention_Claim_FIDoc_"+sapToVitsFullFilePath); 
+
+            
 //            System.out.println("filename::"+"E:/Retention_Claim_FIDoc_"+sapToVitsFullFilePath);
          String SFTPPROCESSEDDIR = "/data/VPTS/Retention/Processed";// copy files to processed folder
          String FileName="Retention_Claim_FIDoc_" + sapToVitsFullFilePath;
@@ -105,10 +102,12 @@ List<VendorInputBean>	listErpToVitsFileFormat	=	new ArrayList<VendorInputBean>()
                                                 if(values[17]!=null){
                                                     vendorBean.setNewDocNo(values[17]);
                                                 }
+                                                }  if(values.length>18){
                                                  if(values[18]!=null){
                                                    vendorBean.setNewDocAmount(values[18]); 
                                                 }
-                                            }
+                                                }
+                                            
                                             
                                     if (vendorBean != null) {
                                         listErpToVitsFileFormat.add(vendorBean);
@@ -146,7 +145,7 @@ List<VendorInputBean>	listErpToVitsFileFormat	=	new ArrayList<VendorInputBean>()
          
         
         }
-           // sftpChannel.cd(SFTPPROCESSEDDIR);//uncomment on cloud
+       /*    sftpChannel.cd(SFTPPROCESSEDDIR);
             for (String folder : folders) {
     if (folder.length() > 0 && !folder.contains(".")) { 
       // This is a valid folder:
@@ -159,13 +158,13 @@ List<VendorInputBean>	listErpToVitsFileFormat	=	new ArrayList<VendorInputBean>()
 //        sftpChannel.cd(folder);
 //        SFTPPROCESSEDDIR+="/"+folder;
 //      }
-    }
-  }
+      }
+    }*/
             
-    sftpChannel.rename("/data/VPTS/Retention/EV/"+FileName, SFTPPROCESSEDDIR+"/"+FileName); //uncomment on cloud
+    sftpChannel.rename("/data/VPTS/Retention/EV/"+FileName, SFTPPROCESSEDDIR+"/"+FileName); 
             } catch (IOException io) {
                 try {
-                    sftpChannel.rename("/data/VPTS/Retention/EV/"+FileName, SFTPERRORDIR+"/"+FileName); //uncomment on cloud
+                    sftpChannel.rename("/data/VPTS/Retention/EV/"+FileName, SFTPERRORDIR+"/"+FileName); 
                 } catch (SftpException ex) {
                      logger.log(Level.WARN, "ReadRetentionResponseStatus :: Exception :: " + ex);
                 }
@@ -174,7 +173,7 @@ List<VendorInputBean>	listErpToVitsFileFormat	=	new ArrayList<VendorInputBean>()
                io.getMessage();
             } catch (Exception e) {
                 try {
-                    sftpChannel.rename("/data/VPTS/Retention/EV/"+FileName, SFTPERRORDIR+"/"+FileName); //uncomment on cloud
+                    sftpChannel.rename("/data/VPTS/Retention/EV/"+FileName, SFTPERRORDIR+"/"+FileName); 
                 } catch (SftpException ex) {
                     logger.log(Level.WARN, "ReadRetentionResponseStatus :: Exception :: " + ex);
                 }
@@ -186,16 +185,16 @@ List<VendorInputBean>	listErpToVitsFileFormat	=	new ArrayList<VendorInputBean>()
 
             }
 
-            sftpChannel.exit();//uncomment on cloud
+            sftpChannel.exit();
             session.disconnect();
         } catch (JSchException e) {
             logger.log(Level.WARN, "ReadRetentionResponseStatus :: Exception :: " + e);
            // //e.printStackTrace();
         } 
-        /*catch (SftpException e) {//uncomment on cloud
+        catch (SftpException e) {
             logger.log(Level.WARN, "ReadRetentionResponseStatus :: Exception :: " + e);
            e.printStackTrace();
-        }*/
+        }
 
     }
     

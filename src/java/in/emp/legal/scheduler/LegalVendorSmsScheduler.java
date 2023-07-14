@@ -88,6 +88,7 @@ public class LegalVendorSmsScheduler extends TimerTask
             System.out.println("SendLegalVendorSmsScheduler Scheduled ..... "+new Date());           
                  //SendSmsLegalVendor.SendSms();
                  SendEmailSmsLegalVendor.SendEmailSms();
+                 UpdateTaxDetailsZhrtLegalFee.UpdateTaxDetails();
         } catch (Exception ex) {
             System.out.println("Exception SendVendorSmsScheduler run : "+ex.getMessage());
         }

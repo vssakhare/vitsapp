@@ -178,7 +178,7 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
             if(legalInvoiceBean.getSaveFlag().equals("Accepted")){
                 sql.append(" , STATUS='With Technical Dept.' "); 
                 if (legalInvoiceBean.getIsWithCourtCaseNo()!=null){if(legalInvoiceBean.getIsWithCourtCaseNo().equals("N")){
-                    sql.append(" , CASE_REF_NO =?,  COURT_NAME =?  , CASE_DESCRIPTION =?,COURT_CASE_NO=?,PARTY_NAMES=?,FEE_TYPE=? "); 
+                    sql.append(" , CASE_REF_NO =?,  COURT_NAME =?  , CASE_DESCRIPTION =?,COURT_CASE_NO=?,PARTY_NAMES=?,FEE_TYPE=?,DEPT_CODE=?,DEPT_NAME=? "); 
                 }
             }}
                 sql.append(" WHERE APPL_ID = ? ");
@@ -202,6 +202,8 @@ public class ErpLegalInvoiceDetailsTxnHandler implements TxnHelper {
                     statement.setString(i++, legalInvoiceBean.getCourtCaseNo());
                     statement.setString(i++, legalInvoiceBean.getPartyNames());
                     statement.setString(i++, legalInvoiceBean.getFeeType());
+                    statement.setString(i++, legalInvoiceBean.getDeptCode());
+                    statement.setString(i++, legalInvoiceBean.getDeptName());
                 }}}
           statement.setInt(i++, legalInvoiceBean.getApplId());
             count = statement.executeUpdate();

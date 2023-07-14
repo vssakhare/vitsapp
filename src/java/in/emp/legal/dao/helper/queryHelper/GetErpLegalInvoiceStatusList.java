@@ -39,7 +39,15 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 legalInvoiceBean.setINVOICE_LEGAL(result.getString("INVOICE_NUMBER"));
             } else if (this.legalInvoiceBean.getWhereClause().startsWith("locn")) {
                 legalInvoiceBean.setOfficeName(result.getString("LOC"));
-            } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNo")) {
+            } else if (this.legalInvoiceBean.getWhereClause().startsWith("allLocn")) {
+                legalInvoiceBean.setOfficeCode((result.getString("LOCATION_ID")));
+                legalInvoiceBean.setOfficeName((result.getString("LOCATION_NAME")));
+               // legalInvoiceBean.setSapAreaCode((result.getString("SAP_AREA_CODE")));
+            } 
+              else if (this.legalInvoiceBean.getWhereClause().startsWith("fetchSapLocn")) {
+                legalInvoiceBean.setSapAreaCode((result.getString("SAP_AREA_CODE")));
+            }
+            else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("CaseRefNo")) {
                 legalInvoiceBean.setCASEREFNO(result.getInt("CASEREFNO"));
             } else if (this.legalInvoiceBean.getWhereClause().equalsIgnoreCase("courtCaseNo")) {
                 legalInvoiceBean.setCASENOCOURT(result.getString("COURT_CASE_NO"));
@@ -402,7 +410,44 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 sql.append("SELECT distinct INVOICE_NUMBER FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
                 sql.append("SELECT distinct dealing_office_name loc FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?");
-            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNoV")) {
+            }else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("allLocn")) { 
+                sql.append("        select distinct LOCATION_ID,LOCATION_NAME ");
+                sql.append("         from ZHRT_LEGAL_H  ZLH,ZHRT_LE_FILED ZLVF,  ");
+                sql.append("         xxmis_organization_master ORGM,xxmis_location_master lOCM  ");
+                sql.append("         where  ZLH.CASEREFNO=ZLVF.CASEREFNO  ");
+                sql.append("         and orgm.organization_id=locm.org_id  ");
+                sql.append("     and lOCM.Personal_Area=(case when ZLH.cooffice_btrtl is not null then '0001'  ");
+                sql.append("      when ZLH.region_btrtl  is not null  then '0002'  ");
+                sql.append("      when ZLH.zzone_btrtl   is not null  then '0003'  ");
+                sql.append("      when ZLH.circle_btrtl  is not null  then '0004'  ");
+                sql.append("      when ZLH.division_btrtl is not null then '0005'  ");
+                sql.append("      when ZLH.subdiv_btrtl  is not null then  '0006'  ");
+                sql.append("      when ZLH.section_btrtl is not null then  '0007'   ");
+                sql.append("      when ZLH.substation is not null then     '0008'  ");
+                sql.append(" end )    ");
+                sql.append(" and lOCM.Personal_Subarea=nvl(COOFFICE_BTRTL,(NVL(REGION_BTRTL,NVL(ZZONE_BTRTL,NVL(CIRCLE_BTRTL,NVL(DIVISION_BTRTL,NVL(SUBDIV_BTRTL,NVL(SECTION_BTRTL,substation))))))))   ");
+                sql.append(" and (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=? or (OFFICE_TYPE='HO' and organization_id=? ) )  ");
+                sql.append("union SELECT distinct '' LOCATION_ID,dealing_office_name LOCATION_NAME FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where dealing_office_code=?"); 
+            }else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("fetchSapLocn")) { 
+                sql.append("        select distinct LOCATION_ID,LOCATION_NAME,nvl(COOFFICE_BTRTL,(NVL(REGION_BTRTL,NVL(ZZONE_BTRTL,NVL(CIRCLE_BTRTL,NVL(DIVISION_BTRTL,NVL(SUBDIV_BTRTL,NVL(SECTION_BTRTL,substation)))))))) SAP_AREA_CODE ");
+                sql.append("         from ZHRT_LEGAL_H  ZLH,ZHRT_LE_FILED ZLVF,  ");
+                sql.append("         xxmis_organization_master ORGM,xxmis_location_master lOCM  ");
+                sql.append("         where  ZLH.CASEREFNO=ZLVF.CASEREFNO  ");
+                sql.append("         and orgm.organization_id=locm.org_id  ");
+                sql.append("     and lOCM.Personal_Area=(case when ZLH.cooffice_btrtl is not null then '0001'  ");
+                sql.append("      when ZLH.region_btrtl  is not null  then '0002'  ");
+                sql.append("      when ZLH.zzone_btrtl   is not null  then '0003'  ");
+                sql.append("      when ZLH.circle_btrtl  is not null  then '0004'  ");
+                sql.append("      when ZLH.division_btrtl is not null then '0005'  ");
+                sql.append("      when ZLH.subdiv_btrtl  is not null then  '0006'  ");
+                sql.append("      when ZLH.section_btrtl is not null then  '0007'   ");
+                sql.append("      when ZLH.substation is not null then     '0008'  ");
+                sql.append(" end )    ");
+                sql.append(" and lOCM.Personal_Subarea=nvl(COOFFICE_BTRTL,(NVL(REGION_BTRTL,NVL(ZZONE_BTRTL,NVL(CIRCLE_BTRTL,NVL(DIVISION_BTRTL,NVL(SUBDIV_BTRTL,NVL(SECTION_BTRTL,substation))))))))   ");
+                sql.append(" and (Region_id=? or zone_id=? or circle_id=? or division_id=? or sub_division_id=? or (OFFICE_TYPE='HO' and organization_id=? ) )  ");
+                 sql.append("and LOCATION_ID=?");
+            }
+            else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNoV")) {
                 sql.append("SELECT distinct INVOICE_NUMBER FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where VENDOR_NUMBER=?");
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locnv")) {
                 sql.append("SELECT distinct dealing_office_name loc FROM XXMIS_ERP_LEGAL_INVOICE_DETAILS where VENDOR_NUMBER=?");
@@ -443,7 +488,26 @@ public class GetErpLegalInvoiceStatusList implements QueryHelper {
                 statement.setString(1, legalInvoiceBean.getLocationId());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locn")) {
                 statement.setString(1, legalInvoiceBean.getLocationId());
-            } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNoV")) {
+            }  else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("allLocn")) {
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                //statement.setString(i++, legalInvoiceBean.getVENDOR().substring(1));
+            }else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("fetchSapLocn")) {
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getLocationId());
+                statement.setString(i++, legalInvoiceBean.getOfficeCode());
+                //statement.setString(i++, legalInvoiceBean.getVENDOR().substring(1));
+            }
+            else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("InvNoV")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR());
             } else if (legalInvoiceBean.getWhereClause().equalsIgnoreCase("locnv")) {
                 statement.setString(1, legalInvoiceBean.getVENDOR());

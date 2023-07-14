@@ -96,7 +96,7 @@
         <welcome-file>jsp/emp_login_page.jsp</welcome-file>
     </welcome-file-list>
     <context-param>
-        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-name>jakarta.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>resources.messages</param-value>
     </context-param>
     <listener>

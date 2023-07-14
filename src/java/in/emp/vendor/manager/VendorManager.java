@@ -557,6 +557,18 @@ public class VendorManager implements VendorDelegate {
         }
         return fileList;
     }
+   public LinkedList<LegalInvoiceInputBean> getZhrtLegalFeeReport() throws Exception {
+       VendorDao vendorDaoObj = new OracleVendorDao();
+        LinkedList<LegalInvoiceInputBean> fileList = new LinkedList<LegalInvoiceInputBean>();
+        try {
+            logger.log(Level.INFO, " VendorManager :: getZhrtLegalFeeReport() :: method called");
+
+            fileList = vendorDaoObj.getZhrtLegalFeeReport();
+        } catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: getZhrtLegalFeeReport() :: Exception :: " + ex);
+        }
+        return fileList;
+    }
    public VendorInputBean getInvoicedetails(VendorInputBean vendorInputBeanObj) throws Exception {
         VendorDao vendorDaoObj = new OracleVendorDao();
 
@@ -1184,6 +1196,22 @@ public class VendorManager implements VendorDelegate {
         }
    return listErpToVitsFileFormat;
     }
+     public void saveZhrtLegalFeeTaxDetails(List<LegalInvoiceInputBean> legalInvoiceInputList) throws Exception {
+        VendorDao vendorDaoObj = new OracleVendorDao();
+        
+        
+
+        try {
+            logger.log(Level.INFO, " VendorManager :: saveZhrtLegalFeeTaxDetails() :: method called");
+
+          
+                vendorDaoObj.saveZhrtLegalFeeTaxDetails(legalInvoiceInputList);
+           
+        }catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: saveZhrtLegalFeeTaxDetails() :: Exception :: " + ex);
+        }
+
+    }
    public void updateRetentionDetailsResponseProcedure()throws Exception{
        VendorDao vendorDaoObj = new OracleVendorDao();
         try {
@@ -1192,6 +1220,17 @@ public class VendorManager implements VendorDelegate {
            
         }catch (Exception ex) {
             logger.log(Level.ERROR, " VendorManager :: updateRetentionDetailsResponseProcedure() :: Exception :: " + ex);
+        }
+       
+   }
+    public void updateZhrtLegalFeeReportProcedure()throws Exception{
+       VendorDao vendorDaoObj = new OracleVendorDao();
+        try {
+            logger.log(Level.INFO, " VendorManager :: updateZhrtLegalFeeReportProcedure() :: method called");
+            vendorDaoObj.updateZhrtLegalFeeReportProcedure();
+           
+        }catch (Exception ex) {
+            logger.log(Level.ERROR, " VendorManager :: updateZhrtLegalFeeReportProcedure() :: Exception :: " + ex);
         }
        
    }

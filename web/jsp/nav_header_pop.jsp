@@ -1,4 +1,4 @@
-<%@page import="javax.servlet.http.*"%>
+<%@page import="jakarta.servlet.http.*"%>
 <div class="header">
         <table id="header_table" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>

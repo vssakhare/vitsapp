@@ -24,7 +24,7 @@ import in.emp.vendor.bean.VendorPrezData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 

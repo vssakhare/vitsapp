@@ -956,7 +956,7 @@ String INVOICE_FILESIZE_LIMIT  ="0";
 
                                                             <% if (((Status != null) && (Status.equals("Saved")))) {%>
                                                             <div class="form-control-err-msg"><fmt:message key='File Format should be either of jpg, jpeg, png or pdf'/>.</div>
-                                                            <div class="form-control-err-msg">Max File size should be <%=INVOICE_FILESIZE_LIMIT%> kb</div>
+                                                            <div class="form-control-err-msg">Max File size should be 1024 kb</div>
                                                             <%  }%>
                                                         </td> </tr>
 

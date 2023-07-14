@@ -27,8 +27,8 @@ import in.emp.vendor.bean.VendorPrezData;
 import in.emp.vendor.manager.VendorManager;
 import java.util.LinkedList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest  ;
+import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -511,11 +511,17 @@ private String getAuthLegalInvoiceList(HttpServletRequest request) throws Except
     try {
 
         legalInvoiceInputBean.setAuhtorityNumber((String) Session.getAttribute(ApplicationConstants.USER_NAME_SESSION));
-         if (Session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {
+        
+        
+             if (Session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION) == null) {
             legalInvoiceInputBean.setLocationId("");
-        } else {
+             } else {
             legalInvoiceInputBean.setLocationId((String) Session.getAttribute(ApplicationConstants.OFFICE_CODE_SESSION));
         }
+              if(legalInvoiceInputBean.getLocationId().equals(ApplicationConstants.HO_OFFICE_CODE)){
+               legalInvoiceInputBean.setBusinessCategory((String)session.getAttribute(ApplicationConstants.OFFICE_BUSINESS_CATEGORY_SESSION));
+               }
+         
          if (!ApplicationUtils.isBlank((request.getParameter("txtFrmDt")))) {
                 legalInvoiceInputBean.setInvoiceFromDate(ApplicationUtils.stringToDate((String) request.getParameter("txtFrmDt"), ApplicationConstants.DEFAULT_DISPLAY_DATE_FORMAT));
             }

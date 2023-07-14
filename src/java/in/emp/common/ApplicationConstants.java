@@ -32,6 +32,7 @@ public class ApplicationConstants {
     public static String CURRENT_LOGON_TIMESTAMP_SM = "CURRENT_LOGON_TIMESTAMP";
     public static String OFFICE_CODE_SM = "OFFICE_CODE";
     public static String OFFICE_CODE_SESSION = "OFFICE_CODE";
+    public static String OFFICE_BUSINESS_CATEGORY_SESSION="OFFICE_BUSINESS_CATEGORY";
     public static String OFFICE_TYPE_ID_SESSION = "OFFICE_TYPE_ID_CODE";
     public static String GRANULAR_ACL_SM = "GRANULAR_ACL";
     public static String GRANULAR_ACL_SM1 = "GRANULAR_ACL1";
@@ -1081,16 +1082,16 @@ public class ApplicationConstants {
     public static String VENDOR_RETENSION_SESSION_DATA="retentionDetails";
   public static String  UIACTION_GET_LEGAL_VENDOR_INVOICE="getAuthLegalInvoiceList";
    
-   // public static    String SftpLegalpath = "D:/Temp/";//to run locally
+   //  public static    String SftpLegalpath = "D:/Temp/";//to run locally
    
     public static String SftpLegalpath = "/data/vpts/";             //DEV
     public static String CONN_POOL_NAME = "ErpDev";                 //DEV
     public static String SftpLegalFolder ="TEST_VENDOR_FILES/";     //DEV
     
-   /*  
-    public static String SftpLegalpath = "/home/tomcat/vits/";      //PROD
+  /*   public static String SftpLegalpath = "/home/tomcat/vits/";      //PROD
     public static String CONN_POOL_NAME = "ErpConn";                //Prod
      public static String  SftpLegalFolder="VENDOR_FILES/";    //Prod*/
+    
      
      
     public static String UIACTION_GET_VENDOR_LEGAL_INPUT_FORM="getVendorLegalInvoiceInputForm";
@@ -1131,6 +1132,8 @@ public class ApplicationConstants {
     public static String REPORT_EMPLOYEE_LEGAL_SUBMITTED = "Employee_Submitted_Reports";
     public static String REPORT_MSEDCL_EMP_LEGAL_MENU="MSEDCLEmpLegalReport";
     public static String REPORT_EMPLOYEE_LEGAL_RETURNED = "Employee_Returned_Reports";
+    public static String REPORT_EMPLOYEE_ALL_LEGAL_INVOICES= "Employee_All_Legal_Invoices_Reports";
+    
     
     public static String REPORT_MSEDCL_VENDOR_LEGAL_MENU="MSEDCLVendorLegalReport";
       public static String REPORT_MSEDCL_LEGAL_VENDOR = "MSEDCLVendorLegalReport";

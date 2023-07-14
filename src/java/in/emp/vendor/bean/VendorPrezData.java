@@ -4,6 +4,7 @@
  */
 package in.emp.vendor.bean;
 
+import in.emp.legal.bean.LegalInvoiceInputBean;
 import in.emp.legal.bean.LegalSummaryBean;
 import java.util.LinkedList;
 
@@ -48,6 +49,15 @@ private LinkedList invList;
 private LinkedList paymentList;
 private LinkedList legalSummaryList;
 private LegalSummaryBean legalSummaryBean;
+private LegalInvoiceInputBean legalInvoiceInputBean ;
+    public LegalInvoiceInputBean getLegalInvoiceInputBean() {
+        return legalInvoiceInputBean;
+    }
+
+    public void setLegalInvoiceInputBean(LegalInvoiceInputBean legalInvoiceInputBean) {
+        this.legalInvoiceInputBean = legalInvoiceInputBean;
+    }
+
     public LegalSummaryBean getLegalSummaryBean() {
         return legalSummaryBean;
     }

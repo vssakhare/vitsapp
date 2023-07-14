@@ -144,6 +144,8 @@ public interface VendorDelegate {
     public LinkedList<LegalInvoiceInputBean> getLegalSmsTrackerList(LegalInvoiceInputBean vendorInputBeanObj) throws Exception;
 
     public LinkedList<LegalInvoiceInputBean> getLegalEmailSmsTrackerList() throws Exception;
+    
+        public LinkedList<LegalInvoiceInputBean> getZhrtLegalFeeReport() throws Exception;
 
     public List getPOStatus(List lstErpToVitsFileFormat) throws Exception;
 
@@ -172,9 +174,9 @@ public interface VendorDelegate {
     public VendorInputBean getVendorRetentionInputForm(VendorInputBean vendorInputBeanObj) throws Exception;
 
     public List saveRetentionDetailsResponse(List<VendorInputBean> pobean) throws Exception;
-
+    public void saveZhrtLegalFeeTaxDetails(List<LegalInvoiceInputBean> legalInvoiceInputList) throws Exception;
     public void updateRetentionDetailsResponseProcedure() throws Exception;
-
+public void updateZhrtLegalFeeReportProcedure() throws Exception;
     public LinkedList getPartialRetentionDetails(VendorBean vendorBean) throws Exception;
 
     public List saveLegalInvoiceStatus(List<LegalInvoiceBean> listErpToVitsFileFormat) throws Exception;
